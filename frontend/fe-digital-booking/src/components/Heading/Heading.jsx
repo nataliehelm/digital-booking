@@ -14,7 +14,7 @@ const Heading = ({ variant, children, classname }) => {
     h6: <h6 {...props} />,
   };
 
-  return variants[variant] || null;
+  return variants[variant];
 };
 
 Heading.propTypes = {

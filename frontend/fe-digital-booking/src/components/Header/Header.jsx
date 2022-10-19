@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AuthButtons from "../AuthButtons/AuthButtons";
 import { Drawer } from "../Drawer";
 import styles from "./Header.module.scss";
 
@@ -20,6 +21,7 @@ const Header = () => {
           >
             <span className="material-icons">menu</span>
           </button>
+          <AuthButtons />
         </main>
       )}
     </>
