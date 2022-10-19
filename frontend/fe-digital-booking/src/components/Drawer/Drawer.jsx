@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./Drawer.module.scss";
 import PropTypes from "prop-types";
-import { Avatar } from "../Avatar";
-import { Heading } from "../Heading";
-import { Botton } from "../Botton";
-import { Text } from "../Text";
+import { Avatar, Botton, Heading, Text } from "../../atoms";
 
 const Drawer = ({ setShowDrawer, username }) => {
   const handleLoginSignin = () => {
