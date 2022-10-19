@@ -1,0 +1,12 @@
+main {
+  height: 93px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 13.25px 23px 11px;
+}
+
+main > * {
+  cursor: pointer;
+}
