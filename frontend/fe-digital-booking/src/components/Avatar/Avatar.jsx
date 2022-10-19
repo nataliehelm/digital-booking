@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "./Avatar.module.css";
+import styles from "./Avatar.module.scss";
 import PropTypes from "prop-types";
+import { Heading } from "../Heading";
 
 const Avatar = ({ username }) => {
   const firstName = username.split(" ")[0][0].toUpperCase();
@@ -8,7 +9,7 @@ const Avatar = ({ username }) => {
 
   return (
     <div className={styles["avatar-container"]}>
-      <h2>{`${firstName}${lastName}`}</h2>
+      <Heading variant="h2">{`${firstName}${lastName}`}</Heading>
     </div>
   );
 };

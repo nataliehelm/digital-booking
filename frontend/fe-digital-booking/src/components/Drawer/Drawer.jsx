@@ -1,8 +1,10 @@
 import React from "react";
-import styles from "./Drawer.module.css";
+import styles from "./Drawer.module.scss";
 import PropTypes from "prop-types";
 import { Avatar } from "../Avatar";
-import cn from "classnames";
+import { Heading } from "../Heading";
+import { Botton } from "../Botton";
+import { Text } from "../Text";
 
 const Drawer = ({ setShowDrawer, username }) => {
   const handleLoginSignin = () => {
@@ -24,23 +26,29 @@ const Drawer = ({ setShowDrawer, username }) => {
         {username && (
           <aside className={styles["user-info"]}>
             <Avatar username={username} />
-            <p className="botton-2">
-              <span>Hola,</span>
-              <span className={styles["user-name"]}>{username}</span>
-            </p>
+            <Botton variant="b2">
+              <>
+                <span>Hola,</span>
+                <span className={styles["user-name"]}>{username}</span>
+              </>
+            </Botton>
           </aside>
         )}
-        {!username && <h2 className={styles.title}>MENÚ</h2>}
+        {!username && (
+          <Heading variant="h2" classname={styles.title}>
+            MENÚ
+          </Heading>
+        )}
       </header>
       <nav className={styles.navbar}>
         {!username && (
           <ul>
             <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
-              <h3>Crear cuenta</h3>
+              <Heading variant="h3">Crear cuenta</Heading>
             </li>
             <div className={styles.divider} />
             <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
-              <h3>Inciar sesión</h3>
+              <Heading variant="h3">Inciar sesión</Heading>
             </li>
           </ul>
         )}
@@ -48,10 +56,12 @@ const Drawer = ({ setShowDrawer, username }) => {
       {username && (
         <>
           <button onClick={handleLogout}>
-            <p className={cn("text-2", styles["p-logout"])}>
-              ¿Deseas{" "}
-              <span className={styles["span-logout"]}>cerrar sesión?</span>
-            </p>
+            <Text variant="t2" classname={styles["p-logout"]}>
+              <>
+                ¿Deseas{" "}
+                <span className={styles["span-logout"]}>cerrar sesión?</span>
+              </>
+            </Text>
           </button>
           <div className={styles["divider-logout"]} />
         </>

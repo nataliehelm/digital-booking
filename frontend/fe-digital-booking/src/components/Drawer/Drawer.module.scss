@@ -1,56 +1,60 @@
+@use "./../../styles/variables" as *;
+
 .drawer-container {
   height: 100vh;
   overflow: hidden;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  header {
+    background-color: $color-primary;
+    color: $color-white;
+    display: flex;
+    flex-direction: column;
+    height: 175px;
+    justify-content: space-between;
+    padding: 12px 10px 6px 14px;
+
+    button {
+      width: min-content;
+    }
+
+    .title {
+      align-self: end;
+    }
+  }
 }
 
-.drawer-container header {
-  background-color: #1dbeb4;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  height: 175px;
-  justify-content: space-between;
-  padding: 12px 10px 6px 14px;
-}
-
-.drawer-container header button {
-  width: min-content;
-}
-
-.drawer-container header .title {
-  align-self: end;
+.divider,
+.divider-logout {
+  background-color: $color-tertiary;
+  height: 1px;
 }
 
 .divider {
-  background-color: #545776;
-  height: 1px;
   margin: 16px 10px 21px 14px;
 }
 
 .divider-logout {
-  background-color: #545776;
-  height: 1px;
   margin: 5px 10px 32px 14px;
 }
 
 .navbar {
   flex-grow: 1;
-}
 
-.navbar ul {
-  margin-top: 23px;
-  display: flex;
-  flex-direction: column;
+  ul {
+    margin-top: 23px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .navbar-item {
   align-self: flex-end;
   margin-right: 15px;
   cursor: pointer;
-  color: #383b58;
+  color: $color-secondary;
 }
 
 .footer {
@@ -69,18 +73,18 @@
   text-align: right;
   align-items: flex-end;
   align-self: end;
-}
 
-.user-info span {
-  display: block;
-}
+  span {
+    display: block;
+  }
 
-.user-info p {
-  margin-top: 9px;
-}
+  p {
+    margin-top: 9px;
+  }
 
-.user-info .user-name {
-  color: #383b58;
+  .user-name {
+    color: $color-secondary;
+  }
 }
 
 .p-logout {
@@ -89,5 +93,5 @@
 }
 
 .span-logout {
-  color: #1dbeb4;
+  color: $color-primary;
 }

@@ -5,8 +5,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 13.25px 23px 11px;
+
+  * {
+    cursor: pointer;
+  }
 }
 
-.header-container > * {
-  cursor: pointer;
+@media (min-width: 768px) {
+  .menu-icon {
+    display: none;
+  }
 }
