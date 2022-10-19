@@ -30,6 +30,12 @@
   margin: 16px 10px 21px 14px;
 }
 
+.divider-logout {
+  background-color: #545776;
+  height: 1px;
+  margin: 5px 10px 32px 14px;
+}
+
 .navbar {
   flex-grow: 1;
 }
@@ -54,4 +60,34 @@
   align-items: center;
   gap: 17.04px;
   padding: 0 15px 29px 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 159px;
+  text-align: right;
+  align-items: flex-end;
+  align-self: end;
+}
+
+.user-info span {
+  display: block;
+}
+
+.user-info p {
+  margin-top: 9px;
+}
+
+.user-info .user-name {
+  color: #383b58;
+}
+
+.p-logout {
+  margin-right: 15px;
+  text-align: right;
+}
+
+.span-logout {
+  color: #1dbeb4;
 }

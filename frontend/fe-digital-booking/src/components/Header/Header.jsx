@@ -4,10 +4,13 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   const [showDrawer, setShowDrawer] = useState(false);
+  const username = localStorage.getItem("username");
 
   return (
     <>
-      {showDrawer && <Drawer setShowDrawer={setShowDrawer} />}
+      {showDrawer && (
+        <Drawer username={username} setShowDrawer={setShowDrawer} />
+      )}
       {!showDrawer && (
         <main className={styles["header-container"]}>
           <img src="assets/logo.svg" alt="DB Logo" />

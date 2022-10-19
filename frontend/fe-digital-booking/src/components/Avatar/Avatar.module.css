@@ -1,0 +1,10 @@
+.avatar-container {
+  height: 37px;
+  width: 37px;
+  background-color: #ffffff;
+  color: #545776;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

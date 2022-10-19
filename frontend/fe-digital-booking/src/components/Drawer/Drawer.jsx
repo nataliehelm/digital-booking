@@ -1,27 +1,62 @@
 import React from "react";
 import styles from "./Drawer.module.css";
 import PropTypes from "prop-types";
+import { Avatar } from "../Avatar";
+import cn from "classnames";
 
-const Drawer = ({ setShowDrawer }) => {
+const Drawer = ({ setShowDrawer, username }) => {
+  const handleLoginSignin = () => {
+    localStorage.setItem("username", "Felipe Monterrosa");
+    setShowDrawer(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setShowDrawer(false);
+  };
+
   return (
     <section className={styles["drawer-container"]}>
       <header>
         <button onClick={() => setShowDrawer(false)}>
           <span className="material-icons md-40">close</span>
         </button>
-        <h2 className={styles.title}>MENÚ</h2>
+        {username && (
+          <aside className={styles["user-info"]}>
+            <Avatar username={username} />
+            <p className="botton-2">
+              <span>Hola,</span>
+              <span className={styles["user-name"]}>{username}</span>
+            </p>
+          </aside>
+        )}
+        {!username && <h2 className={styles.title}>MENÚ</h2>}
       </header>
       <nav className={styles.navbar}>
-        <ul>
-          <li className={styles["navbar-item"]}>
-            <h3>Crear cuenta</h3>
-          </li>
-          <div className={styles.divider} />
-          <li className={styles["navbar-item"]}>
-            <h3>Inciar sesión</h3>
-          </li>
-        </ul>
+        {!username && (
+          <ul>
+            <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
+              <h3>Crear cuenta</h3>
+            </li>
+            <div className={styles.divider} />
+            <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
+              <h3>Inciar sesión</h3>
+            </li>
+          </ul>
+        )}
       </nav>
+      {username && (
+        <>
+          <p
+            className={cn("text-2", styles["p-logout"])}
+            onClick={handleLogout}
+          >
+            ¿Deseas{" "}
+            <span className={styles["span-logout"]}>cerrar sesión?</span>
+          </p>
+          <div className={styles["divider-logout"]} />
+        </>
+      )}
       <footer className={styles.footer}>
         <img src="assets/icons/facebook.svg" alt="Facebook Icon" />
         <img src="assets/icons/linkedin.svg" alt="LinkedIn Icon" />
@@ -34,6 +69,11 @@ const Drawer = ({ setShowDrawer }) => {
 
 Drawer.propTypes = {
   setShowDrawer: PropTypes.func.isRequired,
+  username: PropTypes.string,
+};
+
+Drawer.defaultProps = {
+  username: "",
 };
 
 export default Drawer;
