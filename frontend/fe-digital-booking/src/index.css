@@ -17,19 +17,37 @@ h4 {
 }
 
 h1 {
-  font-size: 24pt;
+  font-size: 24px;
 }
 
 h2 {
-  font-size: 20pt;
+  font-size: 20px;
 }
 
 h3 {
-  font-size: 16pt;
+  font-size: 16px;
 }
 
 h4 {
-  font-size: 14pt;
+  font-size: 14px;
+}
+
+.botton-1 {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.botton-2 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.text-1 {
+  font-size: 14px;
+}
+
+.text-2 {
+  font-size: 12px;
 }
 
 .material-icons.md-18 {
