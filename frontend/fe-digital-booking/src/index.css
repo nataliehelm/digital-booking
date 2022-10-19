@@ -8,3 +8,46 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 24pt;
+}
+
+h2 {
+  font-size: 20pt;
+}
+
+h3 {
+  font-size: 16pt;
+}
+
+h4 {
+  font-size: 14pt;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-40 {
+  font-size: 40px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+ul {
+  list-style: none;
+}

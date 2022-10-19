@@ -1,0 +1,53 @@
+.drawer-container {
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-container header {
+  background-color: #1dbeb4;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 175px;
+  justify-content: space-between;
+  padding: 12px 10px 6px 14px;
+}
+
+.drawer-container header .title {
+  align-self: end;
+}
+
+.divider {
+  background-color: #545776;
+  height: 1px;
+  margin: 16px 10px 21px 14px;
+}
+
+.navbar {
+  flex-grow: 1;
+}
+
+.navbar ul {
+  margin-top: 23px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-item {
+  align-self: flex-end;
+  margin-right: 15px;
+  cursor: pointer;
+  color: #383b58;
+}
+
+.footer {
+  height: 23px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 17.04px;
+  padding: 0 15px 29px 0;
+}
