@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./Drawer.module.css";
+import PropTypes from "prop-types";
 
-const Drawer = () => {
+const Drawer = ({ setShowDrawer }) => {
   return (
     <section className={styles["drawer-container"]}>
       <header>
-        <span class="material-icons md-40">close</span>
+        <span
+          className="material-icons md-40"
+          onClick={() => setShowDrawer(false)}
+        >
+          close
+        </span>
         <h2 className={styles.title}>MENÚ</h2>
       </header>
       <nav className={styles.navbar}>
@@ -27,6 +33,10 @@ const Drawer = () => {
       </footer>
     </section>
   );
+};
+
+Drawer.propTypes = {
+  setShowDrawer: PropTypes.func.isRequired,
 };
 
 export default Drawer;
