@@ -47,13 +47,12 @@ const Drawer = ({ setShowDrawer, username }) => {
       </nav>
       {username && (
         <>
-          <p
-            className={cn("text-2", styles["p-logout"])}
-            onClick={handleLogout}
-          >
-            ¿Deseas{" "}
-            <span className={styles["span-logout"]}>cerrar sesión?</span>
-          </p>
+          <button onClick={handleLogout}>
+            <p className={cn("text-2", styles["p-logout"])}>
+              ¿Deseas{" "}
+              <span className={styles["span-logout"]}>cerrar sesión?</span>
+            </p>
+          </button>
           <div className={styles["divider-logout"]} />
         </>
       )}
