@@ -6,12 +6,9 @@ const Drawer = ({ setShowDrawer }) => {
   return (
     <section className={styles["drawer-container"]}>
       <header>
-        <span
-          className="material-icons md-40"
-          onClick={() => setShowDrawer(false)}
-        >
-          close
-        </span>
+        <button onClick={() => setShowDrawer(false)}>
+          <span className="material-icons md-40">close</span>
+        </button>
         <h2 className={styles.title}>MENÚ</h2>
       </header>
       <nav className={styles.navbar}>

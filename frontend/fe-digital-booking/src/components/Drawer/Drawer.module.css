@@ -16,6 +16,10 @@
   padding: 12px 10px 6px 14px;
 }
 
+.drawer-container header button {
+  width: min-content;
+}
+
 .drawer-container header .title {
   align-self: end;
 }
