@@ -1,0 +1,49 @@
+@use "./../../styles/variables" as *;
+
+.button-1,
+.button-2,
+.button-3,
+.button-4 {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.button-5,
+.button-6 {
+  background: $color-white;
+  border: 1px solid $color-primary;
+  border-radius: 5px;
+  color: $color-primary;
+}
+
+.button-1 {
+  width: 206px;
+  height: 40px;
+}
+
+.button-2 {
+  width: 296px;
+  height: 40px;
+}
+
+.button-3 {
+  width: 346px;
+  height: 40px;
+}
+
+.button-4 {
+  width: 362px;
+  height: 40px;
+}
+
+.button-5 {
+  width: 164px;
+  height: 40px;
+}
+
+.button-6 {
+  width: 206px;
+  height: 40px;
+}

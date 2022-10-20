@@ -1,0 +1,28 @@
+@import "./variables";
+
+:export {
+  fontPrimary: "Roboto", sans-serif;
+  heading1: 24px;
+  heading2: 20px;
+  heading3: 16px;
+  heading4: 14px;
+
+  botton1: 14px;
+  botton2: 16px;
+
+  text1: 14px;
+  text2: 12px;
+
+  // Colors
+  colorPrimary: #1dbeb4;
+  colorSecondary: #383b58;
+  colorTertiary: #545776;
+  colorLightGrey: #f3f1ed;
+  colorWhite: #ffffff;
+
+  // Breakpoints
+  sm: 640px;
+  md: 768px;
+  lg: 1024px;
+  xl: 1280px;
+}
