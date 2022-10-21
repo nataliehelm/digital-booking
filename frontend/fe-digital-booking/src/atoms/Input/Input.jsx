@@ -17,6 +17,7 @@ const Input = ({
   placeholderIcon,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     setShowPlaceholder(!value);
@@ -31,7 +32,7 @@ const Input = ({
       </label>
       <div className={styles["input-container"]}>
         <input
-          type={type}
+          type={showPassword ? "text" : type}
           name={name}
           value={value}
           onChange={onChange}
@@ -39,6 +40,22 @@ const Input = ({
           onBlur={() => setShowPlaceholder(true)}
           className={cn("text-2", { [styles["input-error"]]: hasError })}
         />
+        {type === "password" && showPassword && (
+          <div
+            className={styles["password-icon"]}
+            onClick={() => setShowPassword(false)}
+          >
+            <i className="fa-solid fa-eye"></i>
+          </div>
+        )}
+        {type === "password" && !showPassword && (
+          <div
+            className={styles["password-icon"]}
+            onClick={() => setShowPassword(true)}
+          >
+            <i className="fa-solid fa-eye-slash"></i>
+          </div>
+        )}
         {showPlaceholder && (
           <div className={styles.placeholder}>
             {placeholderIcon}
