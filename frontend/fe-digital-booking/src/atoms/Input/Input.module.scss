@@ -19,4 +19,15 @@ div {
     padding: 0 18px;
     appearance: none;
   }
+
+  .input-error {
+    background-color: $color-error-background;
+    border: 1px solid $color-error;
+  }
+
+  .label-error {
+    color: $color-error;
+    margin-top: 12px;
+    text-align: right;
+  }
 }

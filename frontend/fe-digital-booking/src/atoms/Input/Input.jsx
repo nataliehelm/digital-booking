@@ -1,6 +1,7 @@
 import styles from "./Input.module.scss";
 import PropTypes from "prop-types";
 import { Text } from "../Text";
+import cn from "classnames";
 
 const Input = ({
   type,
@@ -23,8 +24,11 @@ const Input = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="text-2"
+        className={cn("text-2", { [styles["input-error"]]: hasError })}
       />
+      <Text variant="t2" classname={styles["label-error"]}>
+        {label}
+      </Text>
     </div>
   );
 };
