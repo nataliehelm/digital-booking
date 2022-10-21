@@ -18,7 +18,7 @@ const Drawer = ({ setShowDrawer, username }) => {
     <section className={styles["drawer-container"]}>
       <header>
         <button onClick={() => setShowDrawer(false)}>
-          <span className="material-icons md-40">close</span>
+          <i className="fa-solid fa-x fa-xl"></i>
         </button>
         {username && (
           <aside className={styles["user-info"]}>

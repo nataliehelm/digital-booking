@@ -9,7 +9,7 @@ describe("<Header />", () => {
 
   test("Should render <Drawer /> when <button /> is clicked", async () => {
     render(<Header />);
-    const button = screen.getByRole("button", { name: /menu/i });
+    const button = screen.getByRole("button");
     fireEvent.click(button);
     await screen.findByText("MENÚ");
   });

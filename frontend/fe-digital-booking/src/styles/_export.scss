@@ -1,28 +1,31 @@
 @import "./variables";
 
 :export {
-  fontPrimary: "Roboto", sans-serif;
-  heading1: 24px;
-  heading2: 20px;
-  heading3: 16px;
-  heading4: 14px;
+  fontPrimary: $font-primary;
+  heading1: $heading-1;
+  heading2: $heading-2;
+  heading3: $heading-3;
+  heading4: $heading-4;
 
-  botton1: 14px;
-  botton2: 16px;
+  botton1: $botton-1;
+  botton2: $botton-2;
 
-  text1: 14px;
-  text2: 12px;
+  text1: $text-1;
+  text2: $text-2;
 
   // Colors
-  colorPrimary: #1dbeb4;
-  colorSecondary: #383b58;
-  colorTertiary: #545776;
-  colorLightGrey: #f3f1ed;
-  colorWhite: #ffffff;
+  colorPrimary: $color-primary;
+  colorSecondary: $color-secondary;
+  colorTertiary: $color-tertiary;
+  colorLightGrey: $color-light-grey;
+  colorWhite: $color-white;
+  colorError: $color-error;
+  colorErrorBackground: $color-error-background;
+  colorGrey: $color-grey;
 
   // Breakpoints
-  sm: 640px;
-  md: 768px;
-  lg: 1024px;
-  xl: 1280px;
+  sm: $sm;
+  md: $md;
+  lg: $lg;
+  xl: $xl;
 }
