@@ -33,7 +33,9 @@ const Input = ({
       )}
       <div className={styles["input-container"]}>
         <input
+          id={name}
           type={showPassword ? "text" : type}
+          autoComplete="off"
           name={name}
           value={value}
           onChange={onChange}

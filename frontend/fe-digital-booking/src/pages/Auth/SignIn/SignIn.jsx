@@ -15,11 +15,17 @@ const emailValidator = (value) => {
   return mandatoryValidator(value);
 };
 
+const passwordValidator = (value) => {
+  if (value.length < 6)
+    return [true, "La contraseña debe tener minimo 6 caracteres"];
+  return mandatoryValidator(value);
+};
+
 const SignIn = () => {
   const name = useInput("", mandatoryValidator);
   const lastname = useInput("", mandatoryValidator);
   const email = useInput("", emailValidator);
-  const password = useInput("", mandatoryValidator);
+  const password = useInput("", passwordValidator);
   let passwordConfirmation = useInput("");
 
   passwordConfirmation = {
@@ -29,8 +35,9 @@ const SignIn = () => {
       password.value !== passwordConfirmation.value,
     errorMessage:
       passwordConfirmation.value &&
-      password.value !== passwordConfirmation.value &&
-      "Las contraseñas no coinciden",
+      password.value !== passwordConfirmation.value
+        ? "Las contraseñas no coinciden"
+        : "",
   };
 
   const disabled = useMemo(() => {
@@ -57,7 +64,7 @@ const SignIn = () => {
           />
           <Input
             {...passwordConfirmation}
-            name="passwordConfirmation"
+            name="password-confirmation"
             label="Confirmar contraseña"
             type="password"
           />
