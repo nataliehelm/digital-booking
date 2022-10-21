@@ -2,8 +2,7 @@ import styles from "./Input.module.scss";
 import PropTypes from "prop-types";
 import { Text } from "../Text";
 import cn from "classnames";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Input = ({
   type,
@@ -64,7 +63,7 @@ const Input = ({
         )}
       </div>
       <Text variant="t2" classname={styles["label-error"]}>
-        {label}
+        {errorMessage}
       </Text>
     </div>
   );
