@@ -24,11 +24,13 @@ const Input = ({
 
   return (
     <div>
-      <label htmlFor={name}>
-        <Text variant="t2" classname={styles.label}>
-          {label}
-        </Text>
-      </label>
+      {label && (
+        <label htmlFor={name}>
+          <Text variant="t2" classname={styles.label}>
+            {label}
+          </Text>
+        </label>
+      )}
       <div className={styles["input-container"]}>
         <input
           type={showPassword ? "text" : type}
@@ -40,25 +42,25 @@ const Input = ({
           className={cn("text-2", { [styles["input-error"]]: hasError })}
         />
         {type === "password" && showPassword && (
-          <div
+          <button
             className={styles["password-icon"]}
             onClick={() => setShowPassword(false)}
           >
             <i className="fa-solid fa-eye"></i>
-          </div>
+          </button>
         )}
         {type === "password" && !showPassword && (
-          <div
+          <button
             className={styles["password-icon"]}
             onClick={() => setShowPassword(true)}
           >
             <i className="fa-solid fa-eye-slash"></i>
-          </div>
+          </button>
         )}
         {showPlaceholder && (
           <div className={styles.placeholder}>
             {placeholderIcon}
-            <Text variant="t1">{placeholder}</Text>
+            {placeholder && <Text variant="t1">{placeholder}</Text>}
           </div>
         )}
       </div>
