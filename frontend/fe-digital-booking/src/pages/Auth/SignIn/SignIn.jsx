@@ -25,7 +25,7 @@ const SignIn = () => {
   passwordConfirmation = {
     ...passwordConfirmation,
     hasError:
-      passwordConfirmation.value &&
+      !!passwordConfirmation.value &&
       password.value !== passwordConfirmation.value,
     errorMessage:
       passwordConfirmation.value &&
@@ -67,6 +67,7 @@ const SignIn = () => {
           variant="b2"
           type="submit"
           classname={styles["submit-button"]}
+          onClick={console.log}
         >
           Crear cuenta
         </Button>
