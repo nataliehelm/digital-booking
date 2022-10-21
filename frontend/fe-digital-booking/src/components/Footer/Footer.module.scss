@@ -1,0 +1,21 @@
+@use "./../../styles/variables" as *;
+
+.footer-container {
+    
+    background-color: $color-primary;
+    color: $color-white;
+    display: flex;
+    flex-direction: row;
+    font-family: $font-primary;
+    font-size: 14px;
+    height: 58px;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+}
+
+.trademark {
+    padding: 25px 40px;
+}
+
+
