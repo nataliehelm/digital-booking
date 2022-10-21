@@ -20,6 +20,25 @@ div {
     appearance: none;
   }
 
+  .input-container {
+    position: relative;
+  }
+
+  .placeholder {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    color: $color-grey;
+    position: absolute;
+    top: 25%;
+    gap: 10px;
+    margin-left: 10px;
+
+    svg {
+      font-size: 20px;
+    }
+  }
+
   .input-error {
     background-color: $color-error-background;
     border: 1px solid $color-error;

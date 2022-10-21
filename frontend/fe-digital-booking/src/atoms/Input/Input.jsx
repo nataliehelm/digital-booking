@@ -2,6 +2,8 @@ import styles from "./Input.module.scss";
 import PropTypes from "prop-types";
 import { Text } from "../Text";
 import cn from "classnames";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Input = ({
   type,
@@ -11,7 +13,15 @@ const Input = ({
   errorMessage,
   label,
   name,
+  placeholder,
+  placeholderIcon,
 }) => {
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
+
+  useEffect(() => {
+    setShowPlaceholder(!value);
+  }, [value]);
+
   return (
     <div>
       <label htmlFor={name}>
@@ -19,13 +29,23 @@ const Input = ({
           {label}
         </Text>
       </label>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={cn("text-2", { [styles["input-error"]]: hasError })}
-      />
+      <div className={styles["input-container"]}>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setShowPlaceholder(false)}
+          onBlur={() => setShowPlaceholder(true)}
+          className={cn("text-2", { [styles["input-error"]]: hasError })}
+        />
+        {showPlaceholder && (
+          <div className={styles.placeholder}>
+            {placeholderIcon}
+            <Text variant="t1">{placeholder}</Text>
+          </div>
+        )}
+      </div>
       <Text variant="t2" classname={styles["label-error"]}>
         {label}
       </Text>
@@ -41,6 +61,8 @@ Input.propTypes = {
   errorMessage: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
+  placeholderIcon: PropTypes.element,
+  placeholder: PropTypes.string,
 };
 
 Input.defaultProps = {
