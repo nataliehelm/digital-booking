@@ -64,7 +64,7 @@ const Input = ({
           </div>
         )}
       </div>
-      {errorMessage && (
+      {hasError && errorMessage && (
         <Text variant="t2" classname={styles["label-error"]}>
           {errorMessage}
         </Text>

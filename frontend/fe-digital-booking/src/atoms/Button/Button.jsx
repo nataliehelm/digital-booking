@@ -4,7 +4,7 @@ import cn from "classnames";
 import styles from "./Button.module.scss";
 import { Botton } from "../Botton";
 
-const Button = ({ variant, children, classname, onClick }) => {
+const Button = ({ variant, children, classname, onClick, type, disabled }) => {
   const variantClass = {
     b1: "button-1",
     b2: "button-2",
@@ -15,7 +15,14 @@ const Button = ({ variant, children, classname, onClick }) => {
   }[variant];
 
   return (
-    <button onClick={onClick} className={cn(styles[variantClass], classname)}>
+    <button
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      className={cn(styles[variantClass], classname, {
+        [styles.disabled]: disabled,
+      })}
+    >
       <Botton variant="b2">{children}</Botton>
     </button>
   );
@@ -26,6 +33,12 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   classname: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(["submit", "button"]),
+  disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  type: "button",
 };
 
 export default Button;
