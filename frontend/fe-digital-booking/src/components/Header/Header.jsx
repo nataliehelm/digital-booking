@@ -19,9 +19,8 @@ const Header = () => {
             className={styles["menu-icon"]}
             onClick={() => setShowDrawer(true)}
           >
-            <span className="material-icons">menu</span>
+            <i className="fa-solid fa-bars fa-2xl"></i>
           </button>
-          <AuthButtons />
         </main>
       )}
     </>
