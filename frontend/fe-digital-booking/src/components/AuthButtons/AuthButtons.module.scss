@@ -1,8 +1,10 @@
+@use "./../../styles/variables" as *;
+
 section {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: $md) {
   section {
     display: flex;
     gap: 16px;
