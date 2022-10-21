@@ -62,9 +62,11 @@ const Input = ({
           </div>
         )}
       </div>
-      <Text variant="t2" classname={styles["label-error"]}>
-        {errorMessage}
-      </Text>
+      {errorMessage && (
+        <Text variant="t2" classname={styles["label-error"]}>
+          {errorMessage}
+        </Text>
+      )}
     </div>
   );
 };
