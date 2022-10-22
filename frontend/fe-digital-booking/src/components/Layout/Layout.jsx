@@ -4,11 +4,11 @@ import useLayoutDimension from "./hook";
 import PropTypes from "prop-types";
 
 const Layout = ({ children }) => {
-  const { headerHeight } = useLayoutDimension();
+  const { headerHeight, fullHeight } = useLayoutDimension();
   return (
     <div
       className={styles["layout-container"]}
-      style={{ marginTop: headerHeight }}
+      style={{ marginTop: headerHeight, height: fullHeight }}
     >
       {children}
     </div>

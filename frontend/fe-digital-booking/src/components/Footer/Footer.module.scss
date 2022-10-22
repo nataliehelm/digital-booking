@@ -2,6 +2,7 @@
 
 .footer-container {
   background-color: $color-primary;
+  bottom: 0px;
   color: $color-white;
   display: flex;
   flex-direction: row;
@@ -9,10 +10,11 @@
   font-size: 14px;
   height: 58px;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   width: 100%;
   align-items: center;
   padding: 20px;
+  overflow: hidden;
   section {
     display: none;
   }

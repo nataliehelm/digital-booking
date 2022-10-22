@@ -2,16 +2,14 @@ import { Button, Heading, Text } from "../../../atoms";
 import useInput from "../../../atoms/Input/hooks/useInput";
 import Input from "../../../atoms/Input/Input";
 import styles from "./LogIn.module.scss";
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
   const email = useInput("");
   const password = useInput("");
 
   return (
-    <main
-      style={{ marginTop: "93px", height: "751px" }}
-      className={styles.main}
-    >
+    <main className={styles.main}>
       <form className={styles["login-in-form"]}>
         <Heading variant="h1" classname={styles.title}>
           Iniciar sesión
@@ -39,7 +37,10 @@ const LogIn = () => {
           </Button>
           <Text variant="t2" classname={styles["signin-text"]}>
             <>
-              ¿Aún no tenes cuenta? <span> Registrate</span>
+              ¿Aún no tenes cuenta?{" "}
+              <Link to="/signin">
+                <span> Registrate</span>
+              </Link>
             </>
           </Text>
         </section>
