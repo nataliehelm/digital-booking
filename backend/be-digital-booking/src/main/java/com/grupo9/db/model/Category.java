@@ -19,15 +19,28 @@ public class Category {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+    private Date created_at;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Date updated_at;
 
 
 
     public Category() {
+    }
+
+    public Category(String title, String description, String image_url) {
+        this.title = title;
+        this.description = description;
+        this.image_url = image_url;
+    }
+
+    public Category(Long id, String title, String description, String image_url) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.image_url = image_url;
     }
 
     public Category(Long id, String title, String description, String image_url, Date createdAt, Date updatedAt) {
@@ -35,8 +48,8 @@ public class Category {
         this.title = title;
         this.description = description;
         this.image_url = image_url;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.created_at = createdAt;
+        this.updated_at = updatedAt;
     }
 
     public Long getId() {
@@ -72,19 +85,19 @@ public class Category {
     }
 
     public Date getCreatedAt() {
-        return createdAt;
+        return created_at;
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+        this.created_at = createdAt;
     }
 
     public Date getUpdatedAt() {
-        return updatedAt;
+        return updated_at;
     }
 
     public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+        this.updated_at = updatedAt;
     }
 
     @Override
