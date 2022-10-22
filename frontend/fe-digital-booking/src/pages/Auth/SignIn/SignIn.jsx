@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useMemo } from "react";
 import { Button, Heading, Text } from "../../../atoms";
 import useInput from "../../../atoms/Input/hooks/useInput";
