@@ -6,6 +6,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 
   header {
     background-color: $color-primary;
@@ -41,6 +44,7 @@
 }
 
 .navbar {
+  background-color: $color-white;
   flex-grow: 1;
 
   ul {
@@ -94,4 +98,8 @@
 
 .span-logout {
   color: $color-primary;
+}
+
+.social-network {
+  background-color: $color-white;
 }

@@ -1,25 +1,24 @@
 @use "./../../styles/variables" as *;
 
 .social {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-size: 24px;
-    color: $color-tertiary;
-    gap: 17.04px;
-    padding: 25px 40px;
-  }
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 24px;
+  color: $color-tertiary;
+  gap: 17.04px;
+  padding: 25px 40px;
 
-  .social a{
+  a {
     color: $color-tertiary;
   }
-
-@media (min-width: $md) {
-.social {
-  color: $color-white;
 }
 
-  .social a{
+@media (min-width: $md) {
+  .social {
     color: $color-white;
+    a {
+      color: $color-white;
+    }
   }
 }
