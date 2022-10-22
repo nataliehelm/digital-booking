@@ -13,7 +13,7 @@ const Header = () => {
         <Drawer username={username} setShowDrawer={setShowDrawer} />
       )}
       {!showDrawer && (
-        <main className={styles["header-container"]}>
+        <main className={styles["header-container"]} id='header'>
           <img src="assets/logo.svg" alt="DB Logo" />
           <button
             className={styles["menu-icon"]}
@@ -21,6 +21,7 @@ const Header = () => {
           >
             <i className="fa-solid fa-bars fa-2xl"></i>
           </button>
+          <AuthButtons />
         </main>
       )}
     </>
