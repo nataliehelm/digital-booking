@@ -38,7 +38,7 @@ const LogIn = () => {
           <Text variant="t2" classname={styles["signin-text"]}>
             <>
               ¿Aún no tenes cuenta?{" "}
-              <Link to="./signin">
+              <Link to="/signin">
                 <span> Registrate</span>
               </Link>
             </>
