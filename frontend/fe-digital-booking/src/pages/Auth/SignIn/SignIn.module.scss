@@ -28,8 +28,11 @@
     .login-text {
       text-align: center;
       margin-top: 10px;
-      span {
-        color: $color-primary;
+      a {
+        text-decoration: none;
+        span {
+          color: $color-primary;
+        }
       }
     }
   }

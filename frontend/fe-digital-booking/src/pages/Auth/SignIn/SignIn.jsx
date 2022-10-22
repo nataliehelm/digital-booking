@@ -4,6 +4,7 @@ import useInput from "../../../atoms/Input/hooks/useInput";
 import Input from "../../../atoms/Input/Input";
 import { EMAIL_REGEX } from "../../../utils/regex";
 import styles from "./SignIn.module.scss";
+import { Link } from "react-router-dom";
 
 const mandatoryValidator = (value) => [!value, "Campo obligatorio"];
 
@@ -79,7 +80,10 @@ const SignIn = () => {
         </Button>
         <Text variant="t2" classname={styles["login-text"]}>
           <>
-            ¿Ya tienes una cuenta? <span> Iniciar sesión</span>
+            ¿Ya tienes una cuenta?{" "}
+            <Link to="/login">
+              <span>Iniciar sesión</span>
+            </Link>
           </>
         </Text>
       </form>

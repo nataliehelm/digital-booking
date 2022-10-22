@@ -41,8 +41,11 @@
     .signin-text {
       margin-top: -9px;
       text-align: center;
-      span {
-        color: $color-primary;
+      a {
+        text-decoration: none;
+        span {
+          color: $color-primary;
+        }
       }
     }
   }

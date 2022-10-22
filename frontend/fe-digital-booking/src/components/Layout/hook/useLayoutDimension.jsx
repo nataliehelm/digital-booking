@@ -4,13 +4,21 @@ import { useState } from "react";
 const useLayoutDimension = () => {
   const [fullHeight, setFullHeight] = useState("");
   const [headerHeight, setHeaderHeight] = useState("");
+  const [footerHeight, setFooterHeight] = useState("");
 
   const setDimensions = () => {
     const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
     const _headerHeight = header?.offsetHeight || 0;
-    const _fullHeight = `calc(100vh - ${_headerHeight}px)`;
+    const _footerHeight = footer?.offsetHeight || 0;
+    const _fullHeight = `calc(100vh - ${_headerHeight}px - ${_footerHeight}px)`;
+    console.log(_headerHeight);
+    console.log(_footerHeight);
+    console.log(_fullHeight);
+
     setFullHeight(_fullHeight);
     setHeaderHeight(_headerHeight + "px");
+    setFooterHeight(_footerHeight + "px");
   };
 
   useEffect(() => {
@@ -20,6 +28,7 @@ const useLayoutDimension = () => {
   return {
     fullHeight,
     headerHeight,
+    footerHeight,
   };
 };
 
