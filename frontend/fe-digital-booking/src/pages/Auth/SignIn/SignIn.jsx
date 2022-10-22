@@ -47,7 +47,7 @@ const SignIn = () => {
   }, [name, lastname, email, password, passwordConfirmation]);
 
   return (
-    <main style={{ marginTop: "93px" }} className={styles.main}>
+    <main className={styles.main}>
       <Heading variant="h1" classname={styles.title}>
         Crear cuenta
       </Heading>

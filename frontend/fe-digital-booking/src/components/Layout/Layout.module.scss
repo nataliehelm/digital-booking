@@ -1,5 +1,7 @@
+@use './../../styles/variables' as *;
+
 .layout-container {
-  background-color: #e5e5e5;
+  background-color: $color-secondary;
   width: 100vw;
   overflow: auto;
 }
