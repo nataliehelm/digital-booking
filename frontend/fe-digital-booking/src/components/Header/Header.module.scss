@@ -16,13 +16,11 @@
   * {
     cursor: pointer;
   }
-  figure a {
+  figure {
     align-items: flex-end;
-    color: $color-tertiary;
     display: flex;
     font-style: italic;
     gap: 7px;
-    text-decoration: none;
   }
 }
 
@@ -46,6 +44,10 @@
 }
 
 @media (min-width: $lg) {
+  .header-container {
+    height: 80px;
+    padding: 20px 13.25px 10px 11px;
+  }
   .slogan {
     display: inline;
   }

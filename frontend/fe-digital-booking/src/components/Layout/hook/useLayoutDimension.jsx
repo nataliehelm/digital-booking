@@ -12,9 +12,6 @@ const useLayoutDimension = () => {
     const _headerHeight = header?.offsetHeight || 0;
     const _footerHeight = footer?.offsetHeight || 0;
     const _fullHeight = `calc(100vh - ${_headerHeight}px - ${_footerHeight}px)`;
-    console.log(_headerHeight);
-    console.log(_footerHeight);
-    console.log(_fullHeight);
 
     setFullHeight(_fullHeight);
     setHeaderHeight(_headerHeight + "px");
