@@ -1,16 +1,25 @@
 /* eslint-disable testing-library/no-node-access */
 /* eslint-disable testing-library/no-container */
 import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import SignIn from "./SignIn";
 
 describe("<SignIn />", () => {
   test("Should render the component", () => {
-    render(<SignIn />);
+    render(
+      <BrowserRouter>
+        <SignIn />
+      </BrowserRouter>
+    );
     expect(screen.getAllByRole("main")).toHaveLength(1);
   });
 
   test("Should render a error with label 'La contraseña debe tener minimo 6 caracteres' when password has less of 6 chars", () => {
-    const { container } = render(<SignIn />);
+    const { container } = render(
+      <BrowserRouter>
+        <SignIn />
+      </BrowserRouter>
+    );
 
     const name = container.querySelector("#name");
     const lastname = container.querySelector("#lastname");
@@ -33,7 +42,11 @@ describe("<SignIn />", () => {
   });
 
   test("Should render a error with label 'Email inválido' when email is wrong", () => {
-    const { container } = render(<SignIn />);
+    const { container } = render(
+      <BrowserRouter>
+        <SignIn />
+      </BrowserRouter>
+    );
 
     const name = container.querySelector("#name");
     const lastname = container.querySelector("#lastname");
