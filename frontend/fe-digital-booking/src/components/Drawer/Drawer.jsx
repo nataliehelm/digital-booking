@@ -3,15 +3,16 @@ import styles from "./Drawer.module.scss";
 import PropTypes from "prop-types";
 import { Avatar, Botton, Heading, Text } from "../../atoms";
 import SocialNetwork from "../SocialNetwork";
+import { Link } from "react-router-dom";
 
 const Drawer = ({ setShowDrawer, username }) => {
   const handleLoginSignin = () => {
-    localStorage.setItem("username", "Felipe Monterrosa");
+    // localStorage.setItem("username", "Felipe Monterrosa");
     setShowDrawer(false);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
+    // localStorage.removeItem("username");
     setShowDrawer(false);
   };
 
@@ -42,11 +43,15 @@ const Drawer = ({ setShowDrawer, username }) => {
         {!username && (
           <ul>
             <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
-              <Heading variant="h3">Crear cuenta</Heading>
+              <Link to="/signin">
+                <Heading variant="h3">Crear cuenta</Heading>
+              </Link>
             </li>
             <div className={styles.divider} />
             <li className={styles["navbar-item"]} onClick={handleLoginSignin}>
-              <Heading variant="h3">Inciar sesión</Heading>
+              <Link to="/login">
+                <Heading variant="h3">Inciar sesión</Heading>
+              </Link>
             </li>
           </ul>
         )}
@@ -64,7 +69,7 @@ const Drawer = ({ setShowDrawer, username }) => {
           <div className={styles["divider-logout"]} />
         </>
       )}
-      <SocialNetwork />
+      <SocialNetwork classname={styles["social-network"]} />
     </section>
   );
 };
