@@ -1,0 +1,36 @@
+@use './../../../styles/variables' as *;
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .title {
+    margin-top: 32px;
+    color: $color-primary;
+  }
+
+  .sign-in-form {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 300px;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .submit-button {
+      margin-top: 40px;
+    }
+
+    .login-text {
+      text-align: center;
+      margin-top: 10px;
+      span {
+        color: $color-primary;
+      }
+    }
+  }
+}
