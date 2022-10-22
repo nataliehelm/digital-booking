@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthButtons from "../AuthButtons/AuthButtons";
+import AuthButtons from "../AuthButtons";
 import { Drawer } from "../Drawer";
 import styles from "./Header.module.scss";
 
@@ -13,13 +13,18 @@ const Header = () => {
         <Drawer username={username} setShowDrawer={setShowDrawer} />
       )}
       {!showDrawer && (
-        <main className={styles["header-container"]} id='header'>
-          <img src="assets/logo.svg" alt="DB Logo" />
+        <main className={styles["header-container"]} id="header">
+          <figure>
+            <img src="assets/logo.svg" alt="DB Logo" />
+            <span className={styles["slogan"]}>Sentite como en tu hogar</span>
+          </figure>
           <button
             className={styles["menu-icon"]}
             onClick={() => setShowDrawer(true)}
           >
-            <i className="fa-solid fa-bars fa-2xl"></i>
+            <span className="material-icons">
+              <i className="fa-solid fa-bars"></i>
+            </span>
           </button>
           <AuthButtons />
         </main>
