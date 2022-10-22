@@ -1,20 +1,33 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Drawer from "./Drawer";
 
 describe("<Drawer />", () => {
   test("Should contain the 'MENÚ label", () => {
-    render(<Drawer setShowDrawer={() => jest.fn()} />);
+    render(
+      <BrowserRouter>
+        <Drawer setShowDrawer={() => jest.fn()} />
+      </BrowserRouter>
+    );
     expect(screen.getByText("MENÚ")).toBeInTheDocument();
   });
 
-  test("Should render 4 <img />", () => {
-    render(<Drawer setShowDrawer={() => jest.fn()} />);
-    expect(screen.getAllByRole("img")).toHaveLength(4);
+  test("Should render 6 links", () => {
+    render(
+      <BrowserRouter>
+        <Drawer setShowDrawer={() => jest.fn()} />
+      </BrowserRouter>
+    );
+    expect(screen.getAllByRole("link")).toHaveLength(6);
   });
 
   test("setShowDrawer should be called with 'false' value when <button /> is clicked", () => {
     const setShowDrawer = jest.fn();
-    render(<Drawer setShowDrawer={setShowDrawer} />);
+    render(
+      <BrowserRouter>
+        <Drawer setShowDrawer={setShowDrawer} />
+      </BrowserRouter>
+    );
     const button = screen.getByRole("button");
     fireEvent.click(button);
     expect(setShowDrawer).toBeCalledWith(false);
@@ -23,7 +36,9 @@ describe("<Drawer />", () => {
   test("Should render 'Felipe Monterrosa' when has username prop", () => {
     const setShowDrawer = jest.fn();
     render(
-      <Drawer setShowDrawer={setShowDrawer} username="Felipe Monterrosa" />
+      <BrowserRouter>
+        <Drawer setShowDrawer={setShowDrawer} username="Felipe Monterrosa" />
+      </BrowserRouter>
     );
     expect(screen.getByText("Felipe Monterrosa")).toBeInTheDocument();
   });
@@ -33,7 +48,11 @@ describe("<Drawer />", () => {
     Storage.prototype.setItem = jest.fn();
     const setShowDrawer = jest.fn();
 
-    render(<Drawer setShowDrawer={setShowDrawer} />);
+    render(
+      <BrowserRouter>
+        <Drawer setShowDrawer={setShowDrawer} />
+      </BrowserRouter>
+    );
 
     const button = screen.getByText("Crear cuenta");
     fireEvent.click(button);
@@ -50,7 +69,9 @@ describe("<Drawer />", () => {
     const setShowDrawer = jest.fn();
 
     render(
-      <Drawer setShowDrawer={setShowDrawer} username="Felipe Monterrosa" />
+      <BrowserRouter>
+        <Drawer setShowDrawer={setShowDrawer} username="Felipe Monterrosa" />
+      </BrowserRouter>
     );
 
     const button = screen.getByRole("button", {

@@ -32,6 +32,7 @@ const LogIn = () => {
             variant="b2"
             type="submit"
             classname={styles["submit-button"]}
+            onClick={console.log}
           >
             Ingresar
           </Button>

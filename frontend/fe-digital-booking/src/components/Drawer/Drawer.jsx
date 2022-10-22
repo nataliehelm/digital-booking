@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 
 const Drawer = ({ setShowDrawer, username }) => {
   const handleLoginSignin = () => {
-    // localStorage.setItem("username", "Felipe Monterrosa");
+    localStorage.setItem("username", "Felipe Monterrosa");
     setShowDrawer(false);
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("username");
+    localStorage.removeItem("username");
     setShowDrawer(false);
   };
 
@@ -57,7 +57,7 @@ const Drawer = ({ setShowDrawer, username }) => {
         )}
       </nav>
       {username && (
-        <>
+        <div className={styles["logout-container"]}>
           <button onClick={handleLogout}>
             <Text variant="t2" classname={styles["p-logout"]}>
               <>
@@ -67,7 +67,7 @@ const Drawer = ({ setShowDrawer, username }) => {
             </Text>
           </button>
           <div className={styles["divider-logout"]} />
-        </>
+        </div>
       )}
       <SocialNetwork classname={styles["social-network"]} />
     </section>

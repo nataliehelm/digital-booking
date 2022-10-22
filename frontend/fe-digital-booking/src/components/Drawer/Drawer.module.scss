@@ -40,7 +40,7 @@
 }
 
 .divider-logout {
-  margin: 5px 10px 32px 14px;
+  margin: 5px 10px 7px 14px;
 }
 
 .navbar {
@@ -94,6 +94,7 @@
 .p-logout {
   margin-right: 15px;
   text-align: right;
+  background-color: $color-white;
 }
 
 .span-logout {
@@ -101,5 +102,10 @@
 }
 
 .social-network {
+  background-color: $color-white;
+}
+
+.logout-container {
+  text-align: right;
   background-color: $color-white;
 }
