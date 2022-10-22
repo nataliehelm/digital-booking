@@ -1,21 +1,33 @@
 @use "./../../styles/variables" as *;
 
 .footer-container {
-    
-    background-color: $color-primary;
-    color: $color-white;
-    display: flex;
-    flex-direction: row;
-    font-family: $font-primary;
-    font-size: 14px;
-    height: 58px;
-    justify-content: space-between;
-    position: absolute;
-    width: 100%;
+  background-color: $color-primary;
+  color: $color-white;
+  display: flex;
+  flex-direction: row;
+  font-family: $font-primary;
+  font-size: 14px;
+  height: 58px;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  section {
+    display: none;
+  }
 }
 
-.trademark {
-    padding: 25px 40px;
+@media (min-width: $md) {
+  .footer-container {
+    padding: 15px 30px;
+    section {
+      display: flex;
+    }
+  }
 }
-
-
+@media (min-width: $lg) {
+  .footer-container {
+    padding: 20px 50px;
+  }
+}

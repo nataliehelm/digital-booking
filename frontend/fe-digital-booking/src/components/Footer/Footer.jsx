@@ -1,26 +1,19 @@
-import React, {useState} from "react";
-import SocialNetwork from "../SocialNetwork/SocialNetwork";
+import React from "react";
+import { Botton, Text } from "../../atoms";
+import SocialNetwork from "../SocialNetwork";
 import styles from "./Footer.module.scss";
 
-
 const Footer = () => {
-
-    const [showSocialIcons, setShowSocialIcons] = useState(false);
-    const username = localStorage.getItem("username");
-
-
-    return (
-        <footer id="footer" className={styles["footer-container"]}>
-            <div className={styles.trademark}>
-                <p>&copy;2023 Digital Booking</p>
-            </div>
-            
-            <SocialNetwork/>
-        </footer>
-
-    );
-
+  return (
+    <footer id="footer" className={styles["footer-container"]}>
+      <div className={styles.trademark}>
+        <Botton variant="b1">&copy;2023 Digital Booking</Botton>
+      </div>
+      <section>
+        <SocialNetwork />
+      </section>
+    </footer>
+  );
 };
 
 export default Footer;
-
