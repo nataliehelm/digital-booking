@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Drawer.module.scss";
 import PropTypes from "prop-types";
 import { Avatar, Botton, Heading, Text } from "../../atoms";
+import SocialNetwork from "../SocialNetwork";
 
 const Drawer = ({ setShowDrawer, username }) => {
   const handleLoginSignin = () => {
@@ -63,12 +64,7 @@ const Drawer = ({ setShowDrawer, username }) => {
           <div className={styles["divider-logout"]} />
         </>
       )}
-      <footer className={styles.footer}>
-        <img src="assets/icons/facebook.svg" alt="Facebook Icon" />
-        <img src="assets/icons/linkedin.svg" alt="LinkedIn Icon" />
-        <img src="assets/icons/twitter.svg" alt="Twitter Icon" />
-        <img src="assets/icons/instagram.svg" alt="Instagram Icon" />
-      </footer>
+      <SocialNetwork />
     </section>
   );
 };
