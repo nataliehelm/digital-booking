@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import Option from "./components/Option";
-import styles from "./Dropdown.module.scss";
+import PropTypes from 'prop-types';
+import Option from './components/Option';
+import styles from './Dropdown.module.scss';
 
 const Dropdown = ({ options, onChange }) => {
   return (
-    <div className={styles["dropdown-container"]}>
+    <div className={styles['dropdown-container']}>
       {options.map((p, index) => (
         <Option
           icon={p.icon}
