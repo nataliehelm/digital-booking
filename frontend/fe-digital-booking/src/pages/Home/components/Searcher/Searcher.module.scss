@@ -18,3 +18,25 @@
     align-items: center;
   }
 }
+
+@media (min-width: $md) {
+  .searcher-container {
+    form {
+      padding: 0 30px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .searcher-container {
+    form {
+      padding: 0 90px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+    }
+  }
+}
