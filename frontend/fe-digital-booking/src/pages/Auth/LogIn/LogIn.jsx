@@ -29,7 +29,7 @@ const LogIn = () => {
             type="password"
           />
           <Button
-            variant="b2"
+            variant="b1"
             type="submit"
             classname={styles["submit-button"]}
             onClick={console.log}

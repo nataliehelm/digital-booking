@@ -71,7 +71,7 @@ const SignIn = () => {
         </section>
         <Button
           disabled={disabled}
-          variant="b2"
+          variant="b1"
           type="submit"
           classname={styles["submit-button"]}
           onClick={console.log}

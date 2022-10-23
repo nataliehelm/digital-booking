@@ -1,0 +1,20 @@
+@use './../../../../styles/variables' as *;
+
+.searcher-container {
+  h1 {
+    color: $color-white;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    padding: 28px 0;
+    text-align: center;
+  }
+
+  form {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}
