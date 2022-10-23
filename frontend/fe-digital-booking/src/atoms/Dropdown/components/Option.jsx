@@ -9,9 +9,11 @@ const Option = ({ icon, title, description, hasBottomBorder, onClick }) => {
         {icon}
         <div>
           <Botton variant="b1">{title}</Botton>
-          <Botton variant="b1" classname={styles.description}>
-            {description}
-          </Botton>
+          {description && (
+            <Botton variant="b1" classname={styles.description}>
+              {description}
+            </Botton>
+          )}
         </div>
       </div>
       {hasBottomBorder && <div className={styles.divider} />}

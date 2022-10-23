@@ -11,17 +11,21 @@ const Searcher = () => {
           name="basic-input"
           onChange={() => {}}
           placeholder="¿A dónde vamos?"
-          placeholderIcon={<i class="fa-solid fa-location-dot"></i>}
+          placeholderIcon={<i className="fa-solid fa-location-dot"></i>}
           value=""
         />
         <Input
           name="basic-input"
           onChange={() => {}}
           placeholder="Check in - Check out"
-          placeholderIcon={<i class="fa-regular fa-calendar"></i>}
+          placeholderIcon={<i className="fa-regular fa-calendar"></i>}
           value=""
         />
-        <Button variant="b1" classname={styles["submit-button"]}>
+        <Button
+          variant="b1"
+          classname={styles["submit-button"]}
+          onClick={console.log}
+        >
           Buscar
         </Button>
       </form>

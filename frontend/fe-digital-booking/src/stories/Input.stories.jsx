@@ -76,7 +76,7 @@ export const InputWithPlaceholderAndIcon = Template.bind({});
 InputWithPlaceholderAndIcon.args = {
   name: "basic-input",
   placeholder: "¿A dónde vamos?",
-  placeholderIcon: <i class="fa-solid fa-calendar"></i>,
+  placeholderIcon: <i className="fa-solid fa-calendar"></i>,
 };
 
 export const InputWithLabel = Template.bind({});

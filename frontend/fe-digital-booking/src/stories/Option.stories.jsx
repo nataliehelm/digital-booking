@@ -32,14 +32,14 @@ const Template = (args) => (
 
 export const BasicOption = Template.bind({});
 BasicOption.args = {
-  icon: <i class="fa-solid fa-location-dot"></i>,
+  icon: <i className="fa-solid fa-location-dot"></i>,
   title: "San Carlos de Bariloche",
   description: "Argentina",
 };
 
 export const OptionWithoutDescription = Template.bind({});
 OptionWithoutDescription.args = {
-  icon: <i class="fa-solid fa-location-dot"></i>,
+  icon: <i className="fa-solid fa-location-dot"></i>,
   title: "San Carlos de Bariloche",
 };
 
