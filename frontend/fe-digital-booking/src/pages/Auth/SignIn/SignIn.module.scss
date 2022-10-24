@@ -4,9 +4,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 100%;
+  justify-content: center;
 
   .title {
-    margin-top: 32px;
     color: $color-primary;
   }
 
@@ -16,6 +17,12 @@
     max-width: 300px;
 
     section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .names {
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -33,6 +40,49 @@
         span {
           color: $color-primary;
         }
+      }
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .main {
+    justify-content: center;
+    .sign-in-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 346px;
+    }
+    section {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .main {
+    .title {
+      margin: 18px 0;
+    }
+
+    .sign-in-form {
+      max-width: 448px;
+
+      .names {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+      }
+
+      .submit-button {
+        margin-top: 50px;
+        max-width: 206px;
+      }
+
+      .login-text {
+        margin-top: 18px;
       }
     }
   }
