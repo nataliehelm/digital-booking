@@ -69,7 +69,9 @@ const Drawer = ({ setShowDrawer, username }) => {
           <div className={styles["divider-logout"]} />
         </div>
       )}
-      <SocialNetwork classname={styles["social-network"]} />
+      <div className={styles["social-network-container"]}>
+        <SocialNetwork />
+      </div>
     </section>
   );
 };
