@@ -42,8 +42,10 @@ const SignIn = () => {
       </Heading>
       <form className={styles["sign-in-form"]}>
         <section>
-          <Input {...name} name="name" label="Nombre" />
-          <Input {...lastname} name="lastname" label="Apellido" />
+          <div className={styles.names}>
+            <Input {...name} name="name" label="Nombre" />
+            <Input {...lastname} name="lastname" label="Apellido" />
+          </div>
           <Input {...email} name="email" label="Correo electrónico" />
           <Input
             {...password}
