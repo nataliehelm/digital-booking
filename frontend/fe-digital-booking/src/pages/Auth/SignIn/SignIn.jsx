@@ -2,24 +2,13 @@ import { useMemo } from "react";
 import { Button, Heading, Text } from "../../../atoms";
 import useInput from "../../../atoms/Input/hooks/useInput";
 import Input from "../../../atoms/Input/Input";
-import { EMAIL_REGEX } from "../../../utils/regex";
 import styles from "./SignIn.module.scss";
 import { Link } from "react-router-dom";
-
-const mandatoryValidator = (value) => [!value, "Campo obligatorio"];
-
-const emailValidator = (value) => {
-  if (!EMAIL_REGEX.test(value)) {
-    return [true, "Email inválido"];
-  }
-  return mandatoryValidator(value);
-};
-
-const passwordValidator = (value) => {
-  if (value.length < 6)
-    return [true, "La contraseña debe tener minimo 6 caracteres"];
-  return mandatoryValidator(value);
-};
+import {
+  emailValidator,
+  mandatoryValidator,
+  passwordValidator,
+} from "../../../utils/validators";
 
 const SignIn = () => {
   const name = useInput("", mandatoryValidator);

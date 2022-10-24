@@ -12,18 +12,25 @@
     flex-direction: column;
     align-items: center;
 
-    .title {
+    .title,
+    .title-tablet-desktop {
       color: $color-primary;
+      text-align: center;
+    }
+    .title-tablet-desktop {
+      margin-bottom: 60px;
+    }
+
+    .title {
       left: 0;
       margin-left: auto;
       margin-right: auto;
       margin-top: 32px;
       position: absolute;
       right: 0;
-      text-align: center;
     }
 
-    section {
+    .form-container {
       height: 100%;
       max-width: 300px;
       width: 100%;
@@ -46,6 +53,32 @@
         span {
           color: $color-primary;
         }
+      }
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .title {
+    display: none;
+  }
+}
+
+@media (min-width: $md) {
+  .main {
+    .login-in-form {
+      .title-tablet-desktop {
+        margin-bottom: 9px;
+      }
+      .form-container {
+        max-width: 448px;
+      }
+      .signin-text {
+        margin-top: 1px;
+      }
+      .submit-button {
+        margin-top: 30px;
+        max-width: 206px;
       }
     }
   }
