@@ -46,7 +46,12 @@ const SignIn = () => {
             <Input {...name} name="name" label="Nombre" />
             <Input {...lastname} name="lastname" label="Apellido" />
           </div>
-          <Input {...email} name="email" label="Correo electrónico" />
+          <Input
+            {...email}
+            name="email"
+            label="Correo electrónico"
+            type="email"
+          />
           <Input
             {...password}
             name="password"

@@ -29,6 +29,7 @@ const LogIn = () => {
             value={email.value}
             onChange={email.onChange}
             label="Correo electrónico"
+            type="email"
           />
           <Input
             name="password"
