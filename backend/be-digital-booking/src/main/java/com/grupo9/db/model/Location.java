@@ -17,6 +17,7 @@ public class Location {
     private String short_name;
     private String category;
     private String iso_name;
+    private String country;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -29,7 +30,7 @@ public class Location {
     public Location() {
     }
 
-    public Location(Long id, String name, String iso_id, String short_name, String category, String iso_name, Date created_at, Date updated_at) {
+    public Location(Long id, String name, String iso_id, String short_name, String category, String iso_name, Date created_at, Date updated_at, String country) {
         this.id = id;
         this.name = name;
         this.iso_id = iso_id;
@@ -38,14 +39,16 @@ public class Location {
         this.iso_name = iso_name;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.country = country;
     }
 
-    public Location(String name, String iso_id, String short_name, String category, String iso_name) {
+    public Location(String name, String iso_id, String short_name, String category, String iso_name, String country) {
         this.name = name;
         this.iso_id = iso_id;
         this.short_name = short_name;
         this.category = category;
         this.iso_name = iso_name;
+        this.country = country;
     }
 
     public Long getId() {
@@ -110,6 +113,14 @@ public class Location {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override
