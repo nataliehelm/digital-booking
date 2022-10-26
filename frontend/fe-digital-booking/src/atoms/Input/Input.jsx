@@ -1,8 +1,8 @@
-import styles from "./Input.module.scss";
-import PropTypes from "prop-types";
-import { Text } from "../Text";
-import cn from "classnames";
-import { useState, useEffect } from "react";
+import styles from './Input.module.scss';
+import PropTypes from 'prop-types';
+import { Text } from '../Text';
+import cn from 'classnames';
+import { useState, useEffect } from 'react';
 
 const Input = ({
   type,
@@ -14,6 +14,8 @@ const Input = ({
   name,
   placeholder,
   placeholderIcon,
+  onFocus,
+  disabled,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +25,7 @@ const Input = ({
   }, [value]);
 
   return (
-    <div>
+    <div className={styles.container}>
       {label && (
         <label htmlFor={name}>
           <Text variant="t2" classname={styles.label}>
@@ -31,35 +33,41 @@ const Input = ({
           </Text>
         </label>
       )}
-      <div className={styles["input-container"]}>
+      <div className={styles['input-container']}>
         <input
+          disabled={disabled}
           id={name}
-          type={showPassword ? "text" : type}
+          type={showPassword ? 'text' : type}
           autoComplete="off"
           name={name}
           value={value}
           onChange={onChange}
-          onFocus={() => setShowPlaceholder(false)}
-          onBlur={() => setShowPlaceholder(true)}
-          className={cn("text-2", { [styles["input-error"]]: hasError })}
+          onFocus={() => {
+            setShowPlaceholder(false);
+            onFocus && onFocus();
+          }}
+          onBlur={() => {
+            setShowPlaceholder(true);
+          }}
+          className={cn('text-2', { [styles['input-error']]: hasError })}
         />
-        {type === "password" && showPassword && (
+        {type === 'password' && showPassword && (
           <button
-            className={styles["password-icon"]}
+            className={styles['password-icon']}
             onClick={() => setShowPassword(false)}
           >
             <i className="fa-solid fa-eye"></i>
           </button>
         )}
-        {type === "password" && !showPassword && (
+        {type === 'password' && !showPassword && (
           <button
-            className={styles["password-icon"]}
+            className={styles['password-icon']}
             onClick={() => setShowPassword(true)}
           >
             <i className="fa-solid fa-eye-slash"></i>
           </button>
         )}
-        {showPlaceholder && (
+        {showPlaceholder && !value && (
           <div className={styles.placeholder}>
             {placeholderIcon}
             {placeholder && <Text variant="t1">{placeholder}</Text>}
@@ -67,7 +75,7 @@ const Input = ({
         )}
       </div>
       {hasError && errorMessage && (
-        <Text variant="t2" classname={styles["label-error"]}>
+        <Text variant="t2" classname={styles['label-error']}>
           {errorMessage}
         </Text>
       )}
@@ -79,16 +87,18 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholderIcon: PropTypes.element,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 Input.defaultProps = {
-  type: "text",
+  type: 'text',
   hasError: false,
 };
 

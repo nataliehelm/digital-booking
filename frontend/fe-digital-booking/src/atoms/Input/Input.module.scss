@@ -32,7 +32,7 @@ div {
     position: absolute;
     top: 25%;
     gap: 10px;
-    margin-left: 10px;
+    padding-left: 10px;
 
     svg {
       font-size: 20px;
@@ -60,7 +60,11 @@ div {
   }
 }
 
-input[type="password"] {
+input[type='password'] {
   font-family: Verdana;
   letter-spacing: 0.125em;
+}
+
+input:disabled {
+  background-color: $color-white;
 }

@@ -1,0 +1,36 @@
+@use './../../../styles/variables' as *;
+
+.option-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 15px;
+
+  :hover {
+    background-color: $color-light-grey;
+    cursor: pointer;
+  }
+
+  > div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    height: 37px;
+
+    i {
+      font-size: 23px;
+      color: $color-tertiary;
+    }
+
+    .description {
+      color: $color-tertiary;
+    }
+  }
+
+  .divider {
+    height: 0;
+    margin: 10px 0;
+    border-top: 1px solid #1dbeb4;
+    cursor: default;
+  }
+}

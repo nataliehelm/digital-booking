@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "classnames": "^2.3.2",
+    "date-fns": "^2.29.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
@@ -22,7 +24,9 @@
     "test:coverage": "react-scripts test --coverage .",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "format": "prettier . --write",
+    "prettier": "prettier src -check"
   },
   "eslintConfig": {
     "extends": [
@@ -55,8 +59,13 @@
   "jest": {
     "collectCoverageFrom": [
       "!src/index.js",
-      "!src/stories/*"
-    ]
+      "!src/stories/*",
+      "!src/components/Calendar/*",
+      "!src/hooks/useBreakpoint/*"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.12",
@@ -70,6 +79,9 @@
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "webpack": "^5.74.0"
+    "fetch-mock": "^9.11.0",
+    "prettier": "2.7.1",
+    "webpack": "^5.74.0",
+    "whatwg-fetch": "^3.6.2"
   }
 }

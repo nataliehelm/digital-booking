@@ -8,10 +8,6 @@ const Button = ({ variant, children, classname, onClick, type, disabled }) => {
   const variantClass = {
     b1: "button-1",
     b2: "button-2",
-    b3: "button-3",
-    b4: "button-4",
-    b5: "button-5",
-    b6: "button-6",
   }[variant];
 
   return (
@@ -29,7 +25,7 @@ const Button = ({ variant, children, classname, onClick, type, disabled }) => {
 };
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(["b1", "b2", "b3", "b4", "b5", "b6"]).isRequired,
+  variant: PropTypes.oneOf(["b1", "b2"]).isRequired,
   children: PropTypes.string.isRequired,
   classname: PropTypes.string,
   onClick: PropTypes.func.isRequired,

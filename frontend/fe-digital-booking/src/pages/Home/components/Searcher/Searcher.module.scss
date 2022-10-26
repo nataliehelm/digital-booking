@@ -1,0 +1,70 @@
+@use './../../../../styles/variables' as *;
+
+.searcher-container {
+  h1 {
+    color: $color-white;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    padding: 28px 0;
+    text-align: center;
+  }
+
+  form {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    .cities-container {
+      height: 40px;
+      position: relative;
+
+      .dropdown {
+        position: absolute;
+        background: white;
+        z-index: 2;
+      }
+    }
+
+    .calendars-container {
+      height: 40px;
+      position: relative;
+
+      .calendars {
+        position: absolute;
+        background: white;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .searcher-container {
+    form {
+      padding: 0 30px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+
+      .calendars-container {
+        .calendars {
+          width: 408px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .searcher-container {
+    form {
+      padding: 0 90px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+    }
+  }
+}
