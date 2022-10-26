@@ -1,11 +1,11 @@
 @use "./../../styles/variables" as *;
 
-section {
+.container {
   display: none;
 }
 
 @media (min-width: $md) {
-  section {
+  .container {
     display: flex;
     gap: 16px;
   }

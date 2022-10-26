@@ -6,6 +6,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 
   header {
     background-color: $color-primary;
@@ -37,10 +40,11 @@
 }
 
 .divider-logout {
-  margin: 5px 10px 32px 14px;
+  margin: 5px 10px 7px 14px;
 }
 
 .navbar {
+  background-color: $color-white;
   flex-grow: 1;
 
   ul {
@@ -90,8 +94,19 @@
 .p-logout {
   margin-right: 15px;
   text-align: right;
+  background-color: $color-white;
 }
 
 .span-logout {
   color: $color-primary;
+}
+
+.social-network-container {
+  padding: 30px 15px;
+  background-color: $color-white;
+}
+
+.logout-container {
+  text-align: right;
+  background-color: $color-white;
 }

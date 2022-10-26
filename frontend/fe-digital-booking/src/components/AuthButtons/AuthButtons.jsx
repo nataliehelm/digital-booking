@@ -1,18 +1,18 @@
 import React from "react";
 import { Button } from "../../atoms";
-import "./AuthButtons.module.scss";
+import styles from "./AuthButtons.module.scss";
 import { Link } from "react-router-dom";
 
 const AuthButtons = () => {
   return (
-    <section>
+    <section className={styles.container}>
       <Link to="/signin">
-        <Button variant="b5" onClick={console.log}>
+        <Button variant="b2" onClick={console.log}>
           Crear cuenta
         </Button>
       </Link>
       <Link to="/login">
-        <Button variant="b5" onClick={console.log}>
+        <Button variant="b2" onClick={console.log}>
           Iniciar sesión
         </Button>
       </Link>

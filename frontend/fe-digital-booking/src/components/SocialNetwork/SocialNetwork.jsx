@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./SocialNetwork.module.scss";
+import PropTypes from "prop-types";
+import cn from "classnames";
 
-const SocialNetwork = () => {
+const SocialNetwork = ({ classname }) => {
   return (
-    <div className={styles.social}>
+    <div className={cn(styles.social, classname)}>
       <a href="https:/facebook.com" target="_blank" rel="noreferrer">
         <i className="fa-brands fa-facebook"></i>
       </a>
@@ -18,6 +20,10 @@ const SocialNetwork = () => {
       </a>
     </div>
   );
+};
+
+SocialNetwork.propTypes = {
+  classname: PropTypes.string,
 };
 
 export default SocialNetwork;

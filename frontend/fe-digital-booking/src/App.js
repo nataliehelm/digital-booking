@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { LogIn, SignIn } from "./pages/Auth";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import styles from "./App.module.scss";
 
 function App() {
   return (
@@ -13,8 +14,24 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<Layout children={<Home />} />} />
-            <Route path="/signin" element={<Layout children={<SignIn />} />} />
-            <Route path="/login" element={<Layout children={<LogIn />} />} />
+            <Route
+              path="/signin"
+              element={
+                <Layout
+                  className={styles["auth-background"]}
+                  children={<SignIn />}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Layout
+                  className={styles["auth-background"]}
+                  children={<LogIn />}
+                />
+              }
+            />
           </Routes>
         </div>
         <Footer />
