@@ -8,7 +8,7 @@ const CategoryList = () => {
   const API_URL = "http://localhost:8081/categories";
 
   const { isLoading, errorMessage, data } = useFetch(API_URL);
-  console.log(data);
+
   if (isLoading)
     return (
       <div className={styles["category-list-container"]}>

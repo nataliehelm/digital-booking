@@ -31,5 +31,5 @@ $xl: 1280px;
 
 //Grid Template Columns
 $col-1: 100%;
-$col-2: 50% 50%;
-$col-4: 25% 25% 25% 25%;
+$col-2: repeat(2, 1fr);
+$col-4: repeat(4, 1fr);

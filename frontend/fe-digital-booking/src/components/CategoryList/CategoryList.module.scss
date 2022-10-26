@@ -2,11 +2,10 @@
 
 .category-list-container {
   background-color: $color-white;
-  margin: auto;
+  padding: 36px 13px 3px;
   figure {
     text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 0;
     img {
       width: 50px;
       height: auto;
@@ -14,39 +13,28 @@
   }
   .list-header {
     color: $color-secondary;
-    padding: 36px 13px 3px 13px;
   }
   .list ul {
     display: grid;
     grid-template-columns: $col-1;
-    padding: 10px;
   }
 }
 
 @media (min-width: $md) {
   .category-list-container {
-    .list-header {
-      padding: 23px 27px 3px 27px;
-    }
+    padding: 36px 30px 3px;
     .list ul {
       grid-template-columns: $col-2;
       gap: 14px;
       justify-content: space-around;
-      padding-left: 30px;
-      padding-right: 30px;
     }
   }
 }
 
 @media (min-width: $lg) {
   .category-list-container {
-    .list-header {
-      padding: 23px 40px 3px 40px;
-    }
     .list ul {
       grid-template-columns: $col-4;
-      padding-left: 60px;
-      padding-right: 60px;
     }
   }
 }
