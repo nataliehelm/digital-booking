@@ -1,4 +1,4 @@
-@use "./../../styles/variables" as *;
+@use './../../styles/variables' as *;
 
 .container {
   display: none;
@@ -8,5 +8,12 @@
   .container {
     display: flex;
     gap: 16px;
+    width: 100%;
+  }
+  .container {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
   }
 }
