@@ -12,21 +12,17 @@ describe('useFetch hook', () => {
   });
 
   test('Should fetch a basic request', async () => {
-    fetchMock.mock('https://localhost:8081/categories', {
+    fetchMock.mock(`${process.env.REACT_APP_API_URL}/categories`, {
       data: undefined,
     });
-    const { result } = renderHook(() =>
-      useFetch('https://localhost:8081/categories')
-    );
+    const { result } = renderHook(() => useFetch('categories'));
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
 
   test('Should fetch a basic error', async () => {
-    fetchMock.mock('https://localhost:8081/locations', 500);
-    const { result } = renderHook(() =>
-      useFetch('https://localhost:8081/locations')
-    );
+    fetchMock.mock(`${process.env.REACT_APP_API_URL}/locations`, 500);
+    const { result } = renderHook(() => useFetch('locations'));
 
     await waitFor(() => expect(result.current.isError).toBe(true));
   });

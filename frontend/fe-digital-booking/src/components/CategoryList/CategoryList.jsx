@@ -1,17 +1,17 @@
-import React from "react";
-import styles from "./CategoryList.module.scss";
-import { Heading } from "../../atoms";
-import useFetch from "../../hooks/useFetch";
-import CategoryCard from "../CategoryCard/CategoryCard";
+import React from 'react';
+import styles from './CategoryList.module.scss';
+import { Heading } from '../../atoms';
+import useFetch from '../../hooks/useFetch/useFetch';
+import CategoryCard from '../CategoryCard/CategoryCard';
 
 const CategoryList = () => {
-  const API_URL = "http://localhost:8081/categories";
+  const endpoint = 'categories';
 
-  const { isLoading, errorMessage, data } = useFetch(API_URL);
+  const { isLoading, data } = useFetch(endpoint);
 
   if (isLoading)
     return (
-      <div className={styles["category-list-container"]}>
+      <div className={styles['category-list-container']}>
         <figure>
           <img src="assets/loading-gif.gif" alt="Loading..."></img>
         </figure>
@@ -19,8 +19,8 @@ const CategoryList = () => {
     );
 
   return (
-    <div className={styles["category-list-container"]}>
-      <div className={styles["list-header"]}>
+    <div className={styles['category-list-container']}>
+      <div className={styles['list-header']}>
         <Heading variant="h1">Buscar por tipo de alojamiento</Heading>
       </div>
       <div className={styles.list}>
