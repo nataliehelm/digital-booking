@@ -25,6 +25,7 @@ const Searcher = () => {
       key: 'selection',
     },
   ]);
+  const [locationSelected, setLocationSelected] = useState();
 
   const calendarRef = useRef();
   useOnClickOutside(calendarRef, () => setShowCalendar(false));
@@ -59,7 +60,7 @@ const Searcher = () => {
           <form>
             <div className={styles['cities-container']}>
               <div className={styles.dropdown}>
-                <Dropdown onChange={console.log} options={locations} />
+                <Dropdown onChange={setLocationSelected} options={locations} />
               </div>
             </div>
 
@@ -90,7 +91,7 @@ const Searcher = () => {
             <Button
               variant="b1"
               classname={styles['submit-button']}
-              onClick={console.log}
+              onClick={() => console.log({ datesRange, locationSelected })}
             >
               Buscar
             </Button>

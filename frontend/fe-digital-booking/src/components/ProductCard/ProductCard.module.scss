@@ -1,4 +1,4 @@
-@use "./../../styles/variables" as *;
+@use './../../styles/variables' as *;
 
 .card {
   background-color: $color-white;
@@ -10,13 +10,17 @@
   flex-direction: column;
   margin-bottom: 15px;
   position: relative;
-  .like {
-    position: absolute;
-    right: 0;
-    svg {
-      color: $color-white;
+  .image-container {
+    position: relative;
+    .like {
+      position: absolute;
+      width: auto;
       right: 0;
-      padding: 12px;
+      svg {
+        color: $color-white;
+        right: 0;
+        padding: 12px;
+      }
     }
   }
 
@@ -34,13 +38,23 @@
 
   .card-description {
     padding: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     h4 {
       opacity: 0.6;
     }
-    .description h4 {
-      padding-bottom: 12px;
-      color: $color-secondary;
-      opacity: 1;
+    .description {
+      margin-bottom: 13px;
+      h4 {
+        color: $color-secondary;
+        opacity: 1;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
     .product-name {
       gap: 5px;
@@ -55,9 +69,10 @@
         width: 100%;
       }
       .score-container {
+        width: 50%;
         display: flex;
         flex-direction: column;
-        align-items: end;
+        align-items: flex-end;
       }
       .product-score {
         align-items: center;
@@ -80,7 +95,7 @@
       font-weight: 500;
       gap: 6px;
       padding-bottom: 20px;
-      span {
+      span.show-map {
         color: $color-primary;
       }
       svg {
@@ -105,29 +120,29 @@
         border-radius: 0px 8px 8px 0px;
       }
     }
+    .card-description {
+      height: 100%;
+      .services {
+        display: inline;
+        svg {
+          color: $color-secondary;
+          position: relative;
+          padding: 0 7px 15px 0;
+        }
+      }
+    }
   }
 }
 
 @media (min-width: $lg) {
   .card {
     border-radius: 8px 8px 8px 8px;
-    max-height: 283px;
+    height: 100%;
     figure {
       padding: 0;
       img {
         max-height: 100%;
         border-radius: 8px 8px 8px 8px;
-      }
-    }
-    .card-description {
-      max-height: 283px;
-      .services {
-        display: inline;
-        svg {
-          color: $color-secondary;
-          position: relative;
-          padding: 0 7px 39px 0;
-        }
       }
     }
   }
