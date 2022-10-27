@@ -25,6 +25,36 @@
       gap: 7px;
     }
   }
+  .user-info {
+    display: flex;
+    position: relative;
+    width: 100%;
+    gap: 10px;
+    justify-content: flex-end;
+    max-width: 206px;
+
+    .close-icon {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      cursor: pointer;
+    }
+
+    .avatar {
+      background-color: $color-secondary;
+      color: $color-white;
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      color: $color-grey;
+
+      .user-name {
+        color: $color-primary;
+      }
+    }
+  }
 }
 
 .menu-icon {

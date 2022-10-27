@@ -2,7 +2,7 @@ import { Button, Heading, Text } from '../../../atoms';
 import useInput from '../../../atoms/Input/hooks/useInput';
 import Input from '../../../atoms/Input/Input';
 import styles from './LogIn.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { mandatoryValidator } from '../../../utils/validators';
 import { useMemo, useState } from 'react';
 
@@ -11,7 +11,6 @@ const LogIn = () => {
   const password = useInput('', mandatoryValidator);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({ email: null, password: null });
-  const navigate = useNavigate();
 
   const disabled = useMemo(() => {
     return [email, password].some((item) => item.value === '' || item.hasError);
@@ -38,7 +37,7 @@ const LogIn = () => {
       } else {
         const loggedUser = { ...userData, isLogged: true };
         localStorage.setItem('userInfo', JSON.stringify(loggedUser));
-        navigate('/');
+        window.location = '/';
       }
       setIsLoading(false);
     }, 1000);
