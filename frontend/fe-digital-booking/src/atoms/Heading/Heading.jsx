@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Heading = ({ variant, children, classname }) => {
   const props = { children, className: classname };
@@ -17,8 +17,9 @@ const Heading = ({ variant, children, classname }) => {
 };
 
 Heading.propTypes = {
-  variant: PropTypes.oneOf(["h1", "h2", "h3", "h4"]).isRequired,
-  children: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(['h1', 'h2', 'h3', 'h4']).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    .isRequired,
   classname: PropTypes.string,
 };
 

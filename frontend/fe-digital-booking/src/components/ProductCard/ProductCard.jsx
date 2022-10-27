@@ -23,8 +23,10 @@ const ProductCard = ({
           <div className={styles['product-name']}>
             <div>
               <Heading variant="h4">
-                {category}
-                <img src="assets/starts.png" alt="calificacion" />
+                <span>
+                  {category}
+                  <img src="assets/starts.png" alt="calificacion" />
+                </span>
               </Heading>
               <Heading variant="h1">{title}</Heading>
             </div>
@@ -36,7 +38,10 @@ const ProductCard = ({
           <div className={styles.location}>
             <i className="fa-solid fa-location-dot"></i>
             <Text variant="t1">
-              {location} - <span> MOSTRAR EN EL MAPA</span>
+              <span>
+                {location} -{' '}
+                <span className={styles['show-map']}> MOSTRAR EN EL MAPA</span>
+              </span>
             </Text>
           </div>
           <div className={styles.services}>

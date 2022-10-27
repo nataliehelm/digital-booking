@@ -72,7 +72,7 @@
         width: 50%;
         display: flex;
         flex-direction: column;
-        align-items: end;
+        align-items: flex-end;
       }
       .product-score {
         align-items: center;
@@ -95,7 +95,7 @@
       font-weight: 500;
       gap: 6px;
       padding-bottom: 20px;
-      span {
+      span.show-map {
         color: $color-primary;
       }
       svg {
