@@ -4,7 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
+
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "category_sequence")
     private Long id;
+    @NotEmpty(message = "Title is mandatory")
+    @Column(name = "title", nullable=false, length=80)
     private String title;
+    @NotEmpty(message = "Description is mandatory")
+    @Column(name = "description", nullable=false, length=200)
     private String description;
     private String image_url;
 

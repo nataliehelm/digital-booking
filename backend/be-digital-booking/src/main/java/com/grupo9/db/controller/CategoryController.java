@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,12 +29,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> save(@RequestBody Category category){
+    public ResponseEntity<ApiResponse> save(@Valid @RequestBody Category category){
         return service.save(category);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse> update(@PathVariable("id") Long id, @RequestBody Category category) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse> update(@PathVariable("id") Long id,@Valid @RequestBody Category category) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, category);
     }
 

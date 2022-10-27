@@ -39,20 +39,20 @@ public class LocationService {
 
     public ResponseEntity<ApiResponse> save(Location location){
         Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Location created successfully", location);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location created successfully", location);
     }
 
     public ResponseEntity<ApiResponse> update(Long id, Location location) throws ResourceNotFoundException, BadRequestException {
         location.setId(id);
         this.findById(location.getId());
         Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Location updated successfully", location);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location updated successfully", location);
     }
 
     public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         this.findById(id);
         iLocationRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Location deleted successfully", "");
+        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Location deleted successfully", "");
     }
 
 }

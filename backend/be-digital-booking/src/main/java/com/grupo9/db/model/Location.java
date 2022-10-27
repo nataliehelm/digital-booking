@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,11 +14,17 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "location_sequence")
     private Long id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String iso_id;
+    @NotEmpty
     private String short_name;
+    @NotEmpty
     private String category;
+    @NotEmpty
     private String iso_name;
+    @NotEmpty
     private String country;
 
     @CreationTimestamp

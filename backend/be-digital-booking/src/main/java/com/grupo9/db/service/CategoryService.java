@@ -9,7 +9,9 @@ import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,20 +41,20 @@ public class CategoryService {
 
     public ResponseEntity<ApiResponse> save(Category category){
         Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category created successfully", category);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category created successfully", category);
     }
 
     public ResponseEntity<ApiResponse> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
         category.setId(id);
         this.findById(category.getId());
         Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category updated successfully", category);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category updated successfully", category);
     }
 
     public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         this.findById(id);
         iCategoryRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category deleted successfully", "");
+        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Category deleted successfully", "");
     }
 
 }
