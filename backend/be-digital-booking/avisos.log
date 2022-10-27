@@ -1,0 +1,98 @@
+[2022-10-25 09:22:59] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:35)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:27)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 12:54:10] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:35)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:27)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 14:06:55] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:28)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 14:07:05] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:28)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 14:07:08] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:28)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 14:55:22] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:28)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 21:08:39] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 32 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.controller.CategoryController.findById(CategoryController.java:28)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
+[2022-10-25 21:35:08] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.update(CategoryService.java:49)
+com.grupo9.db.controller.CategoryController.update(CategoryController.java:38)
+
+
+[2022-10-25 21:35:17] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.update(CategoryService.java:49)
+com.grupo9.db.controller.CategoryController.update(CategoryController.java:38)
+
+
+[2022-10-25 21:42:41] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.update(CategoryService.java:49)
+com.grupo9.db.controller.CategoryController.update(CategoryController.java:38)
+
+
+[2022-10-25 21:44:35] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id 5 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.deleteById(CategoryService.java:55)
+com.grupo9.db.controller.CategoryController.deleteById(CategoryController.java:43)
+
+
+[2022-10-25 21:45:13] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.deleteById(CategoryService.java:55)
+com.grupo9.db.controller.CategoryController.deleteById(CategoryController.java:43)
+
+
+[2022-10-25 21:45:25] [ ERROR] [GlobalExceptions:24] ERROR: Description: Category with id -1 not found
+Location: 
+com.grupo9.db.service.CategoryService.findById(CategoryService.java:37)
+com.grupo9.db.service.CategoryService.deleteById(CategoryService.java:55)
+com.grupo9.db.controller.CategoryController.deleteById(CategoryController.java:43)
+
+
+[2022-10-25 21:51:45] [ ERROR] [GlobalExceptions:24] ERROR: Description: Location with id -2 not found
+Location: 
+com.grupo9.db.service.LocationService.findById(LocationService.java:35)
+com.grupo9.db.controller.LocationController.findById(LocationController.java:25)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+
