@@ -11,11 +11,7 @@ import parsedLocations from '../../../../mappers/locations.mapper';
 
 const Searcher = () => {
   const breakpoint = useBreakpoint();
-  const {
-    isLoading,
-    data: _locations,
-    isError,
-  } = useFetch('http://localhost:8081/locations');
+  const { isLoading, data: _locations } = useFetch('locations');
 
   const [locations, setLocations] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
