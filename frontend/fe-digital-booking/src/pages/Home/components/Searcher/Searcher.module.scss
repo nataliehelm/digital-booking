@@ -1,6 +1,8 @@
 @use './../../../../styles/variables' as *;
 
 .searcher-container {
+  background-color: $color-secondary;
+  padding-bottom: 20px;
   h1 {
     color: $color-white;
     font-weight: 700;
