@@ -12,7 +12,7 @@ describe('useFetch hook', () => {
   });
 
   test('Should fetch a basic request', async () => {
-    fetchMock.mock('https://localhost:8081/categories', {
+    fetchMock.mock(`${process.env.REACT_APP_API_URL}/categories`, {
       data: undefined,
     });
     const { result } = renderHook(() => useFetch('categories'));
@@ -21,7 +21,7 @@ describe('useFetch hook', () => {
   });
 
   test('Should fetch a basic error', async () => {
-    fetchMock.mock('https://localhost:8081/locations', 500);
+    fetchMock.mock(`${process.env.REACT_APP_API_URL}/locations`, 500);
     const { result } = renderHook(() => useFetch('locations'));
 
     await waitFor(() => expect(result.current.isError).toBe(true));

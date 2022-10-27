@@ -5,9 +5,9 @@ import useFetch from '../../hooks/useFetch/useFetch';
 import CategoryCard from '../CategoryCard/CategoryCard';
 
 const CategoryList = () => {
-  const API_URL = 'categories';
+  const endpoint = 'categories';
 
-  const { isLoading, data } = useFetch(API_URL);
+  const { isLoading, data } = useFetch(endpoint);
 
   if (isLoading)
     return (

@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cn from "classnames";
-import styles from "./Button.module.scss";
-import { Botton } from "../Botton";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+import styles from './Button.module.scss';
+import { Botton } from '../Botton';
 
 const Button = ({ variant, children, classname, onClick, type, disabled }) => {
   const variantClass = {
-    b1: "button-1",
-    b2: "button-2",
+    b1: 'button-1',
+    b2: 'button-2',
   }[variant];
 
   return (
@@ -25,16 +25,16 @@ const Button = ({ variant, children, classname, onClick, type, disabled }) => {
 };
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(["b1", "b2"]).isRequired,
+  variant: PropTypes.oneOf(['b1', 'b2']).isRequired,
   children: PropTypes.string.isRequired,
   classname: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(["submit", "button"]),
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(['submit', 'button']),
   disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
-  type: "button",
+  type: 'button',
 };
 
 export default Button;
