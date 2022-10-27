@@ -3,11 +3,13 @@ import styles from './Drawer.module.scss';
 import PropTypes from 'prop-types';
 import { Avatar, Botton, Heading, Text } from '../../atoms';
 import SocialNetwork from '../SocialNetwork';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Drawer = ({ setShowDrawer, username }) => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
 
   const handleLogout = () => {
     const loggedUser = { ...userData, isLogged: false };
@@ -42,25 +44,29 @@ const Drawer = ({ setShowDrawer, username }) => {
       <nav className={styles.navbar}>
         {!username && (
           <ul>
-            <li
-              className={styles['navbar-item']}
-              onClick={() => {
-                setShowDrawer(false);
-                navigate('/signin');
-              }}
-            >
-              <Heading variant="h3">Crear cuenta</Heading>
-            </li>
-            <div className={styles.divider} />
-            <li
-              className={styles['navbar-item']}
-              onClick={() => {
-                setShowDrawer(false);
-                navigate('/login');
-              }}
-            >
-              <Heading variant="h3">Inciar sesión</Heading>
-            </li>
+            {(pathname.includes('login') || pathname === '/') && (
+              <li
+                className={styles['navbar-item']}
+                onClick={() => {
+                  setShowDrawer(false);
+                  navigate('/signin');
+                }}
+              >
+                <Heading variant="h3">Crear cuenta</Heading>
+              </li>
+            )}
+            {pathname === '/' && <div className={styles.divider} />}
+            {(pathname.includes('signin') || pathname === '/') && (
+              <li
+                className={styles['navbar-item']}
+                onClick={() => {
+                  setShowDrawer(false);
+                  navigate('/login');
+                }}
+              >
+                <Heading variant="h3">Iniciar sesión</Heading>
+              </li>
+            )}
           </ul>
         )}
       </nav>
