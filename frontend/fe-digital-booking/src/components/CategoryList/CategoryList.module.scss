@@ -14,9 +14,16 @@
   .list-header {
     color: $color-secondary;
   }
-  .list ul {
-    display: grid;
-    grid-template-columns: $col-1;
+  .list {
+    padding-bottom: 10px;
+    ul {
+      display: grid;
+      grid-template-columns: $col-1;
+      gap: 12px;
+      li {
+        height: 100%;
+      }
+    }
   }
 }
 

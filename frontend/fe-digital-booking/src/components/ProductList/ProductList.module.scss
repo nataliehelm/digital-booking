@@ -1,0 +1,23 @@
+@use './../../styles/variables' as *;
+
+.product-list-container {
+  padding: 36px 13px 3px;
+
+  .list-header {
+    color: $color-secondary;
+  }
+  .list ul {
+    display: grid;
+    grid-template-columns: $col-1;
+  }
+}
+
+@media (min-width: $lg) {
+  .product-list-container {
+    padding: 20px 50px;
+    .list ul {
+      grid-template-columns: $col-2;
+      gap: 10px;
+    }
+  }
+}

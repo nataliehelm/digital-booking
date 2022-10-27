@@ -1,3 +1,3 @@
 export const digitalBookingAPI = (endpoint) => {
-  return fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`);
+  return fetch(`http://localhost:8081/${endpoint}`);
 };

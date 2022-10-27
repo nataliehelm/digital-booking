@@ -1,5 +1,6 @@
 import React from 'react';
 import CategoryList from '../../components/CategoryList';
+import ProductList from '../../components/ProductList/ProductList';
 import Searcher from './components/Searcher';
 import styles from './Home.module.scss';
 
@@ -8,6 +9,7 @@ const Home = () => {
     <div className={styles['home-container']}>
       <Searcher />
       <CategoryList />
+      <ProductList />
     </div>
   );
 };
