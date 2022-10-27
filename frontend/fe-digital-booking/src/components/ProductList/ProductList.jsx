@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './ProductList.module.scss';
 import { Heading } from '../../atoms';
-import useFetch from '../../hooks/useFetch';
 import API from './lib/data.json';
 import ProductCard from '../ProductCard';
 
