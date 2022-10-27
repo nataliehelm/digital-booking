@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button, Heading, Text } from '../../../atoms';
 import useInput from '../../../atoms/Input/hooks/useInput';
 import Input from '../../../atoms/Input/Input';
@@ -11,13 +11,19 @@ import {
 } from '../../../utils/validators';
 
 const SignIn = () => {
+  const userData = JSON.parse(localStorage.getItem('userInfo'));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData && userData.isLogged) navigate('/');
+  }, [navigate, userData]);
+
   const name = useInput('', mandatoryValidator);
   const lastname = useInput('', mandatoryValidator);
   const email = useInput('', emailValidator);
   const password = useInput('', passwordValidator);
   let passwordConfirmation = useInput('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   passwordConfirmation = {
     ...passwordConfirmation,

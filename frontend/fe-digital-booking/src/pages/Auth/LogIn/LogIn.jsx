@@ -2,11 +2,18 @@ import { Button, Heading, Text } from '../../../atoms';
 import useInput from '../../../atoms/Input/hooks/useInput';
 import Input from '../../../atoms/Input/Input';
 import styles from './LogIn.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { mandatoryValidator } from '../../../utils/validators';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 const LogIn = () => {
+  const userData = JSON.parse(localStorage.getItem('userInfo'));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData && userData.isLogged) navigate('/');
+  }, [navigate, userData]);
+
   const email = useInput('', mandatoryValidator);
   const password = useInput('', mandatoryValidator);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +25,6 @@ const LogIn = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const userData = JSON.parse(localStorage.getItem('userInfo'));
     if (!userData) {
       setErrors({ email: 'No existen usuarios registrados' });
       return;
