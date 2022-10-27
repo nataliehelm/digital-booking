@@ -41,8 +41,9 @@ const Header = () => {
               <i className="fa-solid fa-bars"></i>
             </span>
           </button>
+
           {username ? (
-            <>
+            <div className={styles['user-info-container']}>
               <aside className={styles['user-info']}>
                 <div className={styles['close-icon']} onClick={handleLogout}>
                   <i className="fa-solid fa-x"></i>
@@ -55,7 +56,7 @@ const Header = () => {
                   </>
                 </Botton>
               </aside>
-            </>
+            </div>
           ) : (
             <AuthButtons />
           )}
