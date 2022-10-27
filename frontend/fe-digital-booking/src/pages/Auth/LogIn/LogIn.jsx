@@ -17,7 +17,7 @@ const LogIn = () => {
   const email = useInput('', mandatoryValidator);
   const password = useInput('', mandatoryValidator);
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({ email: null, password: null });
+  const [errors, setErrors] = useState({ error: null });
 
   const disabled = useMemo(() => {
     return [email, password].some((item) => item.value === '' || item.hasError);
@@ -26,20 +26,21 @@ const LogIn = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!userData) {
-      setErrors({ email: 'No existen usuarios registrados' });
+      setErrors({ error: 'No existen usuarios registrados' });
       return;
     }
     setIsLoading(true);
     const savedEmail = userData.email;
     const savedPassword = userData.password;
 
-    setErrors({ email: null, password: null });
+    setErrors({ error: null });
 
     setTimeout(() => {
-      if (savedEmail !== email.value) {
-        setErrors({ email: 'Email erroneo' });
-      } else if (savedPassword !== password.value) {
-        setErrors({ password: 'Password erroneo' });
+      if (savedEmail !== email.value || savedPassword !== password.value) {
+        setErrors({
+          error:
+            'Por favor vuelva a intentarlo, sus credenciales son inválidas',
+        });
       } else {
         const loggedUser = { ...userData, isLogged: true };
         localStorage.setItem('userInfo', JSON.stringify(loggedUser));
@@ -66,11 +67,6 @@ const LogIn = () => {
             label="Correo electrónico"
             type="email"
           />
-          {errors.email && (
-            <Text variant="t2" classname={styles['error']}>
-              {errors.email}
-            </Text>
-          )}
           <Input
             name="password"
             value={password.value}
@@ -78,9 +74,9 @@ const LogIn = () => {
             label="Contraseña"
             type="password"
           />
-          {errors.password && (
+          {errors.error && (
             <Text variant="t2" classname={styles['error']}>
-              {errors.password}
+              {errors.error}
             </Text>
           )}
           <Button
