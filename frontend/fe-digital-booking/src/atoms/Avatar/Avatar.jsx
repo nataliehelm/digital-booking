@@ -1,14 +1,15 @@
-import React from "react";
-import styles from "./Avatar.module.scss";
-import PropTypes from "prop-types";
-import { Heading } from "../Heading";
+import React from 'react';
+import styles from './Avatar.module.scss';
+import PropTypes from 'prop-types';
+import { Heading } from '../Heading';
+import cn from 'classnames';
 
-const Avatar = ({ username }) => {
-  const firstName = username.split(" ")[0][0].toUpperCase();
-  const lastName = username.split(" ")[1]?.[0].toUpperCase() || "";
+const Avatar = ({ username, classname }) => {
+  const firstName = username.split(' ')[0][0].toUpperCase();
+  const lastName = username.split(' ')[1]?.[0].toUpperCase() || '';
 
   return (
-    <div className={styles["avatar-container"]}>
+    <div className={cn(styles['avatar-container'], classname)}>
       <Heading variant="h2">{`${firstName}${lastName}`}</Heading>
     </div>
   );
@@ -16,6 +17,7 @@ const Avatar = ({ username }) => {
 
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
+  classname: PropTypes.string,
 };
 
 export default Avatar;
