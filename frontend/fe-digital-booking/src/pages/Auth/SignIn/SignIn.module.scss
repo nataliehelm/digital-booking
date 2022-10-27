@@ -9,10 +9,10 @@
 
   .title {
     color: $color-primary;
+    margin-bottom: 14px;
   }
 
   .sign-in-form {
-    margin-top: 10px;
     width: 100%;
     max-width: 300px;
 
@@ -48,6 +48,9 @@
 @media (min-width: $md) {
   .main {
     justify-content: center;
+    .title {
+      margin-bottom: 55px;
+    }
     .sign-in-form {
       width: 100%;
       display: flex;

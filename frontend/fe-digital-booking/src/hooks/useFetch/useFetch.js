@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { digitalBookingAPI } from './../../api/digital-booking.api';
 
 const useFetch = (url) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -6,10 +7,10 @@ const useFetch = (url) => {
   const [isError, setIsError] = useState(null);
 
   useEffect(() => {
-    fetch(url)
+    digitalBookingAPI(url)
       .then((response) => response.json())
       .then((res) => setData(res.data))
-      .catch((e) => {
+      .catch(() => {
         setIsError(true);
         setData(undefined);
       })
