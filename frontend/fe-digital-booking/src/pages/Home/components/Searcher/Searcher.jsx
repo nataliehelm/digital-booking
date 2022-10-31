@@ -1,11 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../../../atoms';
 import Dropdown from '../../../../atoms/Dropdown';
-import Input from '../../../../atoms/Input/Input';
 import Calendar from '../../../../components/Calendar/Calendar';
 import styles from './Searcher.module.scss';
 import useBreakpoint from './../../../../hooks/useBreakpoint';
-import useOnClickOutside from '../../../../hooks/useOnClickOutside/useOnClickOutside';
 import useFetch from '../../../../hooks/useFetch/useFetch';
 import parsedLocations from '../../../../mappers/locations.mapper';
 
@@ -14,7 +12,6 @@ const Searcher = () => {
   const { isLoading, data: _locations } = useFetch('locations');
 
   const [locations, setLocations] = useState([]);
-  const [showCalendar, setShowCalendar] = useState(false);
   const [calendarPlaceholder, setCalendarPlaceholder] = useState(
     'Check in - Check out'
   );
@@ -26,9 +23,6 @@ const Searcher = () => {
     },
   ]);
   const [locationSelected, setLocationSelected] = useState();
-
-  const calendarRef = useRef();
-  useOnClickOutside(calendarRef, () => setShowCalendar(false));
 
   useEffect(() => {
     if (!isLoading) {
@@ -58,43 +52,37 @@ const Searcher = () => {
         <aside className={styles['searcher-container']}>
           <h1>Busca ofertas en hoteles, casas y mucho más</h1>
           <form>
-            <div className={styles['cities-container']}>
-              <div className={styles.dropdown}>
-                <Dropdown onChange={setLocationSelected} options={locations} />
+            <div className={styles['inputs-container']}>
+              <div className={styles['cities-container']}>
+                <div className={styles.dropdown}>
+                  <Dropdown
+                    onChange={setLocationSelected}
+                    options={locations}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div
-              onClick={() => setShowCalendar(true)}
-              className={styles['calendars-container']}
-              ref={calendarRef}
-            >
-              <Input
-                disabled
-                name="basic-input"
-                onChange={() => {}}
-                placeholder={calendarPlaceholder}
-                placeholderIcon={<i className="fa-regular fa-calendar"></i>}
-                value=""
-              />
-              {showCalendar && (
+              <div className={styles['calendars-container']}>
                 <div className={styles.calendars}>
                   <Calendar
                     datesRange={datesRange}
                     setDatesRange={setDatesRange}
-                    months={['sm', 'md'].includes(breakpoint) ? 1 : 2}
+                    months={['sm', 'md', 'lg'].includes(breakpoint) ? 1 : 2}
+                    calendarPlaceholder={calendarPlaceholder}
                   />
                 </div>
-              )}
+              </div>
             </div>
 
-            <Button
-              variant="b1"
-              classname={styles['submit-button']}
-              onClick={() => console.log({ datesRange, locationSelected })}
-            >
-              Buscar
-            </Button>
+            <div className={styles['submit-container']}>
+              <Button
+                variant="b1"
+                classname={styles['submit-button']}
+                onClick={() => console.log({ datesRange, locationSelected })}
+              >
+                Buscar
+              </Button>
+            </div>
           </form>
         </aside>
       )}

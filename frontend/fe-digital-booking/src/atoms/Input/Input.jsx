@@ -16,6 +16,7 @@ const Input = ({
   placeholderIcon,
   onFocus,
   disabled,
+  onClick,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +26,7 @@ const Input = ({
   }, [value]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       {label && (
         <label htmlFor={name}>
           <Text variant="t2" classname={styles.label}>
@@ -87,6 +88,7 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onClick: PropTypes.func,
   onFocus: PropTypes.func,
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
