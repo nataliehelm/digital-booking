@@ -58,43 +58,50 @@ const Searcher = () => {
         <aside className={styles['searcher-container']}>
           <h1>Busca ofertas en hoteles, casas y mucho más</h1>
           <form>
-            <div className={styles['cities-container']}>
-              <div className={styles.dropdown}>
-                <Dropdown onChange={setLocationSelected} options={locations} />
+            <div className={styles['inputs-container']}>
+              <div className={styles['cities-container']}>
+                <div className={styles.dropdown}>
+                  <Dropdown
+                    onChange={setLocationSelected}
+                    options={locations}
+                  />
+                </div>
+              </div>
+
+              <div
+                onClick={() => setShowCalendar(true)}
+                className={styles['calendars-container']}
+                ref={calendarRef}
+              >
+                <Input
+                  disabled
+                  name="basic-input"
+                  onChange={() => {}}
+                  placeholder={calendarPlaceholder}
+                  placeholderIcon={<i className="fa-regular fa-calendar"></i>}
+                  value=""
+                />
+                {showCalendar && (
+                  <div className={styles.calendars}>
+                    <Calendar
+                      datesRange={datesRange}
+                      setDatesRange={setDatesRange}
+                      months={['sm', 'md'].includes(breakpoint) ? 1 : 2}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
-            <div
-              onClick={() => setShowCalendar(true)}
-              className={styles['calendars-container']}
-              ref={calendarRef}
-            >
-              <Input
-                disabled
-                name="basic-input"
-                onChange={() => {}}
-                placeholder={calendarPlaceholder}
-                placeholderIcon={<i className="fa-regular fa-calendar"></i>}
-                value=""
-              />
-              {showCalendar && (
-                <div className={styles.calendars}>
-                  <Calendar
-                    datesRange={datesRange}
-                    setDatesRange={setDatesRange}
-                    months={['sm', 'md'].includes(breakpoint) ? 1 : 2}
-                  />
-                </div>
-              )}
+            <div className={styles['submit-container']}>
+              <Button
+                variant="b1"
+                classname={styles['submit-button']}
+                onClick={() => console.log({ datesRange, locationSelected })}
+              >
+                Buscar
+              </Button>
             </div>
-
-            <Button
-              variant="b1"
-              classname={styles['submit-button']}
-              onClick={() => console.log({ datesRange, locationSelected })}
-            >
-              Buscar
-            </Button>
           </form>
         </aside>
       )}
