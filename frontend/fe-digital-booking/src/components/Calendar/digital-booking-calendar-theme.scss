@@ -61,11 +61,40 @@
   span {
     font-family: 'Roboto' !important;
     font-style: normal !important;
-    font-weight: 700 !important;
-    font-size: 9px !important;
-    line-height: 11px !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.32px !important;
   }
 }
+
+@media (min-width: 768px) {
+  .rdrDay {
+    span {
+      font-family: 'Roboto' !important;
+      font-style: normal !important;
+      font-weight: 700 !important;
+      font-size: 9px !important;
+      line-height: 11px !important;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .rdrMonth {
+    .rdrDay {
+      span {
+        font-family: 'Roboto' !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 12px !important;
+        line-height: 20px !important;
+        letter-spacing: 0.32px !important;
+      }
+    }
+  }
+}
+
 .rdrDayPassive {
   span {
     color: white !important;

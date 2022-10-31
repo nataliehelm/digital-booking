@@ -67,7 +67,7 @@ const Searcher = () => {
                   <Calendar
                     datesRange={datesRange}
                     setDatesRange={setDatesRange}
-                    months={['sm', 'md'].includes(breakpoint) ? 1 : 2}
+                    months={['sm', 'md', 'lg'].includes(breakpoint) ? 1 : 2}
                     calendarPlaceholder={calendarPlaceholder}
                   />
                 </div>
