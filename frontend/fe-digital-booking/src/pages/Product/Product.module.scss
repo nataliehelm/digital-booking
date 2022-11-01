@@ -1,0 +1,15 @@
+@use './../../styles/variables' as *;
+
+.container {
+  padding: 0 10px;
+  .services-title {
+    color: $color-secondary;
+  }
+  .divider {
+    height: 0;
+    margin: 10px 0;
+    border-top: 1.3px solid $color-primary;
+    position: absolute;
+    left: 0;
+  }
+}
