@@ -1,0 +1,14 @@
+@use './../../../../styles/variables' as *;
+
+.description-container {
+  padding: 30px 10px;
+
+  .title {
+    padding-right: 64px;
+    color: $color-secondary;
+  }
+  .description {
+    margin-top: 15px;
+    color: $color-dark-grey;
+  }
+}
