@@ -13,3 +13,15 @@
     left: 0;
   }
 }
+
+@media (min-width: $md) {
+  .container {
+    padding: 0 30px;
+  }
+}
+
+@media (min-width: $lg) {
+  .container {
+    padding: 0 43px;
+  }
+}
