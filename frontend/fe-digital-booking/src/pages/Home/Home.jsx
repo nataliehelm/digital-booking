@@ -1,6 +1,6 @@
 import React from 'react';
-import CategoryList from '../../components/CategoryList';
-import ProductList from '../../components/ProductList/ProductList';
+import CategoryList from './components/CategoryList';
+import ProductList from './components/ProductList';
 import Searcher from './components/Searcher';
 import styles from './Home.module.scss';
 

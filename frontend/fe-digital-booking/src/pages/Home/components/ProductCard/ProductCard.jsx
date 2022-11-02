@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Heading, Text } from '../../atoms';
+import { Button, Heading, Text } from '../../../../atoms';
 import styles from './ProductCard.module.scss';
 
 const ProductCard = ({

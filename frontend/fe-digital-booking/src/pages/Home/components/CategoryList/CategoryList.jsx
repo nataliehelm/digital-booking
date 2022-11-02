@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CategoryList.module.scss';
-import { Heading } from '../../atoms';
-import useFetch from '../../hooks/useFetch/useFetch';
+import { Heading } from '../../../../atoms';
+import useFetch from '../../../../hooks/useFetch/useFetch';
 import CategoryCard from '../CategoryCard/CategoryCard';
 
 const CategoryList = () => {

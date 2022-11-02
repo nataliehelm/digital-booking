@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ProductList.module.scss';
-import { Heading } from '../../atoms';
+import { Heading } from '../../../../atoms';
 import API from './lib/data.json';
 import ProductCard from '../ProductCard';
 
