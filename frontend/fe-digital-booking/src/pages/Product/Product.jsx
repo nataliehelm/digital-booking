@@ -4,6 +4,7 @@ import Services from './components/Services';
 import styles from './Product.module.scss';
 import items from './lib/services.json';
 import Map from './components/Map/Map';
+import Features from './components/Features/Features';
 
 const Product = () => {
   return (
@@ -20,6 +21,7 @@ const Product = () => {
         <Services items={items} />
       </section>
       <Map location="Buenos Aires, Argentina" />
+      <Features partiesAllowed smokeAllowed checkout="10:00" />
     </div>
   );
 };
