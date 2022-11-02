@@ -3,6 +3,7 @@ import Description from './components/Description/Description';
 import Services from './components/Services';
 import styles from './Product.module.scss';
 import items from './lib/services.json';
+import Map from './components/Map/Map';
 
 const Product = () => {
   return (
@@ -18,6 +19,7 @@ const Product = () => {
         <div className={styles.divider}></div>
         <Services items={items} />
       </section>
+      <Map location="Buenos Aires, Argentina" />
     </div>
   );
 };
