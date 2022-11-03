@@ -39,7 +39,7 @@ const Dropdown = ({ options, onChange }) => {
         placeholderIcon={<i className="fa-solid fa-location-dot"></i>}
         onFocus={() => setShowList(true)}
       />
-      {showList && (
+      {showList && !!_options.length && (
         <div className={styles['list-container']}>
           {_options.map((p, index) => (
             <Option

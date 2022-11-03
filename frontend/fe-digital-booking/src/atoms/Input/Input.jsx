@@ -35,6 +35,7 @@ const Input = ({
         </label>
       )}
       <div className={styles['input-container']}>
+        <div className={styles.placeholder}>{placeholderIcon}</div>
         <input
           disabled={disabled}
           id={name}
