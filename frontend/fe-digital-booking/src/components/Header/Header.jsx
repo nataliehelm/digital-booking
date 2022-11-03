@@ -29,7 +29,7 @@ const Header = () => {
         <main className={styles['header-container']} id="header">
           <Link to="/">
             <figure>
-              <img src="assets/logo.svg" alt="DB Logo" />
+              <img src="/assets/logo.svg" alt="DB Logo" />
               <span className={styles['slogan']}>Sentite como en tu hogar</span>
             </figure>
           </Link>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Heading, Text } from '../../atoms';
+import { Button, Heading, Text } from '../../../../atoms';
+import Rank from '../../../../atoms/Rank';
 import styles from './ProductCard.module.scss';
 
 const ProductCard = ({
@@ -25,7 +26,7 @@ const ProductCard = ({
               <Heading variant="h4">
                 <span>
                   {category}
-                  <img src="assets/starts.png" alt="calificacion" />
+                  <Rank ranking={5} />
                 </span>
               </Heading>
               <Heading variant="h1">{title}</Heading>

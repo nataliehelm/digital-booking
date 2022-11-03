@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "label": "Cocina",
+    "icon": "fa-solid fa-kitchen-set"
+  },
+  {
+    "id": 2,
+    "label": "Aire acondicionado",
+    "icon": "fa-regular fa-snowflake"
+  },
+  {
+    "id": 3,
+    "label": "Estacionamiento gratuito",
+    "icon": "fa-solid fa-car"
+  },
+  {
+    "id": 4,
+    "label": "Wifi",
+    "icon": "fa-solid fa-wifi"
+  },
+  {
+    "id": 5,
+    "label": "Televisor",
+    "icon": "fa-solid fa-tv"
+  },
+  {
+    "id": 6,
+    "label": "Apto mascotas",
+    "icon": "fa-solid fa-paw"
+  },
+  {
+    "id": 7,
+    "label": "Pileta",
+    "icon": "fa-solid fa-person-swimming"
+  }
+]
