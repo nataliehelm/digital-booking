@@ -1,5 +1,4 @@
-import { Heading } from '..';
-import Rank from '../Rank/Rank';
+import { Heading } from '../Heading';
 import styles from './Subheader.module.scss';
 
 const Subheader = ({ title, subtitle, onBackClick }) => {
