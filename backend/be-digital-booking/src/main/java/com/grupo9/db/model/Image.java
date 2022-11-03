@@ -21,6 +21,11 @@ public class Image {
     @Column(name = "url", nullable=false, length=200)
     private String url;
 
+    @NotEmpty(message = "product is mandatory")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date created_at;
@@ -31,6 +36,12 @@ public class Image {
     public Image() {
     }
 
+    public Image(String title, String url, Product product) {
+        this.title = title;
+        this.url = url;
+        this.product = product;
+    }
+
     public Image(String title, String url) {
         this.title = title;
         this.url = url;
@@ -38,6 +49,10 @@ public class Image {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -56,8 +71,20 @@ public class Image {
         this.url = url;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public Date getCreated_at() {
         return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public Date getUpdated_at() {
@@ -67,7 +94,6 @@ public class Image {
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
-
 
     @Override
     public String toString() {

@@ -5,7 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name = "product")
@@ -16,20 +16,25 @@ public class Product {
     @NotEmpty(message = "Product name is mandatory")
     @Column(name = "productName", nullable = false, length = 80)
     private String productName;
-    @NotEmpty(message = "Category is mandatory")
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @NotEmpty(message = "Image is mandatory")
-    @ManyToMany
-    @JoinColumn(name = "image_id")
-    private Image image;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @ManyToMany(targetEntity=Feature.class)
+    private Set featureSet;
 
     @NotEmpty(message = "Address is mandatory")
     @Column(name = "address", nullable = false, length = 80)
     private String address;
 
-    @NotEmpty(message = "Score is mandatory")
+    @ElementCollection
+    @Column(name = "coordinates")
+    private List<String> coordinates = new ArrayList<String>();
+
     @Column(name = "score", nullable = false, length = 5)
     private char score;
 
@@ -44,25 +49,30 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, Category category, String address, char score) {
+    public Product(String productName, Category category, Location location, Set featureSet, String address, ArrayList<String> coordinates, char score) {
         this.productName = productName;
         this.category = category;
+        this.location = location;
+        this.featureSet = featureSet;
         this.address = address;
+        this.coordinates = coordinates;
         this.score = score;
     }
-
-    public Product(String productName, Category category, Image image, String address, char score, Date created_at, Date updated_at) {
+    public Product(String productName, Category category, Location location, String address, ArrayList<String> coordinates, char score) {
         this.productName = productName;
         this.category = category;
-        this.image = image;
+        this.location = location;
         this.address = address;
+        this.coordinates = coordinates;
         this.score = score;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProductName() {
@@ -73,12 +83,44 @@ public class Product {
         this.productName = productName;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Set getFeatureSet() {
+        return featureSet;
+    }
+
+    public void setFeatureSet(Set featureSet) {
+        this.featureSet = featureSet;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<String> getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(ArrayList<String> coordinates) {
+        this.coordinates = coordinates;
     }
 
     public char getScore() {
@@ -93,28 +135,16 @@ public class Product {
         return created_at;
     }
 
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
     public Date getUpdated_at() {
         return updated_at;
     }
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     @Override
