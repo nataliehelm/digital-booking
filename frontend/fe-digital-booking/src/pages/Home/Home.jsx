@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from './components/ProductList/ProductList';
+import ProductList from './components/ProductList';
 import CategoryList from './components/CategoryList';
 import Searcher from './components/Searcher';
 import styles from './Home.module.scss';

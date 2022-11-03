@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Heading, Text } from '../../../../atoms';
-import Rank from '../../../../atoms/Rank/Rank';
+import Rank from '../../../../atoms/Rank';
 import styles from './ProductCard.module.scss';
 
 const ProductCard = ({
