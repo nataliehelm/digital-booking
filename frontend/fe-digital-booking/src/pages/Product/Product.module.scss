@@ -29,6 +29,9 @@
 
 .container {
   padding: 0 10px;
+  overflow: hidden;
+  background-color: $color-white;
+
   .services-title {
     color: $color-secondary;
   }
@@ -37,7 +40,7 @@
     margin: 10px 0;
     border-top: 1.3px solid $color-primary;
     margin-left: -43px;
-    width: 100vw;
+    width: 150vw;
   }
 }
 

@@ -64,7 +64,8 @@
       "!src/index.js",
       "!src/stories/*",
       "!src/components/Calendar/*",
-      "!src/hooks/useBreakpoint/*"
+      "!src/hooks/useBreakpoint/*",
+      "!src/pages/Product/components/Map/*"
     ],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"

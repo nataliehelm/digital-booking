@@ -9,6 +9,7 @@ import Subheader from '../../atoms/Subheader';
 import Score from '../../atoms/Score';
 import { Text } from '../../atoms';
 import Rank from '../../atoms/Rank';
+import Features from './components/Features/Features';
 
 const Product = () => {
   const title = 'HOTEL';
@@ -47,6 +48,7 @@ const Product = () => {
           <Services items={items} />
         </section>
         <Map location="Buenos Aires, Argentina" />
+        <Features partiesAllowed smokeAllowed checkout="10:00" />
       </div>
     </>
   );
