@@ -17,6 +17,7 @@ const Input = ({
   onFocus,
   disabled,
   onClick,
+  classname,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +52,9 @@ const Input = ({
           onBlur={() => {
             setShowPlaceholder(true);
           }}
-          className={cn('text-2', { [styles['input-error']]: hasError })}
+          className={cn('text-2', classname, {
+            [styles['input-error']]: hasError,
+          })}
         />
         {type === 'password' && showPassword && (
           <button
@@ -98,6 +101,7 @@ Input.propTypes = {
   placeholderIcon: PropTypes.element,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  classname: PropTypes.string,
 };
 
 Input.defaultProps = {

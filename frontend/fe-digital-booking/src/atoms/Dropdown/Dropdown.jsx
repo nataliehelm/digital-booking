@@ -38,6 +38,7 @@ const Dropdown = ({ options, onChange }) => {
         placeholder="¿A dónde vamos?"
         placeholderIcon={<i className="fa-solid fa-location-dot"></i>}
         onFocus={() => setShowList(true)}
+        classname={styles['input-with-icon']}
       />
       {showList && !!_options.length && (
         <div className={styles['list-container']}>
