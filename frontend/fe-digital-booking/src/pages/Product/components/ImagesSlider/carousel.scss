@@ -52,8 +52,12 @@
   margin: 0 !important;
   margin-right: 10px !important;
   cursor: pointer;
+  border-radius: 10px !important;
 }
 
+.slide,
+.slide .previous,
 .slide img {
-  border-radius: 17.5px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
 }
