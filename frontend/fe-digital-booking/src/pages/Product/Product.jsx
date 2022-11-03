@@ -4,20 +4,36 @@ import Services from './components/Services';
 import styles from './Product.module.scss';
 import items from './lib/services.json';
 import { useNavigate } from 'react-router-dom';
-import Subheader from '../../components/Subheader';
 import Map from './components/Map/Map';
+import Subheader from '../../atoms/Subheader';
+import Score from '../../atoms/Score';
+import { Text } from '../../atoms';
+import Rank from '../../atoms/Rank';
 
 const Product = () => {
   const title = 'HOTEL';
   const subtitle = 'Hermitage Hotel';
+  const address = 'Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina ';
   const navigate = useNavigate();
   const onBackClick = () => {
-    console.log('hola');
     navigate(-1);
   };
   return (
     <>
       <Subheader title={title} subtitle={subtitle} onBackClick={onBackClick} />
+      <div className={styles.location}>
+        <section className={styles.loc}>
+          <i className="fa-solid fa-location-dot"></i>
+          <Text variant="t1">{address}</Text>
+        </section>
+        <section className={styles.ranking}>
+          <div>
+            <Text variant="t1">Muy bueno</Text>
+            <Rank ranking={4} />
+          </div>
+          <Score score={8} />
+        </section>
+      </div>
       <div className={styles.container}>
         <Description
           title="Alójate en el corazón de Buenos Aires"
