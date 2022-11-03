@@ -1,10 +1,6 @@
 @use './../../styles/variables' as *;
 
 .score-container {
-  display: flex;
-  flex-direction: column;
-}
-.product-score {
   align-items: center;
   background-color: $color-secondary;
   border-radius: 10px;
@@ -17,4 +13,5 @@
   justify-content: center;
   text-align: center;
   width: 34px;
+  min-width: 34px;
 }
