@@ -23,7 +23,17 @@ const Header = () => {
   return (
     <>
       {showDrawer && (
-        <Drawer username={username} setShowDrawer={setShowDrawer} />
+        <>
+          <main className={styles['header-container']} id="header">
+            <figure>
+              <img src="/assets/logo.svg" alt="DB Logo" />
+            </figure>
+          </main>
+          <div className={styles['drawer-container']}>
+            <div className={styles['bg-opacity']} />
+            <Drawer username={username} setShowDrawer={setShowDrawer} />
+          </div>
+        </>
       )}
       {!showDrawer && (
         <main className={styles['header-container']} id="header">
