@@ -5,6 +5,7 @@ import styles from './Product.module.scss';
 import items from './lib/services.json';
 import { useNavigate } from 'react-router-dom';
 import Subheader from '../../components/Subheader';
+import Map from './components/Map/Map';
 
 const Product = () => {
   const title = 'HOTEL';
@@ -29,6 +30,7 @@ const Product = () => {
           <div className={styles.divider}></div>
           <Services items={items} />
         </section>
+        <Map location="Buenos Aires, Argentina" />
       </div>
     </>
   );
