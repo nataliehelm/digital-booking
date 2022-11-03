@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Map = ({ location }) => {
   return (
-    <section>
+    <section className={styles['map-container']}>
       <Heading variant="h1" classname={styles['map-title']}>
         ¿Dónde vas a estar?
       </Heading>
