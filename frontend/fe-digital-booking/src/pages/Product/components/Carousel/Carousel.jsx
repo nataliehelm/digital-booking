@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
           <img src={images[0]} alt="img" />
         </div>
         <div className={styles['product-image-right']}>
-          {images.slice(1).map((image, index) => {
+          {images.slice(1, 5).map((image, index) => {
             return <img src={image} key={index} alt=""></img>;
           })}
         </div>

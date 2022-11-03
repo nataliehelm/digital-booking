@@ -23,7 +23,7 @@ const Calendar = ({
   return (
     <div style={{ position: 'relative' }} ref={calendarRef}>
       <Input
-        disabled
+        //disabled
         name="basic-input"
         onChange={() => {}}
         placeholder={calendarPlaceholder}

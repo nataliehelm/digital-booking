@@ -9,7 +9,7 @@ const Header = () => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
   const [showDrawer, setShowDrawer] = useState(false);
   const navigate = useNavigate();
-  const username = userData.isLogged
+  const username = userData?.isLogged
     ? `${userData.name} ${userData.lastname}`
     : undefined;
 

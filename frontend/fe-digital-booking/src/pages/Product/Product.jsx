@@ -10,6 +10,8 @@ import Score from '../../atoms/Score';
 import { Text } from '../../atoms';
 import Rank from '../../atoms/Rank';
 import Features from './components/Features/Features';
+import Carousel from './components/Carousel/Carousel';
+import data from '../Home/components/ProductList/lib/data.json';
 
 const Product = () => {
   const title = 'HOTEL';
@@ -19,6 +21,8 @@ const Product = () => {
   const onBackClick = () => {
     navigate(-1);
   };
+
+  const images = data[0].image_url;
   return (
     <>
       <Subheader title={title} subtitle={subtitle} onBackClick={onBackClick} />
@@ -36,6 +40,7 @@ const Product = () => {
         </section>
       </div>
       <div className={styles.container}>
+        <Carousel images={images} />
         <Description
           title="Alójate en el corazón de Buenos Aires"
           description={`Está situado a solo unas calles de la avenida Alvear, de la avenida Quintana, del parque San Martín y del distrito de Recoleta. En las inmediaciones también hay varios lugares de interés, como la calle Florida, el centro comercial Galerías Pacífico, la zona de Puerto Madero, la plaza de Mayo y el palacio Municipal.\n\nNuestros clientes dicen que esta parte de Buenos Aires es su favorita, según los comentarios independientes.\n\nEl Hotel es un hotel sofisticado de 4 estrellas que goza de una ubicación tranquila, a poca distancia de prestigiosas galerías de arte, teatros, museos y zonas comerciales. Además, hay WiFi gratuita.\nEl establecimiento sirve un desayuno variado de 07:00 a 10:30.`}
