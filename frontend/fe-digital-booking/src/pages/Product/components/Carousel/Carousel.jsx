@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Carousel.module.scss';
 import useBreakpoint from '../../../../hooks/useBreakpoint';
-import ImagesSlider from '../ImagesSlider/ImageSlider';
+import ImagesSlider from '../ImagesSlider';
 
 const Carousel = ({ images }) => {
   const [showSlider, setShowSlider] = useState(false);
