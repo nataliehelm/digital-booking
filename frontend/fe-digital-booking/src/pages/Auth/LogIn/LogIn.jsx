@@ -26,7 +26,9 @@ const LogIn = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!userData) {
-      setErrors({ error: 'No existen usuarios registrados' });
+      setErrors({
+        error: 'Por favor vuelva a intentarlo, sus credenciales son inválidas',
+      });
       return;
     }
     setIsLoading(true);
@@ -44,7 +46,7 @@ const LogIn = () => {
       } else {
         const loggedUser = { ...userData, isLogged: true };
         localStorage.setItem('userInfo', JSON.stringify(loggedUser));
-        window.location = '/';
+        navigate(0);
       }
       setIsLoading(false);
     }, 1000);

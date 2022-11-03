@@ -129,12 +129,15 @@
 }
 
 .rdrMonth {
-  border-left: none;
+  border-left: none !important;
 }
 
 @media (min-width: 1024px) {
   .rdrMonth {
     border-left: 1px solid #a8a8a8 !important;
+  }
+  .rdrMonth:first-child {
+    border-left: none !important;
   }
 }
 

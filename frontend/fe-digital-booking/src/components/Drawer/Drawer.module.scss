@@ -3,11 +3,12 @@
 .drawer-container {
   height: 100vh;
   overflow: hidden;
-  width: 100%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
+  right: 0;
   z-index: 3;
 
   header {
