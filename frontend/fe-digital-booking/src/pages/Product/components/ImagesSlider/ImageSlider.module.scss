@@ -1,26 +1,51 @@
-.modal {
-    position: absolute;
+@use './../../../../styles/variables' as *;
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .modal {
     background-color: rgb(56 59 88 / 0.92);
+    height: 100%;
     width: 100%;
-    padding: 100px;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.close-modal {
-    position: absolute;
-    right: 3rem;
-    top: 3rem;
-    width: 3rem;
-    height: 3rem;
-    color: white;
-}
+    .carousel {
+      width: 100%;
+      position: relative;
+      max-width: 638px;
 
-.slider {
+      .close-modal {
+        width: auto;
+        position: absolute;
+        top: 15px;
+        color: #ffffff;
+        font-size: 24px;
+        z-index: 1;
+        right: 15px;
+        cursor: pointer;
+      }
+
+      .carousel-layout {
+        position: relativa;
+
+        .counter {
+          position: absolute;
+          bottom: 23%;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          width: fit-content;
+        }
+      }
+    }
+  }
+
+  .slider {
     width: 90%;
     height: 90%;
     margin: 0 auto;
+  }
 }
