@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import Map from './components/Map/Map';
 import Subheader from '../../atoms/Subheader';
 import Score from '../../atoms/Score';
-import { Text } from '../../atoms';
+import { Button, Text } from '../../atoms';
 import Rank from '../../atoms/Rank';
 import Features from './components/Features/Features';
 import Carousel from './components/Carousel/Carousel';
 import data from '../Home/components/ProductList/lib/data.json';
+import BookingCalendar from '../Home/components/BookingCalendar/BookingCalendar';
+import useBreakpoint from '../../hooks/useBreakpoint';
 
 const Product = () => {
   const title = 'HOTEL';
@@ -21,6 +23,8 @@ const Product = () => {
   const onBackClick = () => {
     navigate(-1);
   };
+
+  const breakpoint = useBreakpoint();
 
   const images = data[0].image_url;
   return (
@@ -52,6 +56,29 @@ const Product = () => {
           <div className={styles.divider}></div>
           <Services items={items} />
         </section>
+      </div>
+      <div className={styles['booking-calendar']}>
+        <section className={styles['col-left']}>
+          <Heading variant="h1" classname={styles['booking-title']}>
+            Fechas disponibles
+          </Heading>
+          <BookingCalendar months={['sm', 'lg'].includes(breakpoint) ? 1 : 2} />
+        </section>
+        <section className={styles['col-right']}>
+          <Heading variant="h3" classname={styles['booking-subtitle']}>
+            Agregá tus fechas de viaje para obtener precios exactos
+          </Heading>
+          <Button
+            onClick={() => {}}
+            type="submit"
+            variant="b1"
+            classname={styles['booking-button']}
+          >
+            Iniciar reserva
+          </Button>
+        </section>
+      </div>
+      <div className={styles.container}>
         <Map location="Buenos Aires, Argentina" />
         <Features partiesAllowed smokeAllowed checkout="10:00" />
       </div>
