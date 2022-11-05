@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 const Rank = ({ ranking }) => {
   const totalStars = 5;
+  const roundRanking = Math.round(ranking);
 
   return (
     <span className={styles.rank}>
@@ -10,8 +11,8 @@ const Rank = ({ ranking }) => {
         <i
           key={index}
           className={cn('fa-solid fa-star', {
-            [styles['star-on']]: index <= ranking - 1,
-            [styles['star-off']]: index > ranking - 1,
+            [styles['star-on']]: index <= roundRanking - 1,
+            [styles['star-off']]: index > roundRanking - 1,
           })}
         />
       ))}
