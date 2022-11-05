@@ -1,0 +1,49 @@
+stages:      # List of stages for jobs, and their order of execution
+  - test
+  - build
+  - deploy
+cache:
+  paths:
+    - frontend/fe-digital-booking/node_modules/
+build-back:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: maven:3.8.6-eclipse-temurin-17
+  script:
+    - cd backend/be-digital-booking
+    - mvn clean package
+  rules:
+    - changes:
+      - backend/**/*
+
+build-front:       # This job runs in the build stage, which runs first.
+  stage: build
+  image: node:fermium-slim
+  script:
+    - cd frontend/fe-digital-booking
+    - npm i
+    - npm run build
+    - mv build/ ../../
+  artifacts:
+    paths:
+      - build/
+  rules:
+    - changes:
+      - frontend/**/*
+test-front:
+  stage: test
+  image: node:fermium-slim
+  script:
+    - cd frontend/fe-digital-booking
+    - npm test -- --watchAll=false
+deploy-front:
+  stage: deploy
+  image: node:fermium-slim
+  before_script:
+  - apt-get update
+  - apt-get install curl -y && apt-get install unzip -y
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - unzip awscliv2.zip
+  - ./aws/install
+  - aws configure set region $AWS_DEFAULT_REGION
+  script:
+    - aws s3 sync build/ s3://$S3_BUCKET/
