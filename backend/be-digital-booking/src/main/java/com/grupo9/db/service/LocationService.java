@@ -25,7 +25,7 @@ public class LocationService {
 
     public ResponseEntity<ApiResponse> findAll(){
         List<Location> locations = iLocationRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location List successfully",locations);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location List successfully",locations, null);
     }
 
     public ResponseEntity<ApiResponse> findById(Long id) throws ResourceNotFoundException, BadRequestException {
@@ -34,25 +34,25 @@ public class LocationService {
         if(location.isEmpty()){
             throw new ResourceNotFoundException("Location with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location successfully", location.get());
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location successfully", location.get(), null);
     }
 
     public ResponseEntity<ApiResponse> save(Location location){
         Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location created successfully", location);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location created successfully", location, null);
     }
 
     public ResponseEntity<ApiResponse> update(Long id, Location location) throws ResourceNotFoundException, BadRequestException {
         location.setId(id);
         this.findById(location.getId());
         Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location updated successfully", location);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location updated successfully", location, null);
     }
 
     public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         this.findById(id);
         iLocationRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Location deleted successfully", "");
+        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Location deleted successfully", "", null);
     }
 
 }
