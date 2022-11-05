@@ -9,7 +9,7 @@ const Header = () => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
   const [showDrawer, setShowDrawer] = useState(false);
   const navigate = useNavigate();
-  const username = userData.isLogged
+  const username = userData?.isLogged
     ? `${userData.name} ${userData.lastname}`
     : undefined;
 
@@ -23,13 +23,23 @@ const Header = () => {
   return (
     <>
       {showDrawer && (
-        <Drawer username={username} setShowDrawer={setShowDrawer} />
+        <>
+          <main className={styles['header-container']} id="header">
+            <figure>
+              <img src="/assets/logo.svg" alt="DB Logo" />
+            </figure>
+          </main>
+          <div className={styles['drawer-container']}>
+            <div className={styles['bg-opacity']} />
+            <Drawer username={username} setShowDrawer={setShowDrawer} />
+          </div>
+        </>
       )}
       {!showDrawer && (
         <main className={styles['header-container']} id="header">
           <Link to="/">
             <figure>
-              <img src="assets/logo.svg" alt="DB Logo" />
+              <img src="/assets/logo.svg" alt="DB Logo" />
               <span className={styles['slogan']}>Sentite como en tu hogar</span>
             </figure>
           </Link>

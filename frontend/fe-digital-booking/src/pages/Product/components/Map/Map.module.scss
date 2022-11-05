@@ -1,0 +1,25 @@
+@use './../../../../styles/variables' as *;
+
+.map-container {
+  margin-top: 45px;
+  .map-title {
+    color: $color-secondary;
+  }
+
+  .location {
+    color: $color-dark-grey;
+    margin-top: 20px;
+  }
+
+  .divider {
+    height: 0;
+    margin: 10px 0;
+    border-top: 1.3px solid $color-primary;
+    margin-left: -43px;
+    width: 150vw;
+  }
+
+  .map {
+    margin-top: 15px;
+  }
+}

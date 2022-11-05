@@ -20,6 +20,11 @@ div {
     appearance: none;
   }
 
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+
   .input-container {
     position: relative;
   }

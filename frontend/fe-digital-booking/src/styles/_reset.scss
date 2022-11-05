@@ -1,4 +1,4 @@
-@use "./_variables.scss" as *;
+@use './_variables.scss' as *;
 
 * {
   margin: 0;
@@ -16,8 +16,8 @@ ul {
 }
 
 button,
-input[type="submit"],
-input[type="reset"] {
+input[type='submit'],
+input[type='reset'] {
   background: none;
   color: inherit;
   border: none;

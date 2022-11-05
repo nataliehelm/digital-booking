@@ -1,0 +1,15 @@
+@use './../../../../styles/variables' as *;
+
+.description-container {
+  padding: 30px 0px;
+
+  .title {
+    padding-right: 64px;
+    color: $color-secondary;
+  }
+  .description {
+    white-space: pre-line;
+    margin-top: 15px;
+    color: $color-dark-grey;
+  }
+}
