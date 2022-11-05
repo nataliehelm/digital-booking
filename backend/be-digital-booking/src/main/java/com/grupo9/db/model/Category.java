@@ -20,6 +20,7 @@ public class Category {
     @NotEmpty(message = "Description is mandatory")
     @Column(name = "description", nullable=false, length=200)
     private String description;
+    @NotEmpty(message = "Image is mandatory")
     private String image_url;
 
     @CreationTimestamp

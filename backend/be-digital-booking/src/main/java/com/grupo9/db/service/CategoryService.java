@@ -23,12 +23,12 @@ public class CategoryService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Category>>> findAll(){
+    public ResponseEntity<ApiResponse<List<Category>, Object>> findAll(){
         List<Category> categories = iCategoryRepository.findAll();
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category List successfully",categories, null);
     }
 
-    public ResponseEntity<ApiResponse<Category>> findById(Long id) throws ResourceNotFoundException {
+    public ResponseEntity<ApiResponse<Category, Object>> findById(Long id) throws ResourceNotFoundException {
         Optional<Category> category = iCategoryRepository.findById(id);
         if(category.isEmpty()){
             throw new ResourceNotFoundException("Category with id " + id + " not found");
@@ -36,12 +36,12 @@ public class CategoryService {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category successfully", category.get(), null);
     }
 
-    public ResponseEntity<ApiResponse<Category>> save(Category category){
+    public ResponseEntity<ApiResponse<Category, Object>> save(Category category){
         Category response = iCategoryRepository.save(category);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category created successfully", response, null);
     }
 
-    public ResponseEntity<ApiResponse<Category>> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Category, Object>> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = iCategoryRepository.existsById(id);
