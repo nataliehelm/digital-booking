@@ -34,6 +34,7 @@ test-front:
   image: node:fermium-slim
   script:
     - cd frontend/fe-digital-booking
+    - npm i
     - npm test -- --watchAll=false
 deploy-front:
   stage: deploy
