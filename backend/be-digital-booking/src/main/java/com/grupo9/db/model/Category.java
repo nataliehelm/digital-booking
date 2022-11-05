@@ -30,8 +30,6 @@ public class Category {
     @Column(name = "updated_at")
     private Date updated_at;
 
-
-
     public Category() {
     }
 

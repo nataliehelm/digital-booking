@@ -47,7 +47,7 @@ public class ApiResponse<T> {
             return this;
         }
 
-        public ResponseEntity<ApiResponse> build() {
+        public ResponseEntity<ApiResponse<T>> build() {
             ApiResponse<T> apiResponse = new ApiResponse<>(this);
             return ResponseEntity.status(apiResponse.getHttpStatusCode()).body(apiResponse);
         }

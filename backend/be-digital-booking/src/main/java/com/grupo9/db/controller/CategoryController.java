@@ -19,22 +19,22 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> findAll(){
+    public ResponseEntity<ApiResponse<List<Category>>> findAll(){
         return service.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse> findById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Category>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> save(@Valid @RequestBody Category category){
+    public ResponseEntity<ApiResponse<Category>> save(@Valid @RequestBody Category category){
         return service.save(category);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse> update(@PathVariable("id") Long id,@Valid @RequestBody Category category) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Category>> update(@PathVariable("id") Long id, @Valid @RequestBody Category category) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, category);
     }
 
