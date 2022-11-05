@@ -17,7 +17,7 @@ build-back:       # This job runs in the build stage, which runs first.
 
 build-front:       # This job runs in the build stage, which runs first.
   stage: build
-  image: node:fermium-slim
+  image: node:19-alpine3.15 
   script:
     - cd frontend/fe-digital-booking
     - npm i
@@ -31,14 +31,14 @@ build-front:       # This job runs in the build stage, which runs first.
       - frontend/**/*
 test-front:
   stage: test
-  image: node:fermium-slim
+  image: node:19-alpine3.15
   script:
     - cd frontend/fe-digital-booking
     - npm i
     - npm test -- --watchAll=false
 deploy-front:
   stage: deploy
-  image: node:fermium-slim
+  image: node:19-alpine3.15
   before_script:
   - apt-get update
   - apt-get install curl -y && apt-get install unzip -y
