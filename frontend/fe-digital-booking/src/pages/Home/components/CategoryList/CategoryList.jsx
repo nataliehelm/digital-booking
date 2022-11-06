@@ -1,8 +1,7 @@
-import React from 'react';
 import styles from './CategoryList.module.scss';
+import { CategoryCard } from '../CategoryCard';
 import { Heading } from '../../../../atoms';
-import useFetch from '../../../../hooks/useFetch/useFetch';
-import CategoryCard from '../CategoryCard/CategoryCard';
+import { useFetch } from '../../../../hooks';
 
 const CategoryList = () => {
   const endpoint = 'categories';
@@ -30,7 +29,7 @@ const CategoryList = () => {
               <li key={categoria.id}>
                 <CategoryCard
                   img={categoria.image_url}
-                  title={categoria.title}
+                  title={categoria.name}
                   description={categoria.description}
                 />
               </li>

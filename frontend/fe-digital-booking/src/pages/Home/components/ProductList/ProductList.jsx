@@ -1,10 +1,36 @@
-import React from 'react';
-import styles from './ProductList.module.scss';
+import { useMemo } from 'react';
+import { useFetch } from '../../../../hooks';
 import { Heading } from '../../../../atoms';
-import API from './lib/data.json';
-import ProductCard from '../ProductCard';
+import { ProductCard } from '../ProductCard';
+import styles from './ProductList.module.scss';
 
 const ProductList = () => {
+  const { isLoading, data } = useFetch('products');
+
+  // TODO: crear nuevos productos y eliminar la siguiente logica
+  const products = useMemo(() => {
+    if (data)
+      return [
+        data[0],
+        data[0],
+        data[0],
+        data[0],
+        data[0],
+        data[0],
+        data[0],
+        data[0],
+      ];
+  }, [data]);
+
+  if (isLoading)
+    return (
+      <div className={styles['product-list-container']}>
+        <figure>
+          <img src="assets/loading-gif.gif" alt="Loading..."></img>
+        </figure>
+      </div>
+    );
+
   return (
     <div className={styles['product-list-container']}>
       <div className={styles['list-header']}>
@@ -12,16 +38,18 @@ const ProductList = () => {
       </div>
       <div className={styles.list}>
         <ul>
-          {API.slice(0, 8).map((producto) => {
+          {products.slice(0, 8).map((product) => {
             return (
-              <li key={producto.id}>
+              <li key={product.id}>
                 <ProductCard
-                  img={producto.image_url}
-                  category={producto.category.toUpperCase()}
-                  title={producto.title}
-                  score={producto.score}
-                  location={producto.location}
-                  description={producto.description}
+                  id={product.id}
+                  img={product.images[0].url}
+                  category={product.category.name.toUpperCase()}
+                  title={product.name}
+                  score={product.score}
+                  location={product.location.name}
+                  description={product.description}
+                  ranking={product.ranking}
                 />
               </li>
             );

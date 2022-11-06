@@ -1,8 +1,7 @@
-import React from 'react';
-import styles from './Layout.module.scss';
-import useLayoutDimension from './hook';
 import PropTypes from 'prop-types';
+import useLayoutDimension from './hook';
 import cn from 'classnames';
+import styles from './Layout.module.scss';
 
 const Layout = ({ children, className }) => {
   const { headerHeight, fullHeight } = useLayoutDimension();

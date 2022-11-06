@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import { Botton } from "../../Botton";
-import styles from "./Option.module.scss";
+import { Botton } from '../../Botton';
+import PropTypes from 'prop-types';
+import styles from './Option.module.scss';
 
 const Option = ({ icon, title, description, hasBottomBorder, onClick }) => {
   return (
-    <div className={styles["option-container"]}>
+    <div className={styles['option-container']}>
       <div onClick={onClick}>
         {icon}
         <div>

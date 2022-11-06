@@ -1,15 +1,16 @@
-import React from 'react';
-import { Button, Heading, Text } from '../../../../atoms';
-import Rank from '../../../../atoms/Rank';
+import { Link } from 'react-router-dom';
+import { Button, Heading, Text, Rank } from '../../../../atoms';
 import styles from './ProductCard.module.scss';
 
 const ProductCard = ({
+  id,
   img,
   category,
   title,
   score,
   location,
   description,
+  ranking,
 }) => {
   return (
     <div className={styles.card}>
@@ -26,7 +27,7 @@ const ProductCard = ({
               <Heading variant="h4">
                 <span>
                   {category}
-                  <Rank ranking={5} />
+                  <Rank ranking={ranking} />
                 </span>
               </Heading>
               <Heading variant="h1">{title}</Heading>
@@ -54,9 +55,9 @@ const ProductCard = ({
           <div className={styles.description}>
             <Heading variant="h4">{description}</Heading>
           </div>
-          <Button onClick={() => {}} variant="b1">
-            ver más
-          </Button>
+          <Link to={`product/${id}`}>
+            <Button variant="b1">ver más</Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
-import styles from './Input.module.scss';
-import PropTypes from 'prop-types';
-import { Text } from '../Text';
-import cn from 'classnames';
 import { useState, useEffect } from 'react';
+import { Text } from '../Text';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+import styles from './Input.module.scss';
 
 const Input = ({
   type,

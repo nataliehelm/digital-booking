@@ -1,9 +1,8 @@
-import React from 'react';
-import styles from './Drawer.module.scss';
-import PropTypes from 'prop-types';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Botton, Heading, Text } from '../../atoms';
 import SocialNetwork from '../SocialNetwork';
-import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import styles from './Drawer.module.scss';
 
 const Drawer = ({ setShowDrawer, username }) => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));

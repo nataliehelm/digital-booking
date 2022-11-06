@@ -1,6 +1,5 @@
+import { Heading, Text } from '../../../../atoms';
 import PropTypes from 'prop-types';
-import Heading from '../../../../atoms/Heading/Heading';
-import Text from '../../../../atoms/Text/Text';
 import styles from './Description.module.scss';
 
 const Description = ({ title, description }) => {

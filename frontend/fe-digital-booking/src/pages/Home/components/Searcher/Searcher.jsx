@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../../../atoms';
-import Dropdown from '../../../../atoms/Dropdown';
-import Calendar from '../../../../components/Calendar/Calendar';
-import styles from './Searcher.module.scss';
-import useBreakpoint from './../../../../hooks/useBreakpoint';
-import useFetch from '../../../../hooks/useFetch/useFetch';
+import { Button, Dropdown } from '../../../../atoms';
+import { useBreakpoint, useFetch } from './../../../../hooks';
+import { Calendar } from '../../../../components';
 import parsedLocations from '../../../../mappers/locations.mapper';
+import styles from './Searcher.module.scss';
 
 const Searcher = () => {
   const breakpoint = useBreakpoint();

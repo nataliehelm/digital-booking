@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import { useMemo, useRef, useState } from 'react';
-import useOnClickOutside from '../../hooks/useOnClickOutside/useOnClickOutside';
-import useInput from '../Input/hooks/useInput';
-import Input from '../Input/Input';
-import Option from './components/Option';
+import { useInput, Input } from '../Input';
+import { Option } from './components';
+import { useOnClickOutside } from '../../hooks';
+import PropTypes from 'prop-types';
 import styles from './Dropdown.module.scss';
 
 const Dropdown = ({ options, onChange }) => {
