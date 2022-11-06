@@ -7,8 +7,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,20 +18,21 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "policy")
+public class Policy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "category_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "policy_sequence")
     @EqualsAndHashCode.Include
     private Long id;
+
     @NotEmpty(message = "Title is mandatory")
-    @Column(name = "name", nullable=false, length=80)
-    private String name;
-    @NotEmpty(message = "Description is mandatory")
-    @Column(name = "description", nullable=false, length=200)
-    private String description;
-    @NotEmpty(message = "Image is mandatory")
-    private String image_url;
+    @Column(name = "title", nullable=false, length=80)
+    private String title;
+
+    @ManyToMany()
+    @JoinTable(name = "policy_subpolicy", joinColumns = { @JoinColumn(name = "policy_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "subpolicy_id") })
+    private List<SubPolicy> subPolicies = new ArrayList<>();
 
     @CreationTimestamp
     @JsonIgnore
@@ -42,9 +44,8 @@ public class Category {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Category(String name, String description, String image_url) {
-        this.name = name;
-        this.description = description;
-        this.image_url = image_url;
+    public Policy(String title, List<SubPolicy> subPolicies) {
+        this.title = title;
+        this.subPolicies = subPolicies;
     }
 }

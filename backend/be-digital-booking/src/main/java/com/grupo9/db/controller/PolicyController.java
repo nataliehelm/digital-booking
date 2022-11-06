@@ -2,40 +2,40 @@ package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.Category;
-import com.grupo9.db.model.Location;
-import com.grupo9.db.service.LocationService;
+import com.grupo9.db.model.Policy;
+import com.grupo9.db.service.PolicyService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/locations")
-public class LocationController {
+@RequestMapping("/policies")
+public class PolicyController {
     @Autowired
-    private LocationService service;
+    private PolicyService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Location>, Object>> findAll(){
+    public ResponseEntity<ApiResponse<List<Policy>, Object>> findAll(){
         return service.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Location, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<ApiResponse<Policy, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Location, Object>> save(@RequestBody Location location){
-        return service.save(location);
+    public ResponseEntity<ApiResponse<Policy, Object>> save(@Valid @RequestBody Policy policy){
+        return service.save(policy);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Location, Object>> update(@PathVariable("id") Long id, @RequestBody Location location) throws ResourceNotFoundException, BadRequestException {
-        return service.update(id, location);
+    public ResponseEntity<ApiResponse<Policy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Policy policy) throws ResourceNotFoundException, BadRequestException {
+        return service.update(id, policy);
     }
 
     @DeleteMapping(path = "/{id}")
