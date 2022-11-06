@@ -21,15 +21,8 @@ const ImagesSlider = ({ setSlider, images }) => {
           </div>
           <div className={styles['carousel-layout']}>
             <Carousel>
-              {images.map((image, index) => {
-                return (
-                  <img
-                    src={image}
-                    id={`dh-img-${index}`}
-                    key={index}
-                    alt=""
-                  ></img>
-                );
+              {images.map(({ id, title, url }) => {
+                return <img src={url} key={id} alt={title}></img>;
               })}
             </Carousel>
           </div>

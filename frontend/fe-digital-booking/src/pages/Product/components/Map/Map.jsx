@@ -4,7 +4,7 @@ import './leaflet.scss';
 import styles from './Map.module.scss';
 import PropTypes from 'prop-types';
 
-const Map = ({ location }) => {
+const Map = ({ location, coordinates, hotelName }) => {
   return (
     <section className={styles['map-container']}>
       <Heading variant="h1" classname={styles['map-title']}>
@@ -16,18 +16,14 @@ const Map = ({ location }) => {
       </Heading>
 
       <div className={styles['map-container']}>
-        <MapContainer
-          center={[-34.5828949, -58.4240502]}
-          zoom={20}
-          scrollWheelZoom={false}
-        >
+        <MapContainer center={coordinates} zoom={20} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[-34.5828949, -58.4240502]}>
+          <Marker position={coordinates}>
             <Tooltip direction="right" offset={[0, 0]} opacity={1} permanent>
-              Hola 🧐
+              {hotelName}
             </Tooltip>
           </Marker>
         </MapContainer>
@@ -38,6 +34,8 @@ const Map = ({ location }) => {
 
 Map.propTypes = {
   location: PropTypes.string.isRequired,
+  coordinates: PropTypes.array.isRequired,
+  hotelName: PropTypes.string.isRequired,
 };
 
 export default Map;

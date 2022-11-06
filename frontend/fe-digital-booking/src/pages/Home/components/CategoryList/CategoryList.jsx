@@ -30,7 +30,7 @@ const CategoryList = () => {
               <li key={categoria.id}>
                 <CategoryCard
                   img={categoria.image_url}
-                  title={categoria.title}
+                  title={categoria.name}
                   description={categoria.description}
                 />
               </li>

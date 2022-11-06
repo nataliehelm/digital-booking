@@ -1,24 +1,29 @@
 import Heading from '../../atoms/Heading/Heading';
 import Description from './components/Description/Description';
-import Services from './components/Services';
+import Features from './components/Features';
 import styles from './Product.module.scss';
-import items from './lib/services.json';
 import { useNavigate } from 'react-router-dom';
 import Map from './components/Map/Map';
 import Subheader from '../../atoms/Subheader';
 import Score from '../../atoms/Score';
 import { Button, Text } from '../../atoms';
 import Rank from '../../atoms/Rank';
-import Features from './components/Features/Features';
+import Policies from './components/Policies';
 import Carousel from './components/Carousel/Carousel';
-import data from '../Home/components/ProductList/lib/data.json';
-import BookingCalendar from '../Home/components/BookingCalendar/BookingCalendar';
+import BookingCalendar from './components/BookingCalendar';
 import useBreakpoint from '../../hooks/useBreakpoint';
 
-const Product = () => {
-  const title = 'HOTEL';
-  const subtitle = 'Hermitage Hotel';
-  const address = 'Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina ';
+const Product = ({
+  category,
+  name,
+  address,
+  ranking,
+  score,
+  images,
+  features,
+  policies,
+  coordinates,
+}) => {
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
@@ -26,10 +31,9 @@ const Product = () => {
 
   const breakpoint = useBreakpoint();
 
-  const images = data[0].image_url;
   return (
     <>
-      <Subheader title={title} subtitle={subtitle} onBackClick={onBackClick} />
+      <Subheader title={category} subtitle={name} onBackClick={onBackClick} />
       <div className={styles.location}>
         <section className={styles.loc}>
           <i className="fa-solid fa-location-dot"></i>
@@ -38,9 +42,9 @@ const Product = () => {
         <section className={styles.ranking}>
           <div>
             <Text variant="t1">Muy bueno</Text>
-            <Rank ranking={4} />
+            <Rank ranking={ranking} />
           </div>
-          <Score score={8} />
+          <Score score={score} />
         </section>
       </div>
       <div className={styles.container}>
@@ -54,7 +58,7 @@ const Product = () => {
             ¿Qué ofrece este lugar?
           </Heading>
           <div className={styles.divider}></div>
-          <Services items={items} />
+          <Features items={features} />
         </section>
       </div>
       <div className={styles['booking-calendar']}>
@@ -79,8 +83,8 @@ const Product = () => {
         </section>
       </div>
       <div className={styles.container}>
-        <Map location="Buenos Aires, Argentina" />
-        <Features partiesAllowed smokeAllowed checkout="10:00" />
+        <Map location={address} coordinates={coordinates} hotelName={name} />
+        <Policies policies={policies} />
       </div>
     </>
   );

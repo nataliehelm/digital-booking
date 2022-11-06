@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Carousel.module.scss';
 import useBreakpoint from '../../../../hooks/useBreakpoint';
 import ImagesSlider from '../ImagesSlider';
@@ -19,11 +19,11 @@ const Carousel = ({ images }) => {
     <div className={styles['carousel-container']}>
       <div className={styles['product-image-container']}>
         <div className={styles['product-image-left']}>
-          <img src={images[0]} alt="img" />
+          <img src={images[0].url} alt="img" />
         </div>
         <div className={styles['product-image-right']}>
-          {images.slice(1, 5).map((image, index) => {
-            return <img src={image} key={index} alt=""></img>;
+          {images.slice(1, 5).map((image) => {
+            return <img src={image.url} key={image.id} alt={image.title}></img>;
           })}
         </div>
         <button className={styles['button']} onClick={imageSlider}>
@@ -38,22 +38,25 @@ const Carousel = ({ images }) => {
 const CarouselMobile = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const changeImage = useCallback(
+    (index) => {
+      if (index !== images.length - 1) {
+        setCurrentIndex(index + 1);
+      } else {
+        setCurrentIndex(0);
+      }
+    },
+    [images.length]
+  );
+
   useEffect(() => {
     const interval = setInterval(() => changeImage(currentIndex), 3000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
-
-  const changeImage = (index) => {
-    if (index !== images.length - 1) {
-      setCurrentIndex(index + 1);
-    } else {
-      setCurrentIndex(0);
-    }
-  };
+  }, [changeImage, currentIndex]);
 
   return (
     <div className={styles['product-image-container']}>
-      <img src={images[currentIndex]} alt="img" />
+      <img src={images[currentIndex].url} alt="img" />
       <span className={styles['image-number']}>
         {currentIndex + 1}/{images.length}
       </span>
