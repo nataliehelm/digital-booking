@@ -2,40 +2,40 @@ package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.Category;
-import com.grupo9.db.model.Location;
-import com.grupo9.db.service.LocationService;
+import com.grupo9.db.model.SubPolicy;
+import com.grupo9.db.service.SubPolicyService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/locations")
-public class LocationController {
+@RequestMapping("/subPolicies")
+public class SubPolicyController {
     @Autowired
-    private LocationService service;
+    private SubPolicyService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Location>, Object>> findAll(){
+    public ResponseEntity<ApiResponse<List<SubPolicy>, Object>> findAll(){
         return service.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Location, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<ApiResponse<SubPolicy, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Location, Object>> save(@RequestBody Location location){
-        return service.save(location);
+    public ResponseEntity<ApiResponse<SubPolicy, Object>> save(@Valid @RequestBody SubPolicy subPolicy){
+        return service.save(subPolicy);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Location, Object>> update(@PathVariable("id") Long id, @RequestBody Location location) throws ResourceNotFoundException, BadRequestException {
-        return service.update(id, location);
+    public ResponseEntity<ApiResponse<SubPolicy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SubPolicy subPolicy) throws ResourceNotFoundException, BadRequestException {
+        return service.update(id, subPolicy);
     }
 
     @DeleteMapping(path = "/{id}")

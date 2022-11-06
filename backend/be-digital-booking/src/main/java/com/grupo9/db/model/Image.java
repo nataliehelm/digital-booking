@@ -1,5 +1,6 @@
 package com.grupo9.db.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-
 import java.util.Date;
 
 @Getter
@@ -17,20 +17,25 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "image")
+public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "category_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "image_sequence")
     @EqualsAndHashCode.Include
     private Long id;
+
     @NotEmpty(message = "Title is mandatory")
-    @Column(name = "name", nullable=false, length=80)
-    private String name;
-    @NotEmpty(message = "Description is mandatory")
-    @Column(name = "description", nullable=false, length=200)
-    private String description;
-    @NotEmpty(message = "Image is mandatory")
-    private String image_url;
+    @Column(name = "title", nullable=false, length=80)
+    private String title;
+
+    @NotEmpty(message = "URL is mandatory")
+    @Column(name = "url", nullable=false)
+    private String url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    @JsonBackReference
+    private Product product;
 
     @CreationTimestamp
     @JsonIgnore
@@ -42,9 +47,9 @@ public class Category {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Category(String name, String description, String image_url) {
-        this.name = name;
-        this.description = description;
-        this.image_url = image_url;
+    public Image(String title, String url, Product product) {
+        this.title = title;
+        this.url = url;
+        this.product = product;
     }
 }

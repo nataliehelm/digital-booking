@@ -7,7 +7,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -17,24 +16,20 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "location")
-public class Location {
+@Table(name = "feature")
+public class Feature {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "location_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "feature_sequence")
     @EqualsAndHashCode.Include
     private Long id;
-    @NotEmpty
+
+    @NotEmpty(message = "Name is mandatory")
+    @Column(name = "name", nullable=false, length=80)
     private String name;
-    @NotEmpty
-    private String iso_id;
-    @NotEmpty
-    private String short_name;
-    @NotEmpty
-    private String category;
-    @NotEmpty
-    private String iso_name;
-    @NotEmpty
-    private String country;
+
+    @NotEmpty(message = "Icon is mandatory")
+    @Column(name = "icon", nullable=false, length=80)
+    private String icon;
 
     @CreationTimestamp
     @JsonIgnore
@@ -46,12 +41,8 @@ public class Location {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Location(String name, String iso_id, String short_name, String category, String iso_name, String country) {
+    public Feature(String name, String icon) {
         this.name = name;
-        this.iso_id = iso_id;
-        this.short_name = short_name;
-        this.category = category;
-        this.iso_name = iso_name;
-        this.country = country;
+        this.icon = icon;
     }
 }

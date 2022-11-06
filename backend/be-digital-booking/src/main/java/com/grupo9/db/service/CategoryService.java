@@ -9,9 +9,7 @@ import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,36 +23,46 @@ public class CategoryService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse> findAll(){
+    public ResponseEntity<ApiResponse<List<Category>, Object>> findAll(){
         List<Category> categories = iCategoryRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category List successfully",categories);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category List successfully",categories, null);
     }
 
-    public ResponseEntity<ApiResponse> findById(Long id) throws ResourceNotFoundException, BadRequestException {
-        if(id == null) throw new BadRequestException("ID missing");
+    public ResponseEntity<ApiResponse<Category, Object>> findById(Long id) throws ResourceNotFoundException {
         Optional<Category> category = iCategoryRepository.findById(id);
         if(category.isEmpty()){
             throw new ResourceNotFoundException("Category with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category successfully", category.get());
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category successfully", category.get(), null);
     }
 
-    public ResponseEntity<ApiResponse> save(Category category){
+    public ResponseEntity<ApiResponse<Category, Object>> save(Category category){
         Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category created successfully", category);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category created successfully", response, null);
     }
 
-    public ResponseEntity<ApiResponse> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Category, Object>> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
+        if(id == null) throw new BadRequestException("ID missing");
+
+        Boolean exists = iCategoryRepository.existsById(id);
+        if(!exists){
+            throw new ResourceNotFoundException("Category with id " + id + " not found");
+        }
+
         category.setId(id);
-        this.findById(category.getId());
         Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category updated successfully", category);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category updated successfully", response, null);
     }
 
     public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
-        this.findById(id);
+        if(id == null) throw new BadRequestException("ID missing");
+        Boolean exists = iCategoryRepository.existsById(id);
+        if(!exists){
+            throw new ResourceNotFoundException("Category with id " + id + " not found");
+        }
+
         iCategoryRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Category deleted successfully", "");
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category deleted successfully", null, null);
     }
 
 }

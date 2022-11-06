@@ -22,21 +22,21 @@ public class GlobalExceptions {
     public ResponseEntity<ApiResponse> notFoundHandler(ResourceNotFoundException ex){
         String errorDescription = "ERROR: Description: " + ex.getMessage() + '\n' + "Location: " + '\n' + ex.getStackTrace()[0] + '\n' + ex.getStackTrace()[1] + '\n' + ex.getStackTrace()[2] + '\n' + '\n';
         logger.error(errorDescription);
-        return responsesBuilder.buildResponse(HttpStatus.NOT_FOUND.value(),ex.getMessage(), "");
+        return responsesBuilder.buildResponse(HttpStatus.NOT_FOUND.value(),ex.getMessage(), "", null);
     }
 
     @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<ApiResponse> badRequestHandler(BadRequestException ex){
         String errorDescription = "ERROR: Description: " + ex.getMessage() + '\n' + "Location: " + '\n' + ex.getStackTrace()[0] + '\n' + ex.getStackTrace()[1] + '\n' + ex.getStackTrace()[2] + '\n' + '\n';
         logger.error(errorDescription);
-        return responsesBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(),ex.getMessage(), "");
+        return responsesBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(),ex.getMessage(), "", null);
     }
 
     @ExceptionHandler({ReferentialIntegrityException.class})
     public ResponseEntity<ApiResponse> referentialIntegrityHandler(ReferentialIntegrityException ex){
         String errorDescription = "ERROR: Description: " + ex.getMessage() + '\n' + "Location: " + '\n' + ex.getStackTrace()[0] + '\n' + ex.getStackTrace()[1] + '\n' + ex.getStackTrace()[2] + '\n' + '\n';
         logger.error(errorDescription);
-        return responsesBuilder.buildResponse(HttpStatus.NOT_ACCEPTABLE.value(),ex.getMessage(), "");
+        return responsesBuilder.buildResponse(HttpStatus.NOT_ACCEPTABLE.value(),ex.getMessage(), "", null);
     }
 
 }
