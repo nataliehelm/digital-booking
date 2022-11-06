@@ -1,35 +1,28 @@
-import Heading from '../../../../atoms/Heading/Heading';
+import PropTypes from 'prop-types';
+import Text from '../../../../atoms/Text/Text';
 import styles from './Features.module.scss';
-import Feature from './Feature';
+import cn from 'classnames';
 
-const Features = () => {
+const Features = ({ items }) => {
   return (
     <section className={styles['features-container']}>
-      <Heading variant="h1" classname={styles['title']}>
-        Qué tenés que saber
-      </Heading>
-      <div className={styles.divider}></div>
-      <div className={styles.features}>
-        <Feature
-          title="Normas de la casa"
-          items={['Check-out: 10:00', 'No se permiten fiestas', 'No fumar']}
-        />
-        <Feature
-          title="Salud y seguridad"
-          items={[
-            'Se aplican las pautas de distanciamiento social y otras normas relacionadas con el coronavirus',
-            'Detector de humo',
-            'Depósito de seguridad',
-          ]}
-        />
-        <Feature
-          title="Política de cancelación"
-          items={[
-            'Agregá las fechas de tu viaje para obtener los detalles de cancelación de esta estadía.',
-          ]}
-        />
-      </div>
+      {items.map(({ name, icon, id }) => (
+        <article key={id} className={styles.article}>
+          <i className={cn(icon, styles.icon)}></i>
+          <Text variant="t1">{name}</Text>
+        </article>
+      ))}
     </section>
   );
+};
+
+Features.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      icon: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 export default Features;
