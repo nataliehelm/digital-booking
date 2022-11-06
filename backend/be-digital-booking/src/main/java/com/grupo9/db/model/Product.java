@@ -39,6 +39,8 @@ public class Product {
     private String distance_to_nearest_tourist_site;
 
     @Column(name = "ranking", nullable=false)
+    @Min(0)
+    @Max(5)
     private double ranking = 0.0;
 
     @Column(name = "score",nullable=false)
