@@ -1,10 +1,11 @@
+import { Carousel } from 'react-responsive-carousel';
+import useLayoutDimension from '../../../../../../components/Layout/hook/useLayoutDimension';
+
 import styles from './ImageSlider.module.scss';
 import './carousel.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
-import useLayoutDimension from '../../../../components/Layout/hook/useLayoutDimension';
 
-const ImagesSlider = ({ setSlider, images }) => {
+const ImageSlider = ({ setSlider, images }) => {
   const { fullHeight, headerHeight } = useLayoutDimension();
   return (
     <div
@@ -21,15 +22,8 @@ const ImagesSlider = ({ setSlider, images }) => {
           </div>
           <div className={styles['carousel-layout']}>
             <Carousel>
-              {images.map((image, index) => {
-                return (
-                  <img
-                    src={image}
-                    id={`dh-img-${index}`}
-                    key={index}
-                    alt=""
-                  ></img>
-                );
+              {images.map(({ id, title, url }) => {
+                return <img src={url} key={id} alt={title}></img>;
               })}
             </Carousel>
           </div>
@@ -39,4 +33,4 @@ const ImagesSlider = ({ setSlider, images }) => {
   );
 };
 
-export default ImagesSlider;
+export default ImageSlider;

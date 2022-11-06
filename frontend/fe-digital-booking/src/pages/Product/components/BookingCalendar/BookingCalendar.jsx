@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { DateRange } from 'react-date-range';
-import PropTypes from 'prop-types';
 import { es } from 'date-fns/locale';
-import styles from './BookingCalendar.module.scss';
+import PropTypes from 'prop-types';
 
+import styles from './BookingCalendar.module.scss';
 import 'react-date-range/dist/styles.css';
 
 const BookingCalendar = ({ months }) => {

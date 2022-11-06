@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import Feature from './Feature';
+import Policy from './Policy';
 
-describe('<Feature />', () => {
+describe('<Policy />', () => {
   test('Should render basic component with correct inputs', () => {
     render(
-      <Feature
+      <Policy
         title="Normas de la casa"
         items={['Check-out: 10:00', 'No se permiten fiestas', 'No fumar']}
       />

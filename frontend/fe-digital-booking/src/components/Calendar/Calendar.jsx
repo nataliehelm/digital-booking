@@ -1,14 +1,13 @@
-import { DateRange } from 'react-date-range';
 import PropTypes from 'prop-types';
-import styles from './Calendar.module.scss';
-import Button from '../../atoms/Button/Button';
+import { useState, useRef } from 'react';
+import { Button, Input } from '../../atoms';
+import { useOnClickOutside } from '../../hooks';
+import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
 
+import styles from './Calendar.module.scss';
 import 'react-date-range/dist/styles.css';
 import './digital-booking-calendar-theme.scss';
-import Input from '../../atoms/Input/Input';
-import { useState, useRef } from 'react';
-import useOnClickOutside from '../../hooks/useOnClickOutside/useOnClickOutside';
 
 const Calendar = ({
   months,

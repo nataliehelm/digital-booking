@@ -1,8 +1,9 @@
-@use './../../../../styles/variables' as *;
+@use './../../../../../../styles/variables' as *;
 .container {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
 
   .modal {
     background-color: rgb(56 59 88 / 0.92);

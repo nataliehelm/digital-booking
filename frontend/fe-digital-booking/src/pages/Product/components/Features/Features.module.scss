@@ -1,59 +1,39 @@
 @use './../../../../styles/variables' as *;
 
 .features-container {
-  margin-top: 60px;
-  .title {
-    color: $color-secondary;
-  }
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px 0 10px;
+  row-gap: 15px;
 
-  .divider {
-    height: 0;
-    margin: 10px 0;
-    border-top: 1.3px solid $color-primary;
-    margin-left: -43px;
-    width: 150vw;
-  }
-
-  .subtitle {
-    color: $color-tertiary;
-  }
-
-  .feature {
-    margin: 48px 0;
+  .article {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    color: $color-dark-grey;
-    h2 {
-      margin-bottom: 35px;
-    }
+    align-items: center;
+    gap: 8px;
+    width: 50%;
+    padding: 2px 0;
 
-    p {
-      font-weight: 500;
-      width: 85%;
+    .icon {
+      color: $color-primary;
     }
   }
 }
 
 @media (min-width: $md) {
   .features-container {
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-
-      .feature {
-        width: 50%;
-      }
-    }
+    margin-top: 40px;
+    row-gap: 25px;
   }
 }
 
 @media (min-width: $lg) {
   .features-container {
-    .features {
-      .feature {
-        width: 33%;
-      }
+    row-gap: 35px;
+    justify-content: flex-start;
+    .article {
+      width: 25%;
     }
   }
 }

@@ -1,7 +1,6 @@
-import React from 'react';
 import { Button } from '../../atoms';
-import styles from './AuthButtons.module.scss';
 import { Link, useLocation } from 'react-router-dom';
+import styles from './AuthButtons.module.scss';
 
 const AuthButtons = () => {
   const { pathname } = useLocation();

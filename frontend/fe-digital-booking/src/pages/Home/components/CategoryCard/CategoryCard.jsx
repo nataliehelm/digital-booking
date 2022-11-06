@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heading } from '../../../../atoms';
 import styles from './CategoryCard.module.scss';
 
