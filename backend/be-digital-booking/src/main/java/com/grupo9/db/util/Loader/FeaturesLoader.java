@@ -2,8 +2,12 @@ package com.grupo9.db.util.Loader;
 
 import com.grupo9.db.model.Category;
 import com.grupo9.db.model.Feature;
+import com.grupo9.db.model.Location;
+import com.grupo9.db.model.Product;
 import com.grupo9.db.repository.ICategoryRepository;
 import com.grupo9.db.repository.IFeatureRepository;
+import com.grupo9.db.repository.ILocationRepository;
+import com.grupo9.db.repository.IProductRepository;
 
 public class FeaturesLoader {
 

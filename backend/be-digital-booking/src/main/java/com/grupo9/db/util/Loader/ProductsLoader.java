@@ -1,46 +1,55 @@
 package com.grupo9.db.util.Loader;
 
-import com.grupo9.db.exceptions.BadRequestException;
-import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
-import com.grupo9.db.service.CategoryService;
-import com.grupo9.db.util.ApiResponse;
-import org.springframework.http.ResponseEntity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsLoader {
 
-    IProductRepository repository;
+    IProductRepository iProductRepository;
+    ILocationRepository iLocationRepository;
+    ICategoryRepository iCategoryRepository;
+    IFeatureRepository iFeatureRepository;
+    IPolicyRepository iPolicyRepository;
 
-    ICategoryRepository categoryRepository;
-    ILocationRepository locationRepository;
-    IFeatureRepository featureRepository;
-
-    public ProductsLoader(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository) {
-        this.repository = repository;
-        this.categoryRepository = categoryRepository;
-        this.locationRepository = locationRepository;
-        this.featureRepository = featureRepository;
+    public ProductsLoader(IProductRepository iProductRepository, ILocationRepository iLocationRepository, ICategoryRepository iCategoryRepository, IFeatureRepository iFeatureRepository, IPolicyRepository iPolicyRepository) {
+        this.iProductRepository = iProductRepository;
+        this.iLocationRepository = iLocationRepository;
+        this.iCategoryRepository = iCategoryRepository;
+        this.iFeatureRepository = iFeatureRepository;
+        this.iPolicyRepository = iPolicyRepository;
     }
 
-    public void Loader () {
+    public void Loader (){
 
-        Category category = categoryRepository.findById(Long.valueOf(1)).get();
-        Location location = locationRepository.findById(Long.valueOf(1)).get();
-        Feature feature = featureRepository.findById(Long.valueOf(1)).get();
+        Location location1 = iLocationRepository.findById(Long.valueOf(1)).get();
+        Category category1 = iCategoryRepository.findById(Long.valueOf(1)).get();
+        Feature feature1 = iFeatureRepository.findById(Long.valueOf(1)).get();
+        Feature feature2 = iFeatureRepository.findById(Long.valueOf(2)).get();
+        Policy policy1 = iPolicyRepository.findById(Long.valueOf(1)).get();
+        Policy policy2 = iPolicyRepository.findById(Long.valueOf(2)).get();
+        Policy policy3 = iPolicyRepository.findById(Long.valueOf(3)).get();
 
-        List<String> cords = new ArrayList<>();
+        List features = new ArrayList<>();
 
-        cords.add("-10");
-        cords.add("-10");
+        features.add(feature1);
+        features.add(feature2);
 
-        Product product1 = new Product("Hermitage Hotel", category, location, "Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina", (ArrayList<String>) cords, '4');
+        List coordinates = new ArrayList<>();
 
-        System.out.println(product1);
-//        Product product1 = new Product("Hermitage Hotel", category.get(), location.get(), (Set) feature.get(), "Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina", (ArrayList<String>) cords, (char) 4);
+        coordinates.add(-34.5828949);
+        coordinates.add(-58.4240502);
 
-        repository.save(product1);
+        List policies = new ArrayList<>();
+
+        policies.add(policy1);
+        policies.add(policy2);
+        policies.add(policy3);
+
+        Product product1 = new Product("Hermitage Hotel", "A 940 m del centro", 4.0F, 8.0F, "Alójate en el corazón de Buenos Aires" ,"Está situado a solo unas calles de la avenida Alvear, de la avenida Quintana, del parque San Martín y del distrito de Recoleta. En las inmediaciones también hay varios lugares de interés, como la calle Florida, el centro comercial Galerías Pacífico, la zona de Puerto Madero, la plaza de Mayo y el palacio Municipal.\n\n Nuestros clientes dicen que esta parte de Buenos Aires es su favorita, según los comentarios independientes.\n \n El Hotel es un hotel sofisticado de 4 estrellas que goza de una ubicación tranquila, a poca distancia de prestigiosas galerías de arte, teatros, museos y zonas comerciales. Además, hay WiFi gratuita.\n El establecimiento sirve un desayuno variado de 07:00 a 10:30.",coordinates,category1, location1, features, policies);
+
+        iProductRepository.save(product1);
     }
 }

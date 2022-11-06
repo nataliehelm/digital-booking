@@ -1,6 +1,5 @@
 package com.grupo9.db.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,7 +7,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,10 +18,10 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "image")
-public class Image {
+@Table(name = "policy")
+public class Policy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "image_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "policy_sequence")
     @EqualsAndHashCode.Include
     private Long id;
 
@@ -28,14 +29,10 @@ public class Image {
     @Column(name = "title", nullable=false, length=80)
     private String title;
 
-    @NotEmpty(message = "URL is mandatory")
-    @Column(name = "url", nullable=false)
-    private String url;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
-    private Product product;
+    @ManyToMany()
+    @JoinTable(name = "policy_subpolicy", joinColumns = { @JoinColumn(name = "policy_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "subpolicy_id") })
+    private List<SubPolicy> subPolicies = new ArrayList<>();
 
     @CreationTimestamp
     @JsonIgnore
@@ -47,9 +44,8 @@ public class Image {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Image(String title, String url, Product product) {
+    public Policy(String title, List<SubPolicy> subPolicies) {
         this.title = title;
-        this.url = url;
-        this.product = product;
+        this.subPolicies = subPolicies;
     }
 }

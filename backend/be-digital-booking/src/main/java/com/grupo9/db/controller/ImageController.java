@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -18,22 +19,22 @@ public class ImageController {
     private ImageService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> findAll(){
+    public ResponseEntity<ApiResponse<List<Image>, Object>> findAll(){
         return service.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse> findById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Image, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> save(@Valid @RequestBody Image image){
+    public ResponseEntity<ApiResponse<Image, Object>> save(@Valid @RequestBody Image image){
         return service.save(image);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse> update(@PathVariable("id") Long id,@Valid @RequestBody Image image) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Image, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Image image) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, image);
     }
 

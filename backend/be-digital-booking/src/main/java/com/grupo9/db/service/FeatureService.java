@@ -15,44 +15,54 @@ import java.util.Optional;
 
 @Service
 public class FeatureService {
-    private final IFeatureRepository iFeatureRepository;
+    private final IFeatureRepository repository;
     private ResponsesBuilder responsesBuilder;
 
-    public FeatureService(IFeatureRepository iFeatureRepository, ResponsesBuilder responsesBuilder) {
-        this.iFeatureRepository = iFeatureRepository;
+    public FeatureService(IFeatureRepository repository, ResponsesBuilder responsesBuilder) {
+        this.repository = repository;
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse> findAll(){
-        List<Feature> features = iFeatureRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature List successfully",features);
+    public ResponseEntity<ApiResponse<List<Feature>, Object>> findAll(){
+        List<Feature> features = repository.findAll();
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature List successfully",features, null);
     }
 
-    public ResponseEntity<ApiResponse> findById(Long id) throws ResourceNotFoundException, BadRequestException {
-        if(id == null) throw new BadRequestException("ID missing");
-        Optional<Feature> feature = iFeatureRepository.findById(id);
+    public ResponseEntity<ApiResponse<Feature, Object>> findById(Long id) throws ResourceNotFoundException {
+        Optional<Feature> feature = repository.findById(id);
         if(feature.isEmpty()){
             throw new ResourceNotFoundException("Feature with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature successfully", feature.get());
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature successfully", feature.get(), null);
     }
 
-    public ResponseEntity<ApiResponse> save(Feature feature){
-        Feature response = iFeatureRepository.save(feature);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature created successfully", response);
+    public ResponseEntity<ApiResponse<Feature, Object>> save(Feature feature){
+        Feature response = repository.save(feature);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature created successfully", response, null);
     }
 
-    public ResponseEntity<ApiResponse> update(Long id, Feature feature) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Feature, Object>> update(Long id, Feature feature) throws ResourceNotFoundException, BadRequestException {
+        if(id == null) throw new BadRequestException("ID missing");
+
+        Boolean exists = repository.existsById(id);
+        if(!exists){
+            throw new ResourceNotFoundException("Feature with id " + id + " not found");
+        }
+
         feature.setId(id);
-        this.findById(feature.getId());
-        Feature response = iFeatureRepository.save(feature);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature updated successfully", response);
+        Feature response = repository.save(feature);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature updated successfully", response, null);
     }
 
     public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
-        this.findById(id);
-        iFeatureRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Feature deleted successfully", "");
+        if(id == null) throw new BadRequestException("ID missing");
+        Boolean exists = repository.existsById(id);
+        if(!exists){
+            throw new ResourceNotFoundException("Feature with id " + id + " not found");
+        }
+
+        repository.deleteById(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Feature deleted successfully", null, null);
     }
 
 }

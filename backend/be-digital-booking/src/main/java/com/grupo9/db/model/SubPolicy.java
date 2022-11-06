@@ -17,25 +17,17 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "image")
-public class Image {
+@Table(name = "subpolicy")
+public class SubPolicy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "image_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "subpolicy_sequence")
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotEmpty(message = "Title is mandatory")
-    @Column(name = "title", nullable=false, length=80)
-    private String title;
+    @NotEmpty(message = "Description is mandatory")
+    @Column(name = "description", nullable=false)
+    private String description;
 
-    @NotEmpty(message = "URL is mandatory")
-    @Column(name = "url", nullable=false)
-    private String url;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
-    private Product product;
 
     @CreationTimestamp
     @JsonIgnore
@@ -47,9 +39,7 @@ public class Image {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Image(String title, String url, Product product) {
-        this.title = title;
-        this.url = url;
-        this.product = product;
+    public SubPolicy(String description) {
+        this.description = description;
     }
 }
