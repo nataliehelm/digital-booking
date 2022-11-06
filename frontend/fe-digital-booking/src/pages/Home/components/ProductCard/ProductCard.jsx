@@ -1,7 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Heading, Text } from '../../../../atoms';
-import Rank from '../../../../atoms/Rank';
+import { Button, Heading, Text, Rank } from '../../../../atoms';
 import styles from './ProductCard.module.scss';
 
 const ProductCard = ({

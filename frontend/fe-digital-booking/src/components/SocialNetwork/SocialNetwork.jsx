@@ -1,7 +1,6 @@
-import React from 'react';
-import styles from './SocialNetwork.module.scss';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import styles from './SocialNetwork.module.scss';
 
 const SocialNetwork = ({ classname }) => {
   return (

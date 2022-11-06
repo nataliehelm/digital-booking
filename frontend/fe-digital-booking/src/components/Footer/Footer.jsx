@@ -1,4 +1,3 @@
-import React from 'react';
 import { Botton } from '../../atoms';
 import SocialNetwork from '../SocialNetwork';
 import styles from './Footer.module.scss';

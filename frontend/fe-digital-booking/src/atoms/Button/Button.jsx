@@ -1,8 +1,7 @@
-import React from 'react';
+import { Botton } from '../Botton';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import styles from './Button.module.scss';
-import { Botton } from '../Botton';
 
 const Button = ({ variant, children, classname, onClick, type, disabled }) => {
   const variantClass = {

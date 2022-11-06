@@ -1,17 +1,15 @@
-import Heading from '../../atoms/Heading/Heading';
-import Description from './components/Description/Description';
-import Features from './components/Features';
-import styles from './Product.module.scss';
 import { useNavigate } from 'react-router-dom';
-import Map from './components/Map/Map';
-import Subheader from '../../atoms/Subheader';
-import Score from '../../atoms/Score';
-import { Button, Text } from '../../atoms';
-import Rank from '../../atoms/Rank';
-import Policies from './components/Policies';
-import Carousel from './components/Carousel/Carousel';
-import BookingCalendar from './components/BookingCalendar';
-import useBreakpoint from '../../hooks/useBreakpoint';
+import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
+import { useBreakpoint } from '../../hooks';
+import {
+  Description,
+  Features,
+  Map,
+  Policies,
+  Carousel,
+  BookingCalendar,
+} from './components';
+import styles from './Product.module.scss';
 
 const Product = ({
   category,
@@ -83,7 +81,7 @@ const Product = ({
         </section>
       </div>
       <div className={styles.container}>
-        <Map location={address} coordinates={coordinates} hotelName={name} />
+        <Map location={address} coordinates={coordinates} name={name} />
         <Policies policies={policies} />
       </div>
     </>

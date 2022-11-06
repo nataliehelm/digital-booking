@@ -1,7 +1,7 @@
-import Heading from '../../../../atoms/Heading/Heading';
-import styles from './Policies.module.scss';
-import Policy from './Policy';
+import { Heading } from '../../../../atoms';
+import { Policy } from './components';
 import PropTypes from 'prop-types';
+import styles from './Policies.module.scss';
 
 const Policies = ({ policies }) => {
   return (

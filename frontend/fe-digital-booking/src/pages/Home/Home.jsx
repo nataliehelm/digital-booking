@@ -1,7 +1,4 @@
-import React from 'react';
-import ProductList from './components/ProductList';
-import CategoryList from './components/CategoryList';
-import Searcher from './components/Searcher';
+import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
 
 const Home = () => {

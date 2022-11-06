@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useBreakpoint } from '../../../../hooks';
+import { ImageSlider } from './components/ImageSlider';
 import styles from './Carousel.module.scss';
-import useBreakpoint from '../../../../hooks/useBreakpoint';
-import ImagesSlider from '../ImagesSlider';
 
 const Carousel = ({ images }) => {
   const [showSlider, setShowSlider] = useState(false);
@@ -30,7 +30,7 @@ const Carousel = ({ images }) => {
           Ver más
         </button>
       </div>
-      {showSlider && <ImagesSlider setSlider={setShowSlider} images={images} />}
+      {showSlider && <ImageSlider setSlider={setShowSlider} images={images} />}
     </div>
   );
 };

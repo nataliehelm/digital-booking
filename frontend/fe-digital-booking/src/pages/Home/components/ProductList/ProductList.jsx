@@ -1,9 +1,8 @@
-import React from 'react';
-import styles from './ProductList.module.scss';
-import { Heading } from '../../../../atoms';
-import ProductCard from '../ProductCard';
-import useFetch from '../../../../hooks/useFetch/useFetch';
 import { useMemo } from 'react';
+import { useFetch } from '../../../../hooks';
+import { Heading } from '../../../../atoms';
+import { ProductCard } from '../ProductCard';
+import styles from './ProductList.module.scss';
 
 const ProductList = () => {
   const { isLoading, data } = useFetch('products');

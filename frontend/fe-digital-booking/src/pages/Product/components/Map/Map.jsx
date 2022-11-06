@@ -1,10 +1,11 @@
 import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
-import Heading from '../../../../atoms/Heading/Heading';
-import './leaflet.scss';
-import styles from './Map.module.scss';
+import { Heading } from '../../../../atoms';
 import PropTypes from 'prop-types';
 
-const Map = ({ location, coordinates, hotelName }) => {
+import './leaflet.scss';
+import styles from './Map.module.scss';
+
+const Map = ({ location, coordinates, name }) => {
   return (
     <section className={styles['map-container']}>
       <Heading variant="h1" classname={styles['map-title']}>
@@ -23,7 +24,7 @@ const Map = ({ location, coordinates, hotelName }) => {
           />
           <Marker position={coordinates}>
             <Tooltip direction="right" offset={[0, 0]} opacity={1} permanent>
-              {hotelName}
+              {name}
             </Tooltip>
           </Marker>
         </MapContainer>
@@ -35,7 +36,7 @@ const Map = ({ location, coordinates, hotelName }) => {
 Map.propTypes = {
   location: PropTypes.string.isRequired,
   coordinates: PropTypes.array.isRequired,
-  hotelName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Map;

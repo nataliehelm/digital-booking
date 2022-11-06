@@ -1,7 +1,7 @@
+import { Text } from '../../../../atoms';
 import PropTypes from 'prop-types';
-import Text from '../../../../atoms/Text/Text';
-import styles from './Features.module.scss';
 import cn from 'classnames';
+import styles from './Features.module.scss';
 
 const Features = ({ items }) => {
   return (

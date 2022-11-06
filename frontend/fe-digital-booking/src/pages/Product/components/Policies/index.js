@@ -1,1 +1,1 @@
-export { default } from './Policies';
+export { default as Policies } from './Policies';

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import AuthButtons from '../AuthButtons';
-import { Drawer } from '../Drawer';
-import styles from './Header.module.scss';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Botton } from '../../atoms';
+import { Drawer } from '../Drawer';
+import AuthButtons from '../AuthButtons';
+import styles from './Header.module.scss';
 
 const Header = () => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
@@ -25,7 +25,7 @@ const Header = () => {
       {showDrawer && (
         <>
           <main className={styles['header-container']} id="header">
-            <figure>
+            <figure style={{ marginTop: '4px' }}>
               <img src="/assets/logo.svg" alt="DB Logo" />
             </figure>
           </main>

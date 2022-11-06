@@ -1,3 +1,3 @@
 export * from './useBreakpoint';
-export * from './useFetch/useFetch';
-export * from './useOnClickOutside/useOnClickOutside';
+export * from './useFetch';
+export * from './useOnClickOutside';

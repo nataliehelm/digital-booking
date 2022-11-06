@@ -1,8 +1,7 @@
+import { Heading, Text } from '../../../../../../atoms';
 import React from 'react';
-import Heading from '../../../../atoms/Heading/Heading';
-import styles from './Policies.module.scss';
 import PropTypes from 'prop-types';
-import Text from '../../../../atoms/Text/Text';
+import styles from './../../Policies.module.scss';
 
 const Policy = ({ subPolicies, title }) => {
   return (

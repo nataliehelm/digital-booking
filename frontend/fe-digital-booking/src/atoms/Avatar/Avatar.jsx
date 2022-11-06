@@ -1,7 +1,6 @@
-import React from 'react';
+import { Heading } from '../Heading';
 import styles from './Avatar.module.scss';
 import PropTypes from 'prop-types';
-import { Heading } from '../Heading';
 import cn from 'classnames';
 
 const Avatar = ({ username, classname }) => {

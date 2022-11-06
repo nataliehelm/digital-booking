@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Button, Heading, Text } from '../../../atoms';
-import useInput from '../../../atoms/Input/hooks/useInput';
-import Input from '../../../atoms/Input/Input';
-import styles from './SignIn.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button, Heading, Text, Input, useInput } from '../../../atoms';
 import {
   emailValidator,
   mandatoryValidator,
   passwordValidator,
 } from '../../../utils/validators';
+import styles from './SignIn.module.scss';
 
 const SignIn = () => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
