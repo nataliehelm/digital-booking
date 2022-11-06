@@ -24,8 +24,8 @@ public class Category {
     @EqualsAndHashCode.Include
     private Long id;
     @NotEmpty(message = "Title is mandatory")
-    @Column(name = "title", nullable=false, length=80)
-    private String title;
+    @Column(name = "name", nullable=false, length=80)
+    private String name;
     @NotEmpty(message = "Description is mandatory")
     @Column(name = "description", nullable=false, length=200)
     private String description;
@@ -42,8 +42,8 @@ public class Category {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Category(String title, String description, String image_url) {
-        this.title = title;
+    public Category(String name, String description, String image_url) {
+        this.name = name;
         this.description = description;
         this.image_url = image_url;
     }
