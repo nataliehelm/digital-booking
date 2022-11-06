@@ -28,10 +28,10 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        PoliciesLoader policiesLoader = new PoliciesLoader(iPolicyRepository);
-        policiesLoader.Loader();
-        SubPoliciesLoader subPoliciesLoader = new SubPoliciesLoader(iPolicyRepository, iSubPolicyRepository);
+        SubPoliciesLoader subPoliciesLoader = new SubPoliciesLoader(iSubPolicyRepository);
         subPoliciesLoader.Loader();
+        PoliciesLoader policiesLoader = new PoliciesLoader(iPolicyRepository, iSubPolicyRepository);
+        policiesLoader.Loader();
         CategoriesLoader categoriesLoader = new CategoriesLoader(iCategoryRepository);
         categoriesLoader.Loader();
         LocationsLoader locationsLoader = new LocationsLoader(iLocationRepository);
@@ -40,7 +40,7 @@ public class DataLoader implements ApplicationRunner {
         featuresLoader.Loader();
         ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
         productsLoader.Loader();
-//        ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
-//        imagesLoader.Loader();
+        ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
+        imagesLoader.Loader();
     }
 }

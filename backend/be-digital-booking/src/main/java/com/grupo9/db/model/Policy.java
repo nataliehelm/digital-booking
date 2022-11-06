@@ -32,15 +32,10 @@ public class Policy {
     @Column(name = "title", nullable=false, length=80)
     private String title;
 
-//    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference
-//    private Set<SubPolicy> subPolicies;
-
-//    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
-//    @OrderBy("id ASC")
-//    @JsonManagedReference
-//    private Set<SubPolicy> subPolicies;
+    @ManyToMany()
+    @JoinTable(name = "policy_subpolicy", joinColumns = { @JoinColumn(name = "policy_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "subpolicy_id") })
+    private List<SubPolicy> subPolicies = new ArrayList<>();
 
     @CreationTimestamp
     @JsonIgnore
@@ -52,7 +47,8 @@ public class Policy {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Policy(String title) {
+    public Policy(String title, List<SubPolicy> subPolicies) {
         this.title = title;
+        this.subPolicies = subPolicies;
     }
 }

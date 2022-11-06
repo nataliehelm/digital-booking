@@ -28,11 +28,6 @@ public class SubPolicy {
     @Column(name = "description", nullable=false)
     private String description;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "policy_id", nullable = false)
-//    @JsonBackReference
-//    private Policy policy;
-
 
     @CreationTimestamp
     @JsonIgnore
@@ -44,8 +39,7 @@ public class SubPolicy {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public SubPolicy(String description, Policy policy) {
+    public SubPolicy(String description) {
         this.description = description;
-//        this.policy = policy;
     }
 }
