@@ -47,35 +47,7 @@ public class ProductService {
     }
 
     public ResponseEntity<ApiResponse<Product, Object>> save(SaveProductDto productDto) throws ResourceNotFoundException {
-
-        Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());
-        if(category.isEmpty()){
-            throw new ResourceNotFoundException("Category with id " + productDto.getCategoryId() + " not found");
-        }
-        Optional<Location> location = locationRepository.findById(productDto.getLocationId());
-        if(location.isEmpty()){
-            throw new ResourceNotFoundException("Location with id " + productDto.getLocationId() + " not found");
-        }
-
-        List<Feature> features = new ArrayList<>();
-        for(Long id:productDto.getFeatureIds()){
-            Optional<Feature> feature = featureRepository.findById(id);
-            if(feature.isEmpty()){
-                throw new ResourceNotFoundException("Feature with id " + id + " not found");
-            }
-            features.add(feature.get());
-        }
-
-        List<Policy> policies = new ArrayList<>();
-        for(Long id:productDto.getPoliciyIds()){
-            Optional<Policy> policy = policyRepository.findById(id);
-            if(policy.isEmpty()){
-                throw new ResourceNotFoundException("Policy with id " + id + " not found");
-            }
-            policies.add(policy.get());
-        }
-
-        Product product = new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), features, policies);
+        Product product = checkRelations(productDto, null);
         Product response = repository.save(product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
     }
@@ -87,6 +59,25 @@ public class ProductService {
         if(!exists){
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
+
+        Product product = checkRelations(productDto, id);
+        Product response = repository.save(product);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product updated successfully", response, null);
+    }
+
+    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+        if(id == null) throw new BadRequestException("ID missing");
+        Boolean exists = repository.existsById(id);
+        if(!exists){
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        }
+
+        repository.deleteById(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Product deleted successfully", null, null);
+    }
+
+    private Product checkRelations (SaveProductDto productDto, Long id) throws ResourceNotFoundException {
+
 
         Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());
         if(category.isEmpty()){
@@ -115,20 +106,11 @@ public class ProductService {
             policies.add(policy.get());
         }
 
-        Product product = new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), features, policies);
-        Product response = repository.save(product);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product updated successfully", response, null);
-    }
-
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
-        if(id == null) throw new BadRequestException("ID missing");
-        Boolean exists = repository.existsById(id);
-        if(!exists){
-            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        if(id != null){
+            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), features, policies);
         }
 
-        repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Product deleted successfully", null, null);
+        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), features, policies);
     }
 
 }
