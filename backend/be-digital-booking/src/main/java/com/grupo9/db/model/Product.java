@@ -9,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
@@ -101,9 +100,22 @@ public class Product {
         this.features = features;
     }
 
-    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, List<Feature> features
-            , List<Policy> policies
-    ) {
+    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, List<Feature> features, List<Policy> policies) {
+        this.name = name;
+        this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
+        this.ranking = ranking;
+        this.score = score;
+        this.description_title = description_title;
+        this.description = description;
+        this.coordinates = coordinates;
+        this.category = category;
+        this.location = location;
+        this.features = features;
+        this.policies = policies;
+    }
+
+    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, List<Double> coordinates, Category category, Location location, List<Feature> features, List<Policy> policies) {
+        this.id = id;
         this.name = name;
         this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
         this.ranking = ranking;
