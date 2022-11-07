@@ -42,11 +42,7 @@ public class ImageService {
     }
 
     public ResponseEntity<ApiResponse<Image, Object>> save(SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
-        Optional<Product> product = productRepository.findById(imageDto.getProduct_id());
-        if(product.isEmpty()){
-            throw new ResourceNotFoundException("Product with id " + imageDto.getProduct_id() + " not found");
-        }
-        Image image = new Image(imageDto.getTitle(), imageDto.getUrl(), product.get());
+        Image image = checkRelations(imageDto, null);
         Image response = repository.save(image);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image created successfully", response, null);
     }
@@ -54,17 +50,12 @@ public class ImageService {
     public ResponseEntity<ApiResponse<Image, Object>> update(Long id, SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
-        Optional<Product> product = productRepository.findById(imageDto.getProduct_id());
-        if(product.isEmpty()){
-            throw new ResourceNotFoundException("Product with id " + imageDto.getProduct_id() + " not found");
-        }
-
         Boolean exists = repository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Image with id " + id + " not found");
         }
 
-        Image image = new Image(id, imageDto.getTitle(), imageDto.getUrl(), product.get());
+        Image image = checkRelations(imageDto, id);
         Image response = repository.save(image);
 
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image updated successfully", response, null);
@@ -76,9 +67,23 @@ public class ImageService {
         if(!exists){
             throw new ResourceNotFoundException("Image with id " + id + " not found");
         }
-
         repository.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully", null, null);
+    }
+
+    private Image checkRelations (SaveImageDto imageDto, Long id) throws ResourceNotFoundException {
+
+        Optional<Product> product = productRepository.findById(imageDto.getProduct_id());
+
+        if(product.isEmpty()){
+            throw new ResourceNotFoundException("Product with id " + imageDto.getProduct_id() + " not found");
+        }
+
+        if(id != null){
+            return new Image(id, imageDto.getTitle(), imageDto.getUrl(), product.get());
+        }
+
+        return new Image(imageDto.getTitle(), imageDto.getUrl(), product.get());
     }
 
 }
