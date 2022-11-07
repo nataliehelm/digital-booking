@@ -1594,7 +1594,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Image 1\",\n  \"url\": \"localhost:8080/mi_logo\",\n  \"product_id\": 2\n}",
+							"raw": "{\n  \"title\": \"Image 1\",\n  \"url\": \"localhost:8080/mi_logo\",\n  \"product_id\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2242,7 +2242,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/6",
+							"raw": "http://localhost:8081/policies/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2250,7 +2250,7 @@
 							"port": "8081",
 							"path": [
 								"policies",
-								"6"
+								"4"
 							]
 						}
 					},
