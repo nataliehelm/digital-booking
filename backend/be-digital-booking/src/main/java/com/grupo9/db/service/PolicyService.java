@@ -43,15 +43,7 @@ public class PolicyService {
     }
 
     public ResponseEntity<ApiResponse<Policy, Object>> save(SavePolicyDto policyDto) throws ResourceNotFoundException {
-        List<SubPolicy> subPolicies = new ArrayList<>();
-        for(Long id:policyDto.getSubPolicyIds()){
-            Optional<SubPolicy> subPolicy = subPolicyRepository.findById(id);
-            if(subPolicy.isEmpty()){
-                throw new ResourceNotFoundException("Subpolicy with id " + id + " not found");
-            }
-            subPolicies.add(subPolicy.get());
-        }
-        Policy policy = new Policy(policyDto.getTitle(), subPolicies);
+        Policy policy = checkRelations(policyDto, null);
         Policy response = repository.save(policy);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Policy created successfully", response, null);
     }
@@ -59,21 +51,12 @@ public class PolicyService {
     public ResponseEntity<ApiResponse<Policy, Object>> update(Long id, SavePolicyDto policyDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
-        List<SubPolicy> subPolicies = new ArrayList<>();
-        for(Long subPolicyId:policyDto.getSubPolicyIds()){
-            Optional<SubPolicy> subPolicy = subPolicyRepository.findById(subPolicyId);
-            if(subPolicy.isEmpty()){
-                throw new ResourceNotFoundException("Subpolicy with id " + subPolicyId + " not found");
-            }
-            subPolicies.add(subPolicy.get());
-        }
-
         Boolean exists = repository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Policy with id " + id + " not found");
         }
 
-        Policy policy = new Policy(id, policyDto.getTitle(), subPolicies);
+        Policy policy = checkRelations(policyDto, id);
         Policy response = repository.save(policy);
 
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Policy updated successfully", response, null);
@@ -88,6 +71,24 @@ public class PolicyService {
 
         repository.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Policy deleted successfully", null, null);
+    }
+
+    private Policy checkRelations (SavePolicyDto policyDto, Long id) throws ResourceNotFoundException {
+
+        List<SubPolicy> subPolicies = new ArrayList<>();
+        for(Long subPolicyId:policyDto.getSubPolicyIds()){
+            Optional<SubPolicy> subPolicy = subPolicyRepository.findById(subPolicyId);
+            if(subPolicy.isEmpty()){
+                throw new ResourceNotFoundException("Subpolicy with id " + subPolicyId + " not found");
+            }
+            subPolicies.add(subPolicy.get());
+        }
+
+        if(id != null){
+            return new Policy(id, policyDto.getTitle(), subPolicies);
+        }
+
+        return new Policy(policyDto.getTitle(), subPolicies);
     }
 
 }
