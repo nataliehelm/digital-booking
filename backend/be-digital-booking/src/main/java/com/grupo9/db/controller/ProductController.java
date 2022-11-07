@@ -1,5 +1,6 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Product;
@@ -29,12 +30,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody Product product){
+    public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
         return service.save(product);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Product, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Product product) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Product, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, product);
     }
 
