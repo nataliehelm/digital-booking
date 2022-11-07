@@ -48,4 +48,10 @@ public class Policy {
         this.title = title;
         this.subPolicies = subPolicies;
     }
+
+    public Policy(Long id, String title, List<SubPolicy> subPolicies) {
+        this.id = id;
+        this.title = title;
+        this.subPolicies = subPolicies;
+    }
 }

@@ -1,5 +1,6 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Policy.SavePolicyDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Policy;
@@ -29,12 +30,12 @@ public class PolicyController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Policy, Object>> save(@Valid @RequestBody Policy policy){
+    public ResponseEntity<ApiResponse<Policy, Object>> save(@Valid @RequestBody SavePolicyDto policy) throws ResourceNotFoundException {
         return service.save(policy);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Policy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Policy policy) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Policy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SavePolicyDto policy) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, policy);
     }
 
