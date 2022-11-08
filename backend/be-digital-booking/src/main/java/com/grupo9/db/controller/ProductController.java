@@ -7,11 +7,13 @@ import com.grupo9.db.model.Product;
 import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -27,6 +29,11 @@ public class ProductController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Product, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         return service.findById(id);
+    }
+
+    @GetMapping(path = "/filters")
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
+        return service.findByParams(params);
     }
 
     @PostMapping

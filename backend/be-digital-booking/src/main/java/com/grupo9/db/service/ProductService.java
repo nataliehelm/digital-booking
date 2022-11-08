@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -44,6 +45,19 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", product.get(), null);
+    }
+
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+        if(params.get("categoryId") != null){
+            Long categoryId = Long.valueOf(params.get("categoryId"));
+            Optional<Category> category = categoryRepository.findById(categoryId);
+            if(category.isEmpty()){
+                throw new ResourceNotFoundException("Category with id " + categoryId + " not found");
+            }
+            List<Product> products = repository.findByCategory(category.get());
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+        throw new BadRequestException("Invalid Params");
     }
 
     public ResponseEntity<ApiResponse<Product, Object>> save(SaveProductDto productDto) throws ResourceNotFoundException {
