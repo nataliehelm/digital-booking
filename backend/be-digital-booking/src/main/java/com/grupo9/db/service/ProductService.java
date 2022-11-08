@@ -59,7 +59,7 @@ public class ProductService {
         }
         if(params.get("locationId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
-            Optional<Product> location = repository.findById(locationId);
+            Optional<Location> location = locationRepository.findById(locationId);
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
