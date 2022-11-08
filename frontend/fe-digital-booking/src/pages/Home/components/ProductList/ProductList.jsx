@@ -4,7 +4,7 @@ import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
 
 const ProductList = () => {
-  const { isLoading, data } = useFetch('products');
+  const { isLoading, data: products } = useFetch('products');
 
   if (isLoading)
     return (
@@ -22,7 +22,7 @@ const ProductList = () => {
       </div>
       <div className={styles.list}>
         <ul>
-          {data.slice(0, 8).map((product) => {
+          {products.slice(0, 8).map((product) => {
             return (
               <li key={product.id}>
                 <ProductCard

@@ -48,9 +48,9 @@ const ProductCard = ({
             </Text>
           </div>
           <div className={styles.services}>
-            {features.slice(0, 3).map((feature) => {
-              return <i className={feature.icon}></i>;
-            })}
+            {features.slice(0, 3).map((feature) => (
+              <i key={feature.id} className={feature.icon}></i>
+            ))}
           </div>
         </div>
         <div>
