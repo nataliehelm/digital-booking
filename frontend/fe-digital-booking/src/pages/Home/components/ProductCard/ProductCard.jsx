@@ -11,6 +11,7 @@ const ProductCard = ({
   location,
   description,
   ranking,
+  features,
 }) => {
   return (
     <div className={styles.card}>
@@ -47,8 +48,9 @@ const ProductCard = ({
             </Text>
           </div>
           <div className={styles.services}>
-            <i className="fa-solid fa-wifi"></i>
-            <i className="fa-solid fa-person-swimming"></i>
+            {features.slice(0, 3).map((feature) => {
+              return <i className={feature.icon}></i>;
+            })}
           </div>
         </div>
         <div>
