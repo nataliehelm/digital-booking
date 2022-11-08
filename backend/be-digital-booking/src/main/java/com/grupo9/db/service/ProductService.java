@@ -57,8 +57,19 @@ public class ProductService {
             List<Product> products = repository.findByCategory(category.get());
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
+        if(params.get("locationId") != null){
+            Long locationId = Long.valueOf(params.get("locationId"));
+            Optional<Product> location = repository.findById(locationId);
+            if(location.isEmpty()){
+                throw new ResourceNotFoundException("Location with id " + locationId + " not found");
+            }
+            List<Product> products = repository.findByLocation(location.get());
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
         throw new BadRequestException("Invalid Params");
     }
+
 
     public ResponseEntity<ApiResponse<Product, Object>> save(SaveProductDto productDto) throws ResourceNotFoundException {
         Product product = checkRelations(productDto, null);

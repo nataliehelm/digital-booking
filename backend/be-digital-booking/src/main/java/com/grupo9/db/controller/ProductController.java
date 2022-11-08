@@ -7,7 +7,6 @@ import com.grupo9.db.model.Product;
 import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +22,11 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(){
+        return service.findAll();
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestParam(value = "token", required = false) Integer page){
         return service.findAll();
     }
 
