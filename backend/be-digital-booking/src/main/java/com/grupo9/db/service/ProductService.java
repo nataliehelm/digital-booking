@@ -34,8 +34,12 @@ public class ProductService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(){
-        List<Product> products = repository.findAll();
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(String token){
+        if(token != null){
+            List<Product> products = repository.findAllRandom();
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
+        }
+        List<Product> products = repository.findTop8ByOrderByIdAsc();
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
     }
 
