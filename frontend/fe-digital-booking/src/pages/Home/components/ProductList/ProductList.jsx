@@ -1,11 +1,8 @@
-import { useFetch } from '../../../../hooks';
 import { Heading } from '../../../../atoms';
 import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
 
-const ProductList = () => {
-  const { isLoading, data: products } = useFetch('products');
-
+const ProductList = ({ products, isLoading }) => {
   if (isLoading)
     return (
       <div className={styles['product-list-container']}>

@@ -1,21 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useFetch } from '../../hooks';
 import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
 
 const Home = () => {
   const [categoryId, setCategoryId] = useState('');
-  const { isLoading: isLoadingProducts, data: _products } =
-    useFetch('products');
-  const { isLoading: isLoadingProductsByFilters, data: _productsWithFilters } =
-    useFetch(`products/filters?categoryId=${categoryId}`);
+  const { isLoading, data: products } = useFetch(
+    categoryId ? `products/filters?categoryId=${categoryId}` : 'products'
+  );
+
   const { isLoading: isLoadingCategories, data: categories } =
     useFetch('categories');
-
-  const products = useMemo(
-    () => _productsWithFilters || _products,
-    [_products, _productsWithFilters]
-  );
 
   return (
     <div className={styles['home-container']}>
@@ -25,10 +20,7 @@ const Home = () => {
         categories={categories}
         onClick={setCategoryId}
       />
-      <ProductList
-        isLoading={isLoadingProducts || isLoadingProductsByFilters}
-        products={products}
-      />
+      <ProductList isLoading={isLoading} products={products} />
     </div>
   );
 };
