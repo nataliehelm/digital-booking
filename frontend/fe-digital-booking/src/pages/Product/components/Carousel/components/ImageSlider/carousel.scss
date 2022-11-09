@@ -53,11 +53,19 @@
   margin-right: 10px !important;
   cursor: pointer;
   border-radius: 10px !important;
+
+  img {
+    height: 90px !important;
+    width: 150px !important;
+  }
 }
 
 .slide,
 .slide .previous,
 .slide img {
+  max-height: 480px !important;
+  min-height: 480px !important;
+  height: 100% !important;
   border-radius: 20px !important;
   overflow: hidden !important;
 }
