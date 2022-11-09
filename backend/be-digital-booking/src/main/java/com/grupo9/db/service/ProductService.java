@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -36,13 +33,13 @@ public class ProductService {
 
     public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(String token){
         if(token != null){
-            List<Product> products = repository.findAllRandom();
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
+            List<Product> products = repository.findTop8ByOrderByIdAsc();
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
-        List<Product> products = repository.findTop8ByOrderByIdAsc();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        List<Product> products = repository.findAllRandom();
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
     }
-    
+
     public ResponseEntity<ApiResponse<Product, Object>> findById(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){
@@ -53,12 +50,16 @@ public class ProductService {
 
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
         if(params.get("categoryId") != null){
-            Long categoryId = Long.valueOf(params.get("categoryId"));
-            Optional<Category> category = categoryRepository.findById(categoryId);
-            if(category.isEmpty()){
-                throw new ResourceNotFoundException("Category with id " + categoryId + " not found");
+            String[] categoryIds = (params.get("categoryId")).split(",");
+            List<Category> categories = new ArrayList<>();
+            for (String id:categoryIds) {
+                Optional<Category> category = categoryRepository.findById(Long.valueOf(id));
+                if(category.isEmpty()){
+                    throw new ResourceNotFoundException("Category with id " + id + " not found");
+                }
+                categories.add(category.get());
             }
-            List<Product> products = repository.findByCategory(category.get());
+            List<Product> products = repository.findTop8ByCategoryIn(categories);
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
         if(params.get("locationId") != null){

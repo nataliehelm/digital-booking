@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface IProductRepository extends JpaRepository<Product, Long> {
     List <Product> findTop8ByOrderByIdAsc();
-    List<Product> findByCategory(Category category);
+
+    List<Product> findTop8ByCategoryIn(List<Category> categories);
 
     List<Product> findByLocation(Location location);
 
