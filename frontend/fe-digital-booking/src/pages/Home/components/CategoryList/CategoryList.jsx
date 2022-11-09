@@ -1,13 +1,8 @@
 import styles from './CategoryList.module.scss';
 import { CategoryCard } from '../CategoryCard';
 import { Heading } from '../../../../atoms';
-import { useFetch } from '../../../../hooks';
 
-const CategoryList = () => {
-  const endpoint = 'categories';
-
-  const { isLoading, data } = useFetch(endpoint);
-
+const CategoryList = ({ isLoading, categories, onClick }) => {
   if (isLoading)
     return (
       <div className={styles['category-list-container']}>
@@ -24,9 +19,9 @@ const CategoryList = () => {
       </div>
       <div className={styles.list}>
         <ul>
-          {data.slice(0, 4).map((categoria) => {
+          {categories.slice(0, 4).map((categoria) => {
             return (
-              <li key={categoria.id}>
+              <li key={categoria.id} onClick={() => onClick(categoria.id)}>
                 <CategoryCard
                   img={categoria.image_url}
                   title={categoria.name}
