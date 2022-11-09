@@ -31,7 +31,7 @@ const ProductList = () => {
                   category={product.category.name.toUpperCase()}
                   title={product.name}
                   score={product.score}
-                  location={product.location.name}
+                  location={product.location.province_name}
                   description={product.description}
                   ranking={product.ranking}
                   features={product.features}

@@ -2,6 +2,7 @@
 
 .location {
   background-color: rgba(84, 87, 118, 0.1);
+  color: $color-secondary;
   display: flex;
   padding: 14px 11px 10px;
   .loc {
@@ -11,7 +12,6 @@
     align-self: center;
     p {
       font-weight: 500;
-      color: $color-secondary;
     }
   }
   .ranking {

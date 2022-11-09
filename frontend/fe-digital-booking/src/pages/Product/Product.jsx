@@ -15,6 +15,7 @@ const Product = ({
   category,
   name,
   address,
+  reference,
   ranking,
   score,
   images,
@@ -36,8 +37,13 @@ const Product = ({
       <Subheader title={category} subtitle={name} onBackClick={onBackClick} />
       <div className={styles.location}>
         <section className={styles.loc}>
-          <i className="fa-solid fa-location-dot"></i>
-          <Text variant="t1">{address}</Text>
+          <aside>
+            <i className="fa-solid fa-location-dot"></i>
+          </aside>
+          <aside>
+            <Text variant="t1">{address}</Text>
+            <Text variant="t1">{reference}</Text>
+          </aside>
         </section>
         <section className={styles.ranking}>
           <div>
