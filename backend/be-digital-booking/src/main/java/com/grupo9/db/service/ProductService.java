@@ -39,6 +39,14 @@ public class ProductService {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
     }
 
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAllRandom(String token) {
+        List<Product> products = null;
+        if (token == null) {
+            products = repository.findAllRandom();
+        }
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(), "Get Product List successfully", products, null);
+    }
+
     public ResponseEntity<ApiResponse<Product, Object>> findById(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){

@@ -11,4 +11,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCategory(Category category);
 
     List<Product> findByLocation(Location location);
+
+    List<Product> findAllRandom();
 }

@@ -21,8 +21,13 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="token", required = false) String token){
-        return service.findAll(token);
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(){
+        return service.findAll();
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAllRandom(@RequestHeader(value="token", required = false) String token){
+        return service.findAllRandom(token);
     }
 
     @GetMapping(path = "/{id}")
