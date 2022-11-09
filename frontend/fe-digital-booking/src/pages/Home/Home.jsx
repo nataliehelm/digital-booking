@@ -46,13 +46,6 @@ const Home = () => {
   }, [categoryIds]);
 
   useEffect(() => {
-    if (locationSelected) {
-      setEndpoint(`products/filters?locationId=${locationSelected.id}`);
-      setCategoryIds([]);
-    }
-  }, [locationSelected]);
-
-  useEffect(() => {
     if (!locationSelected && !categoryIds.length) {
       setEndpoint('products');
     }
@@ -66,6 +59,13 @@ const Home = () => {
     }
   };
 
+  const handleOnSubmit = () => {
+    if (locationSelected) {
+      setEndpoint(`products/filters?locationId=${locationSelected.id}`);
+      setCategoryIds([]);
+    }
+  };
+
   return (
     <div className={styles['home-container']}>
       <Searcher
@@ -73,6 +73,7 @@ const Home = () => {
         setLocationSelected={setLocationSelected}
         setDatesRange={setDatesRange}
         locationSelected={locationSelected}
+        onSubmit={handleOnSubmit}
       />
       <CategoryList
         isLoading={isLoadingCategories}

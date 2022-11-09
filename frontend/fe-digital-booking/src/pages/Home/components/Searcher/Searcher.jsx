@@ -10,6 +10,7 @@ const Searcher = ({
   setLocationSelected,
   setDatesRange,
   locationSelected,
+  onSubmit,
 }) => {
   const breakpoint = useBreakpoint();
   const { isLoading, data: _locations } = useFetch('locations');
@@ -46,7 +47,12 @@ const Searcher = ({
       {!isLoading && (
         <aside className={styles['searcher-container']}>
           <h1>Busca ofertas en hoteles, casas y mucho más</h1>
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit({ datesRange, locationSelected });
+            }}
+          >
             <div className={styles['inputs-container']}>
               <div className={styles['cities-container']}>
                 <div className={styles.dropdown}>
@@ -74,7 +80,7 @@ const Searcher = ({
               <Button
                 variant="b1"
                 classname={styles['submit-button']}
-                onClick={() => console.log({ datesRange, locationSelected })}
+                type="submit"
               >
                 Buscar
               </Button>
