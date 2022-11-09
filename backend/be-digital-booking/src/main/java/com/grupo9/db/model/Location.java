@@ -23,18 +23,12 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "location_sequence")
     @EqualsAndHashCode.Include
     private Long id;
-    @NotEmpty
-    private String name;
-    @NotEmpty
-    private String iso_id;
-    @NotEmpty
-    private String short_name;
-    @NotEmpty
-    private String category;
-    @NotEmpty
-    private String iso_name;
-    @NotEmpty
-    private String country;
+    @NotEmpty(message = "Province is mandatory")
+    private String province_name;
+    @NotEmpty(message = "City is mandatory")
+    private String city_name;
+    @NotEmpty(message = "Country is mandatory")
+    private String country_name;
 
     @CreationTimestamp
     @JsonIgnore
@@ -46,12 +40,9 @@ public class Location {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Location(String name, String iso_id, String short_name, String category, String iso_name, String country) {
-        this.name = name;
-        this.iso_id = iso_id;
-        this.short_name = short_name;
-        this.category = category;
-        this.iso_name = iso_name;
-        this.country = country;
+    public Location(String province_name, String city_name, String country_name) {
+        this.province_name = province_name;
+        this.city_name = city_name;
+        this.country_name = country_name;
     }
 }
