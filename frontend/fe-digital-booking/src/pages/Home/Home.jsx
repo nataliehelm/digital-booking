@@ -4,13 +4,21 @@ import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
 
 const Home = () => {
-  const [options, setOptions] = useState(null);
+  const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [datesRange, setDatesRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection',
+    },
+  ]);
+  const [locationSelected, setLocationSelected] = useState(null);
+  const [endpoint, setEndpoint] = useState('products');
+
   const { isLoading: isLoadingProducts, data: products } = useFetch(
-    categoryIds.length > 0
-      ? `products/filters?categoryId=${categoryIds.join(',')}`
-      : 'products',
-    options
+    endpoint,
+    requestOptions
   );
 
   const { isLoading: isLoadingCategories, data: categories } =
@@ -20,15 +28,35 @@ const Home = () => {
     const token = localStorage.getItem('userInfo');
     const parsedToken = JSON.parse(token);
 
-    setOptions(null);
+    setRequestOptions(null);
     if (parsedToken.isLogged) {
-      setOptions({
+      setRequestOptions({
         headers: {
           token,
         },
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (categoryIds.length > 0) {
+      setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
+      setLocationSelected(null);
+    }
+  }, [categoryIds]);
+
+  useEffect(() => {
+    if (locationSelected) {
+      setEndpoint(`products/filters?locationId=${locationSelected.id}`);
+      setCategoryIds([]);
+    }
+  }, [locationSelected]);
+
+  useEffect(() => {
+    if (!locationSelected && !categoryIds.length) {
+      setEndpoint('products');
+    }
+  }, [locationSelected, categoryIds]);
 
   const handleSelectIds = (id) => {
     if (categoryIds.includes(id)) {
@@ -40,7 +68,12 @@ const Home = () => {
 
   return (
     <div className={styles['home-container']}>
-      <Searcher />
+      <Searcher
+        datesRange={datesRange}
+        setLocationSelected={setLocationSelected}
+        setDatesRange={setDatesRange}
+        locationSelected={locationSelected}
+      />
       <CategoryList
         isLoading={isLoadingCategories}
         categories={categories}

@@ -5,7 +5,12 @@ import { Calendar } from '../../../../components';
 import parsedLocations from '../../../../mappers/locations.mapper';
 import styles from './Searcher.module.scss';
 
-const Searcher = () => {
+const Searcher = ({
+  datesRange,
+  setLocationSelected,
+  setDatesRange,
+  locationSelected,
+}) => {
   const breakpoint = useBreakpoint();
   const { isLoading, data: _locations } = useFetch('locations');
 
@@ -13,14 +18,6 @@ const Searcher = () => {
   const [calendarPlaceholder, setCalendarPlaceholder] = useState(
     'Check in - Check out'
   );
-  const [datesRange, setDatesRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: 'selection',
-    },
-  ]);
-  const [locationSelected, setLocationSelected] = useState();
 
   useEffect(() => {
     if (!isLoading) {
@@ -56,6 +53,7 @@ const Searcher = () => {
                   <Dropdown
                     onChange={setLocationSelected}
                     options={locations}
+                    reset={!locationSelected}
                   />
                 </div>
               </div>
