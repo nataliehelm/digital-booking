@@ -26,6 +26,9 @@ public class SubPoliciesLoader {
         SubPolicy subPolicy5 = new SubPolicy("Detector de humo");
         SubPolicy subPolicy6 = new SubPolicy("Depósito de seguridad");
         SubPolicy subPolicy7 = new SubPolicy("Agregá las fechas de tu viaje para obtener los detalles de cancelación de esta estadía.");
+        SubPolicy subPolicy8 = new SubPolicy("No se aceptan niños.");
+        SubPolicy subPolicy9 = new SubPolicy("No se pueden agregar cunas en este alojamiento.");
+        SubPolicy subPolicy10 = new SubPolicy("No se pueden agregar camas adicionales en este alojamiento.");
 
         iSubPolicyRepository.save(subPolicy1);
         iSubPolicyRepository.save(subPolicy2);
@@ -34,5 +37,8 @@ public class SubPoliciesLoader {
         iSubPolicyRepository.save(subPolicy5);
         iSubPolicyRepository.save(subPolicy6);
         iSubPolicyRepository.save(subPolicy7);
+        iSubPolicyRepository.save(subPolicy8);
+        iSubPolicyRepository.save(subPolicy9);
+        iSubPolicyRepository.save(subPolicy10);
     }
 }
