@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -20,13 +21,18 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(){
-        return service.findAll();
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="token", required = false) String token){
+        return service.findAll(token);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Product, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         return service.findById(id);
+    }
+
+    @GetMapping(path = "/filters")
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
+        return service.findByParams(params);
     }
 
     @PostMapping
