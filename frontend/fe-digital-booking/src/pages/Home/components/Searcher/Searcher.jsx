@@ -5,7 +5,13 @@ import { Calendar } from '../../../../components';
 import parsedLocations from '../../../../mappers/locations.mapper';
 import styles from './Searcher.module.scss';
 
-const Searcher = () => {
+const Searcher = ({
+  datesRange,
+  setLocationSelected,
+  setDatesRange,
+  locationSelected,
+  onSubmit,
+}) => {
   const breakpoint = useBreakpoint();
   const { isLoading, data: _locations } = useFetch('locations');
 
@@ -13,14 +19,6 @@ const Searcher = () => {
   const [calendarPlaceholder, setCalendarPlaceholder] = useState(
     'Check in - Check out'
   );
-  const [datesRange, setDatesRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: 'selection',
-    },
-  ]);
-  const [locationSelected, setLocationSelected] = useState();
 
   useEffect(() => {
     if (!isLoading) {
@@ -49,13 +47,19 @@ const Searcher = () => {
       {!isLoading && (
         <aside className={styles['searcher-container']}>
           <h1>Busca ofertas en hoteles, casas y mucho más</h1>
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit({ datesRange, locationSelected });
+            }}
+          >
             <div className={styles['inputs-container']}>
               <div className={styles['cities-container']}>
                 <div className={styles.dropdown}>
                   <Dropdown
                     onChange={setLocationSelected}
                     options={locations}
+                    reset={!locationSelected}
                   />
                 </div>
               </div>
@@ -76,7 +80,7 @@ const Searcher = () => {
               <Button
                 variant="b1"
                 classname={styles['submit-button']}
-                onClick={() => console.log({ datesRange, locationSelected })}
+                type="submit"
               >
                 Buscar
               </Button>

@@ -5,7 +5,7 @@ import { LogIn, SignIn } from './pages/Auth';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import styles from './App.module.scss';
-import Product from './pages/Product';
+import Product from './pages/Product/ProductContainer';
 
 function App() {
   return (
