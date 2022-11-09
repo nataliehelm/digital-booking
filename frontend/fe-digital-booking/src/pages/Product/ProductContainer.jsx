@@ -27,6 +27,8 @@ const ProductContainer = () => {
       features={product.features}
       coordinates={product.coordinates}
       policies={product.policies}
+      subtitle={product.description_title}
+      description={product.description}
     />
   );
 };
