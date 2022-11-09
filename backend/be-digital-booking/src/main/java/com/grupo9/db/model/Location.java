@@ -23,11 +23,11 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "location_sequence")
     @EqualsAndHashCode.Include
     private Long id;
-    @NotEmpty
+    @NotEmpty(message = "Province is mandatory")
     private String province_name;
-    @NotEmpty
+    @NotEmpty(message = "City is mandatory")
     private String city_name;
-    @NotEmpty
+    @NotEmpty(message = "Country is mandatory")
     private String country_name;
 
     @CreationTimestamp
