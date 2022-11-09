@@ -19,7 +19,7 @@ const ProductList = ({ products, isLoading }) => {
       </div>
       <div className={styles.list}>
         <ul>
-          {products.slice(0, 8).map((product) => {
+          {products.map((product) => {
             return (
               <li key={product.id}>
                 <ProductCard

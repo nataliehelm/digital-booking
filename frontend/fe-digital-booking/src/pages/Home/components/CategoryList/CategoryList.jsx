@@ -1,8 +1,9 @@
 import styles from './CategoryList.module.scss';
 import { CategoryCard } from '../CategoryCard';
 import { Heading } from '../../../../atoms';
+import cn from 'classnames';
 
-const CategoryList = ({ isLoading, categories, onClick }) => {
+const CategoryList = ({ isLoading, categories, onClick, selectedIds }) => {
   if (isLoading)
     return (
       <div className={styles['category-list-container']}>
@@ -21,7 +22,13 @@ const CategoryList = ({ isLoading, categories, onClick }) => {
         <ul>
           {categories.slice(0, 4).map((categoria) => {
             return (
-              <li key={categoria.id} onClick={() => onClick(categoria.id)}>
+              <li
+                key={categoria.id}
+                className={cn({
+                  [styles.selected]: selectedIds.includes(categoria.id),
+                })}
+                onClick={() => onClick(categoria.id)}
+              >
                 <CategoryCard
                   img={categoria.image_url}
                   title={categoria.name}
