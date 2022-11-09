@@ -31,7 +31,7 @@ public class SubPolicyService {
     public ResponseEntity<ApiResponse<SubPolicy, Object>> findById(Long id) throws ResourceNotFoundException {
         Optional<SubPolicy> subPolicy = repository.findById(id);
         if(subPolicy.isEmpty()){
-            throw new ResourceNotFoundException("Policy with id " + id + " not found");
+            throw new ResourceNotFoundException("SubPolicy with id " + id + " not found");
         }
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get SubPolicy successfully", subPolicy.get(), null);
     }

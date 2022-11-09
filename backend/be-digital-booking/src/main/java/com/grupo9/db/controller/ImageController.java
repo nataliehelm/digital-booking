@@ -1,6 +1,7 @@
 package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.BadRequestException;
+import com.grupo9.db.dto.Image.SaveImageDto;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Image;
 import com.grupo9.db.service.ImageService;
@@ -29,12 +30,12 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Image, Object>> save(@Valid @RequestBody Image image){
+    public ResponseEntity<ApiResponse<Image, Object>> save(@Valid @RequestBody SaveImageDto image) throws ResourceNotFoundException, BadRequestException {
         return service.save(image);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Image, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Image image) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Image, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveImageDto image) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, image);
     }
 

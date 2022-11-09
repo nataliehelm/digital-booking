@@ -1,26 +1,10 @@
-import { useMemo } from 'react';
 import { useFetch } from '../../../../hooks';
 import { Heading } from '../../../../atoms';
 import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
 
 const ProductList = () => {
-  const { isLoading, data } = useFetch('products');
-
-  // TODO: crear nuevos productos y eliminar la siguiente logica
-  const products = useMemo(() => {
-    if (data)
-      return [
-        data[0],
-        data[0],
-        data[0],
-        data[0],
-        data[0],
-        data[0],
-        data[0],
-        data[0],
-      ];
-  }, [data]);
+  const { isLoading, data: products } = useFetch('products');
 
   if (isLoading)
     return (
@@ -50,6 +34,7 @@ const ProductList = () => {
                   location={product.location.name}
                   description={product.description}
                   ranking={product.ranking}
+                  features={product.features}
                 />
               </li>
             );

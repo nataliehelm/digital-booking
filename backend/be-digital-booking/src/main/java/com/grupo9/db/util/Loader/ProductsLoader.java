@@ -1,10 +1,8 @@
 package com.grupo9.db.util.Loader;
 
-import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
+import com.grupo9.db.util.Loader.Products.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductsLoader {
 
@@ -23,33 +21,29 @@ public class ProductsLoader {
     }
 
     public void Loader (){
-
-        Location location1 = iLocationRepository.findById(Long.valueOf(1)).get();
-        Category category1 = iCategoryRepository.findById(Long.valueOf(1)).get();
-        Feature feature1 = iFeatureRepository.findById(Long.valueOf(1)).get();
-        Feature feature2 = iFeatureRepository.findById(Long.valueOf(2)).get();
-        Policy policy1 = iPolicyRepository.findById(Long.valueOf(1)).get();
-        Policy policy2 = iPolicyRepository.findById(Long.valueOf(2)).get();
-        Policy policy3 = iPolicyRepository.findById(Long.valueOf(3)).get();
-
-        List features = new ArrayList<>();
-
-        features.add(feature1);
-        features.add(feature2);
-
-        List coordinates = new ArrayList<>();
-
-        coordinates.add(-34.5828949);
-        coordinates.add(-58.4240502);
-
-        List policies = new ArrayList<>();
-
-        policies.add(policy1);
-        policies.add(policy2);
-        policies.add(policy3);
-
-        Product product1 = new Product("Hermitage Hotel", "A 940 m del centro", 4.0F, 8.0F, "Alójate en el corazón de Buenos Aires" ,"Está situado a solo unas calles de la avenida Alvear, de la avenida Quintana, del parque San Martín y del distrito de Recoleta. En las inmediaciones también hay varios lugares de interés, como la calle Florida, el centro comercial Galerías Pacífico, la zona de Puerto Madero, la plaza de Mayo y el palacio Municipal.\n\n Nuestros clientes dicen que esta parte de Buenos Aires es su favorita, según los comentarios independientes.\n \n El Hotel es un hotel sofisticado de 4 estrellas que goza de una ubicación tranquila, a poca distancia de prestigiosas galerías de arte, teatros, museos y zonas comerciales. Además, hay WiFi gratuita.\n El establecimiento sirve un desayuno variado de 07:00 a 10:30.",coordinates,category1, location1, features, policies);
-
-        iProductRepository.save(product1);
+        Product1 product1 = new Product1(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product1.Loader();
+        Product2 product2 = new Product2(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product2.Loader();
+        Product3 product3 = new Product3(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product3.Loader();
+        Product4 product4 = new Product4(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product4.Loader();
+        Product5 product5 = new Product5(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product5.Loader();
+        Product6 product6 = new Product6(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product6.Loader();
+        Product7 product7 = new Product7(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product7.Loader();
+        Product8 product8 = new Product8(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product8.Loader();
+        Product9 product9 = new Product9(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product9.Loader();
+        Product10 product10 = new Product10(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product10.Loader();
+        Product11 product11 = new Product11(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product11.Loader();
+        Product12 product12 = new Product12(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        product12.Loader();
     }
 }
