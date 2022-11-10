@@ -1,7 +1,7 @@
 @use './../../../../styles/variables' as *;
 
 .features-container {
-  margin-top: 15px;
+  margin: 15px 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -23,7 +23,7 @@
 
 @media (min-width: $md) {
   .features-container {
-    margin-top: 40px;
+    margin: 40px 0;
     row-gap: 25px;
   }
 }

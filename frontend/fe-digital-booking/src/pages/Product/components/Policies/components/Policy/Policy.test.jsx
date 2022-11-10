@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import Policy from './Policy';
-import policy from './lib/policy.json';
 
 describe('<Policy />', () => {
   test('Should render basic component with correct inputs', () => {
@@ -12,3 +11,18 @@ describe('<Policy />', () => {
     expect(screen.getByText('No fumar')).toBeInTheDocument();
   });
 });
+
+const policy = [
+  {
+    id: 1,
+    description: 'Check-out: 10:00',
+  },
+  {
+    id: 2,
+    description: 'No se permiten fiestas',
+  },
+  {
+    id: 3,
+    description: 'No fumar',
+  },
+];

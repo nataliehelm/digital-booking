@@ -20,7 +20,8 @@ const ProductContainer = () => {
     <Product
       category={product.category.name}
       name={product.name}
-      address={`${product.location.name}, ${product.location.country}`}
+      address={`${product.location.city_name}, ${product.location.province_name}, ${product.location.country_name}`}
+      reference={product.distance_to_nearest_tourist_site}
       ranking={product.ranking}
       score={product.score}
       images={product.images}
