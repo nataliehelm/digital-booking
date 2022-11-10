@@ -29,7 +29,7 @@ const Home = () => {
     const parsedToken = JSON.parse(token);
 
     setRequestOptions(null);
-    if (parsedToken.isLogged) {
+    if (parsedToken?.isLogged) {
       setRequestOptions({
         headers: {
           token,
@@ -66,6 +66,23 @@ const Home = () => {
     }
   };
 
+  // useEffect(() => {
+  //   let categoryFilter = '';
+  //   let locationFilter = '';
+  //   if (categoryIds.length > 0) {
+  //     categoryFilter = `categoryId=${categoryIds.join(',')}&`;
+  //   }
+  //   if (locationSelected) {
+  //     locationFilter = `locationId=${locationSelected.id}&`;
+  //   }
+  //   const hasFilter = categoryIds.length > 0 || locationSelected;
+  //   if (hasFilter) {
+  //     setEndpoint(`products/filters?${categoryFilter}${locationFilter}`);
+  //   } else {
+  //     setEndpoint(`products/`);
+  //   }
+  // }, [categoryIds, locationSelected]);
+
   return (
     <div className={styles['home-container']}>
       <Searcher
@@ -74,6 +91,7 @@ const Home = () => {
         setDatesRange={setDatesRange}
         locationSelected={locationSelected}
         onSubmit={handleOnSubmit}
+        reset={!!categoryIds.length}
       />
       <CategoryList
         isLoading={isLoadingCategories}

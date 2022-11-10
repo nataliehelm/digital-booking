@@ -13,7 +13,9 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findTop8ByCategoryIn(List<Category> categories);
 
-    List<Product> findByLocation(Location location);
+    List<Product> findTop8ByLocation(Location location);
+    
+    List<Product> findTop8ByLocationAndCategoryIn(Location location, List<Category> categories);
 
     @Query(value="SELECT * FROM product ORDER BY rand() LIMIT 8", nativeQuery=true)
     List<Product> findAllRandom();

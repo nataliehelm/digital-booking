@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import { useInput, Input } from '../Input';
 import { Option } from './components';
 import { useOnClickOutside } from '../../hooks';
@@ -11,11 +11,15 @@ const Dropdown = ({ options, onChange, reset }) => {
   useOnClickOutside(ref, () => setShowList(false));
   const search = useInput('');
 
-  if (reset && search.value) {
-    search.onChange({
-      target: { value: '' },
-    });
-  }
+  useEffect(() => {
+    if (reset) {
+      onChange(null);
+      search.onChange({
+        target: { value: '' },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reset, onChange]);
 
   const _options = useMemo(
     () =>
