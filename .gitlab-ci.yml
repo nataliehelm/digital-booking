@@ -1,6 +1,6 @@
 variables:
-  FRONTEND_PATH: "frontend"
-  BACKEND_PATH: "backend"
+  FRONTEND_PATH: "frontend/fe-digital-booking/"
+  BACKEND_PATH: "backend/be-digital-booking/"
 
 stages:  # List of stages for jobs, and their order of execution
   - test
