@@ -58,8 +58,8 @@ deploy-front: # This job runs in the deploy stage, which runs third.
     - npm i
     - npm run build && aws s3 sync build/ s3://$S3_BUCKET/ --acl public-read
     - scp -r ./build/ ubuntu@$DEPLOY_SERVER_IP:/home/ubuntu/
-    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo mv ./build/* /var/www/html"
     - ssh ubuntu@$DEPLOY_SERVER_IP "sudo rm -rf /var/www/html/*"
+    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo mv ./build/* /var/www/html"
   artifacts:
     paths:
     - $FRONTEND_PATH/build/
