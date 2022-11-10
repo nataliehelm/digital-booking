@@ -1,1 +1,1 @@
-Front-end folder
+Frontend folder
