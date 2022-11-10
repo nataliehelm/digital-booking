@@ -29,7 +29,7 @@ const Home = () => {
     const parsedToken = JSON.parse(token);
 
     setRequestOptions(null);
-    if (parsedToken.isLogged) {
+    if (parsedToken?.isLogged) {
       setRequestOptions({
         headers: {
           token,
