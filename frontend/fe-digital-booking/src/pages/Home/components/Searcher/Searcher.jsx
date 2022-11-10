@@ -11,6 +11,7 @@ const Searcher = ({
   setDatesRange,
   locationSelected,
   onSubmit,
+  reset,
 }) => {
   const breakpoint = useBreakpoint();
   const { isLoading, data: _locations } = useFetch('locations');
@@ -59,6 +60,7 @@ const Searcher = ({
                   <Dropdown
                     onChange={setLocationSelected}
                     options={locations}
+                    reset={reset}
                   />
                 </div>
               </div>
