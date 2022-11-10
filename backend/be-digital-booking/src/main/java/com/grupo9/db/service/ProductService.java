@@ -49,6 +49,24 @@ public class ProductService {
     }
 
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+        if(params.get("locationId") != null && params.get("categoryId") != null){
+            Long locationId = Long.valueOf(params.get("locationId"));
+            Optional<Location> location = locationRepository.findById(locationId);
+            if(location.isEmpty()){
+                throw new ResourceNotFoundException("Location with id " + locationId + " not found");
+            }
+            String[] categoryIds = (params.get("categoryId")).split(",");
+            List<Category> categories = new ArrayList<>();
+            for (String id:categoryIds) {
+                Optional<Category> category = categoryRepository.findById(Long.valueOf(id));
+                if(category.isEmpty()){
+                    throw new ResourceNotFoundException("Category with id " + id + " not found");
+                }
+                categories.add(category.get());
+            }
+            List<Product> products = repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
         if(params.get("categoryId") != null){
             String[] categoryIds = (params.get("categoryId")).split(",");
             List<Category> categories = new ArrayList<>();
@@ -68,10 +86,9 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findByLocation(location.get());
+            List<Product> products = repository.findTop8ByLocation(location.get());
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
-
         throw new BadRequestException("Invalid Params");
     }
 
