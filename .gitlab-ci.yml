@@ -1,50 +1,111 @@
-stages:      # List of stages for jobs, and their order of execution
+variables:
+  FRONTEND_PATH: "frontend"
+  BACKEND_PATH: "backend"
+
+stages:  # List of stages for jobs, and their order of execution
   - test
-  - build
+  - build     
   - deploy
+  
 cache:
   paths:
-    - frontend/fe-digital-booking/node_modules/
+    - $FRONTEND_PATH/node_modules/
+
+test-front: # This job runs in the test stage, which runs first.
+  stage: test
+  image: node:19-alpine3.15
+  script:
+    - echo "Testing front... (BY PASSED)"
+    #- cd $FRONTEND_PATH
+    #- npm i
+    #- npm test -- --watchAll=false
+  rules:
+  - changes:
+    - frontend/**/*  
+
+build-front: # This job runs in the build stage, which runs second.
+  stage: build
+  image: node:19-alpine3.15 
+  script:
+    - cd $FRONTEND_PATH
+    - npm i
+    - npm run build
+  artifacts:
+    paths:
+      - $FRONTEND_PATH/build/
+  rules:
+    - changes:
+      - frontend/**/*
+
+deploy-front: # This job runs in the deploy stage, which runs third.
+  stage: deploy
+  image: node:19.0-bullseye
+  before_script:
+  - apt update
+  - apt install curl -y && apt install unzip -y
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - unzip -q awscliv2.zip
+  - ./aws/install
+  - aws configure set region $AWS_DEFAULT_REGION
+  - mkdir -p ~/.ssh
+  - eval $(ssh-agent -s)
+  - echo "$SSH_KEY_PV" | tr -d '\r' | ssh-add - > /dev/null
+  - touch ~/.ssh/config
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
+  script:
+    - cd $FRONTEND_PATH
+    - npm i
+    - npm run build && aws s3 sync build/ s3://$S3_BUCKET/ --acl public-read
+    - scp -r ./build/ ubuntu@$DEPLOY_SERVER_IP:/home/ubuntu/
+    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo mv ./build/* /var/www/html"
+  artifacts:
+    paths:
+    - $FRONTEND_PATH/build/
+  rules:
+  - changes:
+    - frontend/**/*      
+
+############################################################################
+
+test-back:       # This job runs in the test stage, which runs first.
+  stage: test
+  script:
+  - echo "//TODO test"
+  rules:
+    - changes:
+      - backend/**/*
+    
 build-back:       # This job runs in the build stage, which runs first.
   stage: build
   image: maven:3.8.6-eclipse-temurin-17
   script:
-    - cd backend/be-digital-booking
+    - cd $BACKEND_PATH
     - mvn clean package
+  artifacts:
+    paths: 
+      - $BACKEND_PATH/target/*.jar
   rules:
     - changes:
       - backend/**/*
 
-build-front:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: node:19-alpine3.15 
+deploy-back:       # This job runs in the deploy stage, which runs first.
+  stage: deploy
+  image: alpine:3.11
+  before_script:
+    - apk update && apk add openssh-client bash
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$SSH_KEY_PV" | tr -d '\r' | ssh-add - > /dev/null
+    - touch ~/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
   script:
-    - cd frontend/fe-digital-booking
-    - npm i
-    - npm run build
-    - mv build/ ../../
-  artifacts:
-    paths:
-      - build/
+    - echo "deploying..."
+    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop dbapi.service"
+    - scp $BACKEND_PATH/target/*.jar ubuntu@$DEPLOY_SERVER_IP:~/db-api/dbapi.jar
+    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start dbapi.service"
+  environment: prod
   rules:
     - changes:
-      - frontend/**/*
-test-front:
-  stage: test
-  image: node:19-alpine3.15
-  script:
-    - cd frontend/fe-digital-booking
-    - npm i
-    - npm test -- --watchAll=false
-deploy-front:
-  stage: deploy
-  image: node:19-alpine3.15
-  before_script:
-  - apt-get update
-  - apt-get install curl -y && apt-get install unzip -y
-  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  - unzip awscliv2.zip
-  - ./aws/install
-  - aws configure set region $AWS_DEFAULT_REGION
-  script:
-    - aws s3 sync build/ s3://$S3_BUCKET/
+      - backend/**/*
