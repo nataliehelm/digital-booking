@@ -5,17 +5,11 @@ import { useOnClickOutside } from '../../hooks';
 import PropTypes from 'prop-types';
 import styles from './Dropdown.module.scss';
 
-const Dropdown = ({ options, onChange, reset }) => {
+const Dropdown = ({ options, onChange }) => {
   const [showList, setShowList] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, () => setShowList(false));
   const search = useInput('');
-
-  if (reset && search.value) {
-    search.onChange({
-      target: { value: '' },
-    });
-  }
 
   const _options = useMemo(
     () =>

@@ -59,7 +59,6 @@ const Searcher = ({
                   <Dropdown
                     onChange={setLocationSelected}
                     options={locations}
-                    reset={!locationSelected}
                   />
                 </div>
               </div>
