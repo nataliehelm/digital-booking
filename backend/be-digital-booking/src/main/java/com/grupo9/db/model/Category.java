@@ -23,7 +23,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "category_sequence")
     @EqualsAndHashCode.Include
     private Long id;
-    @NotEmpty(message = "Title is mandatory")
+    @NotEmpty(message = "Name is mandatory")
     @Column(name = "name", nullable=false, length=80)
     private String name;
     @NotEmpty(message = "Description is mandatory")

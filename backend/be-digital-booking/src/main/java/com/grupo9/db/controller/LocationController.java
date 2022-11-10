@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Location, Object>> save(@RequestBody Location location){
+    public ResponseEntity<ApiResponse<Location, Object>> save(@RequestBody @Valid Location location){
         return service.save(location);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<Location, Object>> update(@PathVariable("id") Long id, @RequestBody Location location) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<Location, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Location location) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, location);
     }
 
