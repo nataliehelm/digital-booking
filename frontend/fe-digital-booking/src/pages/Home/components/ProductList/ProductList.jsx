@@ -2,7 +2,7 @@ import { Heading } from '../../../../atoms';
 import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
 
-const ProductList = ({ products, isLoading }) => {
+const ProductList = ({ products, isLoading, recommendationsTitle }) => {
   if (isLoading)
     return (
       <div className={styles['product-list-container']}>
@@ -15,7 +15,10 @@ const ProductList = ({ products, isLoading }) => {
   return (
     <div className={styles['product-list-container']}>
       <div className={styles['list-header']}>
-        <Heading variant="h1">Recomendaciones</Heading>
+        <Heading variant="h1">
+          Recomendaciones{' '}
+          {recommendationsTitle && `de: ${recommendationsTitle}`}
+        </Heading>
       </div>
       <div className={styles.list}>
         <ul>
