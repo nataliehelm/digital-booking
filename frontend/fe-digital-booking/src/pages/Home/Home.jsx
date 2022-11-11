@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useFetch } from '../../hooks';
 import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
@@ -6,6 +6,7 @@ import styles from './Home.module.scss';
 const Home = () => {
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [categoryNames, setCategoryNames] = useState([]);
   const [datesRange, setDatesRange] = useState([
     {
       startDate: new Date(),
@@ -51,11 +52,13 @@ const Home = () => {
     }
   }, [locationSelected, categoryIds]);
 
-  const handleSelectIds = (id) => {
+  const handleSelectIds = (id, name) => {
     if (categoryIds.includes(id)) {
       setCategoryIds(categoryIds.filter((c) => c !== id));
+      setCategoryNames(categoryNames.filter((c) => c !== name));
     } else {
       setCategoryIds([...categoryIds, id]);
+      setCategoryNames([...categoryNames, name]);
     }
   };
 
@@ -63,6 +66,7 @@ const Home = () => {
     if (locationSelected) {
       setEndpoint(`products/filters?locationId=${locationSelected.id}`);
       setCategoryIds([]);
+      setCategoryNames([]);
     }
   };
 
@@ -83,6 +87,11 @@ const Home = () => {
   //   }
   // }, [categoryIds, locationSelected]);
 
+  const recommendationsTitle = useMemo(
+    () => categoryNames.join(', '),
+    [categoryNames]
+  );
+
   return (
     <div className={styles['home-container']}>
       <Searcher
@@ -99,7 +108,11 @@ const Home = () => {
         onClick={handleSelectIds}
         selectedIds={categoryIds}
       />
-      <ProductList isLoading={isLoadingProducts} products={products} />
+      <ProductList
+        recommendationsTitle={recommendationsTitle}
+        isLoading={isLoadingProducts}
+        products={products}
+      />
     </div>
   );
 };

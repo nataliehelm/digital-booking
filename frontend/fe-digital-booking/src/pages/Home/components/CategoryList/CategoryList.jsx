@@ -27,7 +27,7 @@ const CategoryList = ({ isLoading, categories, onClick, selectedIds }) => {
                 className={cn({
                   [styles.selected]: selectedIds.includes(categoria.id),
                 })}
-                onClick={() => onClick(categoria.id)}
+                onClick={() => onClick(categoria.id, categoria.name)}
               >
                 <CategoryCard
                   img={categoria.image_url}
