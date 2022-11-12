@@ -24,9 +24,9 @@ public class Role {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotEmpty(message = "Name is mandatory")
     @Column(name = "name", nullable=false, length=15)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ERole name;
 
     @CreationTimestamp
     @JsonIgnore
@@ -38,7 +38,7 @@ public class Role {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Role(String name) {
+    public Role(ERole name) {
         this.name = name;
     }
 }
