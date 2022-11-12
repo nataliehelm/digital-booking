@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
 import PropTypes from 'prop-types';
@@ -7,6 +7,29 @@ import styles from './BookingCalendar.module.scss';
 import 'react-date-range/dist/styles.css';
 
 const BookingCalendar = ({ months }) => {
+  const [datesRange, setDatesRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection',
+    },
+  ]);
+
+  useEffect(() => {
+    const head = document.head;
+    const link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = '/assets/styles/booking-calendar.css';
+
+    head.appendChild(link);
+
+    return () => {
+      head.removeChild(link);
+    };
+  }, []);
+
   const calendarRef = useRef();
 
   const bookedDates = [
@@ -26,6 +49,8 @@ const BookingCalendar = ({ months }) => {
     <div style={{ position: 'relative' }} ref={calendarRef}>
       <>
         <DateRange
+          onChange={(item) => setDatesRange([item.selection])}
+          ranges={datesRange}
           locale={es}
           editableDateInputs={false}
           moveRangeOnFirstSelection={false}

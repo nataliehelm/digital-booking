@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button, Input } from '../../atoms';
 import { useOnClickOutside } from '../../hooks';
 import { DateRange } from 'react-date-range';
@@ -7,7 +7,6 @@ import { es } from 'date-fns/locale';
 
 import styles from './Calendar.module.scss';
 import 'react-date-range/dist/styles.css';
-import './digital-booking-calendar-theme.scss';
 
 const Calendar = ({
   months,
@@ -18,6 +17,21 @@ const Calendar = ({
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef();
   useOnClickOutside(calendarRef, () => setShowCalendar(false));
+
+  useEffect(() => {
+    const head = document.head;
+    const link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = '/assets/styles/home-calendar.css';
+
+    head.appendChild(link);
+
+    return () => {
+      head.removeChild(link);
+    };
+  }, []);
 
   return (
     <div style={{ position: 'relative' }} ref={calendarRef}>
