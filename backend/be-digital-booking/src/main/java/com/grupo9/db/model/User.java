@@ -1,87 +1,58 @@
 package com.grupo9.db.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "users", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "username"),
+@Table(name = "user", uniqueConstraints = {
     @UniqueConstraint(columnNames = "email")
 })
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_sequence")
+    @EqualsAndHashCode.Include
     private Long id;
 
-    @NotBlank
-    @Size(max = 20)
-    private String username;
+    @NotEmpty(message = "name is mandatory")
+    @Column(name = "name", nullable=false)
+    private String name;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+    @NotEmpty(message = "lastname is mandatory")
+    @Column(name = "lastname", nullable=false)
+    private String lastname;
+
+    @NotEmpty(message = "email is mandatory")
+    @Email(message = "email with wrong format")
+    @Column(name = "email", nullable=false)
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
+    @NotEmpty(message = "password is mandatory")
+    @Size(min = 6)
+    @Column(name = "password", nullable=false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "role_id")
+    @Enumerated(EnumType.ORDINAL)
+    private Role roles;
 
-    public User() {
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String name, String lastname, String email, String password) {
+        this.name = name;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

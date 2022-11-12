@@ -1,52 +1,31 @@
 package com.grupo9.db.dto.Auth;
+import com.grupo9.db.model.Role;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.validation.constraints.*;
-import java.util.Set;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class SignupDto {
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+    @NotEmpty(message = "name is mandatory")
+    private String name;
+
+    @NotEmpty(message = "lastname is mandatory")
+    private String lastname;
+
+    @NotBlank(message = "email is mandatory")
+    @Email(message = "email with wrong format")
     private String email;
 
-    private Set<String> role;
-
-    @NotBlank
-    @Size(min = 6, max = 40)
+    @NotBlank(message = "password is mandatory")
+    @Size(min = 6)
     private String password;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<String> getRole() {
-        return this.role;
-    }
-
-    public void setRole(Set<String> role) {
-        this.role = role;
-    }
+    private String role;
 }
