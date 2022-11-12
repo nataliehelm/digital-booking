@@ -31,10 +31,15 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         final Map<String, Object> body = new HashMap<>();
-        body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        body.put("error", "Unauthorized");
-        body.put("message", authException.getMessage());
-        body.put("path", request.getServletPath());
+        final Map<String, Object> errors = new HashMap<>();
+
+        errors.put("path", request.getServletPath());
+        errors.put("full_error", authException.getMessage());
+        
+        body.put("httpStatusCode", HttpServletResponse.SC_UNAUTHORIZED);
+        body.put("errors", errors);
+        body.put("message", "Unauthorized");
+        body.put("data", null);
 
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), body);
