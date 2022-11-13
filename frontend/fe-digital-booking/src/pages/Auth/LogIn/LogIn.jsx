@@ -1,54 +1,51 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mandatoryValidator } from '../../../utils/validators';
 import { Button, Heading, Text, Input, useInput } from '../../../atoms';
 import styles from './LogIn.module.scss';
+import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 
 const LogIn = () => {
-  const userData = JSON.parse(localStorage.getItem('userInfo'));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userData && userData.isLogged) navigate('/');
-  }, [navigate, userData]);
-
   const email = useInput('', mandatoryValidator);
   const password = useInput('', mandatoryValidator);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({ error: null });
+  const { isLoading, data, error, callback: loginFunction } = useFetchLazy();
+  const jwt = JSON.parse(localStorage.getItem('jwt'));
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    const options = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    };
+    loginFunction('auth/login', options);
+  };
+
+  useEffect(() => {
+    if (jwt) navigate('/');
+  }, [navigate, jwt]);
 
   const disabled = useMemo(() => {
     return [email, password].some((item) => item.value === '' || item.hasError);
   }, [email, password]);
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    if (!userData) {
-      setErrors({
-        error: 'Por favor vuelva a intentarlo, sus credenciales son inválidas',
-      });
-      return;
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('jwt', JSON.stringify(data.token));
+      navigate(0);
     }
-    setIsLoading(true);
-    const savedEmail = userData.email;
-    const savedPassword = userData.password;
-
-    setErrors({ error: null });
-
-    setTimeout(() => {
-      if (savedEmail !== email.value || savedPassword !== password.value) {
-        setErrors({
-          error:
-            'Por favor vuelva a intentarlo, sus credenciales son inválidas',
-        });
-      } else {
-        const loggedUser = { ...userData, isLogged: true };
-        localStorage.setItem('userInfo', JSON.stringify(loggedUser));
-        navigate(0);
-      }
-      setIsLoading(false);
-    }, 1000);
-  };
+    if (error) {
+      console.error(error.full_error);
+    }
+  }, [data, error, navigate]);
 
   return (
     <main className={styles.main}>
@@ -74,9 +71,9 @@ const LogIn = () => {
             label="Contraseña"
             type="password"
           />
-          {errors.error && (
+          {error && (
             <Text variant="t2" classname={styles['error']}>
-              {errors.error}
+              {error.error}
             </Text>
           )}
           <Button
@@ -87,10 +84,10 @@ const LogIn = () => {
           >
             Ingresar
           </Button>
-          <Text variant="t2" classname={styles['signin-text']}>
+          <Text variant="t2" classname={styles['signup-text']}>
             <>
               ¿Aún no tenes cuenta?{' '}
-              <Link to="/signin">
+              <Link to="/signup">
                 <span> Registrate</span>
               </Link>
             </>

@@ -6,9 +6,9 @@ const AuthButtons = () => {
   const { pathname } = useLocation();
   return (
     <section className={styles.container}>
-      {!pathname.includes('signin') && (
+      {!pathname.includes('signup') && (
         <>
-          <Link to="/signin">
+          <Link to="/signup">
             <Button variant="b2" onClick={console.log}>
               Crear cuenta
             </Button>

@@ -8,6 +8,7 @@ import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +22,7 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="token", required = false) String token){
+    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false) String token){
         return service.findAll(token);
     }
 
@@ -35,16 +36,19 @@ public class ProductController {
         return service.findByParams(params);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
         return service.save(product);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Product, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException, BadRequestException {
         return service.update(id, product);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         return service.deleteById(id);
