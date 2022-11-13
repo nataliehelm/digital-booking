@@ -9,7 +9,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const email = useInput('', mandatoryValidator);
   const password = useInput('', mandatoryValidator);
-  const { isLoading, data = {}, error = {}, callback } = useFetchLazy();
+  const { isLoading, data, error, callback: loginFunction } = useFetchLazy();
   const jwt = JSON.parse(localStorage.getItem('jwt'));
 
   const handleOnSubmit = (e) => {
@@ -26,7 +26,7 @@ const LogIn = () => {
         password: password.value,
       }),
     };
-    callback('auth/login', options);
+    loginFunction('auth/login', options);
   };
 
   useEffect(() => {
