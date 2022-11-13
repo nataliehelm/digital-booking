@@ -22,10 +22,10 @@ public class UsersLoader {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        User user1 = new User("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin"));
+        User user1 = new User("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin"), true);
         user1.setRoles(iRoleRepository.findByName(ERole.ROLE_ADMIN).get());
 
-        User user2 = new User("user", "user", "user@user.com", passwordEncoder.encode("user"));
+        User user2 = new User("user", "user", "user@user.com", passwordEncoder.encode("user"), true);
         user2.setRoles(iRoleRepository.findByName(ERole.ROLE_USER).get());
 
         iUserRepository.save(user1);
