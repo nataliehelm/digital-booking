@@ -3,6 +3,7 @@ package com.grupo9.db.controller;
 import javax.validation.Valid;
 
 import com.grupo9.db.dto.Auth.LoginDto;
+import com.grupo9.db.dto.Auth.ResendEmailDto;
 import com.grupo9.db.dto.Auth.SignupDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
@@ -31,5 +32,10 @@ public class AuthController {
     @GetMapping(path = "/activate/{id}")
     public ResponseEntity<ApiResponse<?, Object>>  activateEmail(@PathVariable("id") String id) throws ResourceNotFoundException {
         return authService.activateEmail(id);
+    }
+
+    @PostMapping(path = "/resend")
+    public ResponseEntity<ApiResponse<?, Object>>  resendEmail(@RequestBody ResendEmailDto resendEmailDto) throws ResourceNotFoundException {
+        return authService.resendEmail(resendEmailDto);
     }
 }

@@ -2,6 +2,7 @@ package com.grupo9.db.service;
 
 import com.grupo9.db.dto.Auth.JwtResponse;
 import com.grupo9.db.dto.Auth.LoginDto;
+import com.grupo9.db.dto.Auth.ResendEmailDto;
 import com.grupo9.db.dto.Auth.SignupDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
@@ -83,7 +84,7 @@ public class AuthService {
 
             StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
             encryptor.setPassword(cryptPassword);
-            String confirmUrl = activateUserUrl + encryptor.encrypt(String.valueOf(savedUser.getId()));
+            String confirmUrl = activateUserUrl + encryptor.encrypt(String.valueOf(savedUser.getId())) + "/activate";
 
             EmailDetails emailDetails = new EmailDetails();
 
@@ -91,9 +92,9 @@ public class AuthService {
             emailDetails.setSubject("Gracias por tu registro en Digital Booking!");
             emailDetails.setMsgBody("Hola " + signUpRequest.getName() + "! Desde el grupo 9 de Digital Booking te damos la bienvenida. \n\nPara poder continuar con tu registro es necesario que actives tu cuenta. \n\nPor favor da click en el siguiente link: " + confirmUrl);
 
-            emailService.sendSimpleMail(emailDetails);
+            sendEmail(emailDetails);
 
-            return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"User registered successfully", "User registered successfully", null);
+            return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"User registered successfully", user, null);
         }catch (Exception e){
             throw new BadRequestException(e.getMessage());
         }
@@ -112,6 +113,32 @@ public class AuthService {
         userToActivate.setActive(true);
         User response = userRepository.save(userToActivate);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User activated successfully", response, null);
+    }
+
+
+    public ResponseEntity<ApiResponse<?, Object>>  resendEmail(ResendEmailDto resendEmailDto) throws ResourceNotFoundException {
+        Optional<User> user = userRepository.findByEmail(resendEmailDto.getEmail());
+
+        if(user.isEmpty()){
+            throw new ResourceNotFoundException("User with email " + resendEmailDto.getEmail() + " not found");
+        }
+
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword(cryptPassword);
+        String confirmUrl = activateUserUrl + encryptor.encrypt(String.valueOf(user.get().getId())) + "/activate";
+
+        EmailDetails emailDetails = new EmailDetails();
+
+        emailDetails.setRecipient(resendEmailDto.getEmail());
+        emailDetails.setSubject("Gracias por tu registro en Digital Booking!");
+        emailDetails.setMsgBody("Hola " + user.get().getName() + "! Desde el grupo 9 de Digital Booking te damos la bienvenida. \n\nPara poder continuar con tu registro es necesario que actives tu cuenta. \n\nPor favor da click en el siguiente link: " + confirmUrl);
+
+        sendEmail(emailDetails);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User activated successfully", user, null);
+    }
+
+    private void sendEmail(EmailDetails emailDetails) {
+        emailService.sendSimpleMail(emailDetails);
     }
 
 }
