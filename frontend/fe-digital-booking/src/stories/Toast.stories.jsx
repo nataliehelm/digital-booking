@@ -39,3 +39,10 @@ ErrorToast.args = {
   variant: 'error',
   label: 'Para realizar una reserva necesitas estar logueado',
 };
+
+export const ClosableToast = Template.bind({});
+ErrorToast.args = {
+  variant: 'error',
+  label: 'Para realizar una reserva necesitas estar logueado',
+  isClosable: true,
+};
