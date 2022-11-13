@@ -1,27 +1,25 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Heading, Text, Input, useInput } from '../../../atoms';
+import { Toast } from '../../../atoms';
+import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 import {
   emailValidator,
   mandatoryValidator,
   passwordValidator,
 } from '../../../utils/validators';
-import styles from './SignIn.module.scss';
+import styles from './SignUp.module.scss';
 
-const SignIn = () => {
-  const userData = JSON.parse(localStorage.getItem('userInfo'));
+const SignUp = () => {
+  const jwt = JSON.parse(localStorage.getItem('jwt'));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userData && userData.isLogged) navigate('/');
-  }, [navigate, userData]);
+  const { isLoading, data, error, callback: signUpFunction } = useFetchLazy();
 
   const name = useInput('', mandatoryValidator);
   const lastname = useInput('', mandatoryValidator);
   const email = useInput('', emailValidator);
   const password = useInput('', passwordValidator);
   let passwordConfirmation = useInput('');
-  const [isLoading, setIsLoading] = useState(false);
 
   passwordConfirmation = {
     ...passwordConfirmation,
@@ -35,12 +33,6 @@ const SignIn = () => {
         : '',
   };
 
-  const disabled = useMemo(() => {
-    return [name, lastname, email, password, passwordConfirmation].some(
-      (item) => item.value === '' || item.hasError
-    );
-  }, [name, lastname, email, password, passwordConfirmation]);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
@@ -49,22 +41,56 @@ const SignIn = () => {
       lastname: lastname.value,
       email: email.value,
       password: password.value,
-      isLogged: false,
     };
 
-    localStorage.setItem('userInfo', JSON.stringify(newUser));
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
+    const options = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    };
+
+    signUpFunction('auth/signup', options);
   };
+
+  useEffect(() => {
+    if (jwt && jwt.isLogged) navigate('/');
+  }, [navigate, jwt]);
+
+  useEffect(() => {
+    if (data) {
+      navigate(`/signup/${data.id}/activate`, { state: { email: data.email } });
+    }
+    if (error) {
+      console.error(error);
+    }
+  }, [data, error, navigate]);
+
+  const disabled = useMemo(() => {
+    return [name, lastname, email, password, passwordConfirmation].some(
+      (item) => item.value === '' || item.hasError
+    );
+  }, [name, lastname, email, password, passwordConfirmation]);
 
   return (
     <main className={styles.main}>
+      {error && (
+        <div className={styles['sign-up-form']}>
+          <Toast
+            variant="error"
+            label={
+              error.error ||
+              'Lamentablemente no ha podido registrarse. Por favor intente más tarde'
+            }
+          />
+        </div>
+      )}
       <Heading variant="h1" classname={styles.title}>
         Crear cuenta
       </Heading>
-      <form className={styles['sign-in-form']} onSubmit={handleOnSubmit}>
+      <form className={styles['sign-up-form']} onSubmit={handleOnSubmit}>
         <section>
           <div className={styles.names}>
             <Input {...name} name="name" label="Nombre" />
@@ -115,4 +141,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
