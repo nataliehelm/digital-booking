@@ -1,5 +1,6 @@
 package com.grupo9.db.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class User {
 
     @NotEmpty(message = "password is mandatory")
     @Size(min = 6)
+    @JsonIgnore
     @Column(name = "password", nullable=false)
     private String password;
 

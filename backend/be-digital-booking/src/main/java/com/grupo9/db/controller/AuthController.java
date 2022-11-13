@@ -67,7 +67,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User registered successfully", new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(), roles), null);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User login successfully", new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(), roles), null);
     }
 
     @PostMapping("/signup")
@@ -79,23 +79,11 @@ public class AuthController {
         }
 
         User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
-        String strRole = signUpRequest.getRole();
-
         Role role = roleRepository.findByName(ERole.ROLE_USER).get();
-
-        if (strRole != null){
-            if(strRole.equals("admin")){
-                role = roleRepository.findByName(ERole.ROLE_ADMIN).get();
-            }
-            if (!strRole.equals("admin") && !strRole.equals("user")) {
-                throw new BadRequestException("Error: Role is not found.");
-            }
-        }
-
 
         user.setRoles(role);
         userRepository.save(user);
 
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User registered successfully", null, null);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"User registered successfully", null, null);
     }
 }

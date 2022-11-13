@@ -26,6 +26,4 @@ public class SignupDto {
     @NotBlank(message = "password is mandatory")
     @Size(min = 6)
     private String password;
-
-    private String role;
 }
