@@ -62,7 +62,7 @@ public class AuthService {
 
     public ResponseEntity<ApiResponse<?, Object>>  signup(SignupDto signUpRequest) throws BadRequestException {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            throw new BadRequestException("Error: Email is already in use");
+            throw new BadRequestException("El correo ya se encuentra registrado");
         }
 
         User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
