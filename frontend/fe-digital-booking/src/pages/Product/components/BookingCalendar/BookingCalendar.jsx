@@ -8,7 +8,7 @@ import styles from './BookingCalendar.module.scss';
 import 'react-date-range/dist/styles.css';
 import { getDatesInRange } from '../../../../utils/dates';
 
-const BookingCalendar = ({ months }) => {
+const BookingCalendar = ({ months, booking }) => {
   const [range, setRange] = useState([
     {
       startDate: new Date(),
@@ -17,7 +17,7 @@ const BookingCalendar = ({ months }) => {
     },
   ]);
 
-  const bookingDates = getDatesInRange(range[0].startDate, range[0].endDate);
+  //const bookingDates = getDatesInRange(booking[0].startDate, range[0].endDate);
 
   useEffect(() => {
     const head = document.head;
@@ -34,19 +34,12 @@ const BookingCalendar = ({ months }) => {
     };
   }, []);
 
-  const bookedDates = [
-    '2022-11-25',
-    '2022-11-24',
-    '2022-11-23',
-    '2022-11-05',
-    '2022-11-06',
-    '2022-11-07',
-    '2022-11-08',
-    '2022-11-09',
-    '2022-11-15',
-  ];
+  const disabledDates = booking
+    .map((date) => date.booked_dates)
+    .flat()
+    .map((date) => new Date(date));
 
-  const disabledDates = bookedDates.map((date) => new Date(date));
+  console.log(disabledDates);
 
   return (
     <div>

@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch/useFetch';
 import Product from './Product';
+import productData from './lib/booking';
 
 const ProductContainer = () => {
   const { id } = useParams();
+  const product = productData;
 
-  const { isLoading, data: product } = useFetch(`products/${id}`);
+  /* const { isLoading, data: product } = useFetch(`products/${id}`);
 
   if (isLoading)
     return (
@@ -14,7 +16,7 @@ const ProductContainer = () => {
           <img src="assets/loading-gif.gif" alt="Loading..."></img>
         </figure>
       </div>
-    );
+    ); */
 
   return (
     <Product
@@ -30,6 +32,7 @@ const ProductContainer = () => {
       policies={product.policies}
       subtitle={product.description_title}
       description={product.description}
+      booking={product.booking}
     />
   );
 };

@@ -24,6 +24,7 @@ const Product = ({
   coordinates,
   subtitle,
   description,
+  booking,
 }) => {
   const navigate = useNavigate();
   const onBackClick = () => {
@@ -69,7 +70,10 @@ const Product = ({
           <Heading variant="h1" classname={styles['booking-title']}>
             Fechas disponibles
           </Heading>
-          <BookingCalendar months={['sm', 'lg'].includes(breakpoint) ? 1 : 2} />
+          <BookingCalendar
+            months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
+            booking={booking}
+          />
         </section>
         <section className={styles['col-right']}>
           <Heading variant="h3" classname={styles['booking-subtitle']}>
