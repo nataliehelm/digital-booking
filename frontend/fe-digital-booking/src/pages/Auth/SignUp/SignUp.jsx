@@ -7,9 +7,9 @@ import {
   mandatoryValidator,
   passwordValidator,
 } from '../../../utils/validators';
-import styles from './SignIn.module.scss';
+import styles from './SignUp.module.scss';
 
-const SignIn = () => {
+const SignUp = () => {
   const jwt = JSON.parse(localStorage.getItem('jwt'));
   const navigate = useNavigate();
   const { isLoading, data, error, callback: signUpFunction } = useFetchLazy();
@@ -78,7 +78,7 @@ const SignIn = () => {
       <Heading variant="h1" classname={styles.title}>
         Crear cuenta
       </Heading>
-      <form className={styles['sign-in-form']} onSubmit={handleOnSubmit}>
+      <form className={styles['sign-up-form']} onSubmit={handleOnSubmit}>
         <section>
           <div className={styles.names}>
             <Input {...name} name="name" label="Nombre" />
@@ -129,4 +129,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

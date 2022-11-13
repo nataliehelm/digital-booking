@@ -84,10 +84,10 @@ const LogIn = () => {
           >
             Ingresar
           </Button>
-          <Text variant="t2" classname={styles['signin-text']}>
+          <Text variant="t2" classname={styles['signup-text']}>
             <>
               ¿Aún no tenes cuenta?{' '}
-              <Link to="/signin">
+              <Link to="/signup">
                 <span> Registrate</span>
               </Link>
             </>
