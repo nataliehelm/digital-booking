@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET,"/products").permitAll()
-                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/products/").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/products/**").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET,"/locations").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET, "/locations/").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET,"/categories").permitAll()
