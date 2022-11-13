@@ -50,7 +50,7 @@ describe('<Drawer />', () => {
     expect(screen.getByText('Felipe Monterrosa')).toBeInTheDocument();
   });
 
-  test('Should redirect to signin when signin is clicked', () => {
+  test('Should redirect to signup when signup is clicked', () => {
     jest.spyOn(Storage.prototype, 'setItem');
     Storage.prototype.setItem = jest.fn();
     const setShowDrawer = jest.fn();
@@ -64,7 +64,7 @@ describe('<Drawer />', () => {
     const button = screen.getByText('Crear cuenta');
     fireEvent.click(button);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('/signin');
+    expect(mockedNavigate).toHaveBeenCalledWith('/signup');
   });
 
   test('Should redirect to login when login is clicked', () => {

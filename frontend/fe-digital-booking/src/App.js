@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import { Header } from './components/Header';
-import { LogIn, SignIn } from './pages/Auth';
+import { LogIn, SignUp } from './pages/Auth';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import styles from './App.module.scss';
@@ -16,11 +16,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout children={<Home />} />} />
             <Route
-              path="/signin"
+              path="/signup"
               element={
                 <Layout
                   className={styles['auth-background']}
-                  children={<SignIn />}
+                  children={<SignUp />}
                 />
               }
             />
