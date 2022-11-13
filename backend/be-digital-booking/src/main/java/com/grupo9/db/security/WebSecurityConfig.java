@@ -67,6 +67,7 @@ public class WebSecurityConfig {
                 .and().authorizeRequests().antMatchers("/swagger-ui.html/**").permitAll()
                 .and().authorizeRequests().antMatchers("/swagger-ui/**").permitAll()
                 .and().authorizeRequests().antMatchers("/v3/api-docs/**").permitAll()
+                .and().authorizeRequests().antMatchers("/mailing/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
