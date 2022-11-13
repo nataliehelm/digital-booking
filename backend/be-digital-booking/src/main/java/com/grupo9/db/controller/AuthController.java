@@ -19,6 +19,7 @@ import com.grupo9.db.repository.IRoleRepository;
 import com.grupo9.db.repository.IUserRepository;
 import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.security.services.UserDetailsImpl;
+import com.grupo9.db.service.AuthService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,52 +39,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    IUserRepository userRepository;
-
-    @Autowired
-    IRoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    JwtUtils jwtUtils;
+    AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<?, Object>> login(@Valid @RequestBody LoginDto loginRequest) {
-
-        ResponsesBuilder responsesBuilder = new ResponsesBuilder();
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"User login successfully", new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(), roles), null);
+        return authService.login(loginRequest);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse<?, Object>>  signup(@Valid @RequestBody SignupDto signUpRequest) throws BadRequestException {
-        ResponsesBuilder responsesBuilder = new ResponsesBuilder();
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            throw new BadRequestException("Error: Email is already in use");
-        }
-
-        User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
-        Role role = roleRepository.findByName(ERole.ROLE_USER).get();
-
-        user.setRoles(role);
-        userRepository.save(user);
-
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"User registered successfully", null, null);
+        return authService.signup(signUpRequest);
     }
 }
