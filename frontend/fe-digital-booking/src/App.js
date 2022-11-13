@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import { Header } from './components/Header';
-import { LogIn, SignUp } from './pages/Auth';
+import { LogIn, SignUp, UserActivation } from './pages/Auth';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
+import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
 
 function App() {
   return (
@@ -36,6 +37,16 @@ function App() {
             <Route
               path="/product/:id"
               element={<Layout children={<Product />} />}
+            />
+            <Route path="/user/:id/activate" element={<UserActivation />} />
+            <Route
+              path="/signup/:id/activate"
+              element={
+                <Layout
+                  className={styles['auth-background']}
+                  children={<ActivateUserInfo />}
+                />
+              }
             />
           </Routes>
         </div>

@@ -61,7 +61,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (data) {
-      navigate('/login');
+      navigate(`/signup/${data.id}/activate`, { state: { email: data.email } });
     }
     if (error) {
       console.error(error);

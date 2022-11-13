@@ -4,6 +4,7 @@ export * from './Button';
 export * from './Dropdown';
 export * from './Heading';
 export * from './Input';
+export * from './InfoBanner';
 export * from './Rank';
 export * from './Score';
 export * from './Subheader';
