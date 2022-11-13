@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Heading, Text, Input, useInput } from '../../../atoms';
+import { Toast } from '../../../atoms';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 import {
   emailValidator,
@@ -75,6 +76,14 @@ const SignUp = () => {
 
   return (
     <main className={styles.main}>
+      {error && (
+        <div className={styles['sign-up-form']}>
+          <Toast
+            variant="error"
+            label={error.error || 'Error en la petición, intenta más tarde.'}
+          />
+        </div>
+      )}
       <Heading variant="h1" classname={styles.title}>
         Crear cuenta
       </Heading>
