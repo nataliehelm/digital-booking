@@ -25,6 +25,10 @@ public class UsersLoader {
         User user1 = new User("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin"));
         user1.setRoles(iRoleRepository.findByName(ERole.ROLE_ADMIN).get());
 
+        User user2 = new User("user", "user", "user@user.com", passwordEncoder.encode("user"));
+        user2.setRoles(iRoleRepository.findByName(ERole.ROLE_USER).get());
+
         iUserRepository.save(user1);
+        iUserRepository.save(user2);
     }
 }
