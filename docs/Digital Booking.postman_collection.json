@@ -6,6 +6,277 @@
 	},
 	"item": [
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Felipe\",\n    \"lastname\": \"Monterrosa\",\n    \"email\": \"felipe.monterrosa@hotmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup body error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Message should be Validation of fields failed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Validation of fields failed');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name1\": \"Felipe\",\n    \"lastname1\": \"Monterrosa\",\n    \"email1\": \"felipe.monterrosa@hotmail.com\",\n    \"password1\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup email error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Message should be Error: Email is already in use\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Error: Email is already in use');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Felipe\",\n    \"lastname\": \"Monterrosa\",\n    \"email\": \"felipe.monterrosa@hotmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"token\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"type\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"roles\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const response = jsonData.data",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@user.com\",\n    \"password\": \"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login admin role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"token\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"type\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"roles\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const response = jsonData.data",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Categories",
 			"item": [
 				{
@@ -68,14 +339,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/categories/",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								""
@@ -136,14 +411,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/categories/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"1"
@@ -169,14 +448,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/categories/32",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/32",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"32"
@@ -229,7 +512,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Categoria 1\",\n  \"description\": \"descripcion categoria 1\",\n  \"image_url\": \"string\"\n}",
@@ -240,12 +529,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								""
@@ -271,7 +558,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Categoria 1\",\n  \"image_url\": \"string\"\n}",
@@ -282,12 +575,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								""
@@ -352,7 +643,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"nueva imagen\"\n}",
@@ -363,12 +660,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/5",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/5",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"5"
@@ -394,7 +689,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -405,12 +706,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"-1"
@@ -439,7 +738,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -450,12 +755,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/5",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/5",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"5"
@@ -483,7 +786,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -494,12 +803,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/categories/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/categories/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"categories",
 								"-1"
@@ -563,14 +870,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/locations/",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								""
@@ -635,14 +946,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/locations/2",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/2",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								"2"
@@ -668,14 +983,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/locations/-2",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/-2",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								"-2"
@@ -728,7 +1047,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"province_name\": \"Bogotá\",\n    \"city_name\": \"Bogotá\",\n    \"country_name\": \"Colombia\"\n}",
@@ -739,12 +1064,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/locations/",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								""
@@ -770,7 +1093,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"province_namea\": \"Bogotá\",\n    \"city_namea\": \"Bogotá\",\n    \"country_namea\": \"Colombia\"\n}",
@@ -781,12 +1110,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/locations/",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								""
@@ -821,7 +1148,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"province_name\": \"Antioquia\",\n    \"city_name\": \"Medellin\",\n    \"country_name\": \"Colombia\"\n}",
@@ -832,12 +1165,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/locations/15",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/15",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								"15"
@@ -866,14 +1197,18 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/locations/15",
-							"protocol": "http",
+							"raw": "{{base_url}}/locations/15",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"locations",
 								"15"
@@ -941,14 +1276,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/features/",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								""
@@ -1006,14 +1345,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/features/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"1"
@@ -1039,14 +1382,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/features/32",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/32",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"32"
@@ -1093,7 +1440,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Feature 1\",\n  \"icon\": \"feature-feature\",\n  \"image_url\": \"string\"\n}",
@@ -1104,12 +1457,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								""
@@ -1135,7 +1486,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Feature 1\",\n  \"image_url\": \"string\"\n}",
@@ -1146,12 +1503,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								""
@@ -1211,7 +1566,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"nueva Feature 1\",\n  \"icon\": \"fe-feature\"\n}",
@@ -1222,12 +1583,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/8",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/8",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"8"
@@ -1253,7 +1612,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -1264,12 +1629,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"-1"
@@ -1298,7 +1661,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1309,12 +1678,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/12",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/12",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"12"
@@ -1342,7 +1709,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1353,12 +1726,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/features/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/features/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"features",
 								"-1"
@@ -1426,14 +1797,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/images/",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								""
@@ -1487,14 +1862,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/images/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"1"
@@ -1520,14 +1899,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/images/32532532",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/32532532",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"32532532"
@@ -1574,7 +1957,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Image 1\",\n  \"url\": \"localhost:8080/mi_logo\",\n  \"product_id\": 1\n}",
@@ -1585,12 +1974,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								""
@@ -1616,7 +2003,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Image 1\",\n  \"image_url\": \"string\"\n}",
@@ -1627,12 +2020,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								""
@@ -1688,7 +2079,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Image 1\",\n  \"url\": \"localhost:8081/mi_logo\",\n  \"product_id\": 1\n}",
@@ -1699,12 +2096,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/6",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/6",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"6"
@@ -1730,7 +2125,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -1741,12 +2142,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"-1"
@@ -1775,7 +2174,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1786,12 +2191,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/64",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/64",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"64"
@@ -1819,7 +2222,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1830,12 +2239,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/images/64533",
-							"protocol": "http",
+							"raw": "{{base_url}}/images/64533",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"images",
 								"64533"
@@ -1910,14 +2317,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/policies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								""
@@ -1982,14 +2393,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/policies/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"1"
@@ -2015,14 +2430,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/policies/32",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/32",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"32"
@@ -2076,7 +2495,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Politica nueva\",\n  \"subPolicyIds\": [1,2,3]\n}",
@@ -2087,12 +2512,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								""
@@ -2118,7 +2541,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Image 1\",\n  \"image_url\": \"string\"\n}",
@@ -2129,12 +2558,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								""
@@ -2202,7 +2629,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"Politica nueva\",\n  \"subPolicyIds\": [1]\n}",
@@ -2213,12 +2646,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/4",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/4",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"4"
@@ -2244,7 +2675,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -2255,12 +2692,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"-1"
@@ -2289,7 +2724,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -2300,12 +2741,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/6",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/6",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"6"
@@ -2333,7 +2772,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -2344,12 +2789,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/policies/6",
-							"protocol": "http",
+							"raw": "{{base_url}}/policies/6",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"policies",
 								"6"
@@ -2414,14 +2857,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								""
@@ -2476,14 +2923,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"1"
@@ -2509,17 +2960,28 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/32",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/32",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"32"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -2570,7 +3032,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"description\": \"Nueva Subpolitica\"\n}",
@@ -2581,12 +3049,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								""
@@ -2612,7 +3078,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n}",
@@ -2623,12 +3095,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								""
@@ -2685,7 +3155,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"description\": \"Nueva Sub-politica\"\n}",
@@ -2696,12 +3172,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/8",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/8",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"8"
@@ -2727,7 +3201,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -2738,12 +3218,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"-1"
@@ -2772,7 +3250,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -2783,12 +3267,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/8",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/8",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"8"
@@ -2816,7 +3298,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -2827,12 +3315,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/subPolicies/8",
-							"protocol": "http",
+							"raw": "{{base_url}}/subPolicies/8",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"subPolicies",
 								"8"
@@ -2929,14 +3415,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/products/",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								""
@@ -3031,18 +3521,16 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "token",
-								"value": "test",
+								"key": "Authorization",
+								"value": "{{user_token}}",
 								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/products/",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								""
@@ -3127,14 +3615,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/products/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"1"
@@ -3160,14 +3652,18 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8081/products/32",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/32",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"32"
@@ -3244,7 +3740,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [],\n    \"policiyIds\": []\n}",
@@ -3255,12 +3757,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								""
@@ -3286,7 +3786,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n}",
@@ -3297,15 +3803,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -3338,7 +3849,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [\n        4,\n        3\n    ],\n    \"policiyIds\": [\n        1,\n        2,\n        3\n    ]\n}",
@@ -3349,12 +3866,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/2",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/2",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"2"
@@ -3380,7 +3895,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
@@ -3391,12 +3912,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/-1",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/-1",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"-1"
@@ -3425,7 +3944,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -3436,12 +3961,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/13",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/13",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"13"
@@ -3469,7 +3992,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -3480,15 +4009,187 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/products/13",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/13",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"products",
 								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "findAll with admin role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name admin\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('admin');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"lastname\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"email\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"roles\": {",
+									"                \"type\": \"object\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll with user role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name admin\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('admin');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
