@@ -8,3 +8,4 @@ export * from './Rank';
 export * from './Score';
 export * from './Subheader';
 export * from './Text';
+export * from './Toast';
