@@ -51,10 +51,21 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     private Role roles;
 
+    @Column(name = "is_active")
+    private boolean isActive = false;
+
     public User(String name, String lastname, String email, String password) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name, String lastname, String email, String password, Boolean isActive) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
     }
 }

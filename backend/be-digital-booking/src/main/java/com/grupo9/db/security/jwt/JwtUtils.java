@@ -31,6 +31,7 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .claim("name", userPrincipal.getName())
                 .claim("lastname", userPrincipal.getLastname())
+                .claim("isActive", userPrincipal.isActive())
                 .compact();
     }
 
