@@ -80,7 +80,10 @@ const SignUp = () => {
         <div className={styles['sign-up-form']}>
           <Toast
             variant="error"
-            label={error.error || 'Error en la petición, intenta más tarde.'}
+            label={
+              error.error ||
+              'Lamentablemente no ha podido registrarse. Por favor intente más tarde'
+            }
           />
         </div>
       )}
