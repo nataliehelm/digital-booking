@@ -16,8 +16,6 @@ const Toast = ({ variant, label }) => {
     ),
   }[variant];
 
-  console.log({ variant, label, variantIcon, variantClass });
-
   return (
     <div className={cn(styles.toast, variantClass)}>
       {variantIcon}

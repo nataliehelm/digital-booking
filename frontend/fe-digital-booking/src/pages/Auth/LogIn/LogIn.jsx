@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mandatoryValidator } from '../../../utils/validators';
-import { Button, Heading, Text, Input, useInput } from '../../../atoms';
+import { Button, Heading, Text, Input, useInput, Toast } from '../../../atoms';
 import styles from './LogIn.module.scss';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 
@@ -49,6 +49,17 @@ const LogIn = () => {
 
   return (
     <main className={styles.main}>
+      {error && (
+        <div className={styles['toast']}>
+          <Toast
+            variant="error"
+            label={
+              error.error ||
+              'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
+            }
+          />
+        </div>
+      )}
       <form className={styles['login-in-form']} onSubmit={handleOnSubmit}>
         <Heading variant="h1" classname={styles.title}>
           Iniciar sesión
@@ -71,11 +82,6 @@ const LogIn = () => {
             label="Contraseña"
             type="password"
           />
-          {error && (
-            <Text variant="t2" classname={styles['error']}>
-              {error.error}
-            </Text>
-          )}
           <Button
             variant="b1"
             type="submit"
