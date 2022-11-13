@@ -35,7 +35,8 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
         errors.put("path", request.getServletPath());
         errors.put("full_error", authException.getMessage());
-        
+        errors.put("error", "Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde");
+
         body.put("httpStatusCode", HttpServletResponse.SC_UNAUTHORIZED);
         body.put("errors", errors);
         body.put("message", "Unauthorized");
