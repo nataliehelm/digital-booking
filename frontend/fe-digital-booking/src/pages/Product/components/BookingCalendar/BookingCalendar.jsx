@@ -1,19 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 
 import styles from './BookingCalendar.module.scss';
 import 'react-date-range/dist/styles.css';
+import { getDatesInRange } from '../../../../utils/dates';
 
 const BookingCalendar = ({ months }) => {
-  const [datesRange, setDatesRange] = useState([
+  const [range, setRange] = useState([
     {
       startDate: new Date(),
-      endDate: null,
+      endDate: addDays(new Date(), 0),
       key: 'selection',
     },
   ]);
+
+  const bookingDates = getDatesInRange(range[0].startDate, range[0].endDate);
 
   useEffect(() => {
     const head = document.head;
@@ -30,8 +34,6 @@ const BookingCalendar = ({ months }) => {
     };
   }, []);
 
-  const calendarRef = useRef();
-
   const bookedDates = [
     '2022-11-25',
     '2022-11-24',
@@ -41,27 +43,26 @@ const BookingCalendar = ({ months }) => {
     '2022-11-07',
     '2022-11-08',
     '2022-11-09',
+    '2022-11-15',
   ];
 
   const disabledDates = bookedDates.map((date) => new Date(date));
 
   return (
-    <div style={{ position: 'relative' }} ref={calendarRef}>
+    <div>
       <>
         <DateRange
-          onChange={(item) => setDatesRange([item.selection])}
-          ranges={datesRange}
           locale={es}
+          onChange={(item) => setRange([item.selection])}
           editableDateInputs={false}
           moveRangeOnFirstSelection={false}
+          ranges={range}
           months={months}
           direction="horizontal"
           className={styles.calendarElement}
           disabledDates={disabledDates}
           showMonthAndYearPickers={false}
           showDateDisplay={false}
-          showSelectionPreview={false}
-          showPreview={false}
           monthDisplayFormat="MMMM"
           weekdayDisplayFormat="EEEEE"
         />
