@@ -32,6 +32,7 @@ public class JwtUtils {
                 .claim("name", userPrincipal.getName())
                 .claim("lastname", userPrincipal.getLastname())
                 .claim("isActive", userPrincipal.isActive())
+                .claim("location", userPrincipal.getLocation())
                 .compact();
     }
 
