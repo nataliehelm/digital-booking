@@ -22,9 +22,14 @@ const Toast = ({ variant, label, isClosable }) => {
 
   return (
     <div className={cn(styles.toast, variantClass)}>
-      <div onClick={() => setShowToast(false)} className={styles['close-icon']}>
-        <i className="fa-solid fa-x fa-xl"></i>
-      </div>
+      {isClosable && (
+        <div
+          onClick={() => setShowToast(false)}
+          className={styles['close-icon']}
+        >
+          <i className="fa-solid fa-x fa-xl"></i>
+        </div>
+      )}
       {variantIcon}
       <Botton variant="b2">{label}</Botton>
     </div>
