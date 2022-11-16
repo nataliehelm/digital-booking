@@ -47,6 +47,10 @@ public class User {
     private String password;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "role_id")
     @Enumerated(EnumType.ORDINAL)
     private Role roles;
@@ -54,18 +58,20 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive = false;
 
-    public User(String name, String lastname, String email, String password) {
+    public User(String name, String lastname, String email, String password, Location location) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.location = location;
     }
 
-    public User(String name, String lastname, String email, String password, Boolean isActive) {
+    public User(String name, String lastname, String email, String password,Location location, Boolean isActive) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.location = location;
         this.isActive = isActive;
     }
 }

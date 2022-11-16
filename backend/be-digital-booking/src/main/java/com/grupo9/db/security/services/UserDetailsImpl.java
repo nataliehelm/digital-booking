@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.grupo9.db.model.Location;
 import com.grupo9.db.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,9 +27,11 @@ public class UserDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private Location location;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String name, String lastname, boolean isActive,String password,
+    public UserDetailsImpl(Long id, String email, String name, String lastname, boolean isActive,String password, Location location,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
@@ -36,6 +39,7 @@ public class UserDetailsImpl implements UserDetails {
         this.lastname = lastname;
         this.isActive = isActive;
         this.password = password;
+        this.location = location;
         this.authorities = authorities;
     }
 
@@ -50,6 +54,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getLastname(),
                 user.isActive(),
                 user.getPassword(),
+                user.getLocation(),
                 authorities);
     }
 
@@ -85,6 +90,10 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 
     @Override
