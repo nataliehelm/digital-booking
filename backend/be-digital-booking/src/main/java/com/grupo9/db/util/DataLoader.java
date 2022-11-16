@@ -25,6 +25,10 @@ public class DataLoader implements ApplicationRunner {
     private IPolicyRepository iPolicyRepository;
     @Autowired
     private ISubPolicyRepository iSubPolicyRepository;
+    @Autowired
+    private IRoleRepository iRoleRepository;
+    @Autowired
+    private IUserRepository iUserRepository;
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -42,5 +46,9 @@ public class DataLoader implements ApplicationRunner {
         productsLoader.Loader();
         ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
         imagesLoader.Loader();
+        RolesLoader rolesLoader = new RolesLoader(iRoleRepository);
+        rolesLoader.Loader();
+        UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository, iLocationRepository);
+        usersLoader.Loader();
     }
 }

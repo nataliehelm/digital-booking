@@ -43,18 +43,18 @@ const Drawer = ({ setShowDrawer, username }) => {
       <nav className={styles.navbar}>
         {!username && (
           <ul>
-            {!pathname.includes('signin') && (
+            {!pathname.includes('signup') && (
               <li
                 className={styles['navbar-item']}
                 onClick={() => {
                   setShowDrawer(false);
-                  navigate('/signin');
+                  navigate('/signup');
                 }}
               >
                 <Heading variant="h3">Crear cuenta</Heading>
               </li>
             )}
-            {!pathname.includes('signin') && !pathname.includes('login') && (
+            {!pathname.includes('signup') && !pathname.includes('login') && (
               <div className={styles.divider} />
             )}
             {!pathname.includes('login') && (
