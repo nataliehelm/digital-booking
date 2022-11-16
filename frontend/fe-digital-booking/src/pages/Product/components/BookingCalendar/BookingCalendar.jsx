@@ -17,6 +17,12 @@ const BookingCalendar = ({ months, booking }) => {
     },
   ]);
 
+  const minDate = new Date();
+
+  useEffect(() => {
+    localStorage.setItem('date-range', JSON.stringify(range));
+  }, [range]);
+
   //const bookingDates = getDatesInRange(booking[0].startDate, range[0].endDate);
 
   useEffect(() => {
@@ -39,8 +45,6 @@ const BookingCalendar = ({ months, booking }) => {
     .flat()
     .map((date) => new Date(date));
 
-  console.log(disabledDates);
-
   return (
     <div>
       <>
@@ -49,6 +53,7 @@ const BookingCalendar = ({ months, booking }) => {
           onChange={(item) => setRange([item.selection])}
           editableDateInputs={false}
           moveRangeOnFirstSelection={false}
+          minDate={minDate}
           ranges={range}
           months={months}
           direction="horizontal"
