@@ -4,18 +4,10 @@ import SocialNetwork from '../SocialNetwork';
 import PropTypes from 'prop-types';
 import styles from './Drawer.module.scss';
 
-const Drawer = ({ setShowDrawer, username }) => {
-  const userData = JSON.parse(localStorage.getItem('userInfo'));
+const Drawer = ({ setShowDrawer, username, onLogout }) => {
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
-
-  const handleLogout = () => {
-    const loggedUser = { ...userData, isLogged: false };
-    localStorage.setItem('userInfo', JSON.stringify(loggedUser));
-    setShowDrawer(false);
-    navigate(0);
-  };
 
   return (
     <section className={styles['drawer-container']}>
@@ -73,7 +65,7 @@ const Drawer = ({ setShowDrawer, username }) => {
       </nav>
       {username && (
         <div className={styles['logout-container']}>
-          <button onClick={handleLogout}>
+          <button onClick={onLogout}>
             <Text variant="t2" classname={styles['p-logout']}>
               <>
                 ¿Deseas{' '}
