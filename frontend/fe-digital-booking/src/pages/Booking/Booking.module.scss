@@ -1,0 +1,70 @@
+@use '../../styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+  .right-container {
+    padding: 10px;
+  }
+}
+.left-container {
+  display: flex;
+  flex-direction: column;
+  .booking-calendar {
+    padding: 10px;
+    color: $color-dark-grey;
+    display: flex;
+    flex-direction: column;
+
+    .col-left {
+      div {
+        font-size: 16px;
+      }
+    }
+
+    .calendar-title {
+      color: $color-secondary;
+      padding: 10px 0;
+      margin: 9px;
+      font-size: 20px;
+    }
+  }
+}
+
+.policies {
+  padding: 0 10px;
+  overflow: hidden;
+  background-color: $color-white;
+  margin-top: 30px;
+}
+
+@media (min-width: $md) {
+  .container {
+    flex-direction: row;
+  }
+  .policies {
+    padding: 0 30px;
+  }
+}
+
+@media (min-width: $lg) {
+  .left-container {
+    flex-direction: row;
+    width: 55%;
+    margin-left: 43px;
+    .booking-calendar {
+      padding-left: 0;
+
+      .calendar-title {
+        margin-left: 0px;
+      }
+    }
+  }
+  .right-container {
+    width: 45%;
+  }
+  .policies {
+    padding: 0 43px;
+  }
+}

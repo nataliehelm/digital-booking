@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
+import Booking from './pages/Booking/BookingContainer';
 
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
                   children={<ActivateUserInfo />}
                 />
               }
+            />
+            <Route
+              path="/product/:id/booking"
+              element={<Layout children={<Booking />} />}
             />
           </Routes>
         </div>
