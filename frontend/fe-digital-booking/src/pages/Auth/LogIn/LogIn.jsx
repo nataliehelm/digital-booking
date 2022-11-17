@@ -1,11 +1,15 @@
-import { useMemo, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useMemo, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mandatoryValidator } from '../../../utils/validators';
 import { Button, Heading, Text, Input, useInput, Toast } from '../../../atoms';
 import styles from './LogIn.module.scss';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
+import useAuthContext from '../../../providers/AuthProvider/useAuthContext';
 
 const LogIn = () => {
+  const [errorMsg, setErrorMsg] = useState(null);
+  const { setJwt } = useAuthContext();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const email = useInput('', mandatoryValidator);
   const password = useInput('', mandatoryValidator);
@@ -40,21 +44,29 @@ const LogIn = () => {
   useEffect(() => {
     if (data) {
       localStorage.setItem('jwt', JSON.stringify(data.token));
-      navigate(0);
+      setJwt(data.token);
+      navigate('/');
     }
     if (error) {
+      setErrorMsg(error.error);
       console.error(error.full_error);
     }
-  }, [data, error, navigate]);
+  }, [data, error, navigate, setJwt]);
+
+  useEffect(() => {
+    if (!error) {
+      if (state && state.message) setErrorMsg(state.message);
+    }
+  }, [error, state]);
 
   return (
     <main className={styles.main}>
-      {error && (
+      {(error || (state && state.message)) && (
         <div className={styles['toast']}>
           <Toast
             variant="error"
             label={
-              error.error ||
+              errorMsg ||
               'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
             }
           />
