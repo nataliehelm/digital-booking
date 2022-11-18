@@ -53,7 +53,7 @@ public class Product9 {
         policies.add(policy2);
         policies.add(policy3);
 
-        Product product9 = new Product("Hotel Casino Magic", "A 4,8 km del centro", 5.0F, 9.0F, "Descubre cómo se sienten las estrellas con el mejor servicio en el Hotel Casino Magic", "El Hotel Casino Magic de Neuquén cuenta con una elegante entrada con arcos y un patio interior con pilares en torno a una piscina al aire libre alargada, y también dispone de spa, casino y conexión Wi-Fi gratuita. El Museo Nacional de Bellas Artes está a 4 km.", coordinates1, category1, location2 , features1, policies );
+        Product product9 = new Product("Hotel Casino Magic", "A 4,8 km del centro", 5.0F, 9.0F, "Descubre cómo se sienten las estrellas con el mejor servicio en el Hotel Casino Magic", "El Hotel Casino Magic de Neuquén cuenta con una elegante entrada con arcos y un patio interior con pilares en torno a una piscina al aire libre alargada, y también dispone de spa, casino y conexión Wi-Fi gratuita. El Museo Nacional de Bellas Artes está a 4 km.", coordinates1, category1, location2 , "Planas 4005",features1, policies );
 
         iProductRepository.save(product9);
     }
