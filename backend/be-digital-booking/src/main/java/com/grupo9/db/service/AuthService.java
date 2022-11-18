@@ -79,13 +79,8 @@ public class AuthService {
                 throw new BadRequestException("El correo ya se encuentra registrado");
             }
 
-            Optional<Location> location = locationRepository.findById(signUpRequest.getLocationId());
 
-            if (location.isEmpty()) {
-                throw new ResourceNotFoundException("Location with id " + signUpRequest.getLocationId() + " not found");
-            }
-
-            User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()), location.get());
+            User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
             Role role = roleRepository.findByName(ERole.ROLE_USER).get();
 
             user.setRoles(role);
