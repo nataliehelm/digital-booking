@@ -2,20 +2,21 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Botton } from '../../atoms';
 import { Drawer } from '../Drawer';
+import jwt_decode from 'jwt-decode';
 import AuthButtons from '../AuthButtons';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const userData = JSON.parse(localStorage.getItem('userInfo'));
   const [showDrawer, setShowDrawer] = useState(false);
+  const jwt = JSON.parse(localStorage.getItem('jwt'));
+  const decodedJwt = jwt ? jwt_decode(jwt) : undefined;
   const navigate = useNavigate();
-  const username = userData?.isLogged
-    ? `${userData.name} ${userData.lastname}`
+  const username = jwt
+    ? `${decodedJwt.name} ${decodedJwt.lastname}`
     : undefined;
 
   const handleLogout = () => {
-    const loggedUser = { ...userData, isLogged: false };
-    localStorage.setItem('userInfo', JSON.stringify(loggedUser));
+    localStorage.removeItem('jwt');
     setShowDrawer(false);
     navigate(0);
   };

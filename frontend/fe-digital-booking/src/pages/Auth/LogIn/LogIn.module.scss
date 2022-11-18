@@ -50,7 +50,7 @@
       margin-top: 40px;
     }
 
-    .signin-text {
+    .signup-text {
       margin-top: -9px;
       text-align: center;
       a {
@@ -97,7 +97,7 @@
       .form-container {
         max-width: 448px;
       }
-      .signin-text {
+      .signup-text {
         margin-top: 1px;
       }
       .submit-button {
@@ -116,4 +116,12 @@
       }
     }
   }
+}
+
+.toast {
+  position: absolute;
+  max-width: 448px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
