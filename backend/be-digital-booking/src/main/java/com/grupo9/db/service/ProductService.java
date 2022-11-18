@@ -20,14 +20,16 @@ public class ProductService {
     private final ILocationRepository locationRepository;
     private final IFeatureRepository featureRepository;
     private final IPolicyRepository policyRepository;
+    private final IBookingRepository bookingRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.locationRepository = locationRepository;
         this.featureRepository = featureRepository;
         this.policyRepository = policyRepository;
+        this.bookingRepository = bookingRepository;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -89,6 +91,40 @@ public class ProductService {
             List<Product> products = repository.findTop8ByLocation(location.get());
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
+
+        if(params.get("locationId") != null && params.get("bookingDate") != null){
+            Long locationId = Long.valueOf(params.get("locationId"));
+            Optional<Location> location = locationRepository.findById(locationId);
+            if(location.isEmpty()){
+                throw new ResourceNotFoundException("Location with id " + locationId + " not found");
+            }
+            Date bookingDate = (params.get(bookingDate));
+            List<Booking> datesInOut = new ArrayList<>();
+            for (Date date : bookingDate) {
+                List<Booking> dates = bookingRepository.findbyDateInOut(bookingDate);
+                if(dates.isEmpty()){
+                    throw new ResourceNotFoundException("Booking dates " + bookingDate + " not found");
+                }
+                datesInOut.add(dates.get());
+            }
+            List<Product> products = repository.findbyBookingDateAndLocationId(location.get(), bookingDate);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
+        if(params.get("bookingDate") != null){
+            Date bookingDate = (params.get(bookingDate));
+            List<Booking> datesInOut = new ArrayList<>();
+            for (Date date : bookingDate) {
+                List<Booking> dates = bookingRepository.findbyDateInOut(bookingDate);
+                if(dates.isEmpty()){
+                    throw new ResourceNotFoundException("Booking dates " + bookingDate + " not found");
+                }
+                datesInOut.add(dates.get());
+            }
+            List<Product> products = repository.findbyBookingDate();
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
         throw new BadRequestException("Invalid Params");
     }
 

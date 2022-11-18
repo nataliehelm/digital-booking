@@ -1,5 +1,6 @@
 package com.grupo9.db.repository;
 
+import com.grupo9.db.model.Booking;
 import com.grupo9.db.model.Category;
 import com.grupo9.db.model.Location;
 import com.grupo9.db.model.Product;
@@ -19,4 +20,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value="SELECT * FROM product ORDER BY rand() LIMIT 8", nativeQuery=true)
     List<Product> findAllRandom();
+
+    List <Product> findbyBookingDate();
+    List <Product> findbyBookingDateAndLocationId(Location location, List<Booking> dates);
 }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,14 @@ public class BookingService {
             throw new ResourceNotFoundException("Booking with id " + id + " not found");
         }
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking successfully", booking.get(), null);
+    }
+
+    public ResponseEntity<ApiResponse<Booking, Object>> findByDate(Date bookingDateInOut) throws ResourceNotFoundException {
+        List<Booking> bookingDate = iBookingRepository.findbyDateInOut(bookingDateInOut);
+        if(bookingDate.isEmpty()){
+            throw new ResourceNotFoundException("BookingDate with Date " + bookingDateInOut + " not found");
+        }
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking starting_date and ending_Date successfully", bookingDate, null);
     }
 
     //guardar

@@ -30,6 +30,7 @@ public class BookingController {
         return bookingService.findById(id);
     }
 
+
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
         return bookingService.save(saveBookingDto);
