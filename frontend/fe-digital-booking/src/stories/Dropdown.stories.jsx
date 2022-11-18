@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Dropdown from "../atoms/Dropdown/Dropdown";
+import Dropdown from '../atoms/Dropdown/Dropdown';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "DigitalBooking/Dropdown",
+  title: 'DigitalBooking/Dropdown',
   component: Dropdown,
 };
 
@@ -24,7 +24,7 @@ const Template = (args) => (
       crossOrigin="anonymous"
       referrerPolicy="no-referrer"
     ></script>
-    <div style={{ width: "300px" }}>
+    <div style={{ width: '300px' }}>
       <Dropdown {...args} />
     </div>
   </>
@@ -35,27 +35,99 @@ BasicDropdown.args = {
   options: [
     {
       id: 1,
-      icon: <i className="fa-solid fa-location-dot"></i>,
-      title: "San Carlos de Bariloche",
-      description: "Argentina",
+      title: '01:00 AM',
     },
     {
       id: 2,
-      icon: <i className="fa-solid fa-location-dot"></i>,
-      title: "Buenos Aires",
-      description: "Argentina",
+      title: '02:00 AM',
     },
     {
       id: 3,
-      icon: <i className="fa-solid fa-location-dot"></i>,
-      title: "Mendoza",
-      description: "Argentina",
+      title: '03:00 AM',
     },
     {
       id: 4,
-      icon: <i className="fa-solid fa-location-dot"></i>,
-      title: "Córdoba",
-      description: "Argentina",
+      title: '04:00 AM',
+    },
+    {
+      id: 5,
+      title: '05:00 AM',
+    },
+    {
+      id: 6,
+      title: '06:00 AM',
+    },
+    {
+      id: 7,
+      title: '07:00 AM',
+    },
+    {
+      id: 8,
+      title: '08:00 AM',
+    },
+    {
+      id: 9,
+      title: '09:00 AM',
+    },
+    {
+      id: 10,
+      title: '10:00 AM',
+    },
+    {
+      id: 11,
+      title: '11:00 AM',
+    },
+    {
+      id: 12,
+      title: '12:00 AM',
+    },
+    {
+      id: 13,
+      title: '01:00 PM',
+    },
+    {
+      id: 14,
+      title: '02:00 PM',
+    },
+    {
+      id: 15,
+      title: '03:00 PM',
+    },
+    {
+      id: 16,
+      title: '04:00 PM',
+    },
+    {
+      id: 17,
+      title: '05:00 PM',
+    },
+    {
+      id: 18,
+      title: '06:00 PM',
+    },
+    {
+      id: 19,
+      title: '07:00 PM',
+    },
+    {
+      id: 20,
+      title: '08:00 PM',
+    },
+    {
+      id: 21,
+      title: '09:00 PM',
+    },
+    {
+      id: 22,
+      title: '10:00 PM',
+    },
+    {
+      id: 23,
+      title: '11:00 PM',
+    },
+    {
+      id: 24,
+      title: '12:00 PM',
     },
   ],
   onChange: console.log,
