@@ -27,6 +27,5 @@ public class SignupDto {
     @Size(min = 6)
     private String password;
 
-    @NotNull(message = "locationId is mandatory")
     private Long locationId;
 }

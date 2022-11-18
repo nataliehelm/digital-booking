@@ -46,7 +46,7 @@ public class User {
     @Column(name = "password", nullable=false)
     private String password;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
@@ -74,4 +74,13 @@ public class User {
         this.location = location;
         this.isActive = isActive;
     }
+
+    public User(String name, String lastname, String email, String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+
+
 }
