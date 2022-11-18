@@ -53,7 +53,7 @@ public class Product6 {
         policies.add(policy2);
         policies.add(policy3);
 
-        Product product3 = new Product("Wyndham Garden Ushuaia Hotel del Glaciar", "A 3 KM del centro de Ushuaia", 4F, 7.9,"Despiertate con el glaciar","Este hotel está ubicado a los pies del glaciar Martial, a solo 3 km del centro de Ushuaia, y ofrece habitaciones con vistas al glaciar o a la bahía, WiFi pública gratuita y aparcamiento privado gratuito.\n\n Cada habitación del Hotel Del Glaciar es amplia y cuenta con ventanales y detalles en madera. Todos los alojamientos están equipados con TV y baño privado.\n\n El restaurante del establecimiento Del Glacier sirve platos internacionales y regionales. Los huéspedes pueden tomar un cóctel junto a la chimenea del vestíbulo del hotel. La recepción está disponible las 24 horas.", coordinates,category1, location24, features, policies);
+        Product product3 = new Product("Wyndham Garden Ushuaia Hotel del Glaciar", "A 3 KM del centro de Ushuaia", 4F, 7.9,"Despiertate con el glaciar","Este hotel está ubicado a los pies del glaciar Martial, a solo 3 km del centro de Ushuaia, y ofrece habitaciones con vistas al glaciar o a la bahía, WiFi pública gratuita y aparcamiento privado gratuito.\n\n Cada habitación del Hotel Del Glaciar es amplia y cuenta con ventanales y detalles en madera. Todos los alojamientos están equipados con TV y baño privado.\n\n El restaurante del establecimiento Del Glacier sirve platos internacionales y regionales. Los huéspedes pueden tomar un cóctel junto a la chimenea del vestíbulo del hotel. La recepción está disponible las 24 horas.", coordinates,category1, location24, "Luis Fernando Del Martial 2355",features, policies);
 
         iProductRepository.save(product3);
     }
