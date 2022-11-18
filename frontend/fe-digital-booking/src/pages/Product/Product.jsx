@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
 import { useBreakpoint } from '../../hooks';
-import {
-  Description,
-  Features,
-  Map,
-  Policies,
-  Carousel,
-  BookingCalendar,
-} from './components';
+
+import { Description, Features, Map, Policies, Carousel } from './components';
 import styles from './Product.module.scss';
+import { useMemo } from 'react';
+import BookingCalendar from '../../components/BookingCalendar/BookingCalendar';
 
 const Product = ({
   category,
@@ -32,6 +28,20 @@ const Product = ({
   };
 
   const breakpoint = useBreakpoint();
+
+  const minDate = new Date();
+
+  /*   const bookingDates = getDatesInRange(
+    booking[0].starting_date,
+    booking[0].ending_date
+  ); */
+
+  const disabledDates = useMemo(() => {
+    return booking
+      .map((date) => date.booked_dates)
+      .flat()
+      .map((date) => new Date(date));
+  }, [booking]);
 
   return (
     <>
@@ -72,7 +82,8 @@ const Product = ({
           </Heading>
           <BookingCalendar
             months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
-            booking={booking}
+            minDate={minDate}
+            disabledDates={disabledDates}
           />
         </section>
         <section className={styles['col-right']}>

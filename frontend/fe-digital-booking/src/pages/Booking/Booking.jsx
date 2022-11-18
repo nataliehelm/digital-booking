@@ -1,12 +1,33 @@
 import { Heading, Subheader } from '../../atoms';
-import { BookingCalendar, Policies } from '../Product/components';
+import { Policies } from '../Product/components';
 import { useBreakpoint } from '../../hooks';
 import styles from './Booking.module.scss';
 import 'react-date-range/dist/styles.css';
-import BookingDetails from './components/BookingDetails/BookingDetails';
+import BookingDetails from './components/BookingDetails';
+import BookingCalendar from '../../components/BookingCalendar';
+import { useState } from 'react';
+import { addDays } from 'date-fns';
 
-const Booking = ({ title, subtitle, onBackClick, booking, policies }) => {
+const Booking = ({
+  title,
+  subtitle,
+  onBackClick,
+  policies,
+  image,
+  ranking,
+  address,
+  location,
+  minDate,
+}) => {
   const breakpoint = useBreakpoint();
+
+  const [range, setRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 0),
+      key: 'selection',
+    },
+  ]);
 
   return (
     <>
@@ -20,13 +41,22 @@ const Booking = ({ title, subtitle, onBackClick, booking, policies }) => {
               </Heading>
               <BookingCalendar
                 months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
-                booking={booking}
+                setRange={setRange}
+                minDate={minDate}
+                range={range}
               />
             </section>
           </div>
         </div>
         <div className={styles['right-container']}>
-          <BookingDetails />
+          <BookingDetails
+            image={image}
+            title={title}
+            subtitle={subtitle}
+            ranking={ranking}
+            address={address}
+            location={location}
+          />
         </div>
       </div>
       <div className={styles.policies}>
