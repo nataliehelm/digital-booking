@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,10 @@ public class BookingController {
         return bookingService.findById(id);
     }
 
+    @GetMapping(path = "/{date}")
+    public ResponseEntity<ApiResponse<Booking, Object>> findByDate(@PathVariable("date") String starting_date, String ending_date) throws ResourceNotFoundException, ParseException {
+        return bookingService.findByDate(starting_date, ending_date);
+    }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
