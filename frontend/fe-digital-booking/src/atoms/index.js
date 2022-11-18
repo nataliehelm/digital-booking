@@ -1,7 +1,6 @@
 export * from './Avatar';
 export * from './Botton';
 export * from './Button';
-export * from './Dropdown';
 export * from './Heading';
 export * from './Input';
 export * from './InfoBanner';
@@ -10,3 +9,5 @@ export * from './Score';
 export * from './Subheader';
 export * from './Text';
 export * from './Toast';
+export * from './Dropdown';
+export * from './WritableDropdown';

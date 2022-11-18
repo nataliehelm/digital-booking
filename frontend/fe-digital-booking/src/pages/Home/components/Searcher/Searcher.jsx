@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Dropdown } from '../../../../atoms';
+import { Button, WritableDropdown } from '../../../../atoms';
 import { useBreakpoint, useFetch } from './../../../../hooks';
 import { Calendar } from '../../../../components';
 import parsedLocations from '../../../../mappers/locations.mapper';
@@ -57,7 +57,7 @@ const Searcher = ({
             <div className={styles['inputs-container']}>
               <div className={styles['cities-container']}>
                 <div className={styles.dropdown}>
-                  <Dropdown
+                  <WritableDropdown
                     onChange={setLocationSelected}
                     options={locations}
                     reset={reset}

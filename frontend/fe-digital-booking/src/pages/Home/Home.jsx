@@ -1,13 +1,12 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useFetch } from '../../hooks';
 import { ProductList, CategoryList, Searcher } from './components';
-import jwt_decode from 'jwt-decode';
 import styles from './Home.module.scss';
 import { Toast } from '../../atoms';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 
 const Home = () => {
-  const jwt = JSON.parse(localStorage.getItem('jwt'));
-  const decodedJwt = jwt ? jwt_decode(jwt) : undefined;
+  const { state } = useAuthContext();
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
@@ -26,22 +25,20 @@ const Home = () => {
     requestOptions
   );
 
-  console.log({ decodedJwt });
-
   const { isLoading: isLoadingCategories, data: categories } =
     useFetch('categories');
 
   useEffect(() => {
     setRequestOptions(null);
-    if (decodedJwt) {
+    if (state && state.jwt) {
       setRequestOptions({
         headers: {
-          jwt,
+          jwt: state.jwt,
         },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwt]);
+  }, [state]);
 
   useEffect(() => {
     if (categoryIds.length > 0) {
@@ -98,7 +95,7 @@ const Home = () => {
 
   return (
     <div className={styles['home-container']}>
-      {decodedJwt && !decodedJwt.isActive && (
+      {state && state.decodedJwt && !state.decodedJwt.isActive && (
         <Toast
           variant="error"
           label="No has activado tu cuenta, recuerda activarla y volver a loguearte para disfrutar nuestros servicios"

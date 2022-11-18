@@ -8,12 +8,24 @@ import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
 import Booking from './pages/Booking/BookingContainer';
+import useAuthContext from './providers/AuthProvider/useAuthContext';
 
 function App() {
+  const { state, cleanJwt } = useAuthContext();
+
+  const handleOnLogout = () => {
+    localStorage.removeItem('jwt');
+    cleanJwt();
+  };
+
   return (
     <>
       <div className="App">
-        <Header />
+        <Header
+          name={state.decodedJwt?.name || ''}
+          lastname={state.decodedJwt?.lastname || ''}
+          onLogout={handleOnLogout}
+        />
         <div>
           <Routes>
             <Route path="/" element={<Layout children={<Home />} />} />

@@ -57,20 +57,20 @@ const Input = ({
           })}
         />
         {type === 'password' && showPassword && (
-          <button
+          <span
             className={styles['password-icon']}
             onClick={() => setShowPassword(false)}
           >
             <i className="fa-solid fa-eye"></i>
-          </button>
+          </span>
         )}
         {type === 'password' && !showPassword && (
-          <button
+          <span
             className={styles['password-icon']}
             onClick={() => setShowPassword(true)}
           >
             <i className="fa-solid fa-eye-slash"></i>
-          </button>
+          </span>
         )}
         {showPlaceholder && !value && (
           <div className={styles.placeholder}>
