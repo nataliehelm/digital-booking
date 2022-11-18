@@ -5,7 +5,7 @@ variables:
 stages:  # List of stages for jobs, and their order of execution
   - test
   - build     
-  - deploy
+  - delivery
   
 test-front: # This job runs in the test stage, which runs first.
   stage: test
@@ -46,8 +46,8 @@ build-front: # This job runs in the build stage, which runs second.
     - changes:
       - frontend/**/*
 
-deploy-front: # This job runs in the deploy stage, which runs third.
-  stage: deploy
+delivery-front: # This job runs in the deploy stage, which runs third.
+  stage: delivery
   image: node:19.0-bullseye
   before_script:
   - apt update
@@ -55,18 +55,8 @@ deploy-front: # This job runs in the deploy stage, which runs third.
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip -q awscliv2.zip
   - ./aws/install
-  - mkdir -p ~/.ssh
-  - eval $(ssh-agent -s)
-  - echo "$SSH_KEY_PV" | tr -d '\r' | ssh-add - > /dev/null
-  - touch ~/.ssh/config
-  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-  - ssh-keyscan -H $DEPLOY_SERVER_IP_FE >> ~/.ssh/known_hosts
   script:
-    - aws --version
-    - aws s3 sync $FRONTEND_PATH/build/ s3://$S3_BUCKET/ --acl public-read
-    - scp -r $FRONTEND_PATH/build/ ubuntu@$DEPLOY_SERVER_IP_FE:/home/ubuntu/
-    - ssh ubuntu@$DEPLOY_SERVER_IP_FE "sudo rm -rf /var/www/html/*"
-    - ssh ubuntu@$DEPLOY_SERVER_IP_FE "sudo mv ./build/* /var/www/html"
+    - aws s3 sync $FRONTEND_PATH/build/ s3://$S3_BUCKET/build --acl public-read
   cache:
     key:
       files:
@@ -102,8 +92,8 @@ build-back:       # This job runs in the build stage, which runs first.
     - changes:
       - backend/**/*
 
-deploy-back:       # This job runs in the deploy stage, which runs first.
-  stage: deploy
+delivery-back:       # This job runs in the deploy stage, which runs first.
+  stage: delivery
   image: alpine:3.11
   before_script:
     - apk update && apk add openssh-client bash
@@ -114,10 +104,8 @@ deploy-back:       # This job runs in the deploy stage, which runs first.
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - ssh-keyscan -H $DEPLOY_SERVER_IP_BE >> ~/.ssh/known_hosts
   script:
-    - echo "deploying..."
-    - ssh ubuntu@$DEPLOY_SERVER_IP_BE "sudo systemctl stop dbapi.service"
-    - scp $BACKEND_PATH/target/*.jar ubuntu@$$DEPLOY_SERVER_IP_BE:~/db-api/dbapi.jar
-    - ssh ubuntu@$DEPLOY_SERVER_IP_BE "sudo systemctl start dbapi.service"
+    - echo "delivering..."
+    - scp $BACKEND_PATH/target/*.jar ubuntu@$$DEPLOY_SERVER_IP_BE:~/target/dbapi.jar
   environment: prod
   rules:
     - changes:
