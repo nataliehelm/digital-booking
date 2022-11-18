@@ -7,18 +7,20 @@ stages:  # List of stages for jobs, and their order of execution
   - build     
   - deploy
   
-cache:
-  paths:
-    - $FRONTEND_PATH/node_modules/
-
 test-front: # This job runs in the test stage, which runs first.
   stage: test
   image: node:19-alpine3.15
   script:
     - echo "Testing front... (BY PASSED)"
-    #- cd $FRONTEND_PATH
-    #- npm i
+    - cd $FRONTEND_PATH
+    - npm install
     #- npm test -- --watchAll=false
+  cache:
+    paths:
+      - $FRONTEND_PATH/node_modules/
+    key:
+      files:
+        - $FRONTEND_PATH/package-lock.json
   rules:
   - changes:
     - frontend/**/*  
@@ -28,8 +30,15 @@ build-front: # This job runs in the build stage, which runs second.
   image: node:19-alpine3.15 
   script:
     - cd $FRONTEND_PATH
-    - npm i
     - npm run build
+  cache:
+    key:
+      files:
+        - $FRONTEND_PATH/package-lock.json
+    paths:
+      - $FRONTEND_PATH/node_modules
+      - $FRONTEND_PATH/build
+    policy: pull
   artifacts:
     paths:
       - $FRONTEND_PATH/build/
@@ -46,23 +55,26 @@ deploy-front: # This job runs in the deploy stage, which runs third.
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip -q awscliv2.zip
   - ./aws/install
-  - aws configure set region $AWS_DEFAULT_REGION
   - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - echo "$SSH_KEY_PV" | tr -d '\r' | ssh-add - > /dev/null
   - touch ~/.ssh/config
   - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-  - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
+  - ssh-keyscan -H $DEPLOY_SERVER_IP_FE >> ~/.ssh/known_hosts
   script:
-    - cd $FRONTEND_PATH
-    - npm i
-    - npm run build && aws s3 sync build/ s3://$S3_BUCKET/ --acl public-read
-    - scp -r ./build/ ubuntu@$DEPLOY_SERVER_IP:/home/ubuntu/
-    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo rm -rf /var/www/html/*"
-    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo mv ./build/* /var/www/html"
-  artifacts:
+    - aws --version
+    - aws s3 sync $FRONTEND_PATH/build/ s3://$S3_BUCKET/ --acl public-read
+    - scp -r $FRONTEND_PATH/build/ ubuntu@$DEPLOY_SERVER_IP_FE:/home/ubuntu/
+    - ssh ubuntu@$DEPLOY_SERVER_IP_FE "sudo rm -rf /var/www/html/*"
+    - ssh ubuntu@$DEPLOY_SERVER_IP_FE "sudo mv ./build/* /var/www/html"
+  cache:
+    key:
+      files:
+        - $FRONTEND_PATH/package-lock.json
     paths:
-    - $FRONTEND_PATH/build/
+      - $FRONTEND_PATH/node_modules
+      - $FRONTEND_PATH/build
+    policy: pull
   rules:
   - changes:
     - frontend/**/*      
@@ -100,12 +112,12 @@ deploy-back:       # This job runs in the deploy stage, which runs first.
     - echo "$SSH_KEY_PV" | tr -d '\r' | ssh-add - > /dev/null
     - touch ~/.ssh/config
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
+    - ssh-keyscan -H $DEPLOY_SERVER_IP_BE >> ~/.ssh/known_hosts
   script:
     - echo "deploying..."
-    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop dbapi.service"
-    - scp $BACKEND_PATH/target/*.jar ubuntu@$DEPLOY_SERVER_IP:~/db-api/dbapi.jar
-    - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start dbapi.service"
+    - ssh ubuntu@$DEPLOY_SERVER_IP_BE "sudo systemctl stop dbapi.service"
+    - scp $BACKEND_PATH/target/*.jar ubuntu@$$DEPLOY_SERVER_IP_BE:~/db-api/dbapi.jar
+    - ssh ubuntu@$DEPLOY_SERVER_IP_BE "sudo systemctl start dbapi.service"
   environment: prod
   rules:
     - changes:
