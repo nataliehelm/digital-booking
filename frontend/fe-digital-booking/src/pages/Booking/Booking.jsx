@@ -56,6 +56,7 @@ const Booking = ({
             ranking={ranking}
             address={address}
             location={location}
+            range={range}
           />
         </div>
       </div>

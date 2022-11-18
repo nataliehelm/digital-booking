@@ -51,14 +51,15 @@
   .container {
     flex-direction: row;
     justify-content: space-between;
+    padding: 0 40px;
   }
   .left-container {
     flex-direction: row;
     width: 70%;
-    margin-left: 40px;
+
     .booking-calendar {
       padding-left: 0;
-      width: 80%;
+      width: 85%;
 
       .calendar-title {
         margin-left: 0px;

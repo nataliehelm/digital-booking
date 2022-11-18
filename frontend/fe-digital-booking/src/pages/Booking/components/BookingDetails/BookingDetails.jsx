@@ -10,13 +10,12 @@ const BookingDetails = ({
   ranking,
   address,
   location,
+  range,
 }) => {
-  const startDate = JSON.parse(localStorage.getItem('date-range'))[0].startDate;
-  const endDate = JSON.parse(localStorage.getItem('date-range'))[0].endDate;
-  const startDateFormatted = format(parseISO(startDate), 'dd/MM/yyyy');
-  const endDateFormatted = endDate
-    ? format(parseISO(endDate), 'dd/MM/yyyy')
-    : endDate;
+  const startDate = range[0].startDate;
+  const endDate = range[0].endDate;
+  const startDateFormatted = format(startDate, 'dd/MM/yyyy');
+  const endDateFormatted = endDate ? format(endDate, 'dd/MM/yyyy') : endDate;
 
   console.log(JSON.parse(localStorage.getItem('date-range'))[0]);
   return (

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
 import { useBreakpoint } from '../../hooks';
 
@@ -21,12 +21,13 @@ const Product = ({
   subtitle,
   description,
   booking,
+  id,
 }) => {
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
-
+  const jwt = JSON.parse(localStorage.getItem('jwt'));
   const breakpoint = useBreakpoint();
 
   const minDate = new Date();
@@ -91,7 +92,9 @@ const Product = ({
             Agregá tus fechas de viaje para obtener precios exactos
           </Heading>
           <Button
-            onClick={() => {}}
+            onClick={() => {
+              jwt ? navigate(`/product/${id}/booking`) : navigate('/login');
+            }}
             type="submit"
             variant="b1"
             classname={styles['booking-button']}
