@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -91,6 +92,20 @@ public class BookingService {
         iBookingRepository.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Booking deleted successfully", null, null);
     }
+
+    public ResponseEntity<ApiResponse<Object, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+        if(params.get("productId") != null){
+            Long productId = Long.valueOf(params.get("productId"));
+            Optional<Product> product = iProductRepository.findById(productId);
+            if(product.isEmpty()){
+                throw new ResourceNotFoundException("Product with id " + productId + " not found");
+            }
+            List<Booking> bookings = iBookingRepository.findByProductId(product.get());
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully", bookings, null);
+        }
+        throw new BadRequestException("Invalid Params");
+    }
+
 
 
     private Booking checkRelations (SaveBookingDto bookingDto, Long id) throws ResourceNotFoundException {

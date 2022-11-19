@@ -7,14 +7,13 @@ import com.grupo9.db.model.Booking;
 import com.grupo9.db.service.BookingService;
 import com.grupo9.db.util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/bookings")
@@ -42,8 +41,10 @@ public class BookingController {
   //  public ResponseEntity<ApiResponse<Booking, Object>> findByDate(¿@RequestParam("date_from") @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateFrom, @RequestParam("date_to") @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateTo) throws ResourceNotFoundException {
   //      return bookingService.findByDate(dateFrom, dateTo);
   //  }
-
-
+    @GetMapping(path = "/filters")
+    public ResponseEntity<ApiResponse<Object, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
+        return bookingService.findByParams(params);
+    }
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
         return bookingService.save(saveBookingDto);
