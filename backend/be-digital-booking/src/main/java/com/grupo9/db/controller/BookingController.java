@@ -6,7 +6,9 @@ import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Booking;
 import com.grupo9.db.service.BookingService;
 import com.grupo9.db.util.ApiResponse;
+import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,30 +22,38 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private ResponsesBuilder responsesBuilder;
+
     @GetMapping
     public ResponseEntity<ApiResponse<List<Booking>, Object>> findAll(){
-        return bookingService.findAll();
+        List<Booking> bookings = bookingService.findAll();
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List successfully",bookings, null);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Booking, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
-        return bookingService.findById(id);
+        Booking booking = bookingService.findById(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List successfully", booking, null);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
-        return bookingService.save(saveBookingDto);
+        Booking response = bookingService.save(saveBookingDto);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking created successfully", response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Booking, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveBookingDto bookingDto) throws ResourceNotFoundException, BadRequestException {
-        return bookingService.update(id, bookingDto);
+        Booking response = bookingService.update(id, bookingDto);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking updated successfully", response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
-        return bookingService.deleteById(id);
+        bookingService.deleteById(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Booking deleted successfully", null, null);
     }
 }

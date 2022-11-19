@@ -1,6 +1,5 @@
 package com.grupo9.db.util;
 
-import com.grupo9.db.model.Category;
 import com.grupo9.db.repository.*;
 import com.grupo9.db.util.Loader.*;
 import org.springframework.beans.factory.annotation.Autowired;

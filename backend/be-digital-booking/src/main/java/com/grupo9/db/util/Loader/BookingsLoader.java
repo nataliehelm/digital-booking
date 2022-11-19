@@ -28,25 +28,25 @@ public class BookingsLoader {
 
     public void Loader() {
         Product producto = iProductRepository.findById(1L).get();
-        System.out.println(producto);
-        /*User user = iUserRepository.findById(Long.valueOf(1)).get();
+        User user = iUserRepository.findById(Long.valueOf(1)).get();
 
-        String patternHr = "HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(patternHr);
-        Date startingHr = sdf.parse("22:00:03");
+        String starting_time_string = "2022-11-20T22:00:03.000Z";
+        TemporalAccessor ta0 = DateTimeFormatter.ISO_INSTANT.parse(starting_time_string);
+        Instant i0 = Instant.from(ta0);
+        Date starting_time = Date.from(i0);
 
-        String s = "2022-11-20T05:00:00.000Z";
-        TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(s);
+        String starting_date_string = "2022-11-20T05:00:00.000Z";
+        TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(starting_date_string);
         Instant i = Instant.from(ta);
-        Date d = Date.from(i);
+        Date starting_date = Date.from(i);
 
-        String s2 = "2022-11-25T05:00:00.000Z";
-        TemporalAccessor ta2 = DateTimeFormatter.ISO_INSTANT.parse(s2);
+        String ending_date_string = "2022-11-25T05:00:00.000Z";
+        TemporalAccessor ta2 = DateTimeFormatter.ISO_INSTANT.parse(ending_date_string);
         Instant i2 = Instant.from(ta2);
-        Date d2 = Date.from(i2);
+        Date ending_date = Date.from(i2);
 
 
-        Booking booking1 = new Booking(startingHr, d, d2, producto, user);
-        iBookingRepository.save(booking1);*/
+        Booking booking1 = new Booking(starting_time, starting_date, ending_date, producto, user);
+        iBookingRepository.save(booking1);
     }
 }
