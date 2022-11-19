@@ -33,7 +33,7 @@ const Home = () => {
     if (state && state.jwt) {
       setRequestOptions({
         headers: {
-          jwt: state.jwt,
+          Authorization: state.jwt,
         },
       });
     }
