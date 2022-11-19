@@ -1,6 +1,5 @@
 package com.grupo9.db.util;
 
-import com.grupo9.db.model.Category;
 import com.grupo9.db.repository.*;
 import com.grupo9.db.util.Loader.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,9 @@ public class DataLoader implements ApplicationRunner {
     private IRoleRepository iRoleRepository;
     @Autowired
     private IUserRepository iUserRepository;
+    @Autowired
+    private  IBookingRepository iBookingRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -50,5 +52,7 @@ public class DataLoader implements ApplicationRunner {
         rolesLoader.Loader();
         UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository, iLocationRepository);
         usersLoader.Loader();
+        BookingsLoader bookingsLoader = new BookingsLoader(iBookingRepository, iProductRepository, iUserRepository);
+        bookingsLoader.Loader();
     }
 }
