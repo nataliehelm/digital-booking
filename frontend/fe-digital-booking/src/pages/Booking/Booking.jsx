@@ -1,4 +1,4 @@
-import { Heading, Subheader } from '../../atoms';
+import { Dropdown, Heading, Subheader, Text } from '../../atoms';
 import { Policies } from '../Product/components';
 import { useBreakpoint } from '../../hooks';
 import styles from './Booking.module.scss';
@@ -7,6 +7,8 @@ import BookingDetails from './components/BookingDetails';
 import BookingCalendar from '../../components/BookingCalendar';
 import { useState } from 'react';
 import { addDays } from 'date-fns';
+import times from '../Product/lib/time-list.json';
+import { useEffect } from 'react';
 
 const Booking = ({
   title,
@@ -20,6 +22,13 @@ const Booking = ({
   minDate,
 }) => {
   const breakpoint = useBreakpoint();
+  const [selectedTime, setSelectedTime] = useState();
+  console.log(selectedTime);
+
+  const handleOnChange = (e) => {
+    const time = times.find((element) => element.id === e.id);
+    setSelectedTime(time.isoTime);
+  };
 
   const [range, setRange] = useState([
     {
@@ -46,6 +55,28 @@ const Booking = ({
                 range={range}
               />
             </section>
+          </div>
+          <div className={styles['dropdown-container']}>
+            <Heading variant="h1">Tu horario de llegada</Heading>
+            <div className={styles.dropcard}>
+              <section className={styles['dropcard-text']}>
+                <i className="fa-regular fa-circle-check"></i>
+                <Text variant="t1">
+                  Tu habitación va a estar lista para el check-in entre las
+                  10:00 AM y las 11:00 PM
+                </Text>
+              </section>
+              <section>
+                <Text variant="t2" classname={styles.text}>
+                  Indicá tu horario estimado de llegada
+                </Text>
+                <Dropdown
+                  classname={styles.dropdown}
+                  options={times}
+                  onChange={handleOnChange}
+                />
+              </section>
+            </div>
           </div>
         </div>
         <div className={styles['right-container']}>
