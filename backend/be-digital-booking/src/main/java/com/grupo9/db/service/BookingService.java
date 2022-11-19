@@ -34,18 +34,18 @@ public class BookingService {
     }
 
     //listar todos
-    public ResponseEntity<ApiResponse<List<Booking>, Object>> findAll(){
-        List<Booking> booking = iBookingRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List successfully",booking, null);
+    public List<Booking> findAll(){
+        List<Booking> bookings = iBookingRepository.findAll();
+        return bookings;
     }
 
     //buscar por id
-    public ResponseEntity<ApiResponse<Booking, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Booking findById(Long id) throws ResourceNotFoundException {
         Optional<Booking> booking = iBookingRepository.findById(id);
         if(booking.isEmpty()){
             throw new ResourceNotFoundException("Booking with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking successfully", booking.get(), null);
+        return booking.get();
     }
 
     public ResponseEntity<ApiResponse<Booking, Object>> findByDate(String starting_date, String ending_date) throws ResourceNotFoundException, ParseException {
@@ -60,14 +60,13 @@ public class BookingService {
     }
 
     //guardar
-    public ResponseEntity<ApiResponse<Booking, Object>> save(SaveBookingDto bookingDto) throws ResourceNotFoundException {
-        Booking booking = checkRelations(bookingDto, null);
-        Booking response = iBookingRepository.save(booking);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking created successfully", response, null);
+    public Booking save(SaveBookingDto bookingDto) throws ResourceNotFoundException {
+        Booking booking = bookingBuilder(bookingDto, null);
+        return iBookingRepository.save(booking);
     }
 
     //actualizar
-    public ResponseEntity<ApiResponse<Booking, Object>> update(Long id, SaveBookingDto bookingDto) throws ResourceNotFoundException, BadRequestException {
+    public Booking update(Long id, SaveBookingDto bookingDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = iBookingRepository.existsById(id);
@@ -75,25 +74,22 @@ public class BookingService {
             throw new ResourceNotFoundException("Booking with id " + id + " not found");
         }
 
-        Booking booking = checkRelations(bookingDto, id);
-        Booking response = iBookingRepository.save(booking);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking updated successfully", response, null);
+        Booking booking = bookingBuilder(bookingDto, id);
+        return iBookingRepository.save(booking);
     }
 
     //eliminar
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = iBookingRepository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Booking with id " + id + " not found");
         }
-
         iBookingRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Booking deleted successfully", null, null);
     }
 
 
-    private Booking checkRelations (SaveBookingDto bookingDto, Long id) throws ResourceNotFoundException {
+    private Booking bookingBuilder (SaveBookingDto bookingDto, Long id) throws ResourceNotFoundException {
 
 
         Optional<Product> product = iProductRepository.findById(bookingDto.getProductId());
@@ -111,7 +107,7 @@ public class BookingService {
             return new Booking(id, bookingDto.getStarting_time(), bookingDto.getStarting_date(), bookingDto.getEnding_date(), product.get(), user.get());
         }
 
-            return new Booking(bookingDto.getStarting_time(), bookingDto.getStarting_date(), bookingDto.getEnding_date(), product.get(), user.get());
+        return new Booking(bookingDto.getStarting_time(), bookingDto.getStarting_date(), bookingDto.getEnding_date(), product.get(), user.get());
     }
 
 }
