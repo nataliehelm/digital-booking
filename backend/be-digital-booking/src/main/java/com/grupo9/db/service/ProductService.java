@@ -92,30 +92,22 @@ public class ProductService {
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
 
-        if(params.get("starting_date") != null && params.get("ending_date") != null){
-            String checkIn = (params.get("starting_date"));
-            String checkOut = (params.get("ending_date"));
-            List<Booking> dates = bookingRepository.findbyDateInOut(checkIn, checkOut);
-            if(dates.isEmpty()){
-                throw new ResourceNotFoundException("Dates" + checkIn + checkOut + " not found");
-            }
-            List<Product> products = repository.findbyBookingDate();
+        if(params.get("startingDate") != null && params.get("endingDate") != null){
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            List<Product> products = repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
 
         if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
-            String checkIn = (params.get("starting_date"));
-            String checkOut = (params.get("ending_date"));
-            List<Booking> dates = bookingRepository.findbyDateInOut(checkIn, checkOut);
-            if(dates.isEmpty()){
-                throw new ResourceNotFoundException("Dates" + checkIn + checkOut + " not found");
-            }
-            Long locationId = Long.valueOf(params.get("locationId"));
-            Optional<Location> location = locationRepository.findById(locationId);
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            String locationId = params.get("locationId");
+            Optional<Location> location = locationRepository.findById(Long.valueOf(locationId));
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findbyBookingDateAndLocationId(location, checkIn, checkOut);
+            List<Product> products = repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
 

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IBookingRepository extends JpaRepository<Booking, Long> {
 
-    List<Booking> findbyDateInOut(String starting_date, String ending_date);
+//    List<Booking> findByDateInOut(String starting_date, String ending_date);
 }
