@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
 import { useBreakpoint } from '../../hooks';
 
@@ -6,6 +6,7 @@ import { Description, Features, Map, Policies, Carousel } from './components';
 import styles from './Product.module.scss';
 import { useMemo } from 'react';
 import BookingCalendar from '../../components/BookingCalendar/BookingCalendar';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 
 const Product = ({
   category,
@@ -23,14 +24,30 @@ const Product = ({
   booking,
   id,
 }) => {
+  const { state } = useAuthContext();
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
-  const jwt = JSON.parse(localStorage.getItem('jwt'));
+
   const breakpoint = useBreakpoint();
 
   const minDate = new Date();
+
+  const handleOnClick = () => {
+    const path = `/product/${id}/booking`;
+    if (state?.jwt) {
+      navigate(path);
+    } else {
+      navigate('/login', {
+        state: {
+          message:
+            'Para realizar una reserva debes iniciar sesión. Registrate si aún no tienes una cuenta',
+          path,
+        },
+      });
+    }
+  };
 
   /*   const bookingDates = getDatesInRange(
     booking[0].starting_date,
@@ -92,9 +109,7 @@ const Product = ({
             Agregá tus fechas de viaje para obtener precios exactos
           </Heading>
           <Button
-            onClick={() => {
-              jwt ? navigate(`/product/${id}/booking`) : navigate('/login');
-            }}
+            onClick={handleOnClick}
             type="submit"
             variant="b1"
             classname={styles['booking-button']}
