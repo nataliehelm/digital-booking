@@ -12,6 +12,7 @@ const Searcher = ({
   locationSelected,
   onSubmit,
   reset,
+  onClick,
 }) => {
   const breakpoint = useBreakpoint();
   const { isLoading, data: _locations } = useFetch('locations');
@@ -82,6 +83,7 @@ const Searcher = ({
                 variant="b1"
                 classname={styles['submit-button']}
                 type="submit"
+                onClick={onClick}
               >
                 Buscar
               </Button>
