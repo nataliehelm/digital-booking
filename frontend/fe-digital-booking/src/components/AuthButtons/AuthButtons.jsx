@@ -8,7 +8,7 @@ const AuthButtons = () => {
     <section className={styles.container}>
       {!pathname.includes('signup') && (
         <>
-          <Link to="/signup">
+          <Link to="/signup" className={styles.button}>
             <Button variant="b2" onClick={console.log}>
               Crear cuenta
             </Button>
@@ -17,7 +17,7 @@ const AuthButtons = () => {
       )}
       {!pathname.includes('login') && (
         <>
-          <Link to="/login">
+          <Link to="/login" className={styles.button}>
             <Button variant="b2" onClick={console.log}>
               Iniciar sesión
             </Button>
