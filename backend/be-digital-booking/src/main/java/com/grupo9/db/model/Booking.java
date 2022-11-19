@@ -52,5 +52,4 @@ public class Booking {
         this.user = user;
     }
 
-
 }

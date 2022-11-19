@@ -29,6 +29,9 @@ public class DataLoader implements ApplicationRunner {
     private IRoleRepository iRoleRepository;
     @Autowired
     private IUserRepository iUserRepository;
+    @Autowired
+    private  IBookingRepository iBookingRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -50,5 +53,7 @@ public class DataLoader implements ApplicationRunner {
         rolesLoader.Loader();
         UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository, iLocationRepository);
         usersLoader.Loader();
+        BookingsLoader bookingsLoader = new BookingsLoader(iBookingRepository, iProductRepository, iUserRepository);
+        bookingsLoader.Loader();
     }
 }
