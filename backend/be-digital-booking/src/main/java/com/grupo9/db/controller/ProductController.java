@@ -31,6 +31,11 @@ public class ProductController {
         return service.findById(id);
     }
 
+    @GetMapping(path = "/{id}/bookings")
+    public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(@PathVariable("id") Long id) throws ResourceNotFoundException  {
+        return service.findByIdWithBookings(id);
+    }
+
     @GetMapping(path = "/filters")
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
         return service.findByParams(params);
