@@ -20,14 +20,16 @@ public class ProductService {
     private final ILocationRepository locationRepository;
     private final IFeatureRepository featureRepository;
     private final IPolicyRepository policyRepository;
+    private final IBookingRepository bookingRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.locationRepository = locationRepository;
         this.featureRepository = featureRepository;
         this.policyRepository = policyRepository;
+        this.bookingRepository = bookingRepository;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -89,6 +91,26 @@ public class ProductService {
             List<Product> products = repository.findTop8ByLocation(location.get());
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
+
+        if(params.get("startingDate") != null && params.get("endingDate") != null){
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            List<Product> products = repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
+        if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            String locationId = params.get("locationId");
+            Optional<Location> location = locationRepository.findById(Long.valueOf(locationId));
+            if(location.isEmpty()){
+                throw new ResourceNotFoundException("Location with id " + locationId + " not found");
+            }
+            List<Product> products = repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
         throw new BadRequestException("Invalid Params");
     }
 
