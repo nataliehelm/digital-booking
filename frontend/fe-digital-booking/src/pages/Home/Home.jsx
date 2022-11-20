@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useFetch } from '../../hooks';
 import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
@@ -7,13 +7,14 @@ import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 
 const Home = () => {
   const { state } = useAuthContext();
+  const scrollRef = useRef(null);
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
   const [datesRange, setDatesRange] = useState([
     {
       startDate: new Date(),
-      endDate: null,
+      endDate: new Date(),
       key: 'selection',
     },
   ]);
@@ -33,7 +34,7 @@ const Home = () => {
     if (state && state.jwt) {
       setRequestOptions({
         headers: {
-          jwt: state.jwt,
+          Authorization: state.jwt,
         },
       });
     }
@@ -69,6 +70,12 @@ const Home = () => {
       setCategoryIds([]);
       setCategoryNames([]);
     }
+  };
+
+  const scrollBottom = (e) => {
+    e.current.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   // useEffect(() => {
@@ -109,6 +116,7 @@ const Home = () => {
         locationSelected={locationSelected}
         onSubmit={handleOnSubmit}
         reset={!!categoryIds.length}
+        onClick={() => scrollBottom(scrollRef)}
       />
       <CategoryList
         isLoading={isLoadingCategories}
@@ -116,11 +124,13 @@ const Home = () => {
         onClick={handleSelectIds}
         selectedIds={categoryIds}
       />
-      <ProductList
-        recommendationsTitle={recommendationsTitle}
-        isLoading={isLoadingProducts}
-        products={products}
-      />
+      <div ref={scrollRef}>
+        <ProductList
+          recommendationsTitle={recommendationsTitle}
+          isLoading={isLoadingProducts}
+          products={products}
+        />
+      </div>
     </div>
   );
 };
