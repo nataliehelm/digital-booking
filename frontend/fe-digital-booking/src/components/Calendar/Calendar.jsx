@@ -6,7 +6,7 @@ import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
 
 import styles from './Calendar.module.scss';
-import 'react-date-range/dist/styles.css';
+import '../../react-date-range-styles.scss';
 
 const Calendar = ({
   months,
@@ -48,6 +48,7 @@ const Calendar = ({
       {showCalendar && (
         <>
           <DateRange
+            minDate={new Date()}
             locale={es}
             onChange={(item) => setDatesRange([item.selection])}
             editableDateInputs={false}

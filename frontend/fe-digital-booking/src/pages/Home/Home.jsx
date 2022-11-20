@@ -14,7 +14,7 @@ const Home = () => {
   const [datesRange, setDatesRange] = useState([
     {
       startDate: new Date(),
-      endDate: null,
+      endDate: new Date(),
       key: 'selection',
     },
   ]);
