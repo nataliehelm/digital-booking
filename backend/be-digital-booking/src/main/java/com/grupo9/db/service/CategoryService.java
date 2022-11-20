@@ -23,25 +23,24 @@ public class CategoryService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Category>, Object>> findAll(){
+    public List<Category> findAll(){
         List<Category> categories = iCategoryRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category List successfully",categories, null);
+        return categories;
     }
 
-    public ResponseEntity<ApiResponse<Category, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Category findById(Long id) throws ResourceNotFoundException {
         Optional<Category> category = iCategoryRepository.findById(id);
         if(category.isEmpty()){
             throw new ResourceNotFoundException("Category with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Category successfully", category.get(), null);
+        return category.get();
     }
 
-    public ResponseEntity<ApiResponse<Category, Object>> save(Category category){
-        Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category created successfully", response, null);
+    public Category save(Category category){
+        return iCategoryRepository.save(category);
     }
 
-    public ResponseEntity<ApiResponse<Category, Object>> update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
+    public Category update(Long id, Category category) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = iCategoryRepository.existsById(id);
@@ -50,11 +49,10 @@ public class CategoryService {
         }
 
         category.setId(id);
-        Category response = iCategoryRepository.save(category);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Category updated successfully", response, null);
+        return iCategoryRepository.save(category);
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = iCategoryRepository.existsById(id);
         if(!exists){
@@ -62,7 +60,6 @@ public class CategoryService {
         }
 
         iCategoryRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category deleted successfully", null, null);
     }
 
 }
