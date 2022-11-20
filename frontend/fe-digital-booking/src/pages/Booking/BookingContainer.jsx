@@ -11,6 +11,7 @@ const BookingContainer = () => {
   };
 
   const product = productData;
+  const minDate = new Date();
   /* 
   const { isLoading, data: product } = useFetch(`products/${id}`);
 
@@ -30,6 +31,11 @@ const BookingContainer = () => {
       onBackClick={onBackClick}
       booking={product.booking}
       policies={product.policies}
+      image={product.images[0].url}
+      ranking={product.ranking}
+      address={product.address}
+      location={`${product.location.city_name}, ${product.location.province_name}, ${product.location.country_name}`}
+      minDate={minDate}
     />
   );
 };

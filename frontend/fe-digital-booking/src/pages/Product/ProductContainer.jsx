@@ -4,7 +4,7 @@ import Product from './Product';
 import productData from './lib/booking';
 
 const ProductContainer = () => {
-  const { id } = useParams();
+  //const { id } = useParams();
   const product = productData;
 
   /* const { isLoading, data: product } = useFetch(`products/${id}`);
@@ -33,6 +33,7 @@ const ProductContainer = () => {
       subtitle={product.description_title}
       description={product.description}
       booking={product.booking}
+      id={product.id}
     />
   );
 };

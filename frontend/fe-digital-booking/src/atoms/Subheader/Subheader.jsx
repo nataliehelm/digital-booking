@@ -5,7 +5,7 @@ const Subheader = ({ title, subtitle, onBackClick }) => {
   return (
     <section className={styles['subheader-container']}>
       <aside>
-        <Heading variant="h4">{title}</Heading>
+        <Heading variant="h4">{title.toUpperCase()}</Heading>
         <Heading variant="h1">{subtitle}</Heading>
       </aside>
       <figure onClick={onBackClick}>

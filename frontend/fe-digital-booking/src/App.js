@@ -7,8 +7,8 @@ import Home from './pages/Home';
 import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
-import useAuthContext from './providers/AuthProvider/useAuthContext';
 import Booking from './pages/Booking/BookingContainer';
+import useAuthContext from './providers/AuthProvider/useAuthContext';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();

@@ -41,17 +41,22 @@ const LogIn = () => {
     return [email, password].some((item) => item.value === '' || item.hasError);
   }, [email, password]);
 
+  console.log(state);
   useEffect(() => {
     if (data) {
       localStorage.setItem('jwt', JSON.stringify(data.token));
       setJwt(data.token);
-      navigate('/');
+      if (state?.path) {
+        navigate(state.path);
+      } else {
+        navigate('/');
+      }
     }
     if (error) {
       setErrorMsg(error.error);
       console.error(error.full_error);
     }
-  }, [data, error, navigate, setJwt]);
+  }, [data, error, navigate, setJwt, state]);
 
   useEffect(() => {
     if (!error) {

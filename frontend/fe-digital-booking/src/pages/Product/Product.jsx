@@ -1,15 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
 import { useBreakpoint } from '../../hooks';
-import {
-  Description,
-  Features,
-  Map,
-  Policies,
-  Carousel,
-  BookingCalendar,
-} from './components';
+
+import { Description, Features, Map, Policies, Carousel } from './components';
 import styles from './Product.module.scss';
+import { useMemo } from 'react';
+import BookingCalendar from '../../components/BookingCalendar/BookingCalendar';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 
 const Product = ({
   category,
@@ -25,13 +22,44 @@ const Product = ({
   subtitle,
   description,
   booking,
+  id,
 }) => {
+  const { state } = useAuthContext();
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
 
   const breakpoint = useBreakpoint();
+
+  const minDate = new Date();
+
+  const handleOnClick = () => {
+    const path = `/product/${id}/booking`;
+    if (state?.jwt) {
+      navigate(path);
+    } else {
+      navigate('/login', {
+        state: {
+          message:
+            'Para realizar una reserva debes iniciar sesión. Registrate si aún no tienes una cuenta',
+          path,
+        },
+      });
+    }
+  };
+
+  /*   const bookingDates = getDatesInRange(
+    booking[0].starting_date,
+    booking[0].ending_date
+  ); */
+
+  const disabledDates = useMemo(() => {
+    return booking
+      .map((date) => date.booked_dates)
+      .flat()
+      .map((date) => new Date(date));
+  }, [booking]);
 
   return (
     <>
@@ -72,7 +100,8 @@ const Product = ({
           </Heading>
           <BookingCalendar
             months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
-            booking={booking}
+            minDate={minDate}
+            disabledDates={disabledDates}
           />
         </section>
         <section className={styles['col-right']}>
@@ -80,7 +109,7 @@ const Product = ({
             Agregá tus fechas de viaje para obtener precios exactos
           </Heading>
           <Button
-            onClick={() => {}}
+            onClick={handleOnClick}
             type="submit"
             variant="b1"
             classname={styles['booking-button']}
