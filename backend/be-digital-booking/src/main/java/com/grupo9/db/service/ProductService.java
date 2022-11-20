@@ -1,20 +1,32 @@
 package com.grupo9.db.service;
 
+import com.grupo9.db.dto.Product.GetBookedDatesDto;
+import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
 import com.grupo9.db.util.ApiResponse;
+import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+
+    @Autowired
+    private BookingService bookingService;
+
     private final IProductRepository repository;
     private final ICategoryRepository categoryRepository;
     private final ILocationRepository locationRepository;
@@ -48,6 +60,27 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", product.get(), null);
+    }
+
+    public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(Long id) throws ResourceNotFoundException {
+        Optional<Product> product = repository.findById(id);
+        if(product.isEmpty()){
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        }
+
+        List<Booking> bookings = bookingService.findAllBookingsByProductId(id);
+        List<GetBookedDatesDto> listOfBookedDates = ObjectMapperUtils.mapAll(bookings, GetBookedDatesDto.class);
+
+        for (GetBookedDatesDto booking: listOfBookedDates){
+
+            LocalDate startingDate = LocalDate.parse(booking.getStarting_date().toString());
+            LocalDate endingDate = LocalDate.parse(booking.getEnding_date().toString());
+            List<LocalDate> bookedDates = startingDate.datesUntil(endingDate.plusDays(1)).collect(Collectors.toList());
+            booking.setBooked_dates(bookedDates);
+        }
+
+        GetProductWithBookingsDto response = new GetProductWithBookingsDto(product.get(), listOfBookedDates);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
     }
 
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
