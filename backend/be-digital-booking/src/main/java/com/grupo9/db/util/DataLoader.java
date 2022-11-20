@@ -48,7 +48,7 @@ public class DataLoader implements ApplicationRunner {
         imagesLoader.Loader();
         RolesLoader rolesLoader = new RolesLoader(iRoleRepository);
         rolesLoader.Loader();
-        UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository);
+        UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository, iLocationRepository);
         usersLoader.Loader();
     }
 }

@@ -1,25 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Avatar, Botton } from '../../atoms';
 import { Drawer } from '../Drawer';
-import jwt_decode from 'jwt-decode';
 import AuthButtons from '../AuthButtons';
 import styles from './Header.module.scss';
+import PropTypes from 'prop-types';
 
-const Header = () => {
+const Header = ({ name, lastname, onLogout }) => {
   const [showDrawer, setShowDrawer] = useState(false);
-  const jwt = JSON.parse(localStorage.getItem('jwt'));
-  const decodedJwt = jwt ? jwt_decode(jwt) : undefined;
-  const navigate = useNavigate();
-  const username = jwt
-    ? `${decodedJwt.name} ${decodedJwt.lastname}`
-    : undefined;
-
-  const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setShowDrawer(false);
-    navigate(0);
-  };
+  const username = name ? `${name} ${lastname}` : undefined;
 
   return (
     <>
@@ -32,7 +21,11 @@ const Header = () => {
           </main>
           <div className={styles['drawer-container']}>
             <div className={styles['bg-opacity']} />
-            <Drawer username={username} setShowDrawer={setShowDrawer} />
+            <Drawer
+              username={username}
+              setShowDrawer={setShowDrawer}
+              onLogout={onLogout}
+            />
           </div>
         </>
       )}
@@ -56,7 +49,7 @@ const Header = () => {
           {username ? (
             <div className={styles['user-info-container']}>
               <aside className={styles['user-info']}>
-                <div className={styles['close-icon']} onClick={handleLogout}>
+                <div className={styles['close-icon']} onClick={onLogout}>
                   <i className="fa-solid fa-x"></i>
                 </div>
                 <Avatar username={username} classname={styles.avatar} />
@@ -75,6 +68,12 @@ const Header = () => {
       )}
     </>
   );
+};
+
+Header.propTypes = {
+  name: PropTypes.string,
+  lastname: PropTypes.string,
+  onLogout: PropTypes.func,
 };
 
 export default Header;

@@ -7,6 +7,7 @@ import com.grupo9.db.dto.Auth.SignupDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
+import com.grupo9.db.repository.ILocationRepository;
 import com.grupo9.db.repository.IRoleRepository;
 import com.grupo9.db.repository.IUserRepository;
 import com.grupo9.db.security.jwt.JwtUtils;
@@ -37,6 +38,7 @@ public class AuthService {
     private JwtUtils jwtUtils;
     private IUserRepository userRepository;
     private IRoleRepository roleRepository;
+    private ILocationRepository locationRepository;
     private PasswordEncoder encoder;
     private EmailServiceImpl emailService;
 
@@ -45,12 +47,13 @@ public class AuthService {
     @Value("${digitalBooking.app.activate-user-url}")
     private String activateUserUrl;
 
-    public AuthService(AuthenticationManager authenticationManager, ResponsesBuilder responsesBuilder, JwtUtils jwtUtils, IUserRepository userRepository, IRoleRepository roleRepository, PasswordEncoder encoder, EmailServiceImpl emailService) {
+    public AuthService(AuthenticationManager authenticationManager, ResponsesBuilder responsesBuilder, JwtUtils jwtUtils, IUserRepository userRepository, IRoleRepository roleRepository, ILocationRepository locationRepository, PasswordEncoder encoder, EmailServiceImpl emailService) {
         this.authenticationManager = authenticationManager;
         this.responsesBuilder = responsesBuilder;
         this.jwtUtils = jwtUtils;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.locationRepository = locationRepository;
         this.encoder = encoder;
         this.emailService = emailService;
     }
@@ -75,6 +78,7 @@ public class AuthService {
             if (userRepository.existsByEmail(signUpRequest.getEmail())) {
                 throw new BadRequestException("El correo ya se encuentra registrado");
             }
+
 
             User user = new User(signUpRequest.getName(), signUpRequest.getLastname(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
             Role role = roleRepository.findByName(ERole.ROLE_USER).get();
