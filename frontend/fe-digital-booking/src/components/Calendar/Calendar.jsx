@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types';
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button, Input } from '../../atoms';
-import { useOnClickOutside } from '../../hooks';
 import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
 
 import styles from './Calendar.module.scss';
 import 'react-date-range/dist/styles.css';
+import { addDays } from 'date-fns';
 
 const Calendar = ({
   months,
   datesRange,
   setDatesRange,
   calendarPlaceholder,
+  showCalendar,
+  setShowCalendar,
 }) => {
-  const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef();
-  useOnClickOutside(calendarRef, () => setShowCalendar(false));
 
   useEffect(() => {
     const head = document.head;
@@ -33,11 +33,21 @@ const Calendar = ({
     };
   }, []);
 
+  const handleOnReset = () => {
+    setDatesRange([
+      {
+        startDate: addDays(new Date(), -1),
+        endDate: addDays(new Date(), -1),
+        key: 'selection',
+      },
+    ]);
+  };
+
   return (
     <div style={{ position: 'relative' }} ref={calendarRef}>
       <Input
+        disabled
         name="basic-input"
-        onChange={() => {}}
         placeholder={calendarPlaceholder}
         placeholderIcon={<i className="fa-regular fa-calendar"></i>}
         value=""
@@ -60,25 +70,21 @@ const Calendar = ({
             showDateDisplay={false}
             monthDisplayFormat="MMMM"
             weekdayDisplayFormat="EEEEE"
+            minDate={new Date()}
           />
 
-          <div
-            id="calendar-submit"
-            style={{
-              position: 'absolute',
-              right: '0',
-              bottom: '0',
-              width: '90%',
-              left: '0',
-              margin: 'auto',
-              backgroundColor: 'white',
-              height: '70px',
-              padding: '15px 0',
-            }}
-          >
-            <Button variant="b1" onClick={() => setShowCalendar(false)}>
-              Aplicar
-            </Button>
+          <div className={styles['buttons-container']}>
+            <div>
+              <Button variant="b2" onClick={handleOnReset}>
+                Borrar
+              </Button>
+            </div>
+
+            <div>
+              <Button variant="b1" onClick={() => setShowCalendar(false)}>
+                Aplicar
+              </Button>
+            </div>
           </div>
         </>
       )}
