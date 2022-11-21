@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,14 @@ public class BookingService {
     public List<Booking> findAll(){
         List<Booking> bookings = iBookingRepository.findAll();
         return bookings;
+    }
+
+    public List<Booking> findByParams(Map<String, String> params) throws BadRequestException {
+        if(params.get("productId") != null){
+            Long productId = Long.valueOf(params.get("productId"));
+            return iBookingRepository.findBookedDatesByProductId(productId);
+        }
+        throw new BadRequestException("Invalid Params");
     }
 
     public List<Booking> findAllBookingsByProductId(Long productId) {

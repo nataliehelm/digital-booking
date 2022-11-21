@@ -4,6 +4,9 @@ import com.grupo9.db.dto.Bookings.SaveBookingDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Booking;
+import com.grupo9.db.model.Category;
+import com.grupo9.db.model.Location;
+import com.grupo9.db.model.Product;
 import com.grupo9.db.service.BookingService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -14,8 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/bookings")
@@ -31,6 +33,11 @@ public class BookingController {
     public ResponseEntity<ApiResponse<List<Booking>, Object>> findAll(){
         List<Booking> bookings = bookingService.findAll();
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List successfully",bookings, null);
+    }
+    @GetMapping(path = "/filters")
+    public ResponseEntity<ApiResponse<List<Booking>, Object>> findByParams(@RequestParam Map<String, String> params) throws BadRequestException {
+        List<Booking> bookings = bookingService.findByParams(params);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List by Product Id successfully",bookings, null);
     }
 
     @GetMapping(path = "/{id}")
