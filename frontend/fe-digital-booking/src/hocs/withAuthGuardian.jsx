@@ -14,7 +14,14 @@ const withAuthGuardian = (Component) => {
       }
     }, [jwt, navigate]);
 
-    return <Component {...props} />;
+    if (jwt) return <Component {...props} />;
+    return (
+      <div>
+        <figure>
+          <img src="assets/loading-gif.gif" alt="Loading..."></img>
+        </figure>
+      </div>
+    );
   };
 };
 
