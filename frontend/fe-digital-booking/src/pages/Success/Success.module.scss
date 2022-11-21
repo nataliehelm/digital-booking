@@ -1,0 +1,34 @@
+@use '../../styles/variables' as *;
+
+.container {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  background-color: $color-white;
+}
+
+.infobanner {
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 23px;
+}
+.button-container {
+  padding: 10px;
+  width: 206px;
+  margin: auto;
+}
+
+.banner {
+  h2 {
+    margin-top: 30px;
+  }
+  h3 {
+    margin: 15px 0;
+  }
+}
+.icon {
+  font-size: 75px;
+  margin-top: 30px;
+}
