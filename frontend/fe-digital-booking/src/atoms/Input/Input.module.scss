@@ -20,6 +20,10 @@ div {
     appearance: none;
   }
 
+  .no-caret {
+    caret-color: transparent;
+  }
+
   input::-ms-reveal,
   input::-ms-clear {
     display: none;
