@@ -5,14 +5,14 @@ import useAuthContext from '../providers/AuthProvider/useAuthContext';
 const withAuthGuardian = (Component) => {
   return (props) => {
     const { state } = useAuthContext();
-    const { jwt } = state;
+    const { jwt, decodedJwt } = state;
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (!jwt) {
+      if (!jwt || !decodedJwt?.isActive) {
         navigate('/login');
       }
-    }, [jwt, navigate]);
+    }, [decodedJwt, jwt, navigate]);
 
     return <Component {...props} />;
   };
