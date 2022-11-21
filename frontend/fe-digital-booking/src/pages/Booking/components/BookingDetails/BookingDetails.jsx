@@ -11,13 +11,14 @@ const BookingDetails = ({
   address,
   location,
   range,
+  disabled,
+  onClick,
 }) => {
   const startDate = range[0].startDate;
   const endDate = range[0].endDate;
   const startDateFormatted = format(startDate, 'dd/MM/yyyy');
   const endDateFormatted = endDate ? format(endDate, 'dd/MM/yyyy') : endDate;
 
-  console.log(JSON.parse(localStorage.getItem('date-range'))[0]);
   return (
     <>
       <div className={styles.container}>
@@ -26,7 +27,7 @@ const BookingDetails = ({
         </Heading>
         <div className={styles.wrapper}>
           <div className={styles.image}>
-            <img src={image}></img>
+            <img src={image} alt={subtitle}></img>
           </div>
           <div className={styles.details}>
             <Heading variant="h4">{title.toUpperCase()}</Heading>
@@ -51,7 +52,13 @@ const BookingDetails = ({
               <span>{endDateFormatted}</span>
             </div>
             <div className={styles.divider}></div>
-            <Button type="submit" variant="b1" classname={styles.button}>
+            <Button
+              type="submit"
+              variant="b1"
+              classname={styles.button}
+              disabled={disabled}
+              onClick={onClick}
+            >
               Confirmar reserva
             </Button>
           </div>

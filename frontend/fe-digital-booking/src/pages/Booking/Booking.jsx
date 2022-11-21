@@ -1,14 +1,15 @@
-import { Dropdown, Heading, Subheader, Text } from '../../atoms';
+import { Dropdown, Heading, Subheader, Text, Toast } from '../../atoms';
 import { Policies } from '../Product/components';
 import { useBreakpoint } from '../../hooks';
 import styles from './Booking.module.scss';
-import 'react-date-range/dist/styles.css';
 import BookingDetails from './components/BookingDetails';
 import BookingCalendar from '../../components/BookingCalendar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addDays } from 'date-fns';
 import times from '../Product/lib/time-list.json';
-import { useEffect } from 'react';
+import useFetchLazy from '../../hooks/useFetch/useFetchLazy';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Booking = ({
   title,
@@ -22,8 +23,11 @@ const Booking = ({
   minDate,
 }) => {
   const breakpoint = useBreakpoint();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedTime, setSelectedTime] = useState();
-  console.log(selectedTime);
+  const { state } = useAuthContext();
+  const { data, error, callback } = useFetchLazy();
 
   const handleOnChange = (e) => {
     const time = times.find((element) => element.id === e.id);
@@ -38,9 +42,48 @@ const Booking = ({
     },
   ]);
 
+  const onClick = () => {
+    if (!range) return;
+    if (range.startDate > range.endDate) return;
+
+    const option = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + state.jwt,
+      },
+      body: JSON.stringify({
+        starting_tim: selectedTime,
+        starting_date: range[0].startDate,
+        ending_date: range[0].endDate,
+        productId: Number(id),
+        userId: state.decodedJwt.userId,
+      }),
+    };
+    callback('bookings', option);
+  };
+
+  useEffect(() => {
+    if (data) {
+      navigate('/');
+    }
+    if (error) {
+      console.error(error);
+    }
+  }, [data, error, navigate]);
+
   return (
     <>
       <Subheader title={title} subtitle={subtitle} onBackClick={onBackClick} />
+      {error && (
+        <div>
+          <Toast
+            variant="error"
+            label="Lamentablemente la reserva no ha podido realizarse. Por favor intente más tarde"
+          />
+        </div>
+      )}
       <div className={styles.container}>
         <div className={styles['left-container']}>
           <div className={styles['booking-calendar']}>
@@ -88,6 +131,8 @@ const Booking = ({
             address={address}
             location={location}
             range={range}
+            disabled={!selectedTime}
+            onClick={onClick}
           />
         </div>
       </div>
