@@ -1,33 +1,47 @@
 package com.grupo9.db.service;
 
+import com.grupo9.db.dto.Product.GetBookedDatesDto;
+import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
 import com.grupo9.db.util.ApiResponse;
+import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+
+    @Autowired
+    private BookingService bookingService;
+
     private final IProductRepository repository;
     private final ICategoryRepository categoryRepository;
     private final ILocationRepository locationRepository;
     private final IFeatureRepository featureRepository;
     private final IPolicyRepository policyRepository;
+    private final IBookingRepository bookingRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.locationRepository = locationRepository;
         this.featureRepository = featureRepository;
         this.policyRepository = policyRepository;
+        this.bookingRepository = bookingRepository;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -46,6 +60,27 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
         return product.get();
+    }
+
+    public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(Long id) throws ResourceNotFoundException {
+        Optional<Product> product = repository.findById(id);
+        if(product.isEmpty()){
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        }
+
+        List<Booking> bookings = bookingService.findAllBookingsByProductId(id);
+        List<GetBookedDatesDto> listOfBookedDates = ObjectMapperUtils.mapAll(bookings, GetBookedDatesDto.class);
+
+        for (GetBookedDatesDto booking: listOfBookedDates){
+
+            LocalDate startingDate = LocalDate.parse(booking.getStarting_date().toString());
+            LocalDate endingDate = LocalDate.parse(booking.getEnding_date().toString());
+            List<LocalDate> bookedDates = startingDate.datesUntil(endingDate.plusDays(1)).collect(Collectors.toList());
+            booking.setBooked_dates(bookedDates);
+        }
+
+        GetProductWithBookingsDto response = new GetProductWithBookingsDto(product.get(), listOfBookedDates);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
     }
 
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
@@ -89,6 +124,26 @@ public class ProductService {
             List<Product> products = repository.findTop8ByLocation(location.get());
             return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
         }
+
+        if(params.get("startingDate") != null && params.get("endingDate") != null){
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            List<Product> products = repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
+        if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
+            String startingDate = params.get("startingDate");
+            String endingDate = params.get("endingDate");
+            String locationId = params.get("locationId");
+            Optional<Location> location = locationRepository.findById(Long.valueOf(locationId));
+            if(location.isEmpty()){
+                throw new ResourceNotFoundException("Location with id " + locationId + " not found");
+            }
+            List<Product> products = repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
+            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+        }
+
         throw new BadRequestException("Invalid Params");
     }
 

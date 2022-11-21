@@ -21,6 +21,12 @@ const WritableDropdown = ({ options, onChange, reset }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, onChange]);
 
+  useEffect(() => {
+    if (search.value === '') {
+      onChange(null);
+    }
+  }, [search, onChange]);
+
   const _options = useMemo(
     () =>
       options.filter(

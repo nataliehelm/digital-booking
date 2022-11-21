@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +36,11 @@ public class BookingService {
     //listar todos
     public List<Booking> findAll(){
         List<Booking> bookings = iBookingRepository.findAll();
+        return bookings;
+    }
+
+    public List<Booking> findAllBookingsByProductId(Long productId) {
+        List<Booking> bookings = iBookingRepository.findBookedDatesByProductId(productId);
         return bookings;
     }
 

@@ -4,6 +4,9 @@ import { ProductList, CategoryList, Searcher } from './components';
 import styles from './Home.module.scss';
 import { Toast } from '../../atoms';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
+import { addDays } from 'date-fns/esm';
+import { isSameOrBefore } from '../../utils/dates';
+import { format, parseISO } from 'date-fns';
 
 const Home = () => {
   const { state } = useAuthContext();
@@ -13,8 +16,8 @@ const Home = () => {
   const [categoryNames, setCategoryNames] = useState([]);
   const [datesRange, setDatesRange] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: addDays(new Date(), -1),
+      endDate: addDays(new Date(), -1),
       key: 'selection',
     },
   ]);
@@ -45,14 +48,19 @@ const Home = () => {
     if (categoryIds.length > 0) {
       setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
       setLocationSelected(null);
+      setDatesRange([
+        {
+          startDate: addDays(new Date(), -1),
+          endDate: addDays(new Date(), -1),
+          key: 'selection',
+        },
+      ]);
     }
-  }, [categoryIds]);
-
-  useEffect(() => {
-    if (!locationSelected && !categoryIds.length) {
+    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
+    if (!categoryIds.length && !locationSelected && !hasDateFilter) {
       setEndpoint('products');
     }
-  }, [locationSelected, categoryIds]);
+  }, [categoryIds, datesRange, locationSelected]);
 
   const handleSelectIds = (id, name) => {
     if (categoryIds.includes(id)) {
@@ -65,11 +73,29 @@ const Home = () => {
   };
 
   const handleOnSubmit = () => {
-    if (locationSelected) {
-      setEndpoint(`products/filters?locationId=${locationSelected.id}`);
-      setCategoryIds([]);
-      setCategoryNames([]);
+    setCategoryIds([]);
+    setCategoryNames([]);
+    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
+    let finalEndpoint = 'products';
+    if (locationSelected || hasDateFilter) {
+      finalEndpoint += '/filters/?';
+      if (locationSelected) {
+        finalEndpoint += `locationId=${locationSelected.id}&`;
+      }
+      if (hasDateFilter) {
+        const { startDate, endDate } = datesRange[0];
+        const startingDate = format(
+          parseISO(startDate.toISOString()),
+          'yyyy-MM-dd'
+        );
+        const endingDate = format(
+          parseISO(endDate.toISOString()),
+          'yyyy-MM-dd'
+        );
+        finalEndpoint += `startingDate=${startingDate}&endingDate=${endingDate}&`;
+      }
     }
+    setEndpoint(finalEndpoint);
   };
 
   const scrollBottom = (e) => {
@@ -77,23 +103,6 @@ const Home = () => {
       behavior: 'smooth',
     });
   };
-
-  // useEffect(() => {
-  //   let categoryFilter = '';
-  //   let locationFilter = '';
-  //   if (categoryIds.length > 0) {
-  //     categoryFilter = `categoryId=${categoryIds.join(',')}&`;
-  //   }
-  //   if (locationSelected) {
-  //     locationFilter = `locationId=${locationSelected.id}&`;
-  //   }
-  //   const hasFilter = categoryIds.length > 0 || locationSelected;
-  //   if (hasFilter) {
-  //     setEndpoint(`products/filters?${categoryFilter}${locationFilter}`);
-  //   } else {
-  //     setEndpoint(`products/`);
-  //   }
-  // }, [categoryIds, locationSelected]);
 
   const recommendationsTitle = useMemo(
     () => categoryNames.join(', '),
