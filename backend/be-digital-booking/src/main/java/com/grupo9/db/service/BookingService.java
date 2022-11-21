@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookingService {
+public class >BookingService {
     private IBookingRepository iBookingRepository;
     private IProductRepository iProductRepository;
     private IUserRepository iUserRepository;
