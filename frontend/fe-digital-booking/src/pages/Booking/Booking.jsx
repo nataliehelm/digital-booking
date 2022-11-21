@@ -3,8 +3,8 @@ import { Policies } from '../Product/components';
 import { useBreakpoint } from '../../hooks';
 import styles from './Booking.module.scss';
 import BookingDetails from './components/BookingDetails';
-import BookingCalendar from '../../components/BookingCalendar';
-import { useEffect, useState } from 'react';
+import { BookingCalendar } from '../../components';
+import { useEffect, useMemo, useState } from 'react';
 import { addDays } from 'date-fns';
 import times from '../Product/lib/time-list.json';
 import useFetchLazy from '../../hooks/useFetch/useFetchLazy';
@@ -21,6 +21,7 @@ const Booking = ({
   address,
   location,
   minDate,
+  booking,
 }) => {
   const breakpoint = useBreakpoint();
   const { id } = useParams();
@@ -41,6 +42,12 @@ const Booking = ({
       key: 'selection',
     },
   ]);
+  const disabledDates = useMemo(() => {
+    return booking
+      .map((date) => date.booked_dates)
+      .flat()
+      .map((date) => new Date(date));
+  }, [booking]);
 
   const onClick = () => {
     if (!range) return;
@@ -96,6 +103,7 @@ const Booking = ({
                 setRange={setRange}
                 minDate={minDate}
                 range={range}
+                disabledDates={disabledDates}
               />
             </section>
           </div>

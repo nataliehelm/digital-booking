@@ -1,1 +1,1 @@
-export { default } from './BookingCalendar';
+export { default as BookingCalendar } from './BookingCalendar';

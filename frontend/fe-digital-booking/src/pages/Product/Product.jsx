@@ -11,17 +11,11 @@ import {
   SocialMedia,
 } from '../../atoms';
 import { useBreakpoint, useOnClickOutside } from '../../hooks';
-import {
-  Description,
-  Features,
-  Map,
-  Policies,
-  Carousel,
-  BookingCalendar,
-} from './components';
+import { Description, Features, Map, Policies, Carousel } from './components';
 import cn from 'classnames';
 import styles from './Product.module.scss';
 import { useRef, useState } from 'react';
+import { BookingCalendar } from '../../components';
 
 const Product = ({
   category,

@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-//import useFetch from '../../hooks/useFetch/useFetch';
+import useFetch from '../../hooks/useFetch/useFetch';
 import Booking from './Booking';
-import productData from '../Product/lib/booking.json';
 
 const BookingContainer = () => {
   const { id } = useParams();
@@ -9,11 +8,9 @@ const BookingContainer = () => {
   const onBackClick = () => {
     navigate(-1);
   };
-
-  const product = productData;
   const minDate = new Date();
-  /* 
-  const { isLoading, data: product } = useFetch(`products/${id}`);
+
+  const { isLoading, data } = useFetch(`products/${id}/bookings`);
 
   if (isLoading)
     return (
@@ -22,19 +19,19 @@ const BookingContainer = () => {
           <img src="assets/loading-gif.gif" alt="Loading..."></img>
         </figure>
       </div>
-    ); */
+    );
 
   return (
     <Booking
-      title={product.category.name}
-      subtitle={product.name}
+      title={data.product.category.name}
+      subtitle={data.product.name}
       onBackClick={onBackClick}
-      booking={product.booking}
-      policies={product.policies}
-      image={product.images[0].url}
-      ranking={product.ranking}
-      address={product.address}
-      location={`${product.location.city_name}, ${product.location.province_name}, ${product.location.country_name}`}
+      booking={data.bookings}
+      policies={data.product.policies}
+      image={data.product.images[0].url}
+      ranking={data.product.ranking}
+      address={data.product.address}
+      location={`${data.product.location.city_name}, ${data.product.location.province_name}, ${data.product.location.country_name}`}
       minDate={minDate}
     />
   );
