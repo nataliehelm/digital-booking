@@ -54,7 +54,7 @@ const Booking = ({
         Authorization: 'Bearer ' + state.jwt,
       },
       body: JSON.stringify({
-        starting_tim: selectedTime,
+        starting_time: selectedTime,
         starting_date: range[0].startDate,
         ending_date: range[0].endDate,
         productId: Number(id),
@@ -66,7 +66,7 @@ const Booking = ({
 
   useEffect(() => {
     if (data) {
-      navigate('/');
+      navigate('/success-booking');
     }
     if (error) {
       console.error(error);
