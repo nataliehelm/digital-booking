@@ -28,26 +28,26 @@ public class ImageService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Image>, Object>> findAll(){
+    public List<Image> findAll(){
         List<Image> images = repository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Image List successfully",images, null);
+        return images;
     }
 
-    public ResponseEntity<ApiResponse<Image, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Image findById(Long id) throws ResourceNotFoundException {
         Optional<Image> image = repository.findById(id);
         if(image.isEmpty()){
             throw new ResourceNotFoundException("Image with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Image successfully", image.get(), null);
+
+        return image.get();
     }
 
-    public ResponseEntity<ApiResponse<Image, Object>> save(SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
-        Image image = checkRelations(imageDto, null);
-        Image response = repository.save(image);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image created successfully", response, null);
+    public Image save(SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
+        Image image = imageBuilder(imageDto, null);
+        return repository.save(image);
     }
 
-    public ResponseEntity<ApiResponse<Image, Object>> update(Long id, SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
+    public Image update(Long id, SaveImageDto imageDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = repository.existsById(id);
@@ -55,23 +55,20 @@ public class ImageService {
             throw new ResourceNotFoundException("Image with id " + id + " not found");
         }
 
-        Image image = checkRelations(imageDto, id);
-        Image response = repository.save(image);
+        Image image = imageBuilder(imageDto, id);
+        return repository.save(image);
+        }
 
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image updated successfully", response, null);
-    }
-
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = repository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Image with id " + id + " not found");
         }
         repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully", null, null);
-    }
+        }
 
-    private Image checkRelations (SaveImageDto imageDto, Long id) throws ResourceNotFoundException {
+    private Image imageBuilder (SaveImageDto imageDto, Long id) throws ResourceNotFoundException {
 
         Optional<Product> product = productRepository.findById(imageDto.getProduct_id());
 

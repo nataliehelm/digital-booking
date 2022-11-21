@@ -49,11 +49,11 @@ public class FeatureService {
         }
 
         feature.setId(id);
-        Feature response = repository.save(feature);
+        return repository.save(feature);
 
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = repository.existsById(id);
         if(!exists){
@@ -61,7 +61,6 @@ public class FeatureService {
         }
 
         repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Feature deleted successfully", null, null);
     }
 
 }

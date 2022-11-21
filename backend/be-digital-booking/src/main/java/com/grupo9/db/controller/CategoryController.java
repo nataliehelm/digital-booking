@@ -59,7 +59,6 @@ public class CategoryController {
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         service.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Category deleted successfully", null, null);
-
     }
 
 }

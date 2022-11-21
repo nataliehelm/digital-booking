@@ -2,6 +2,7 @@ package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
+import com.grupo9.db.model.Booking;
 import com.grupo9.db.model.Feature;
 import com.grupo9.db.service.FeatureService;
 import com.grupo9.db.util.ApiResponse;
@@ -48,13 +49,16 @@ public class FeatureController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Feature, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody Feature feature) throws ResourceNotFoundException, BadRequestException {
-        return service.update(id, feature);
+        Feature response = service.update(id, feature);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature updated successfully", response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
-        return service.deleteById(id);
+        service.deleteById(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Feature deleted successfully", null, null);
+
     }
 
 }

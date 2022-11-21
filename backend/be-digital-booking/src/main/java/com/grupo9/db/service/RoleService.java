@@ -23,25 +23,24 @@ public class RoleService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Role>, Object>> findAll(){
+    public List<Role> findAll(){
         List<Role> roles = iRoleRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Role List successfully",roles, null);
+        return roles;
     }
 
-    public ResponseEntity<ApiResponse<Role, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Role findById(Long id) throws ResourceNotFoundException {
         Optional<Role> role = iRoleRepository.findById(id);
         if(role.isEmpty()){
             throw new ResourceNotFoundException("Role with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Role successfully", role.get(), null);
+        return role.get();
     }
 
-    public ResponseEntity<ApiResponse<Role, Object>> save(Role role){
-        Role response = iRoleRepository.save(role);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Role created successfully", response, null);
+    public Role save(Role role){
+        return iRoleRepository.save(role);
     }
 
-    public ResponseEntity<ApiResponse<Role, Object>> update(Long id, Role role) throws ResourceNotFoundException, BadRequestException {
+    public Role update(Long id, Role role) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = iRoleRepository.existsById(id);
@@ -50,11 +49,10 @@ public class RoleService {
         }
 
         role.setId(id);
-        Role response = iRoleRepository.save(role);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Role updated successfully", response, null);
+        return iRoleRepository.save(role);
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = iRoleRepository.existsById(id);
         if(!exists){
@@ -62,6 +60,5 @@ public class RoleService {
         }
 
         iRoleRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Role deleted successfully", null, null);
     }
 }
