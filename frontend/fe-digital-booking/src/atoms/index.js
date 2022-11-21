@@ -11,3 +11,5 @@ export * from './Text';
 export * from './Toast';
 export * from './Dropdown';
 export * from './WritableDropdown';
+export * from './SocialMedia';
+export * from './Modal';
