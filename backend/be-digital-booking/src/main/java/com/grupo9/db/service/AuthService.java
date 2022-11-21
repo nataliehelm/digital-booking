@@ -134,7 +134,14 @@ public class AuthService {
 
         StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
         encryptor.setPassword(cryptPassword);
-        String confirmUrl = activateUserUrl + encryptor.encrypt(String.valueOf(user.get().getId())) + "/activate";
+
+        String encrypted = encryptor.encrypt(String.valueOf(user.get().getId()));
+
+        while (encrypted.contains("/")){
+            encrypted = encryptor.encrypt(String.valueOf(user.get().getId()));
+        }
+
+        String confirmUrl = activateUserUrl + encrypted + "/activate";
 
         EmailDetails emailDetails = new EmailDetails();
 
