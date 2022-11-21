@@ -39,6 +39,11 @@ public class BookingService {
         return bookings;
     }
 
+    public List<Booking> findAllBookingsByProductId(Long productId) {
+        List<Booking> bookings = iBookingRepository.findBookedDatesByProductId(productId);
+        return bookings;
+    }
+
     //buscar por id
     public Booking findById(Long id) throws ResourceNotFoundException {
         Optional<Booking> booking = iBookingRepository.findById(id);
@@ -47,17 +52,6 @@ public class BookingService {
         }
         return booking.get();
     }
-
-//    public ResponseEntity<ApiResponse<Booking, Object>> findByDate(String starting_date, String ending_date) throws ResourceNotFoundException, ParseException {
-//        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-//        Date checkIn = formater.parse(starting_date);
-//        Date checkOut = formater.parse(ending_date);
-//        List<Booking> bookingDate = iBookingRepository.findbyDateInOut(starting_date, ending_date);
-//        if(bookingDate.isEmpty()){
-//            throw new ResourceNotFoundException("BookingDate with Date " + starting_date + ending_date + " not found");
-//        }
-//        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking starting_date and ending_Date successfully", bookingDate, null);
-//    }
 
     //guardar
     public Booking save(SaveBookingDto bookingDto) throws ResourceNotFoundException {

@@ -1,5 +1,7 @@
 package com.grupo9.db.repository;
 
+import com.grupo9.db.dto.Product.GetBookedDatesDto;
+import com.grupo9.db.model.Booking;
 import com.grupo9.db.model.Category;
 import com.grupo9.db.model.Location;
 import com.grupo9.db.model.Product;
@@ -8,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface IProductRepository extends JpaRepository<Product, Long> {
     List <Product> findTop8ByOrderByIdAsc();

@@ -147,3 +147,22 @@
   height: 350px !important;
   justify-content: center !important;
 }
+
+.rdrDayDisabled .rdrStartEdge,
+.rdrDayDisabled .rdrEndEdge {
+  background: transparent !important;
+}
+
+.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span {
+  color: white !important;
+}
+
+.rdrDayDisabled
+  + .rdrDay:not(.rdrDayPassive)
+  .rdrStartEdge
+  ~ .rdrDayNumber
+  span,
+.rdrDayDisabled + .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span {
+  color: #aeb9bf !important;
+}
