@@ -9,11 +9,16 @@ const UserActivation = () => {
 
   useEffect(() => {
     if (data && data.active) {
-      navigate('/login');
+      navigate('/login', {
+        state: {
+          message: 'Cuenta activada satisfactoriamente',
+          type: 'success',
+        },
+      });
     }
   }, [data, id, navigate]);
 
-  return <>Test</>;
+  return <></>;
 };
 
 export default UserActivation;

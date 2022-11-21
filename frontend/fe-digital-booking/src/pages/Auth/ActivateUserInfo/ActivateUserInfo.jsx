@@ -4,10 +4,13 @@ import { InfoBanner } from '../../../atoms/InfoBanner';
 import styles from './ActivateUserInfo.module.scss';
 import cn from 'classnames';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
+import { useState } from 'react';
 
 const ActivateUserInfo = () => {
   const location = useLocation();
-  const { error, callback: signUpFunction } = useFetchLazy();
+  const { error, data, callback: signUpFunction } = useFetchLazy();
+
+  const [disabled, setDisabled] = useState(false);
 
   const handleOnSubmit = () => {
     const options = {
@@ -20,6 +23,7 @@ const ActivateUserInfo = () => {
     };
 
     signUpFunction('auth/resend', options);
+    setDisabled(true);
   };
 
   return (
@@ -30,6 +34,11 @@ const ActivateUserInfo = () => {
             variant="error"
             label={error.error || 'Por favor intente más tarde'}
           />
+        </div>
+      )}
+      {data && (
+        <div className={styles['sign-up-form']}>
+          <Toast variant="success" label="Correo envíado satisfactoriamente" />
         </div>
       )}
       <form className={styles['sign-up-form']}>
@@ -49,7 +58,11 @@ const ActivateUserInfo = () => {
             </Heading>
             <div className={styles['buttons-container']}>
               <div>
-                <Button variant="b2" onClick={handleOnSubmit}>
+                <Button
+                  variant="b2"
+                  onClick={handleOnSubmit}
+                  disabled={disabled}
+                >
                   Reenviar link
                 </Button>
               </div>
