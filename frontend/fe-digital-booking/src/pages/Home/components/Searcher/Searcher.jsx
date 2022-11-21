@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, WritableDropdown } from '../../../../atoms';
 import { useBreakpoint, useFetch } from './../../../../hooks';
 import { Calendar } from '../../../../components';
+import { isSameOrBefore } from '../../../../utils/dates';
 import parsedLocations from '../../../../mappers/locations.mapper';
 import styles from './Searcher.module.scss';
 
@@ -21,6 +22,7 @@ const Searcher = ({
   const [calendarPlaceholder, setCalendarPlaceholder] = useState(
     'Check in - Check out'
   );
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -34,12 +36,14 @@ const Searcher = ({
       month: 'short',
       day: 'numeric',
     };
-    if (datesRange[0].startDate && datesRange[0].endDate) {
+    if (isSameOrBefore(new Date(), datesRange[0].startDate)) {
       const finalPlaceHolder = `${datesRange[0].startDate.toLocaleDateString(
         'es-ES',
         options
       )} - ${datesRange[0].endDate.toLocaleDateString('es-ES', options)}`;
       setCalendarPlaceholder(finalPlaceHolder);
+    } else {
+      setCalendarPlaceholder('Check in - Check out');
     }
   }, [datesRange]);
 
@@ -73,6 +77,8 @@ const Searcher = ({
                     setDatesRange={setDatesRange}
                     months={['sm', 'md', 'lg'].includes(breakpoint) ? 1 : 2}
                     calendarPlaceholder={calendarPlaceholder}
+                    showCalendar={showCalendar}
+                    setShowCalendar={setShowCalendar}
                   />
                 </div>
               </div>
@@ -83,7 +89,10 @@ const Searcher = ({
                 variant="b1"
                 classname={styles['submit-button']}
                 type="submit"
-                onClick={onClick}
+                onClick={() => {
+                  onClick();
+                  setShowCalendar(false);
+                }}
               >
                 Buscar
               </Button>

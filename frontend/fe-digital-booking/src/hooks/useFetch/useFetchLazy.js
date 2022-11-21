@@ -8,19 +8,25 @@ const useFetchLazy = () => {
 
   const callback = async (endpoint, options) => {
     setIsLoading(true);
-    const response = await digitalBookingAPI(endpoint, options);
-    const res = await response.json();
-    if (res.errors) {
+    try {
+      const response = await digitalBookingAPI(endpoint, options);
+      const res = await response.json();
+      if (res.errors) {
+        setData(null);
+        setError(res.errors);
+      } else if (res.status && res.status >= 400) {
+        setData(null);
+        setError('Error en la petición');
+      } else {
+        setData(res.data);
+        setError(null);
+      }
+    } catch (error) {
       setData(null);
-      setError(res.errors);
-    } else if (res.status && res.status >= 400) {
-      setData(null);
-      setError('Error en la petición');
-    } else {
-      setData(res.data);
-      setError(null);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return { isLoading, data, error, callback };

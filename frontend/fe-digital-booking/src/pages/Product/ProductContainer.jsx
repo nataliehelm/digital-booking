@@ -32,7 +32,7 @@ const ProductContainer = () => {
       policies={product.policies}
       subtitle={product.description_title}
       description={product.description}
-      booking={product.booking}
+      booking={product.bookings}
       id={product.id}
     />
   );

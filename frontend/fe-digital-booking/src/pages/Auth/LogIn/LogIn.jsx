@@ -41,7 +41,6 @@ const LogIn = () => {
     return [email, password].some((item) => item.value === '' || item.hasError);
   }, [email, password]);
 
-  console.log(state);
   useEffect(() => {
     if (data) {
       localStorage.setItem('jwt', JSON.stringify(data.token));
