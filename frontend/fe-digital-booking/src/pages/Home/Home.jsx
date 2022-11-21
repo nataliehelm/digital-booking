@@ -56,7 +56,11 @@ const Home = () => {
         },
       ]);
     }
-  }, [categoryIds]);
+    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
+    if (!categoryIds.length && !locationSelected && !hasDateFilter) {
+      setEndpoint('products');
+    }
+  }, [categoryIds, datesRange, locationSelected]);
 
   const handleSelectIds = (id, name) => {
     if (categoryIds.includes(id)) {
