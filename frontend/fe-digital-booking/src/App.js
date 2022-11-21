@@ -9,6 +9,7 @@ import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
 import Booking from './pages/Booking/BookingContainer';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
+import ResendEmail from './pages/Auth/ResendEmail';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -63,7 +64,16 @@ function App() {
             />
             <Route
               path="/product/:id/booking"
-              element={<Layout children={<Booking />} />}
+              element={<Layout children={<Booking />} />} 
+              />
+              <Route
+              path="/resend-email"
+              element={
+                <Layout
+                  className={styles['auth-background']}
+                  children={<ResendEmail />}
+                />
+              } 
             />
           </Routes>
         </div>

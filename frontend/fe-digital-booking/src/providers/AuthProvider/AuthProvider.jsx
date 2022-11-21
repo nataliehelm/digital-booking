@@ -13,7 +13,10 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('jwt');
         setState({ jwt: undefined, decodedJwt: undefined });
         navigate('/login', {
-          state: { message: 'Tu sesión se venció, inicia sesión de nuevo.' },
+          state: {
+            message: 'Tu sesión se venció, inicia sesión de nuevo.',
+            type: 'error',
+          },
         });
       }
     }

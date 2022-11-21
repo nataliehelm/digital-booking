@@ -1,3 +1,4 @@
 export { default as LogIn } from './LogIn';
 export { default as SignUp } from './SignUp';
 export { default as UserActivation } from './UserActivation';
+export { default as ResendEmail } from './ResendEmail';

@@ -18,6 +18,7 @@ const Input = ({
   disabled,
   onClick,
   classname,
+  noCaret,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +47,6 @@ const Input = ({
           value={value}
           onChange={onChange}
           onFocus={() => {
-            setShowPlaceholder(false);
             onFocus && onFocus();
           }}
           onBlur={() => {
@@ -54,7 +54,9 @@ const Input = ({
           }}
           className={cn('text-2', classname, {
             [styles['input-error']]: hasError,
+            [styles['no-caret']]: noCaret,
           })}
+          onClick={onClick}
         />
         {type === 'password' && showPassword && (
           <span
@@ -102,11 +104,13 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   classname: PropTypes.string,
+  noCaret: PropTypes.bool,
 };
 
 Input.defaultProps = {
   type: 'text',
   hasError: false,
+  noCaret: false,
 };
 
 export default Input;
