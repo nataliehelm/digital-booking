@@ -31,19 +31,17 @@ class CategoryServiceTest {
     @Order(1)
     void save() {
         Category category = new Category("Category1", "CategoryDescription", "CategoryImg");
-        ResponseEntity<ApiResponse<Category, Object>> saveCategory = categoryService.save(category);
-        Assert.assertEquals(201, saveCategory.getStatusCodeValue());
-        Assert.assertEquals("Category1", saveCategory.getBody().getData().getName());
-        Assert.assertEquals("CategoryDescription", saveCategory.getBody().getData().getDescription());
-        Assert.assertEquals("CategoryImg", saveCategory.getBody().getData().getImage_url());
+        Category saveCategory = categoryService.save(category);
+        Assert.assertEquals("Category1", saveCategory.getName());
+        Assert.assertEquals("CategoryDescription", saveCategory.getDescription());
+        Assert.assertEquals("CategoryImg", saveCategory.getImage_url());
     }
 
     @Test
     @Order(2)
     void findAll() {
-        ResponseEntity<ApiResponse<List<Category>, Object>> listCagegory = categoryService.findAll();
-        Assert.assertEquals(200, listCagegory.getStatusCodeValue());
-        Assert.assertTrue(listCagegory.getBody().getData().size()>=1);
+        List<Category> listCagegory = categoryService.findAll();
+        Assert.assertTrue(listCagegory.size()>=1);
     }
 
     @Test
@@ -51,11 +49,10 @@ class CategoryServiceTest {
     @Order(3)
     void findById() throws ResourceNotFoundException {
         Category category = new Category("Category1", "CategoryDescription", "CategoryImg");
-        ResponseEntity<ApiResponse<Category, Object>> saveCategory = categoryService.save(category);
-        Long createId = saveCategory.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Category, Object>> findByIdCategory = categoryService.findById(createId);
-        Assert.assertEquals(200, findByIdCategory.getStatusCodeValue());
-        Assert.assertEquals("Category1", findByIdCategory.getBody().getData().getName());
+        Category saveCategory = categoryService.save(category);
+        Long createId = saveCategory.getId();
+        Category findByIdCategory = categoryService.findById(createId);
+        Assert.assertEquals("Category1", findByIdCategory.getName());
     }
 
     @Test
@@ -63,14 +60,13 @@ class CategoryServiceTest {
     @Order(4)
     void update() throws ResourceNotFoundException, BadRequestException {
         Category category = new Category("Category1", "CategoryDescription", "CategoryImg");
-        ResponseEntity<ApiResponse<Category, Object>> saveCategory = categoryService.save(category);
-        Long createId = saveCategory.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Category, Object>> findByIdCategory = categoryService.findById(createId);
-        Assert.assertEquals("Category1", findByIdCategory.getBody().getData().getName());
-        Category updateCategory = findByIdCategory.getBody().getData();
-        updateCategory.setName("Category2");
-        ResponseEntity<ApiResponse<Category, Object>> update = categoryService.update(createId, updateCategory);
-        Assert.assertEquals("Category2", update.getBody().getData().getName());
+        Category saveCategory = categoryService.save(category);
+        Long createId = saveCategory.getId();
+        Category findByIdCategory = categoryService.findById(createId);
+        Assert.assertEquals("Category1", findByIdCategory.getName());
+        findByIdCategory.setName("Category2");
+        Category update = categoryService.update(createId, findByIdCategory);
+        Assert.assertEquals("Category2", update.getName());
     }
 
     @Test
@@ -78,10 +74,10 @@ class CategoryServiceTest {
     @Order(5)
     void deleteById() throws ResourceNotFoundException, BadRequestException {
         Category category = new Category("Category1", "CategoryDescription", "CategoryImg");
-        ResponseEntity<ApiResponse<Category, Object>> saveCategory = categoryService.save(category);
-        Long createId = saveCategory.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Category, Object>> findByIdCategory = categoryService.findById(createId);
-        Assert.assertEquals("Category1", findByIdCategory.getBody().getData().getName());
+        Category saveCategory = categoryService.save(category);
+        Long createId = saveCategory.getId();
+        Category findByIdCategory = categoryService.findById(createId);
+        Assert.assertEquals("Category1", findByIdCategory.getName());
         categoryService.deleteById(createId);
         Throwable exception = Assert.assertThrows(ResourceNotFoundException.class, ()->categoryService.deleteById(createId));
         Assert.assertEquals("Category with id " +  createId + " not found", exception.getMessage());
