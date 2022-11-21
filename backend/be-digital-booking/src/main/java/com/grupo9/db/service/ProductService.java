@@ -69,14 +69,17 @@ public class ProductService {
         }
 
         List<Booking> bookings = bookingService.findAllBookingsByProductId(id);
-        List<GetBookedDatesDto> listOfBookedDates = ObjectMapperUtils.mapAll(bookings, GetBookedDatesDto.class);
+        List<GetBookedDatesDto> listOfBookedDates = null;
 
-        for (GetBookedDatesDto booking: listOfBookedDates){
+        if(bookings.get(0) != null){
+            listOfBookedDates = ObjectMapperUtils.mapAll(bookings, GetBookedDatesDto.class);
+            for (GetBookedDatesDto booking: listOfBookedDates){
+                LocalDate startingDate = LocalDate.parse(booking.getStarting_date().toString());
+                LocalDate endingDate = LocalDate.parse(booking.getEnding_date().toString());
+                List<LocalDate> bookedDates = startingDate.datesUntil(endingDate.plusDays(1)).collect(Collectors.toList());
+                booking.setBooked_dates(bookedDates);
+            }
 
-            LocalDate startingDate = LocalDate.parse(booking.getStarting_date().toString());
-            LocalDate endingDate = LocalDate.parse(booking.getEnding_date().toString());
-            List<LocalDate> bookedDates = startingDate.datesUntil(endingDate.plusDays(1)).collect(Collectors.toList());
-            booking.setBooked_dates(bookedDates);
         }
 
         GetProductWithBookingsDto response = new GetProductWithBookingsDto(product.get(), listOfBookedDates);
