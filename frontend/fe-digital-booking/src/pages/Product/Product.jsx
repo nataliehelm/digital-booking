@@ -6,10 +6,9 @@ import {
   Button,
   Text,
   Rank,
-  Modal,
   SocialMedia,
 } from '../../atoms';
-import { useBreakpoint } from '../../hooks';
+import { useBreakpoint, useOnClickOutside } from '../../hooks';
 import {
   Description,
   Features,
@@ -20,7 +19,7 @@ import {
 } from './components';
 import cn from 'classnames';
 import styles from './Product.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const Product = ({
   category,
@@ -45,6 +44,9 @@ const Product = ({
   const [showSocialMediaModal, setShowSocialMediaModal] = useState(false);
 
   const breakpoint = useBreakpoint();
+
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setShowSocialMediaModal(false));
 
   return (
     <>
@@ -74,12 +76,13 @@ const Product = ({
           </div>
         </section>
         {showSocialMediaModal && (
-          <Modal onCloseModal={() => setShowSocialMediaModal(false)}>
+          <div ref={ref}>
             <SocialMedia
+              onClose={() => setShowSocialMediaModal(false)}
               url={`/product/${id}`}
               socialTypes={['whatsapp', 'facebook', 'mail', 'twitter']}
             />
-          </Modal>
+          </div>
         )}
         <Carousel images={images} />
         <Description title={subtitle} description={description} />

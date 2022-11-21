@@ -17,7 +17,7 @@ const socialComponents = {
   mail: Mail,
 };
 
-const SocialMedia = ({ socialTypes, url }) => {
+const SocialMedia = ({ socialTypes, url, onClose }) => {
   const components = useMemo(
     () =>
       socialTypes.map((s) => ({
@@ -29,6 +29,9 @@ const SocialMedia = ({ socialTypes, url }) => {
 
   return (
     <div className={styles.container}>
+      <div onClick={onClose} className={styles.close}>
+        <i className="fa-solid fa-x" />
+      </div>
       {components.map(({ Component, socialType }) => (
         <SocialIconLayout socialType={socialType} url={url}>
           <Component />

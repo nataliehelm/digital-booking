@@ -34,9 +34,12 @@
 
   .social-media {
     padding: 15px 0;
-    svg {
-      font-size: 20px;
-      cursor: pointer;
+    div {
+      width: max-content;
+      svg {
+        font-size: 20px;
+        cursor: pointer;
+      }
     }
   }
 
