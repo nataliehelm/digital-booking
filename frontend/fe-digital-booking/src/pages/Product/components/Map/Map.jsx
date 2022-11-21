@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './leaflet.scss';
 import styles from './Map.module.scss';
 
-const Map = ({ location, coordinates, name }) => {
+const Map = ({ location, coordinates, name, address = '' }) => {
   return (
     <section className={styles['map-container']}>
       <Heading variant="h1" classname={styles['map-title']}>
@@ -23,8 +23,8 @@ const Map = ({ location, coordinates, name }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={coordinates}>
-            <Tooltip direction="right" offset={[0, 0]} opacity={1} permanent>
-              {name}
+            <Tooltip direction="right" offset={[0, 0]} opacity={1}>
+              {`${name} ${address}`}
             </Tooltip>
           </Marker>
         </MapContainer>
