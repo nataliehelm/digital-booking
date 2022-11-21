@@ -32,6 +32,14 @@
   overflow: hidden;
   background-color: $color-white;
 
+  .social-media {
+    padding: 15px 0;
+    svg {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
   .services-title {
     color: $color-secondary;
   }

@@ -1,5 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
+import {
+  Heading,
+  Subheader,
+  Score,
+  Button,
+  Text,
+  Rank,
+  Modal,
+  SocialMedia,
+} from '../../atoms';
 import { useBreakpoint } from '../../hooks';
 import {
   Description,
@@ -9,7 +18,9 @@ import {
   Carousel,
   BookingCalendar,
 } from './components';
+import cn from 'classnames';
 import styles from './Product.module.scss';
+import { useState } from 'react';
 
 const Product = ({
   category,
@@ -24,11 +35,14 @@ const Product = ({
   coordinates,
   subtitle,
   description,
+  id,
 }) => {
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
+
+  const [showSocialMediaModal, setShowSocialMediaModal] = useState(false);
 
   const breakpoint = useBreakpoint();
 
@@ -54,6 +68,19 @@ const Product = ({
         </section>
       </div>
       <div className={styles.container}>
+        <section className={styles['social-media']}>
+          <div onClick={() => setShowSocialMediaModal(true)}>
+            <i className={cn('fa-solid fa-share-nodes')} />
+          </div>
+        </section>
+        {showSocialMediaModal && (
+          <Modal onCloseModal={() => setShowSocialMediaModal(false)}>
+            <SocialMedia
+              url={`/product/${id}`}
+              socialTypes={['whatsapp', 'facebook', 'mail', 'twitter']}
+            />
+          </Modal>
+        )}
         <Carousel images={images} />
         <Description title={subtitle} description={description} />
         <section>
