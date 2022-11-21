@@ -8,6 +8,7 @@ import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
+import ResendEmail from './pages/Auth/ResendEmail';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -57,6 +58,15 @@ function App() {
                 <Layout
                   className={styles['auth-background']}
                   children={<ActivateUserInfo />}
+                />
+              }
+            />
+            <Route
+              path="/resend-email"
+              element={
+                <Layout
+                  className={styles['auth-background']}
+                  children={<ResendEmail />}
                 />
               }
             />
