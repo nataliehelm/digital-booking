@@ -45,7 +45,7 @@ const Calendar = ({
   return (
     <div style={{ position: 'relative' }} ref={calendarRef}>
       <Input
-        disabled
+        noCaret
         name="basic-input"
         placeholder={calendarPlaceholder}
         placeholderIcon={<i className="fa-regular fa-calendar"></i>}

@@ -1,30 +1,33 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Button, Heading, Toast } from '../../../atoms';
+import { Link } from 'react-router-dom';
+import { Button, Heading, Input, Text, Toast, useInput } from '../../../atoms';
 import { InfoBanner } from '../../../atoms/InfoBanner';
-import styles from './ActivateUserInfo.module.scss';
-import cn from 'classnames';
+import styles from './ResendEmail.module.scss';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ActivateUserInfo = () => {
-  const location = useLocation();
   const { error, data, callback: signUpFunction } = useFetchLazy();
-
   const [disabled, setDisabled] = useState(false);
+  const email = useInput('');
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
     const options = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: location.state.email }),
+      body: JSON.stringify({ email: email.value }),
     };
 
     signUpFunction('auth/resend', options);
     setDisabled(true);
   };
+
+  useEffect(() => {
+    setDisabled(false);
+  }, [error]);
 
   return (
     <main className={styles.main}>
@@ -41,37 +44,38 @@ const ActivateUserInfo = () => {
           <Toast variant="success" label="Correo envíado satisfactoriamente" />
         </div>
       )}
-      <form className={styles['sign-up-form']}>
+      <form className={styles['sign-up-form']} onSubmit={handleOnSubmit}>
         <InfoBanner>
           <>
-            <i
-              className={cn(
-                'fa-regular fa-circle-check color-primary',
-                styles.icon
-              )}
-            ></i>
-            <Heading variant="h1" classname="color-primary">
-              ¡Registro exitoso!
-            </Heading>
             <Heading variant="h2" classname="color-secondary">
-              En tu correo electrónico entrarás un link para activar tu cuenta
+              Por favor escriba su correo electrónico para hacer el reenvío
             </Heading>
+            <Input
+              name="email"
+              value={email.value}
+              onChange={email.onChange}
+              label="Correo electrónico"
+              type="email"
+            />
             <div className={styles['buttons-container']}>
               <div>
                 <Button
                   variant="b2"
                   onClick={handleOnSubmit}
                   disabled={disabled}
+                  type="submit"
                 >
                   Reenviar link
                 </Button>
               </div>
-              <div>
-                <Link to="/login">
-                  <Button variant="b1">Ir al login</Button>
-                </Link>
-              </div>
             </div>
+            <Text variant="t2" classname={styles['signup-text']}>
+              <>
+                <Link to="/login">
+                  <span> Volver al login</span>
+                </Link>
+              </>
+            </Text>
           </>
         </InfoBanner>
       </form>

@@ -1,12 +1,27 @@
 import { useNavigate } from 'react-router-dom';
-import { Heading, Subheader, Score, Button, Text, Rank } from '../../atoms';
-import { useBreakpoint } from '../../hooks';
-
-import { Description, Features, Map, Policies, Carousel } from './components';
-import styles from './Product.module.scss';
 import { useMemo } from 'react';
-import BookingCalendar from '../../components/BookingCalendar/BookingCalendar';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
+import {
+  Heading,
+  Subheader,
+  Score,
+  Button,
+  Text,
+  Rank,
+  SocialMedia,
+} from '../../atoms';
+import { useBreakpoint, useOnClickOutside } from '../../hooks';
+import {
+  Description,
+  Features,
+  Map,
+  Policies,
+  Carousel,
+  BookingCalendar,
+} from './components';
+import cn from 'classnames';
+import styles from './Product.module.scss';
+import { useRef, useState } from 'react';
 
 const Product = ({
   category,
@@ -29,6 +44,8 @@ const Product = ({
   const onBackClick = () => {
     navigate(-1);
   };
+
+  const [showSocialMediaModal, setShowSocialMediaModal] = useState(false);
 
   const breakpoint = useBreakpoint();
 
@@ -60,6 +77,8 @@ const Product = ({
       .flat()
       .map((date) => new Date(date));
   }, [booking]);
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setShowSocialMediaModal(false));
 
   return (
     <>
@@ -83,6 +102,20 @@ const Product = ({
         </section>
       </div>
       <div className={styles.container}>
+        <section className={styles['social-media']}>
+          <div onClick={() => setShowSocialMediaModal(true)}>
+            <i className={cn('fa-solid fa-share-nodes')} />
+          </div>
+        </section>
+        {showSocialMediaModal && (
+          <div ref={ref}>
+            <SocialMedia
+              onClose={() => setShowSocialMediaModal(false)}
+              url={`/product/${id}`}
+              socialTypes={['whatsapp', 'facebook', 'mail', 'twitter']}
+            />
+          </div>
+        )}
         <Carousel images={images} />
         <Description title={subtitle} description={description} />
         <section>

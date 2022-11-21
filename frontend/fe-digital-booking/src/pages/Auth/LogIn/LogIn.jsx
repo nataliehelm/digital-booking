@@ -59,13 +59,13 @@ const LogIn = () => {
 
   useEffect(() => {
     if (!error) {
-      if (state && state.message) setErrorMsg(state.message);
+      if (state && state.type === 'error') setErrorMsg(state.message);
     }
   }, [error, state]);
 
   return (
     <main className={styles.main}>
-      {(error || (state && state.message)) && (
+      {(error || (state && state.type === 'error')) && (
         <div className={styles['toast']}>
           <Toast
             variant="error"
@@ -74,6 +74,11 @@ const LogIn = () => {
               'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
             }
           />
+        </div>
+      )}
+      {state && state.type === 'success' && (
+        <div className={styles['toast']}>
+          <Toast variant="success" label={state.message} />
         </div>
       )}
       <form className={styles['login-in-form']} onSubmit={handleOnSubmit}>
@@ -111,6 +116,13 @@ const LogIn = () => {
               ¿Aún no tenes cuenta?{' '}
               <Link to="/signup">
                 <span> Registrate</span>
+              </Link>
+            </>
+          </Text>
+          <Text variant="t2" classname={styles['signup-text']}>
+            <>
+              <Link to="/resend-email">
+                <span> Reenvío de correo de activación de cuenta</span>
               </Link>
             </>
           </Text>

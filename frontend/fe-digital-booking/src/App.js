@@ -11,6 +11,7 @@ import Booking from './pages/Booking/BookingContainer';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
 import Success from './pages/Success';
+import ResendEmail from './pages/Auth/ResendEmail';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -72,6 +73,15 @@ function App() {
             <Route
               path="/success-booking"
               element={<Layout children={<Success />} />}
+            />
+            <Route
+              path="/resend-email"
+              element={
+                <Layout
+                  className={styles['auth-background']}
+                  children={<ResendEmail />}
+                />
+              }
             />
           </Routes>
         </div>
