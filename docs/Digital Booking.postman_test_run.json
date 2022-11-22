@@ -1,2194 +1,3244 @@
 {
-  "id": "4e46c9a6-302f-44d2-9cf2-a6ae961416a8",
-  "name": "Digital Booking",
-  "timestamp": "2022-11-10T22:18:34.818Z",
-  "collection_id": "0-187f0c99-92fc-425e-bcc5-ff619ff65e73",
-  "folder_id": 0,
-  "environment_id": "0",
-  "totalPass": 125,
-  "totalFail": 0,
-  "results": [
-    {
-      "id": "d842c02b-e559-455e-8d10-3be0c639a6de",
-      "name": "findAll",
-      "url": "http://localhost:8081/categories/",
-      "time": 426,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First category should have id 1 and name Hoteles": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First category should have id 1 and name Hoteles": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [426],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First category should have id 1 and name Hoteles": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "7c0cbeff-0358-411a-baf5-dc3cc0d6a64e",
-      "name": "findById",
-      "url": "http://localhost:8081/categories/1",
-      "time": 28,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Category should have id 1 and name Hoteles": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Category should have id 1 and name Hoteles": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [28],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Category should have id 1 and name Hoteles": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "c7811283-8324-4023-8ae9-69f5899f1f42",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/categories/32",
-      "time": 32,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [32],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "930e408f-c99c-4e38-a5aa-e570d91af2fc",
-      "name": "save",
-      "url": "http://localhost:8081/categories/",
-      "time": 179,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [179],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "ae21b817-c5a2-4b3e-8353-0cdc8576fa14",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/categories/",
-      "time": 26,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [26],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "a5a521e4-ca7e-4d77-8283-acc850061106",
-      "name": "update",
-      "url": "http://localhost:8081/categories/5",
-      "time": 130,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response schema type nodes verification": true,
-        "Response name should be \"nueva Categoria 1\"": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response name should be \"nueva Categoria 1\"": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [130],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response schema type nodes verification": true,
-          "Response name should be \"nueva Categoria 1\"": true
-        }
-      ]
-    },
-    {
-      "id": "1bff6d78-a4f4-4a78-b15d-bcdf0f47aee1",
-      "name": "update Error",
-      "url": "http://localhost:8081/categories/-1",
-      "time": 10,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [10],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "c9978e35-ccc8-4d4f-be0c-45dc304e5cb3",
-      "name": "delete",
-      "url": "http://localhost:8081/categories/5",
-      "time": 50,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [50],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "c6d44912-6f63-4fcb-b2d8-6ad234e73942",
-      "name": "delete Error",
-      "url": "http://localhost:8081/categories/-1",
-      "time": 21,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [21],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "7c65b08f-3fb3-4386-9b7b-854b3d45fab7",
-      "name": "findAll",
-      "url": "http://localhost:8081/locations/",
-      "time": 29,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Location should have id 1 and province_name Provincia de Misiones": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Location should have id 1 and province_name Provincia de Misiones": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [29],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Location should have id 1 and province_name Provincia de Misiones": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "c63160ea-382b-47a8-80f6-69c4f38781e3",
-      "name": "findById",
-      "url": "http://localhost:8081/locations/2",
-      "time": 15,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Category should have id 2 and province_name Provincia de San Luis": true,
-        "Response schema type nodes verification": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Category should have id 2 and province_name Provincia de San Luis": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [15],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Category should have id 2 and province_name Provincia de San Luis": true,
-          "Response schema type nodes verification": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "4fe34f3a-8f47-484d-8495-98f8c7bc105e",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/locations/-2",
-      "time": 23,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [23],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "f0675193-e2c6-4a8d-8f1c-c5f9eead2c2f",
-      "name": "save",
-      "url": "http://localhost:8081/locations/",
-      "time": 27,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [27],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "80c33f5d-cfeb-4223-95eb-96f9da909910",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/locations/",
-      "time": 13,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [13],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "fb4ccc1f-6253-4351-8f96-93c222b60eb6",
-      "name": "update",
-      "url": "http://localhost:8081/locations/15",
-      "time": 66,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response Province Name should be \"Antioquia\"": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response Province Name should be \"Antioquia\"": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [66],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response Province Name should be \"Antioquia\"": true
-        }
-      ]
-    },
-    {
-      "id": "fc025932-e72f-4d92-9a96-d8d3e439ae47",
-      "name": "delete",
-      "url": "http://localhost:8081/locations/15",
-      "time": 21,
-      "responseCode": {
-        "code": 204,
-        "name": "No Content"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [21],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "346f259a-63ac-4d5c-9e4e-459b076b8dbd",
-      "name": "findAll",
-      "url": "http://localhost:8081/features/",
-      "time": 19,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and title Hoteles": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and title Hoteles": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [19],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and title Hoteles": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "e6ef9a90-dc62-4d46-918d-3508fd664be1",
-      "name": "findById",
-      "url": "http://localhost:8081/features/1",
-      "time": 15,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Element should have id 1 and name Cocina": true,
-        "Response schema type nodes verification": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Element should have id 1 and name Cocina": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [15],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Element should have id 1 and name Cocina": true,
-          "Response schema type nodes verification": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "666c1f92-0e1c-4a3e-9700-84efdd94915d",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/features/32",
-      "time": 14,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [14],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "138e95a4-0a99-4b40-b950-e037dde524ac",
-      "name": "save",
-      "url": "http://localhost:8081/features/",
-      "time": 43,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [43],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "3f1b0381-bb94-46d2-8c46-08047a7aea38",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/features/",
-      "time": 10,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [10],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "c7781cb1-76b7-4791-8e85-b92cc0546f7a",
-      "name": "update",
-      "url": "http://localhost:8081/features/8",
-      "time": 67,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response schema type nodes verification": true,
-        "Response name should be \"nueva Feature 1\"": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response name should be \"nueva Feature 1\"": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [67],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response schema type nodes verification": true,
-          "Response name should be \"nueva Feature 1\"": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "460d572a-bfe2-4666-b8dc-3b29f0cb555a",
-      "name": "update Error",
-      "url": "http://localhost:8081/features/-1",
-      "time": 10,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [10],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "832685f3-77d7-4441-bfb6-685dbda83c93",
-      "name": "delete",
-      "url": "http://localhost:8081/features/12",
-      "time": 19,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [19],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "2aeacfc5-13e5-43bb-baa4-102246f6c685",
-      "name": "delete Error",
-      "url": "http://localhost:8081/features/-1",
-      "time": 16,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [16],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "ed3ede28-a432-4f2c-8066-4db1a58caae5",
-      "name": "findAll",
-      "url": "http://localhost:8081/images/",
-      "time": 63,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and title Hermitage Hotel 1": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and title Hermitage Hotel 1": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [63],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and title Hermitage Hotel 1": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "36ea6c56-cd26-445b-81bf-02d7f52a9043",
-      "name": "findById",
-      "url": "http://localhost:8081/images/1",
-      "time": 24,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Element should have id 1 and title Hermitage Hotel 1": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Element should have id 1 and title Hermitage Hotel 1": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [24],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Element should have id 1 and title Hermitage Hotel 1": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "f7897b8e-0cf8-4b15-a018-decad25591fe",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/images/32532532",
-      "time": 12,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [12],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "2cfb9276-dc4e-4cfd-b442-15d849b3cb06",
-      "name": "save",
-      "url": "http://localhost:8081/images/",
-      "time": 40,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [40],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "08b7fdc9-de0e-405c-9b76-d5eb4c6abd28",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/images/",
-      "time": 21,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [21],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "26bf9f3b-0474-4cc0-adb2-d27be819e132",
-      "name": "update",
-      "url": "http://localhost:8081/images/6",
-      "time": 33,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response schema type nodes verification": true,
-        "Response title should be \"nueva Image 1\"": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response title should be \"nueva Image 1\"": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [33],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response schema type nodes verification": true,
-          "Response title should be \"nueva Image 1\"": true
-        }
-      ]
-    },
-    {
-      "id": "4b098a38-9c88-484b-a3ec-9765dc233386",
-      "name": "update Error",
-      "url": "http://localhost:8081/images/-1",
-      "time": 11,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [11],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "a3bae57c-22fe-427a-a97d-9ce7fb561ef1",
-      "name": "delete",
-      "url": "http://localhost:8081/images/64",
-      "time": 20,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [20],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "1f6b6b2b-f8b4-4b9f-8032-633b69f258f1",
-      "name": "delete Error",
-      "url": "http://localhost:8081/images/64533",
-      "time": 14,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [14],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "8043a431-2636-4735-8e84-4996040f34e8",
-      "name": "findAll",
-      "url": "http://localhost:8081/policies/",
-      "time": 49,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and title Normas de la casa": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and title Normas de la casa": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [49],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and title Normas de la casa": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "7fb319f3-ff4e-47ca-b28a-891b9dde3c9b",
-      "name": "findById",
-      "url": "http://localhost:8081/policies/1",
-      "time": 17,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Element should have id 1 and title Normas de la casa": true,
-        "Response schema type nodes verification": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Element should have id 1 and title Normas de la casa": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [17],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Element should have id 1 and title Normas de la casa": true,
-          "Response schema type nodes verification": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "8a92b2e7-314b-4b9c-bca6-e37649c9a72d",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/policies/32",
-      "time": 13,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [13],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "687e274b-37c5-4953-a553-2d55499f764c",
-      "name": "save",
-      "url": "http://localhost:8081/policies/",
-      "time": 39,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [39],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "77c2bc1e-4130-41b4-a28d-de4bb9e4a7b1",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/policies/",
-      "time": 13,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [13],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "6ba357d7-c5b8-44b4-9731-7c5c8315d8be",
-      "name": "update",
-      "url": "http://localhost:8081/policies/4",
-      "time": 40,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response schema type nodes verification": true,
-        "Response title should be \"Politica nueva\" and subPolicies should have 1 length": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response title should be \"Politica nueva\" and subPolicies should have 1 length": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [40],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response schema type nodes verification": true,
-          "Response title should be \"Politica nueva\" and subPolicies should have 1 length": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "1b7d71a1-7da0-4675-b143-042abbdd9520",
-      "name": "update Error",
-      "url": "http://localhost:8081/policies/-1",
-      "time": 10,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [10],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "76154a54-d2df-43c1-a253-b6f837160bf9",
-      "name": "delete",
-      "url": "http://localhost:8081/policies/6",
-      "time": 34,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [34],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "15fc26ec-e2fa-468f-b02e-9c8674a4a252",
-      "name": "delete Error",
-      "url": "http://localhost:8081/policies/6",
-      "time": 48,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [48],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "ed4cffff-764d-4cb0-bb32-2da3a3a528b3",
-      "name": "findAll",
-      "url": "http://localhost:8081/subPolicies/",
-      "time": 18,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and description Check-out: 10:00": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and description Check-out: 10:00": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [18],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and description Check-out: 10:00": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "9483b885-51fc-43fd-8662-27889b74a0f9",
-      "name": "findById",
-      "url": "http://localhost:8081/subPolicies/1",
-      "time": 13,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Element should have id 1 and description Check-out: 10:00": true,
-        "Response schema type nodes verification": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Element should have id 1 and description Check-out: 10:00": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [13],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Element should have id 1 and description Check-out: 10:00": true,
-          "Response schema type nodes verification": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "059cca0d-6fd6-455b-b327-777cbe3f3bb8",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/subPolicies/32",
-      "time": 18,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [18],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "e9447dc5-1ba0-490e-86c0-85be883f1ce7",
-      "name": "save",
-      "url": "http://localhost:8081/subPolicies/",
-      "time": 22,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [22],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "8155316f-91ed-4b65-a1a3-a450edc9b26a",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/subPolicies/",
-      "time": 10,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [10],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "9e98bcea-d435-4a7a-854a-ba54c7cb727a",
-      "name": "update",
-      "url": "http://localhost:8081/subPolicies/8",
-      "time": 51,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response schema type nodes verification": true,
-        "Response description should be \"Nueva Sub-politica\"": true,
-        "Response time is less than 200ms": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response description should be \"Nueva Sub-politica\"": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response time is less than 200ms": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [51],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response schema type nodes verification": true,
-          "Response description should be \"Nueva Sub-politica\"": true,
-          "Response time is less than 200ms": true
-        }
-      ]
-    },
-    {
-      "id": "59752276-5e07-47fb-8067-4ec49a863b8f",
-      "name": "update Error",
-      "url": "http://localhost:8081/subPolicies/-1",
-      "time": 17,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [17],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "07362362-7f03-4983-a1f9-f90ff990ae7b",
-      "name": "delete",
-      "url": "http://localhost:8081/subPolicies/8",
-      "time": 42,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [42],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "6e00fd53-f602-4f0a-b969-0bd2c8c9c698",
-      "name": "delete Error",
-      "url": "http://localhost:8081/subPolicies/8",
-      "time": 12,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [12],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "d4be7548-c0ed-4822-b3a9-fbfc4a97d077",
-      "name": "findAllRandom",
-      "url": "http://localhost:8081/products/",
-      "time": 201,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and name Hermitage Hotel": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and name Hermitage Hotel": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [201],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and name Hermitage Hotel": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "59e3929f-52ce-4066-ae33-5ee4775de264",
-      "name": "findAll",
-      "url": "http://localhost:8081/products/",
-      "time": 137,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "First element should have id 1 and name Hermitage Hotel": true,
-        "Response should have more than 1 result": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "First element should have id 1 and name Hermitage Hotel": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response should have more than 1 result": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [137],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "First element should have id 1 and name Hermitage Hotel": true,
-          "Response should have more than 1 result": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "d14328a4-1e0a-415a-b281-5941f18822ed",
-      "name": "findById",
-      "url": "http://localhost:8081/products/1",
-      "time": 29,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Status code is 200": true,
-        "Element should have id 1 and name Hermitage Hotel": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Status code is 200": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Element should have id 1 and name Hermitage Hotel": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [29],
-      "allTests": [
-        {
-          "Status code is 200": true,
-          "Element should have id 1 and name Hermitage Hotel": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "9ceb7bdb-caeb-4bfd-9e07-d505a552d02e",
-      "name": "findById nonexistent",
-      "url": "http://localhost:8081/products/32",
-      "time": 32,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [32],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    },
-    {
-      "id": "70333081-996f-4d78-8d40-0a38254c06a5",
-      "name": "save",
-      "url": "http://localhost:8081/products/",
-      "time": 56,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful POST request": true,
-        "Response schema type nodes verification": true
-      },
-      "testPassFailCounts": {
-        "Successful POST request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response schema type nodes verification": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [56],
-      "allTests": [
-        {
-          "Successful POST request": true,
-          "Response schema type nodes verification": true
-        }
-      ]
-    },
-    {
-      "id": "e2e41a1d-c954-4511-b700-6376c06ea09d",
-      "name": "save Body Error",
-      "url": "http://localhost:8081/products/",
-      "time": 16,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [16],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "2936a985-ef01-4359-8397-fd0c4add0f08",
-      "name": "update",
-      "url": "http://localhost:8081/products/2",
-      "time": 117,
-      "responseCode": {
-        "code": 201,
-        "name": "Created"
-      },
-      "tests": {
-        "Successful PUT request": true,
-        "Response features length should be 2 and policies length should be 3": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        },
-        "Response features length should be 2 and policies length should be 3": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [117],
-      "allTests": [
-        {
-          "Successful PUT request": true,
-          "Response features length should be 2 and policies length should be 3": true
-        }
-      ]
-    },
-    {
-      "id": "7f9af8ce-f75c-4902-b9d8-3f133bd8e4c0",
-      "name": "update Error",
-      "url": "http://localhost:8081/products/-1",
-      "time": 13,
-      "responseCode": {
-        "code": 400,
-        "name": "Bad Request"
-      },
-      "tests": {
-        "Status code is 400": true
-      },
-      "testPassFailCounts": {
-        "Status code is 400": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [13],
-      "allTests": [
-        {
-          "Status code is 400": true
-        }
-      ]
-    },
-    {
-      "id": "a98f8850-5ee4-4305-8d1f-e24172de2bea",
-      "name": "delete",
-      "url": "http://localhost:8081/products/13",
-      "time": 55,
-      "responseCode": {
-        "code": 200,
-        "name": "OK"
-      },
-      "tests": {
-        "Successful PUT request": true
-      },
-      "testPassFailCounts": {
-        "Successful PUT request": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [55],
-      "allTests": [
-        {
-          "Successful PUT request": true
-        }
-      ]
-    },
-    {
-      "id": "4980c805-f113-466b-8426-802b7e7e31e3",
-      "name": "delete Error",
-      "url": "http://localhost:8081/products/13",
-      "time": 21,
-      "responseCode": {
-        "code": 404,
-        "name": "Not Found"
-      },
-      "tests": {
-        "Status code is 404": true
-      },
-      "testPassFailCounts": {
-        "Status code is 404": {
-          "pass": 1,
-          "fail": 0
-        }
-      },
-      "times": [21],
-      "allTests": [
-        {
-          "Status code is 404": true
-        }
-      ]
-    }
-  ],
-  "count": 1,
-  "totalTime": 2690,
-  "collection": {
-    "requests": [
-      {
-        "id": "d842c02b-e559-455e-8d10-3be0c639a6de",
-        "method": "GET"
-      },
-      {
-        "id": "7c0cbeff-0358-411a-baf5-dc3cc0d6a64e",
-        "method": "GET"
-      },
-      {
-        "id": "c7811283-8324-4023-8ae9-69f5899f1f42",
-        "method": "GET"
-      },
-      {
-        "id": "930e408f-c99c-4e38-a5aa-e570d91af2fc",
-        "method": "POST"
-      },
-      {
-        "id": "ae21b817-c5a2-4b3e-8353-0cdc8576fa14",
-        "method": "POST"
-      },
-      {
-        "id": "a5a521e4-ca7e-4d77-8283-acc850061106",
-        "method": "PUT"
-      },
-      {
-        "id": "1bff6d78-a4f4-4a78-b15d-bcdf0f47aee1",
-        "method": "PUT"
-      },
-      {
-        "id": "c9978e35-ccc8-4d4f-be0c-45dc304e5cb3",
-        "method": "DELETE"
-      },
-      {
-        "id": "c6d44912-6f63-4fcb-b2d8-6ad234e73942",
-        "method": "DELETE"
-      },
-      {
-        "id": "7c65b08f-3fb3-4386-9b7b-854b3d45fab7",
-        "method": "GET"
-      },
-      {
-        "id": "c63160ea-382b-47a8-80f6-69c4f38781e3",
-        "method": "GET"
-      },
-      {
-        "id": "4fe34f3a-8f47-484d-8495-98f8c7bc105e",
-        "method": "GET"
-      },
-      {
-        "id": "f0675193-e2c6-4a8d-8f1c-c5f9eead2c2f",
-        "method": "POST"
-      },
-      {
-        "id": "80c33f5d-cfeb-4223-95eb-96f9da909910",
-        "method": "POST"
-      },
-      {
-        "id": "fb4ccc1f-6253-4351-8f96-93c222b60eb6",
-        "method": "PUT"
-      },
-      {
-        "id": "fc025932-e72f-4d92-9a96-d8d3e439ae47",
-        "method": "DELETE"
-      },
-      {
-        "id": "346f259a-63ac-4d5c-9e4e-459b076b8dbd",
-        "method": "GET"
-      },
-      {
-        "id": "e6ef9a90-dc62-4d46-918d-3508fd664be1",
-        "method": "GET"
-      },
-      {
-        "id": "666c1f92-0e1c-4a3e-9700-84efdd94915d",
-        "method": "GET"
-      },
-      {
-        "id": "138e95a4-0a99-4b40-b950-e037dde524ac",
-        "method": "POST"
-      },
-      {
-        "id": "3f1b0381-bb94-46d2-8c46-08047a7aea38",
-        "method": "POST"
-      },
-      {
-        "id": "c7781cb1-76b7-4791-8e85-b92cc0546f7a",
-        "method": "PUT"
-      },
-      {
-        "id": "460d572a-bfe2-4666-b8dc-3b29f0cb555a",
-        "method": "PUT"
-      },
-      {
-        "id": "832685f3-77d7-4441-bfb6-685dbda83c93",
-        "method": "DELETE"
-      },
-      {
-        "id": "2aeacfc5-13e5-43bb-baa4-102246f6c685",
-        "method": "DELETE"
-      },
-      {
-        "id": "ed3ede28-a432-4f2c-8066-4db1a58caae5",
-        "method": "GET"
-      },
-      {
-        "id": "36ea6c56-cd26-445b-81bf-02d7f52a9043",
-        "method": "GET"
-      },
-      {
-        "id": "f7897b8e-0cf8-4b15-a018-decad25591fe",
-        "method": "GET"
-      },
-      {
-        "id": "2cfb9276-dc4e-4cfd-b442-15d849b3cb06",
-        "method": "POST"
-      },
-      {
-        "id": "08b7fdc9-de0e-405c-9b76-d5eb4c6abd28",
-        "method": "POST"
-      },
-      {
-        "id": "26bf9f3b-0474-4cc0-adb2-d27be819e132",
-        "method": "PUT"
-      },
-      {
-        "id": "4b098a38-9c88-484b-a3ec-9765dc233386",
-        "method": "PUT"
-      },
-      {
-        "id": "a3bae57c-22fe-427a-a97d-9ce7fb561ef1",
-        "method": "DELETE"
-      },
-      {
-        "id": "1f6b6b2b-f8b4-4b9f-8032-633b69f258f1",
-        "method": "DELETE"
-      },
-      {
-        "id": "8043a431-2636-4735-8e84-4996040f34e8",
-        "method": "GET"
-      },
-      {
-        "id": "7fb319f3-ff4e-47ca-b28a-891b9dde3c9b",
-        "method": "GET"
-      },
-      {
-        "id": "8a92b2e7-314b-4b9c-bca6-e37649c9a72d",
-        "method": "GET"
-      },
-      {
-        "id": "687e274b-37c5-4953-a553-2d55499f764c",
-        "method": "POST"
-      },
-      {
-        "id": "77c2bc1e-4130-41b4-a28d-de4bb9e4a7b1",
-        "method": "POST"
-      },
-      {
-        "id": "6ba357d7-c5b8-44b4-9731-7c5c8315d8be",
-        "method": "PUT"
-      },
-      {
-        "id": "1b7d71a1-7da0-4675-b143-042abbdd9520",
-        "method": "PUT"
-      },
-      {
-        "id": "76154a54-d2df-43c1-a253-b6f837160bf9",
-        "method": "DELETE"
-      },
-      {
-        "id": "15fc26ec-e2fa-468f-b02e-9c8674a4a252",
-        "method": "DELETE"
-      },
-      {
-        "id": "ed4cffff-764d-4cb0-bb32-2da3a3a528b3",
-        "method": "GET"
-      },
-      {
-        "id": "9483b885-51fc-43fd-8662-27889b74a0f9",
-        "method": "GET"
-      },
-      {
-        "id": "059cca0d-6fd6-455b-b327-777cbe3f3bb8",
-        "method": "GET"
-      },
-      {
-        "id": "e9447dc5-1ba0-490e-86c0-85be883f1ce7",
-        "method": "POST"
-      },
-      {
-        "id": "8155316f-91ed-4b65-a1a3-a450edc9b26a",
-        "method": "POST"
-      },
-      {
-        "id": "9e98bcea-d435-4a7a-854a-ba54c7cb727a",
-        "method": "PUT"
-      },
-      {
-        "id": "59752276-5e07-47fb-8067-4ec49a863b8f",
-        "method": "PUT"
-      },
-      {
-        "id": "07362362-7f03-4983-a1f9-f90ff990ae7b",
-        "method": "DELETE"
-      },
-      {
-        "id": "6e00fd53-f602-4f0a-b969-0bd2c8c9c698",
-        "method": "DELETE"
-      },
-      {
-        "id": "d4be7548-c0ed-4822-b3a9-fbfc4a97d077",
-        "method": "GET"
-      },
-      {
-        "id": "59e3929f-52ce-4066-ae33-5ee4775de264",
-        "method": "GET"
-      },
-      {
-        "id": "d14328a4-1e0a-415a-b281-5941f18822ed",
-        "method": "GET"
-      },
-      {
-        "id": "9ceb7bdb-caeb-4bfd-9e07-d505a552d02e",
-        "method": "GET"
-      },
-      {
-        "id": "70333081-996f-4d78-8d40-0a38254c06a5",
-        "method": "POST"
-      },
-      {
-        "id": "e2e41a1d-c954-4511-b700-6376c06ea09d",
-        "method": "POST"
-      },
-      {
-        "id": "2936a985-ef01-4359-8397-fd0c4add0f08",
-        "method": "PUT"
-      },
-      {
-        "id": "7f9af8ce-f75c-4902-b9d8-3f133bd8e4c0",
-        "method": "PUT"
-      },
-      {
-        "id": "a98f8850-5ee4-4305-8d1f-e24172de2bea",
-        "method": "DELETE"
-      },
-      {
-        "id": "4980c805-f113-466b-8426-802b7e7e31e3",
-        "method": "DELETE"
-      }
-    ]
-  }
+	"id": "14c85a97-5223-4140-aafd-be532cd5e7eb",
+	"name": "Digital Booking",
+	"timestamp": "2022-11-22T04:47:40.134Z",
+	"collection_id": "0-187f0c99-92fc-425e-bcc5-ff619ff65e73",
+	"folder_id": 0,
+	"environment_id": "55e707f5-8d2e-4bd1-9c89-1720901e27bd",
+	"totalPass": 173,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "f2f0e7dc-4f99-4652-9908-a043e2a540d2",
+			"name": "signup",
+			"url": "http://localhost:8081/auth/signup",
+			"time": 1863,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1863
+			],
+			"allTests": [
+				{
+					"Successful POST request": true
+				}
+			]
+		},
+		{
+			"id": "d6666e02-88b8-45fc-b06e-406d404c8f4a",
+			"name": "signup body error",
+			"url": "http://localhost:8081/auth/signup",
+			"time": 21,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Message should be Validation of fields failed": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message should be Validation of fields failed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Message should be Validation of fields failed": true
+				}
+			]
+		},
+		{
+			"id": "5df387ea-2475-41ab-accf-2e8eed87847c",
+			"name": "signup email error",
+			"url": "http://localhost:8081/auth/signup",
+			"time": 25,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Message should be Error: 'El correo ya se encuentra registrado'": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message should be Error: 'El correo ya se encuentra registrado'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Message should be Error: 'El correo ya se encuentra registrado'": true
+				}
+			]
+		},
+		{
+			"id": "f475cb31-e0ac-4368-926a-51928a986a05",
+			"name": "login user role",
+			"url": "http://localhost:8081/auth/login",
+			"time": 218,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				218
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "fffcf73c-cec5-4d47-9024-8016d129bcf5",
+			"name": "login admin role",
+			"url": "http://localhost:8081/auth/login",
+			"time": 88,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				88
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "d842c02b-e559-455e-8d10-3be0c639a6de",
+			"name": "findAll",
+			"url": "http://localhost:8081/categories/",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First category should have id 1 and name Hoteles": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First category should have id 1 and name Hoteles": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First category should have id 1 and name Hoteles": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "7c0cbeff-0358-411a-baf5-dc3cc0d6a64e",
+			"name": "findById",
+			"url": "http://localhost:8081/categories/1",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Category should have id 1 and name Hoteles": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Category should have id 1 and name Hoteles": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Category should have id 1 and name Hoteles": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "c7811283-8324-4023-8ae9-69f5899f1f42",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/categories/32",
+			"time": 36,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				36
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "930e408f-c99c-4e38-a5aa-e570d91af2fc",
+			"name": "save",
+			"url": "http://localhost:8081/categories/",
+			"time": 45,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				45
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "ae21b817-c5a2-4b3e-8353-0cdc8576fa14",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/categories/",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "a5a521e4-ca7e-4d77-8283-acc850061106",
+			"name": "update",
+			"url": "http://localhost:8081/categories/5",
+			"time": 72,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"Response name should be \"nueva Categoria 1\"": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response name should be \"nueva Categoria 1\"": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				72
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"Response name should be \"nueva Categoria 1\"": true
+				}
+			]
+		},
+		{
+			"id": "1bff6d78-a4f4-4a78-b15d-bcdf0f47aee1",
+			"name": "update Error",
+			"url": "http://localhost:8081/categories/-1",
+			"time": 15,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "c9978e35-ccc8-4d4f-be0c-45dc304e5cb3",
+			"name": "delete",
+			"url": "http://localhost:8081/categories/5",
+			"time": 55,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				55
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "c6d44912-6f63-4fcb-b2d8-6ad234e73942",
+			"name": "delete Error",
+			"url": "http://localhost:8081/categories/-1",
+			"time": 22,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "7c65b08f-3fb3-4386-9b7b-854b3d45fab7",
+			"name": "findAll",
+			"url": "http://localhost:8081/locations/",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Location should have id 1 and province_name Provincia de Misiones": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Location should have id 1 and province_name Provincia de Misiones": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Location should have id 1 and province_name Provincia de Misiones": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "c63160ea-382b-47a8-80f6-69c4f38781e3",
+			"name": "findById",
+			"url": "http://localhost:8081/locations/2",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Category should have id 2 and province_name Provincia de San Luis": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Category should have id 2 and province_name Provincia de San Luis": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Category should have id 2 and province_name Provincia de San Luis": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "4fe34f3a-8f47-484d-8495-98f8c7bc105e",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/locations/-2",
+			"time": 32,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				32
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "f0675193-e2c6-4a8d-8f1c-c5f9eead2c2f",
+			"name": "save",
+			"url": "http://localhost:8081/locations/",
+			"time": 22,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "80c33f5d-cfeb-4223-95eb-96f9da909910",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/locations/",
+			"time": 13,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "fb4ccc1f-6253-4351-8f96-93c222b60eb6",
+			"name": "update",
+			"url": "http://localhost:8081/locations/15",
+			"time": 56,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response Province Name should be \"Antioquia\"": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response Province Name should be \"Antioquia\"": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				56
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response Province Name should be \"Antioquia\"": true
+				}
+			]
+		},
+		{
+			"id": "fc025932-e72f-4d92-9a96-d8d3e439ae47",
+			"name": "delete",
+			"url": "http://localhost:8081/locations/15",
+			"time": 21,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "346f259a-63ac-4d5c-9e4e-459b076b8dbd",
+			"name": "findAll",
+			"url": "http://localhost:8081/features/",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and title Hoteles": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and title Hoteles": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and title Hoteles": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "e6ef9a90-dc62-4d46-918d-3508fd664be1",
+			"name": "findById",
+			"url": "http://localhost:8081/features/1",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and name Cocina": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and name Cocina": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and name Cocina": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "666c1f92-0e1c-4a3e-9700-84efdd94915d",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/features/32",
+			"time": 15,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "138e95a4-0a99-4b40-b950-e037dde524ac",
+			"name": "save",
+			"url": "http://localhost:8081/features/",
+			"time": 21,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "3f1b0381-bb94-46d2-8c46-08047a7aea38",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/features/",
+			"time": 10,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "c7781cb1-76b7-4791-8e85-b92cc0546f7a",
+			"name": "update",
+			"url": "http://localhost:8081/features/8",
+			"time": 54,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"Response name should be \"nueva Feature 1\"": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response name should be \"nueva Feature 1\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				54
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"Response name should be \"nueva Feature 1\"": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "460d572a-bfe2-4666-b8dc-3b29f0cb555a",
+			"name": "update Error",
+			"url": "http://localhost:8081/features/-1",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "832685f3-77d7-4441-bfb6-685dbda83c93",
+			"name": "delete",
+			"url": "http://localhost:8081/features/12",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "2aeacfc5-13e5-43bb-baa4-102246f6c685",
+			"name": "delete Error",
+			"url": "http://localhost:8081/features/-1",
+			"time": 26,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "ed3ede28-a432-4f2c-8066-4db1a58caae5",
+			"name": "findAll",
+			"url": "http://localhost:8081/images/",
+			"time": 35,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and title Hermitage Hotel 1": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and title Hermitage Hotel 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				35
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and title Hermitage Hotel 1": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "36ea6c56-cd26-445b-81bf-02d7f52a9043",
+			"name": "findById",
+			"url": "http://localhost:8081/images/1",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and title Hermitage Hotel 1": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and title Hermitage Hotel 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and title Hermitage Hotel 1": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "f7897b8e-0cf8-4b15-a018-decad25591fe",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/images/32532532",
+			"time": 41,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				41
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "2cfb9276-dc4e-4cfd-b442-15d849b3cb06",
+			"name": "save",
+			"url": "http://localhost:8081/images/",
+			"time": 24,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "08b7fdc9-de0e-405c-9b76-d5eb4c6abd28",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/images/",
+			"time": 17,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "26bf9f3b-0474-4cc0-adb2-d27be819e132",
+			"name": "update",
+			"url": "http://localhost:8081/images/6",
+			"time": 48,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"Response title should be \"nueva Image 1\"": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response title should be \"nueva Image 1\"": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"Response title should be \"nueva Image 1\"": true
+				}
+			]
+		},
+		{
+			"id": "4b098a38-9c88-484b-a3ec-9765dc233386",
+			"name": "update Error",
+			"url": "http://localhost:8081/images/-1",
+			"time": 19,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "a3bae57c-22fe-427a-a97d-9ce7fb561ef1",
+			"name": "delete",
+			"url": "http://localhost:8081/images/64",
+			"time": 39,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				39
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "1f6b6b2b-f8b4-4b9f-8032-633b69f258f1",
+			"name": "delete Error",
+			"url": "http://localhost:8081/images/64533",
+			"time": 21,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "8043a431-2636-4735-8e84-4996040f34e8",
+			"name": "findAll",
+			"url": "http://localhost:8081/policies/",
+			"time": 35,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and title Normas de la casa": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and title Normas de la casa": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				35
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and title Normas de la casa": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "7fb319f3-ff4e-47ca-b28a-891b9dde3c9b",
+			"name": "findById",
+			"url": "http://localhost:8081/policies/1",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and title Normas de la casa": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and title Normas de la casa": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and title Normas de la casa": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "8a92b2e7-314b-4b9c-bca6-e37649c9a72d",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/policies/32",
+			"time": 31,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				31
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "687e274b-37c5-4953-a553-2d55499f764c",
+			"name": "save",
+			"url": "http://localhost:8081/policies/",
+			"time": 26,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "77c2bc1e-4130-41b4-a28d-de4bb9e4a7b1",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/policies/",
+			"time": 16,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "6ba357d7-c5b8-44b4-9731-7c5c8315d8be",
+			"name": "update",
+			"url": "http://localhost:8081/policies/4",
+			"time": 52,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"Response title should be \"Politica nueva\" and subPolicies should have 1 length": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response title should be \"Politica nueva\" and subPolicies should have 1 length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				52
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"Response title should be \"Politica nueva\" and subPolicies should have 1 length": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "1b7d71a1-7da0-4675-b143-042abbdd9520",
+			"name": "update Error",
+			"url": "http://localhost:8081/policies/-1",
+			"time": 14,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "76154a54-d2df-43c1-a253-b6f837160bf9",
+			"name": "delete",
+			"url": "http://localhost:8081/policies/6",
+			"time": 52,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				52
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "15fc26ec-e2fa-468f-b02e-9c8674a4a252",
+			"name": "delete Error",
+			"url": "http://localhost:8081/policies/6",
+			"time": 40,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				40
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "ed4cffff-764d-4cb0-bb32-2da3a3a528b3",
+			"name": "findAll",
+			"url": "http://localhost:8081/subPolicies/",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and description Check-out: 10:00": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and description Check-out: 10:00": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and description Check-out: 10:00": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "9483b885-51fc-43fd-8662-27889b74a0f9",
+			"name": "findById",
+			"url": "http://localhost:8081/subPolicies/1",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and description Check-out: 10:00": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and description Check-out: 10:00": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and description Check-out: 10:00": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "059cca0d-6fd6-455b-b327-777cbe3f3bb8",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/subPolicies/32",
+			"time": 20,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "e9447dc5-1ba0-490e-86c0-85be883f1ce7",
+			"name": "save",
+			"url": "http://localhost:8081/subPolicies/",
+			"time": 28,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "8155316f-91ed-4b65-a1a3-a450edc9b26a",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/subPolicies/",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "9e98bcea-d435-4a7a-854a-ba54c7cb727a",
+			"name": "update",
+			"url": "http://localhost:8081/subPolicies/8",
+			"time": 26,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"Response description should be \"Nueva Sub-politica\"": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response description should be \"Nueva Sub-politica\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"Response description should be \"Nueva Sub-politica\"": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "59752276-5e07-47fb-8067-4ec49a863b8f",
+			"name": "update Error",
+			"url": "http://localhost:8081/subPolicies/-1",
+			"time": 22,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "07362362-7f03-4983-a1f9-f90ff990ae7b",
+			"name": "delete",
+			"url": "http://localhost:8081/subPolicies/8",
+			"time": 42,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				42
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "6e00fd53-f602-4f0a-b969-0bd2c8c9c698",
+			"name": "delete Error",
+			"url": "http://localhost:8081/subPolicies/8",
+			"time": 44,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				44
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "d4be7548-c0ed-4822-b3a9-fbfc4a97d077",
+			"name": "findAllRandom",
+			"url": "http://localhost:8081/products/",
+			"time": 86,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and name Hermitage Hotel": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and name Hermitage Hotel": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				86
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and name Hermitage Hotel": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "59e3929f-52ce-4066-ae33-5ee4775de264",
+			"name": "findAll",
+			"url": "http://localhost:8081/products/",
+			"time": 75,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and name Hermitage Hotel": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and name Hermitage Hotel": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				75
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and name Hermitage Hotel": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "d14328a4-1e0a-415a-b281-5941f18822ed",
+			"name": "findById",
+			"url": "http://localhost:8081/products/1",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and name Hermitage Hotel": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and name Hermitage Hotel": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and name Hermitage Hotel": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "f95483dc-68cc-4494-96a3-a2d7e0f95a8e",
+			"name": "findById with Booked Dates",
+			"url": "http://localhost:8081/products/1",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1 and name Hermitage Hotel": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1 and name Hermitage Hotel": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1 and name Hermitage Hotel": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "9ceb7bdb-caeb-4bfd-9e07-d505a552d02e",
+			"name": "findById nonexistent",
+			"url": "http://localhost:8081/products/32",
+			"time": 13,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "d474e76d-f531-4243-8f54-12a771d7f22b",
+			"name": "findByDates",
+			"url": "http://localhost:8081/products/filters/?startingDate=2022-11-22&endingDate=2022-11-27",
+			"time": 103,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				103
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "5ff3b3be-88ac-4a53-9f8f-547a55b75faa",
+			"name": "findByLocationId",
+			"url": "http://localhost:8081/products/filters/?locationId=1",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				9
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "c584046a-b679-44ef-ad9a-b6d2dd055ed6",
+			"name": "findByCategories",
+			"url": "http://localhost:8081/products/filters/?categoryId=1,2,3",
+			"time": 54,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				54
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b5aceac0-be42-4fce-81e9-4a787e9d334f",
+			"name": "findByDatesAndLocationId Copy",
+			"url": "http://localhost:8081/products/filters/?startingDate=2022-11-22&endingDate=2022-11-27&locationId=2",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				17
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "70333081-996f-4d78-8d40-0a38254c06a5",
+			"name": "save",
+			"url": "http://localhost:8081/products/",
+			"time": 66,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				66
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "e2e41a1d-c954-4511-b700-6376c06ea09d",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/products/",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "2936a985-ef01-4359-8397-fd0c4add0f08",
+			"name": "update",
+			"url": "http://localhost:8081/products/2",
+			"time": 55,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response features length should be 2 and policies length should be 3": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response features length should be 2 and policies length should be 3": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				55
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response features length should be 2 and policies length should be 3": true
+				}
+			]
+		},
+		{
+			"id": "7f9af8ce-f75c-4902-b9d8-3f133bd8e4c0",
+			"name": "update Error",
+			"url": "http://localhost:8081/products/-1",
+			"time": 11,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "a98f8850-5ee4-4305-8d1f-e24172de2bea",
+			"name": "delete",
+			"url": "http://localhost:8081/products/13",
+			"time": 52,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				52
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "4980c805-f113-466b-8426-802b7e7e31e3",
+			"name": "delete Error",
+			"url": "http://localhost:8081/products/13",
+			"time": 31,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				31
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "396a6341-5590-423b-a79f-dbbe80dd14e7",
+			"name": "findAll with admin role",
+			"url": "http://localhost:8081/users/",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and name admin": true,
+				"Response should have more than 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and name admin": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and name admin": true,
+					"Response should have more than 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "8c2e00ce-e541-49d9-8c9c-81d392171d12",
+			"name": "findAll with user role",
+			"url": "http://localhost:8081/users/",
+			"time": 20,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 403": true
+				}
+			]
+		},
+		{
+			"id": "affbc7cc-3e56-496c-a110-e3798018ca00",
+			"name": "findById",
+			"url": "http://localhost:8081/users/1",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First element should have id 1 and name admin": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First element should have id 1 and name admin": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First element should have id 1 and name admin": true
+				}
+			]
+		},
+		{
+			"id": "91bca40d-7694-484e-8bc8-6f6f483def98",
+			"name": "Send Email without attachments",
+			"url": "http://localhost:8081/mailing/sendMail",
+			"time": 1383,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST request": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1383
+			],
+			"allTests": [
+				{
+					"Successful POST request": true
+				}
+			]
+		},
+		{
+			"id": "91658e43-5e61-4018-9786-ba8242ef32eb",
+			"name": "Resend email",
+			"url": "http://localhost:8081/auth/resend",
+			"time": 1384,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful POST request": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1384
+			],
+			"allTests": [
+				{
+					"Successful POST request": true
+				}
+			]
+		},
+		{
+			"id": "4189bf79-ce36-4d9b-abfc-67ee5b13d115",
+			"name": "findAll",
+			"url": "http://localhost:8081/bookings",
+			"time": 34,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First booking should have id 1 and product id 1": true,
+				"Response should have more than or equal to 1 result": true,
+				"Response schema type nodes verification": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First booking should have id 1 and product id 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response should have more than or equal to 1 result": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				34
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First booking should have id 1 and product id 1": true,
+					"Response should have more than or equal to 1 result": true,
+					"Response schema type nodes verification": true
+				}
+			]
+		},
+		{
+			"id": "5d3a38d8-c566-4e55-8979-c62a9b095c2c",
+			"name": "findAll by productId",
+			"url": "http://localhost:8081/bookings/filters/?productId=1",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"First booking should have product id 1": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"First booking should have product id 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"First booking should have product id 1": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "826bbf1d-0c19-4a72-b464-db51aecd74b7",
+			"name": "findById",
+			"url": "http://localhost:8081/bookings/1",
+			"time": 31,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Element should have id 1": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Element should have id 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				31
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Element should have id 1": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "322c7c48-d4f1-4f98-a366-128f28e329f4",
+			"name": "Save",
+			"url": "http://localhost:8081/bookings",
+			"time": 63,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				63
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "52e7f8f6-fa0c-47f1-9db3-dfb4b6215899",
+			"name": "save Body Error",
+			"url": "http://localhost:8081/bookings",
+			"time": 17,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "8012472f-b869-49c9-885c-46327e46056f",
+			"name": "save booking with user update",
+			"url": "http://localhost:8081/bookings/create-with-user-update",
+			"time": 48,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"User id should be 1 and location should have id 2": true,
+				"Response schema type nodes verification": true,
+				"Response time is less than 200ms": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User id should be 1 and location should have id 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"User id should be 1 and location should have id 2": true,
+					"Response schema type nodes verification": true,
+					"Response time is less than 200ms": true
+				}
+			]
+		},
+		{
+			"id": "7e00437c-ee2e-425d-9946-6e953c74b6d0",
+			"name": "save booking with user update body error",
+			"url": "http://localhost:8081/bookings/create-with-user-update",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "f0020d80-97d9-4909-ae5e-61e018c42e0c",
+			"name": "update",
+			"url": "http://localhost:8081/bookings/1",
+			"time": 37,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"Response schema type nodes verification": true,
+				"User and Product id should be \"2\"": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response schema type nodes verification": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User and Product id should be \"2\"": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				37
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"Response schema type nodes verification": true,
+					"User and Product id should be \"2\"": true
+				}
+			]
+		},
+		{
+			"id": "6aeb93b3-8e9c-4133-9b08-03770a6c26cb",
+			"name": "update Error",
+			"url": "http://localhost:8081/bookings/-1",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "58a2ee33-b094-447b-b89a-2cd8a751311c",
+			"name": "Delete",
+			"url": "http://localhost:8081/bookings/1",
+			"time": 24,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true
+				}
+			]
+		},
+		{
+			"id": "08dcf599-5158-431a-8dfb-2f056ee64bed",
+			"name": "delete Error",
+			"url": "http://localhost:8081/bookings/1",
+			"time": 22,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 7472,
+	"collection": {
+		"requests": [
+			{
+				"id": "f2f0e7dc-4f99-4652-9908-a043e2a540d2",
+				"method": "POST"
+			},
+			{
+				"id": "d6666e02-88b8-45fc-b06e-406d404c8f4a",
+				"method": "POST"
+			},
+			{
+				"id": "5df387ea-2475-41ab-accf-2e8eed87847c",
+				"method": "POST"
+			},
+			{
+				"id": "f475cb31-e0ac-4368-926a-51928a986a05",
+				"method": "POST"
+			},
+			{
+				"id": "fffcf73c-cec5-4d47-9024-8016d129bcf5",
+				"method": "POST"
+			},
+			{
+				"id": "d842c02b-e559-455e-8d10-3be0c639a6de",
+				"method": "GET"
+			},
+			{
+				"id": "7c0cbeff-0358-411a-baf5-dc3cc0d6a64e",
+				"method": "GET"
+			},
+			{
+				"id": "c7811283-8324-4023-8ae9-69f5899f1f42",
+				"method": "GET"
+			},
+			{
+				"id": "930e408f-c99c-4e38-a5aa-e570d91af2fc",
+				"method": "POST"
+			},
+			{
+				"id": "ae21b817-c5a2-4b3e-8353-0cdc8576fa14",
+				"method": "POST"
+			},
+			{
+				"id": "a5a521e4-ca7e-4d77-8283-acc850061106",
+				"method": "PUT"
+			},
+			{
+				"id": "1bff6d78-a4f4-4a78-b15d-bcdf0f47aee1",
+				"method": "PUT"
+			},
+			{
+				"id": "c9978e35-ccc8-4d4f-be0c-45dc304e5cb3",
+				"method": "DELETE"
+			},
+			{
+				"id": "c6d44912-6f63-4fcb-b2d8-6ad234e73942",
+				"method": "DELETE"
+			},
+			{
+				"id": "7c65b08f-3fb3-4386-9b7b-854b3d45fab7",
+				"method": "GET"
+			},
+			{
+				"id": "c63160ea-382b-47a8-80f6-69c4f38781e3",
+				"method": "GET"
+			},
+			{
+				"id": "4fe34f3a-8f47-484d-8495-98f8c7bc105e",
+				"method": "GET"
+			},
+			{
+				"id": "f0675193-e2c6-4a8d-8f1c-c5f9eead2c2f",
+				"method": "POST"
+			},
+			{
+				"id": "80c33f5d-cfeb-4223-95eb-96f9da909910",
+				"method": "POST"
+			},
+			{
+				"id": "fb4ccc1f-6253-4351-8f96-93c222b60eb6",
+				"method": "PUT"
+			},
+			{
+				"id": "fc025932-e72f-4d92-9a96-d8d3e439ae47",
+				"method": "DELETE"
+			},
+			{
+				"id": "346f259a-63ac-4d5c-9e4e-459b076b8dbd",
+				"method": "GET"
+			},
+			{
+				"id": "e6ef9a90-dc62-4d46-918d-3508fd664be1",
+				"method": "GET"
+			},
+			{
+				"id": "666c1f92-0e1c-4a3e-9700-84efdd94915d",
+				"method": "GET"
+			},
+			{
+				"id": "138e95a4-0a99-4b40-b950-e037dde524ac",
+				"method": "POST"
+			},
+			{
+				"id": "3f1b0381-bb94-46d2-8c46-08047a7aea38",
+				"method": "POST"
+			},
+			{
+				"id": "c7781cb1-76b7-4791-8e85-b92cc0546f7a",
+				"method": "PUT"
+			},
+			{
+				"id": "460d572a-bfe2-4666-b8dc-3b29f0cb555a",
+				"method": "PUT"
+			},
+			{
+				"id": "832685f3-77d7-4441-bfb6-685dbda83c93",
+				"method": "DELETE"
+			},
+			{
+				"id": "2aeacfc5-13e5-43bb-baa4-102246f6c685",
+				"method": "DELETE"
+			},
+			{
+				"id": "ed3ede28-a432-4f2c-8066-4db1a58caae5",
+				"method": "GET"
+			},
+			{
+				"id": "36ea6c56-cd26-445b-81bf-02d7f52a9043",
+				"method": "GET"
+			},
+			{
+				"id": "f7897b8e-0cf8-4b15-a018-decad25591fe",
+				"method": "GET"
+			},
+			{
+				"id": "2cfb9276-dc4e-4cfd-b442-15d849b3cb06",
+				"method": "POST"
+			},
+			{
+				"id": "08b7fdc9-de0e-405c-9b76-d5eb4c6abd28",
+				"method": "POST"
+			},
+			{
+				"id": "26bf9f3b-0474-4cc0-adb2-d27be819e132",
+				"method": "PUT"
+			},
+			{
+				"id": "4b098a38-9c88-484b-a3ec-9765dc233386",
+				"method": "PUT"
+			},
+			{
+				"id": "a3bae57c-22fe-427a-a97d-9ce7fb561ef1",
+				"method": "DELETE"
+			},
+			{
+				"id": "1f6b6b2b-f8b4-4b9f-8032-633b69f258f1",
+				"method": "DELETE"
+			},
+			{
+				"id": "8043a431-2636-4735-8e84-4996040f34e8",
+				"method": "GET"
+			},
+			{
+				"id": "7fb319f3-ff4e-47ca-b28a-891b9dde3c9b",
+				"method": "GET"
+			},
+			{
+				"id": "8a92b2e7-314b-4b9c-bca6-e37649c9a72d",
+				"method": "GET"
+			},
+			{
+				"id": "687e274b-37c5-4953-a553-2d55499f764c",
+				"method": "POST"
+			},
+			{
+				"id": "77c2bc1e-4130-41b4-a28d-de4bb9e4a7b1",
+				"method": "POST"
+			},
+			{
+				"id": "6ba357d7-c5b8-44b4-9731-7c5c8315d8be",
+				"method": "PUT"
+			},
+			{
+				"id": "1b7d71a1-7da0-4675-b143-042abbdd9520",
+				"method": "PUT"
+			},
+			{
+				"id": "76154a54-d2df-43c1-a253-b6f837160bf9",
+				"method": "DELETE"
+			},
+			{
+				"id": "15fc26ec-e2fa-468f-b02e-9c8674a4a252",
+				"method": "DELETE"
+			},
+			{
+				"id": "ed4cffff-764d-4cb0-bb32-2da3a3a528b3",
+				"method": "GET"
+			},
+			{
+				"id": "9483b885-51fc-43fd-8662-27889b74a0f9",
+				"method": "GET"
+			},
+			{
+				"id": "059cca0d-6fd6-455b-b327-777cbe3f3bb8",
+				"method": "GET"
+			},
+			{
+				"id": "e9447dc5-1ba0-490e-86c0-85be883f1ce7",
+				"method": "POST"
+			},
+			{
+				"id": "8155316f-91ed-4b65-a1a3-a450edc9b26a",
+				"method": "POST"
+			},
+			{
+				"id": "9e98bcea-d435-4a7a-854a-ba54c7cb727a",
+				"method": "PUT"
+			},
+			{
+				"id": "59752276-5e07-47fb-8067-4ec49a863b8f",
+				"method": "PUT"
+			},
+			{
+				"id": "07362362-7f03-4983-a1f9-f90ff990ae7b",
+				"method": "DELETE"
+			},
+			{
+				"id": "6e00fd53-f602-4f0a-b969-0bd2c8c9c698",
+				"method": "DELETE"
+			},
+			{
+				"id": "d4be7548-c0ed-4822-b3a9-fbfc4a97d077",
+				"method": "GET"
+			},
+			{
+				"id": "59e3929f-52ce-4066-ae33-5ee4775de264",
+				"method": "GET"
+			},
+			{
+				"id": "d14328a4-1e0a-415a-b281-5941f18822ed",
+				"method": "GET"
+			},
+			{
+				"id": "f95483dc-68cc-4494-96a3-a2d7e0f95a8e",
+				"method": "GET"
+			},
+			{
+				"id": "9ceb7bdb-caeb-4bfd-9e07-d505a552d02e",
+				"method": "GET"
+			},
+			{
+				"id": "d474e76d-f531-4243-8f54-12a771d7f22b",
+				"method": "GET"
+			},
+			{
+				"id": "5ff3b3be-88ac-4a53-9f8f-547a55b75faa",
+				"method": "GET"
+			},
+			{
+				"id": "c584046a-b679-44ef-ad9a-b6d2dd055ed6",
+				"method": "GET"
+			},
+			{
+				"id": "b5aceac0-be42-4fce-81e9-4a787e9d334f",
+				"method": "GET"
+			},
+			{
+				"id": "70333081-996f-4d78-8d40-0a38254c06a5",
+				"method": "POST"
+			},
+			{
+				"id": "e2e41a1d-c954-4511-b700-6376c06ea09d",
+				"method": "POST"
+			},
+			{
+				"id": "2936a985-ef01-4359-8397-fd0c4add0f08",
+				"method": "PUT"
+			},
+			{
+				"id": "7f9af8ce-f75c-4902-b9d8-3f133bd8e4c0",
+				"method": "PUT"
+			},
+			{
+				"id": "a98f8850-5ee4-4305-8d1f-e24172de2bea",
+				"method": "DELETE"
+			},
+			{
+				"id": "4980c805-f113-466b-8426-802b7e7e31e3",
+				"method": "DELETE"
+			},
+			{
+				"id": "396a6341-5590-423b-a79f-dbbe80dd14e7",
+				"method": "GET"
+			},
+			{
+				"id": "8c2e00ce-e541-49d9-8c9c-81d392171d12",
+				"method": "GET"
+			},
+			{
+				"id": "affbc7cc-3e56-496c-a110-e3798018ca00",
+				"method": "GET"
+			},
+			{
+				"id": "91bca40d-7694-484e-8bc8-6f6f483def98",
+				"method": "POST"
+			},
+			{
+				"id": "91658e43-5e61-4018-9786-ba8242ef32eb",
+				"method": "POST"
+			},
+			{
+				"id": "4189bf79-ce36-4d9b-abfc-67ee5b13d115",
+				"method": "GET"
+			},
+			{
+				"id": "5d3a38d8-c566-4e55-8979-c62a9b095c2c",
+				"method": "GET"
+			},
+			{
+				"id": "826bbf1d-0c19-4a72-b464-db51aecd74b7",
+				"method": "GET"
+			},
+			{
+				"id": "322c7c48-d4f1-4f98-a366-128f28e329f4",
+				"method": "POST"
+			},
+			{
+				"id": "52e7f8f6-fa0c-47f1-9db3-dfb4b6215899",
+				"method": "POST"
+			},
+			{
+				"id": "8012472f-b869-49c9-885c-46327e46056f",
+				"method": "POST"
+			},
+			{
+				"id": "7e00437c-ee2e-425d-9946-6e953c74b6d0",
+				"method": "POST"
+			},
+			{
+				"id": "f0020d80-97d9-4909-ae5e-61e018c42e0c",
+				"method": "PUT"
+			},
+			{
+				"id": "6aeb93b3-8e9c-4133-9b08-03770a6c26cb",
+				"method": "PUT"
+			},
+			{
+				"id": "58a2ee33-b094-447b-b89a-2cd8a751311c",
+				"method": "DELETE"
+			},
+			{
+				"id": "08dcf599-5158-431a-8dfb-2f056ee64bed",
+				"method": "DELETE"
+			}
+		]
+	}
 }

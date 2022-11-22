@@ -105,9 +105,9 @@
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
-									"pm.test(\"Message should be Error: Email is already in use\", function () {",
+									"pm.test(\"Message should be Error: 'El correo ya se encuentra registrado'\", function () {",
 									"    const jsonData = pm.response.json();",
-									"    pm.expect(jsonData.message).to.eql('Error: Email is already in use');",
+									"    pm.expect(jsonData.message).to.eql('El correo ya se encuentra registrado');",
 									"});",
 									""
 								],
@@ -515,7 +515,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -561,7 +561,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -646,7 +646,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -692,7 +692,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -741,7 +741,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -789,7 +789,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1050,7 +1050,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1096,7 +1096,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1151,7 +1151,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1200,7 +1200,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1443,7 +1443,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1489,7 +1489,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1569,7 +1569,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1615,7 +1615,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1664,7 +1664,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1712,7 +1712,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -1960,7 +1960,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2006,7 +2006,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2082,7 +2082,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2128,7 +2128,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2177,7 +2177,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2225,7 +2225,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2498,7 +2498,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2544,7 +2544,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2632,7 +2632,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2678,7 +2678,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2727,7 +2727,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -2775,7 +2775,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3035,7 +3035,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3081,7 +3081,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3158,7 +3158,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3204,7 +3204,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3253,7 +3253,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3301,7 +3301,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3636,6 +3636,102 @@
 					"response": []
 				},
 				{
+					"name": "findById with Booked Dates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and name Hermitage Hotel\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Hermitage Hotel');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"distance_to_nearest_tourist_site\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ranking\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"score\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"description_title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"coordinates\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"category\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"location\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"features\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"policies\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"images\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"        }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "findById nonexistent",
 					"event": [
 						{
@@ -3875,13 +3971,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [],\n    \"policiyIds\": []\n}",
+							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"address\": \"prueba\",\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [],\n    \"policiyIds\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3921,7 +4017,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -3984,13 +4080,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [\n        4,\n        3\n    ],\n    \"policiyIds\": [\n        1,\n        2,\n        3\n    ]\n}",
+							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"address\": \"prueba2\",\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [\n        4,\n        3\n    ],\n    \"policiyIds\": [\n        1,\n        2,\n        3\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4030,7 +4126,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -4079,7 +4175,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -4127,7 +4223,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{user_token}}",
+								"value": "{{admin_token}}",
 								"type": "default"
 							}
 						],
@@ -4430,15 +4526,15 @@
 									"",
 									"pm.test(\"First booking should have id 1 and product id 1\", function () {",
 									"    const jsonData = pm.response.json();",
-									"    const firstCategory = jsonData.data[0]",
+									"    const firstBooking = jsonData.data[0]",
 									"    pm.expect(firstBooking.id).to.eql(1);",
-									"    pm.expect(firstBooking.id).to.eql(1);",
+									"    pm.expect(firstBooking.product.id).to.eql(1);",
 									"});",
 									"",
-									"pm.test(\"Response should have more than 1 result\", function () {",
+									"pm.test(\"Response should have more than or equal to 1 result\", function () {",
 									"    const jsonData = pm.response.json();",
 									"    const bookings = jsonData.data",
-									"    pm.expect(bookings.length).to.be.gt(1);",
+									"    pm.expect(bookings.length).to.be.gte(1);",
 									"});",
 									"",
 									"const schema = {",
@@ -4447,16 +4543,109 @@
 									"        type: \"object\",",
 									"        properties: {",
 									"            \"id\": {",
-									"                \"type\": \"long\"",
+									"                \"type\": \"number\"",
 									"            },",
 									"            \"starting time\": {",
-									"                \"type\": \"date\"",
+									"                \"type\": \"string\"",
 									"            },",
 									"            \"starting date\": {",
-									"                \"type\": \"date\"",
+									"                \"type\": \"string\"",
 									"            },",
 									"            \"ending date\": {",
-									"                \"type\": \"date\"",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"product\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"user\": {",
+									"                \"type\": \"object\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const bookings = jsonData.data",
+									"    pm.expect(tv4.validate(bookings, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll by productId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First booking should have product id 1\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstBooking = jsonData.data[0]",
+									"    pm.expect(firstBooking.product.id).to.eql(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"starting time\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"starting date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ending date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"product\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"user\": {",
+									"                \"type\": \"object\"",
 									"            }",
 									"        }",
 									"    }]",
@@ -4498,12 +4687,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/bookings",
+							"raw": "{{base_url}}/bookings/filters/?productId=1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"bookings"
+								"bookings",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -4527,33 +4724,33 @@
 									"});\r",
 									"\r",
 									"const schema = {\r",
-									"    type: \"object\",\r",
+									"    \"type\": \"object\",\r",
 									"    properties: {\r",
 									"        \"id\": {\r",
-									"            \"type\": \"integer\"\r",
+									"            \"type\": \"number\"\r",
 									"        },\r",
 									"        \"starting time\": {\r",
-									"            \"type\": \"date\"\r",
+									"            \"type\": \"string\"\r",
 									"        },\r",
 									"        \"starting date\": {\r",
-									"            \"type\": \"date\"\r",
+									"            \"type\": \"string\"\r",
 									"        },\r",
 									"        \"ending date\": {\r",
-									"            \"type\": \"date\"\r",
+									"            \"type\": \"string\"\r",
 									"        },\r",
-									"        \"product id\": {\r",
-									"            \"type\": \"integer\"\r",
+									"        \"product\": {\r",
+									"            \"type\": \"object\"\r",
 									"        },\r",
-									"        \"user id\": {\r",
-									"            \"type\": \"integer\"\r",
-									"        }        \r",
+									"        \"user\": {\r",
+									"            \"type\": \"object\"\r",
+									"        }\r",
 									"    }\r",
 									"};\r",
 									"\r",
 									"pm.test('Response schema type nodes verification', function () {\r",
 									"    const jsonData = pm.response.json();\r",
 									"    const elements = jsonData.data\r",
-									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;\r",
+									"    pm.expect(tv4.validate(elements, schema)).to.be.true;\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response time is less than 200ms\", function () {\r",
@@ -4666,7 +4863,185 @@
 					"response": []
 				},
 				{
-					"name": "Update",
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time1\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date1\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date1\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId1\": 1,\r\n    \"userId1\": 1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save booking with user update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User id should be 1 and location should have id 2\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const element = jsonData.data\r",
+									"    pm.expect(element.user.id).to.eql(1);\r",
+									"    pm.expect(element.user.location.id).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    type: \"object\",\r",
+									"    properties: {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"starting time\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"starting date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"ending date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"product id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"user id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response schema type nodes verification', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const categories = jsonData.data\r",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1,\r\n    \"locationId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/create-with-user-update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"create-with-user-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save booking with user update body error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/create-with-user-update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"create-with-user-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
 					"event": [
 						{
 							"listen": "test",
@@ -4699,7 +5074,7 @@
 									"        },\r",
 									"        \"user id\": {\r",
 									"            \"type\": \"integer\"\r",
-									"        }        \r",
+									"        }\r",
 									"    }\r",
 									"};\r",
 									"\r",
@@ -4709,17 +5084,11 @@
 									"    pm.expect(tv4.validate(bookings, schema)).to.be.true;\r",
 									"});\r",
 									"\r",
-									"pm.test(' User and Product id should be \"1\" ', function () {\r",
+									"pm.test('User and Product id should be \"2\"', function () {\r",
 									"    const jsonData = pm.response.json();\r",
 									"    const booking = jsonData.data\r",
-									"    console.log(bookingy.user_id)\r",
-									"    console.log(bookingy.product_id)\r",
-									"    pm.expect(booking.user_id).to.eql(1);\r",
-									"    pm.expect(booking.product_id).to.eql(1);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"    pm.expect(booking.user.id).to.eql(1);\r",
+									"    pm.expect(booking.product.id).to.eql(2);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -4737,7 +5106,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-15T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-25T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1 \r\n}",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-15T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-25T05:00:00.000Z\",\r\n    \"productId\": 2,\r\n    \"userId\": 1 \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4752,6 +5121,52 @@
 							"path": [
 								"bookings",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"starting_date\": \"2022-12-15T05:00:00.000Z\",\n    \"ending_date\": \"2022-12-25T05:00:00.000Z\",\n    \"productId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"-1"
 							]
 						}
 					},
@@ -4784,6 +5199,54 @@
 								"type": "default"
 							}
 						],
+						"url": {
+							"raw": "{{base_url}}/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{base_url}}/bookings/1",
 							"host": [

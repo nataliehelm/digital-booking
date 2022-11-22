@@ -1,6 +1,8 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Bookings.SaveBookingAndUpdateUserDto;
 import com.grupo9.db.dto.Bookings.SaveBookingDto;
+import com.grupo9.db.dto.Product.GetBookedDatesDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Booking;
@@ -9,6 +11,7 @@ import com.grupo9.db.model.Location;
 import com.grupo9.db.model.Product;
 import com.grupo9.db.service.BookingService;
 import com.grupo9.db.util.ApiResponse;
+import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,6 +52,12 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
         Booking response = bookingService.save(saveBookingDto);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking created successfully", response, null);
+    }
+
+    @PostMapping(path = "/create-with-user-update")
+    public ResponseEntity<ApiResponse<Booking, Object>> saveBookingAndUpdateUser(@Valid @RequestBody SaveBookingAndUpdateUserDto dto) throws ResourceNotFoundException {
+        Booking response = bookingService.saveBookingAndUpdateUser(dto);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Booking created successfully", response, null);
     }
 
