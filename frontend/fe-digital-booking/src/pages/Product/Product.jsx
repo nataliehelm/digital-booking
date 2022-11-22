@@ -60,11 +60,6 @@ const Product = ({
     }
   };
 
-  /*   const bookingDates = getDatesInRange(
-    booking[0].starting_date,
-    booking[0].ending_date
-  ); */
-
   const disabledDates = useMemo(() => {
     return booking
       .map((date) => date.booked_dates)

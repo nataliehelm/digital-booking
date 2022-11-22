@@ -17,8 +17,7 @@
     .image img {
       object-fit: cover;
       width: 100%;
-      overflow-y: hidden;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     .details {
       padding: 16px;

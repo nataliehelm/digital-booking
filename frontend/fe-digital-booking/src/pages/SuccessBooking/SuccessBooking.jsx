@@ -3,7 +3,7 @@ import { Button, Heading, InfoBanner } from '../../atoms';
 import cn from 'classnames';
 import styles from './Success.module.scss';
 
-const Success = () => {
+const SuccessBooking = () => {
   const navigate = useNavigate();
 
   const handleOnClick = () => {
@@ -46,4 +46,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default SuccessBooking;
