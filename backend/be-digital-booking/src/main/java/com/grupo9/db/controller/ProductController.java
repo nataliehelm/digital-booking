@@ -1,5 +1,6 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
@@ -42,12 +43,16 @@ public class ProductController {
 
     @GetMapping(path = "/{id}/bookings")
     public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(@PathVariable("id") Long id) throws ResourceNotFoundException  {
-        return service.findByIdWithBookings(id);
+        GetProductWithBookingsDto response = service.findByIdWithBookings(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
+
     }
 
     @GetMapping(path = "/filters")
     public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
-        return service.findByParams(params);
+        List<Product> products = service.findByParams(params);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

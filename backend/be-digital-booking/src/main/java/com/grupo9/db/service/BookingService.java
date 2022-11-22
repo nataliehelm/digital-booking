@@ -33,7 +33,6 @@ public class BookingService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    //listar todos
     public List<Booking> findAll(){
         List<Booking> bookings = iBookingRepository.findAll();
         return bookings;
@@ -44,7 +43,6 @@ public class BookingService {
         return bookings;
     }
 
-    //buscar por id
     public Booking findById(Long id) throws ResourceNotFoundException {
         Optional<Booking> booking = iBookingRepository.findById(id);
         if(booking.isEmpty()){
@@ -53,13 +51,11 @@ public class BookingService {
         return booking.get();
     }
 
-    //guardar
     public Booking save(SaveBookingDto bookingDto) throws ResourceNotFoundException {
         Booking booking = bookingBuilder(bookingDto, null);
         return iBookingRepository.save(booking);
     }
 
-    //actualizar
     public Booking update(Long id, SaveBookingDto bookingDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
@@ -67,13 +63,11 @@ public class BookingService {
         if(!exists){
             throw new ResourceNotFoundException("Booking with id " + id + " not found");
         }
-
         Booking booking = bookingBuilder(bookingDto, id);
         return iBookingRepository.save(booking);
     }
 
-    //eliminar
-    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+     public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = iBookingRepository.existsById(id);
         if(!exists){

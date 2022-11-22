@@ -47,11 +47,9 @@ public class ProductService {
 
     public List<Product> findAll(String token){
         if(token != null){
-            List<Product> products = repository.findTop8ByOrderByIdAsc();
-            return products;
+            return repository.findTop8ByOrderByIdAsc();
         }
-        List<Product> products = repository.findAllRandom();
-            return products;
+        return repository.findAllRandom();
         }
 
     public Product findById(Long id) throws ResourceNotFoundException {
@@ -62,7 +60,7 @@ public class ProductService {
         return product.get();
     }
 
-    public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(Long id) throws ResourceNotFoundException {
+    public GetProductWithBookingsDto findByIdWithBookings(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){
             throw new ResourceNotFoundException("Product with id " + id + " not found");
@@ -80,10 +78,10 @@ public class ProductService {
         }
 
         GetProductWithBookingsDto response = new GetProductWithBookingsDto(product.get(), listOfBookedDates);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
+        return response;
     }
 
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+    public List<Product> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
         if(params.get("locationId") != null && params.get("categoryId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
             Optional<Location> location = locationRepository.findById(locationId);
@@ -99,8 +97,7 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            List<Product> products = repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+                return repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
         }
         if(params.get("categoryId") != null){
             String[] categoryIds = (params.get("categoryId")).split(",");
@@ -112,8 +109,8 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            List<Product> products = repository.findTop8ByCategoryIn(categories);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findTop8ByCategoryIn(categories);
+
         }
         if(params.get("locationId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
@@ -121,15 +118,14 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findTop8ByLocation(location.get());
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findTop8ByLocation(location.get());
         }
 
         if(params.get("startingDate") != null && params.get("endingDate") != null){
             String startingDate = params.get("startingDate");
             String endingDate = params.get("endingDate");
-            List<Product> products = repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
+
         }
 
         if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
@@ -140,8 +136,7 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
         }
 
         throw new BadRequestException("Invalid Params");
