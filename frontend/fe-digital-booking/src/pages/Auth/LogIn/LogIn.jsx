@@ -8,6 +8,7 @@ import useAuthContext from '../../../providers/AuthProvider/useAuthContext';
 
 const LogIn = () => {
   const [errorMsg, setErrorMsg] = useState(null);
+  const [showToast, setShowToast] = useState(false);
   const { setJwt } = useAuthContext();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -59,33 +60,57 @@ const LogIn = () => {
 
   useEffect(() => {
     if (!error) {
+      if (state?.type) setShowToast(true);
       if (state && state.type === 'error') setErrorMsg(state.message);
     }
   }, [error, state]);
 
+  useEffect(() => {
+    if (errorMsg) setShowToast(true);
+  }, [errorMsg, error]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowToast(false);
+    }, 3500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [errorMsg, error]);
+
   return (
     <main className={styles.main}>
-      {(error || (state && state.type === 'error')) && (
-        <div className={styles['toast']}>
-          <Toast
-            variant="error"
-            label={
-              errorMsg ||
-              'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
-            }
-          />
-        </div>
-      )}
-      {state && state.type === 'success' && (
-        <div className={styles['toast']}>
-          <Toast variant="success" label={state.message} />
-        </div>
-      )}
       <form className={styles['login-in-form']} onSubmit={handleOnSubmit}>
         <Heading variant="h1" classname={styles.title}>
           Iniciar sesión
         </Heading>
         <section className={styles['form-container']}>
+          {showToast && (
+            <>
+              {(error || (state && state.type === 'error')) && (
+                <div className={styles['toast']}>
+                  <Toast
+                    onClick={() => setShowToast(false)}
+                    variant="error"
+                    label={
+                      errorMsg ||
+                      'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
+                    }
+                  />
+                </div>
+              )}
+              {state && state.type === 'success' && (
+                <div className={styles['toast']}>
+                  <Toast
+                    variant="success"
+                    onClick={() => setShowToast(false)}
+                    label={state.message}
+                  />
+                </div>
+              )}
+            </>
+          )}
           <Heading variant="h1" classname={styles['title-tablet-desktop']}>
             Iniciar sesión
           </Heading>

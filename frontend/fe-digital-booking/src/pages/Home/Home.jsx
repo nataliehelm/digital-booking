@@ -115,7 +115,6 @@ const Home = () => {
         <Toast
           variant="error"
           label="No has activado tu cuenta, recuerda activarla y volver a loguearte para disfrutar nuestros servicios"
-          isClosable
         />
       )}
       <Searcher
