@@ -45,24 +45,22 @@ public class ProductService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(String token){
+    public List<Product> findAll(String token){
         if(token != null){
-            List<Product> products = repository.findTop8ByOrderByIdAsc();
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findTop8ByOrderByIdAsc();
         }
-        List<Product> products = repository.findAllRandom();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
-    }
+        return repository.findAllRandom();
+        }
 
-    public ResponseEntity<ApiResponse<Product, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Product findById(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", product.get(), null);
+        return product.get();
     }
 
-    public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(Long id) throws ResourceNotFoundException {
+    public GetProductWithBookingsDto findByIdWithBookings(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
         if(product.isEmpty()){
             throw new ResourceNotFoundException("Product with id " + id + " not found");
@@ -83,10 +81,10 @@ public class ProductService {
         }
 
         GetProductWithBookingsDto response = new GetProductWithBookingsDto(product.get(), listOfBookedDates);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
+        return response;
     }
 
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+    public List<Product> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
         if(params.get("locationId") != null && params.get("categoryId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
             Optional<Location> location = locationRepository.findById(locationId);
@@ -102,8 +100,7 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            List<Product> products = repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+                return repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
         }
         if(params.get("categoryId") != null){
             String[] categoryIds = (params.get("categoryId")).split(",");
@@ -115,8 +112,8 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            List<Product> products = repository.findTop8ByCategoryIn(categories);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findTop8ByCategoryIn(categories);
+
         }
         if(params.get("locationId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
@@ -124,15 +121,14 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findTop8ByLocation(location.get());
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findTop8ByLocation(location.get());
         }
 
         if(params.get("startingDate") != null && params.get("endingDate") != null){
             String startingDate = params.get("startingDate");
             String endingDate = params.get("endingDate");
-            List<Product> products = repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
+
         }
 
         if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
@@ -143,21 +139,19 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            List<Product> products = repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
-            return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+            return repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
         }
 
         throw new BadRequestException("Invalid Params");
     }
 
 
-    public ResponseEntity<ApiResponse<Product, Object>> save(SaveProductDto productDto) throws ResourceNotFoundException {
-        Product product = checkRelations(productDto, null);
-        Product response = repository.save(product);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
+    public Product save(SaveProductDto productDto) throws ResourceNotFoundException {
+        Product product = productBuilder(productDto, null);
+        return repository.save(product);
     }
 
-    public ResponseEntity<ApiResponse<Product, Object>> update(Long id, SaveProductDto productDto) throws ResourceNotFoundException, BadRequestException {
+    public Product update(Long id, SaveProductDto productDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = repository.existsById(id);
@@ -165,12 +159,11 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
 
-        Product product = checkRelations(productDto, id);
-        Product response = repository.save(product);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product updated successfully", response, null);
+        Product product = productBuilder(productDto, id);
+        return repository.save(product);
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = repository.existsById(id);
         if(!exists){
@@ -178,10 +171,9 @@ public class ProductService {
         }
 
         repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Product deleted successfully", null, null);
-    }
+        }
 
-    private Product checkRelations (SaveProductDto productDto, Long id) throws ResourceNotFoundException {
+    private Product productBuilder (SaveProductDto productDto, Long id) throws ResourceNotFoundException {
 
 
         Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());

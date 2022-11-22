@@ -24,25 +24,24 @@ public class LocationService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Location>, Object>> findAll(){
+    public List<Location> findAll(){
         List<Location> locations = iLocationRepository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location List successfully",locations, null);
-    }
+        return locations;
+        }
 
-    public ResponseEntity<ApiResponse<Location, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Location findById(Long id) throws ResourceNotFoundException {
         Optional<Location> location = iLocationRepository.findById(id);
         if(location.isEmpty()){
             throw new ResourceNotFoundException("Location with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Location successfully", location.get(), null);
+        return location.get();
     }
 
-    public ResponseEntity<ApiResponse<Location, Object>> save(Location location){
-        Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location created successfully", response, null);
+    public Location save(Location location){
+        return iLocationRepository.save(location);
     }
 
-    public ResponseEntity<ApiResponse<Location, Object>> update(Long id, Location location) throws ResourceNotFoundException, BadRequestException {
+    public Location update(Long id, Location location) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = iLocationRepository.existsById(id);
@@ -51,19 +50,16 @@ public class LocationService {
         }
 
         location.setId(id);
-        Location response = iLocationRepository.save(location);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Location updated successfully", response, null);
+        return iLocationRepository.save(location);
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = iLocationRepository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Location with id " + id + " not found");
         }
-
         iLocationRepository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.NO_CONTENT.value(),"Location deleted successfully", null, null);
     }
 
 }

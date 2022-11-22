@@ -46,17 +46,6 @@ public class BookingController {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List successfully", booking, null);
     }
 
-//    @GetMapping(path = "/{date}")
-//    public ResponseEntity<ApiResponse<Booking, Object>> findByDate(@PathVariable("date") String starting_date, String ending_date) throws ResourceNotFoundException, ParseException {
-//        return bookingService.findByDate(starting_date, ending_date);
-//    }
-
-  //  @GetMapping(path = "/{date}")
-  //  public ResponseEntity<ApiResponse<Booking, Object>> findByDate(¿@RequestParam("date_from") @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateFrom, @RequestParam("date_to") @DateTimeFormat(pattern = "dd-MM-yyyy") Date dateTo) throws ResourceNotFoundException {
-  //      return bookingService.findByDate(dateFrom, dateTo);
-  //  }
-
-
     @PostMapping
     public ResponseEntity<ApiResponse<Booking, Object>> save(@Valid @RequestBody SaveBookingDto saveBookingDto) throws ResourceNotFoundException {
         Booking response = bookingService.save(saveBookingDto);

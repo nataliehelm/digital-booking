@@ -28,18 +28,16 @@ class FeatureServiceTest {
     @Order(1)
     void save() {
         Feature feature = new Feature("Feature1", "Icon1");
-        ResponseEntity<ApiResponse<Feature, Object>> saveFeature = featureService.save(feature);
-        Assert.assertEquals(201, saveFeature.getStatusCodeValue());
-        Assert.assertEquals("Feature1", saveFeature.getBody().getData().getName());
-        Assert.assertEquals("Icon1", saveFeature.getBody().getData().getIcon());
+        Feature saveFeature = featureService.save(feature);
+        Assert.assertEquals("Feature1", saveFeature.getName());
+        Assert.assertEquals("Icon1", saveFeature.getIcon());
     }
 
     @Test
     @Order(2)
     void findAll() {
-        ResponseEntity<ApiResponse<List<Feature>, Object>> listFeature = featureService.findAll();
-        Assert.assertEquals(200, listFeature.getStatusCodeValue());
-        Assert.assertTrue(listFeature.getBody().getData().size()>=1);
+        List<Feature> listFeature = featureService.findAll();
+        Assert.assertTrue(listFeature.size()>=1);
     }
 
     @Test
@@ -47,11 +45,10 @@ class FeatureServiceTest {
     @Order(3)
     void findById() throws ResourceNotFoundException {
         Feature feature = new Feature("Feature1", "Icon1");
-        ResponseEntity<ApiResponse<Feature, Object>> saveFeature = featureService.save(feature);
-        Long createId = saveFeature.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Feature, Object>> findByIdFeature = featureService.findById(createId);
-        Assert.assertEquals(200, findByIdFeature.getStatusCodeValue());
-        Assert.assertEquals("Feature1", findByIdFeature.getBody().getData().getName());
+        Feature saveFeature = featureService.save(feature);
+        Long createId = saveFeature.getId();
+        Feature findByIdFeature = featureService.findById(createId);
+        Assert.assertEquals("Feature1", findByIdFeature.getName());
     }
 
     @Test
@@ -59,14 +56,13 @@ class FeatureServiceTest {
     @Order(4)
     void update() throws ResourceNotFoundException, BadRequestException {
         Feature feature = new Feature("Feature1", "Icon1");
-        ResponseEntity<ApiResponse<Feature, Object>> saveFeature = featureService.save(feature);
-        Long createId = saveFeature.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Feature, Object>> findByIdFeature = featureService.findById(createId);
-        Assert.assertEquals("Feature1", findByIdFeature.getBody().getData().getName());
-        Feature updateFeature = findByIdFeature.getBody().getData();
-        updateFeature.setName("Feature2");
-        ResponseEntity<ApiResponse<Feature, Object>> update = featureService.update(createId, updateFeature);
-        Assert.assertEquals("Feature2", update.getBody().getData().getName());
+        Feature saveFeature = featureService.save(feature);
+        Long createId = saveFeature.getId();
+        Feature findByIdFeature = featureService.findById(createId);
+        Assert.assertEquals("Feature1", findByIdFeature.getName());
+        findByIdFeature.setName("Feature2");
+        Feature update = featureService.update(createId, findByIdFeature);
+        Assert.assertEquals("Feature2", update.getName());
     }
 
     @Test
@@ -74,10 +70,10 @@ class FeatureServiceTest {
     @Order(5)
     void deleteById() throws ResourceNotFoundException, BadRequestException {
         Feature feature = new Feature("Feature1", "Icon1");
-        ResponseEntity<ApiResponse<Feature, Object>> saveFeature = featureService.save(feature);
-        Long createId = saveFeature.getBody().getData().getId();
-        ResponseEntity<ApiResponse<Feature, Object>> findByIdFeature = featureService.findById(createId);
-        Assert.assertEquals("Feature1", findByIdFeature.getBody().getData().getName());
+        Feature saveFeature = featureService.save(feature);
+        Long createId = saveFeature.getId();
+        Feature findByIdFeature = featureService.findById(createId);
+        Assert.assertEquals("Feature1", findByIdFeature.getName());
         featureService.deleteById(createId);
         Throwable exception = Assert.assertThrows(ResourceNotFoundException.class, ()->featureService.deleteById(createId));
         Assert.assertEquals("Feature with id " +  createId + " not found", exception.getMessage());

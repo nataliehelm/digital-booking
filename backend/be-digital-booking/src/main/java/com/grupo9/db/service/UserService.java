@@ -18,21 +18,21 @@ public class UserService {
     private final IUserRepository repository;
     private ResponsesBuilder responsesBuilder;
 
+
     public UserService(IUserRepository repository, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<User>, Object>> findAll() {
-        List<User> users = repository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(), "Get Users List successfully", users, null);
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
-    public ResponseEntity<ApiResponse<User, Object>> findById(Long id) throws ResourceNotFoundException {
+    public User findById(Long id) throws ResourceNotFoundException {
         Optional<User> user = repository.findById(id);
         if(user.isEmpty()){
             throw new ResourceNotFoundException("User with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get User successfully", user.get(), null);
+        return user.get();
     }
 }

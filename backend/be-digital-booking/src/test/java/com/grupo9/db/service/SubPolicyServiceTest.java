@@ -26,7 +26,7 @@ class SubPolicyServiceTest {
 
         @Autowired
         private SubPolicyService subPolicies;
-        public ResponseEntity<ApiResponse<SubPolicy, Object>> create(){
+        public SubPolicy create(){
             SubPolicy subPolicy = new SubPolicy("SubPolicy");
             return subPolicies.save(subPolicy);
         };
@@ -34,16 +34,15 @@ class SubPolicyServiceTest {
     @Test
         @Order(1)
         void save() throws ResourceNotFoundException {
-            ResponseEntity<ApiResponse<SubPolicy, Object>> subPolicy1 = create();
-            Assert.assertEquals(201, subPolicy1.getStatusCodeValue());
-            Assert.assertEquals("SubPolicy", subPolicy1.getBody().getData().getDescription());
+            SubPolicy subPolicy1 = create();
+            Assert.assertEquals("SubPolicy", subPolicy1.getDescription());
         }
 
         @Test
         @Order(2)
         void findAll() {
-            ResponseEntity<ApiResponse<List<SubPolicy>, Object>> listSubPolicy = subPolicies.findAll();
-            Assert.assertEquals(200, listSubPolicy.getStatusCodeValue());
+            List<SubPolicy> listSubPolicy = subPolicies.findAll();
+            Assert.assertTrue(listSubPolicy.size()>=1);
         }
 
         @Test
@@ -51,11 +50,10 @@ class SubPolicyServiceTest {
         @Order(3)
         void findById() throws ResourceNotFoundException {
             SubPolicy subPolicy = new SubPolicy("SubPolicy");
-            ResponseEntity<ApiResponse<SubPolicy, Object>> subPolicy1 = subPolicies.save(subPolicy);
-            Long createId = subPolicy1.getBody().getData().getId();
-            ResponseEntity<ApiResponse<SubPolicy, Object>> findByIdSubPolicy = subPolicies.findById(createId);
-            Assert.assertEquals(200, findByIdSubPolicy.getStatusCodeValue());
-            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getBody().getData().getDescription());
+            SubPolicy subPolicy1 = subPolicies.save(subPolicy);
+            Long createId = subPolicy1.getId();
+            SubPolicy findByIdSubPolicy = subPolicies.findById(createId);
+            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getDescription());
         }
 
         @Test
@@ -63,14 +61,13 @@ class SubPolicyServiceTest {
         @Order(4)
         void update() throws ResourceNotFoundException, BadRequestException {
             SubPolicy subPolicy = new SubPolicy("SubPolicy");
-            ResponseEntity<ApiResponse<SubPolicy, Object>> subPolicy1 = subPolicies.save(subPolicy);
-            Long createId = subPolicy1.getBody().getData().getId();
-            ResponseEntity<ApiResponse<SubPolicy, Object>> findByIdSubPolicy = subPolicies.findById(createId);
-            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getBody().getData().getDescription());
-            SubPolicy updateSubPolicy = findByIdSubPolicy.getBody().getData();
-            updateSubPolicy.setDescription("SubPolicy2");
-            ResponseEntity<ApiResponse<SubPolicy, Object>> update = subPolicies.update(createId, updateSubPolicy);
-            Assert.assertEquals("SubPolicy2", update.getBody().getData().getDescription());
+            SubPolicy subPolicy1 = subPolicies.save(subPolicy);
+            Long createId = subPolicy1.getId();
+            SubPolicy findByIdSubPolicy = subPolicies.findById(createId);
+            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getDescription());
+            findByIdSubPolicy.setDescription("SubPolicy2");
+            SubPolicy update = subPolicies.update(createId, findByIdSubPolicy);
+            Assert.assertEquals("SubPolicy2", update.getDescription());
         }
 
         @Test
@@ -78,10 +75,10 @@ class SubPolicyServiceTest {
         @Order(5)
         void deleteById() throws ResourceNotFoundException, BadRequestException {
             SubPolicy subPolicy = new SubPolicy("SubPolicy");
-            ResponseEntity<ApiResponse<SubPolicy, Object>> subPolicy1 = subPolicies.save(subPolicy);
-            Long createId = subPolicy1.getBody().getData().getId();
-            ResponseEntity<ApiResponse<SubPolicy, Object>> findByIdSubPolicy = subPolicies.findById(createId);
-            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getBody().getData().getDescription());
+            SubPolicy subPolicy1 = subPolicies.save(subPolicy);
+            Long createId = subPolicy1.getId();
+            SubPolicy findByIdSubPolicy = subPolicies.findById(createId);
+            Assert.assertEquals("SubPolicy", findByIdSubPolicy.getDescription());
             subPolicies.deleteById(createId);
             Throwable exception = Assert.assertThrows(ResourceNotFoundException.class, ()->subPolicies.deleteById(createId));
             Assert.assertEquals("SubPolicy with id " +  createId + " not found", exception.getMessage());

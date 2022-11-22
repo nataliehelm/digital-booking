@@ -23,25 +23,24 @@ public class FeatureService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Feature>, Object>> findAll(){
+    public List<Feature>findAll(){
         List<Feature> features = repository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature List successfully",features, null);
+        return features;
     }
 
-    public ResponseEntity<ApiResponse<Feature, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Feature findById(Long id) throws ResourceNotFoundException {
         Optional<Feature> feature = repository.findById(id);
         if(feature.isEmpty()){
             throw new ResourceNotFoundException("Feature with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Feature successfully", feature.get(), null);
+        return feature.get();
     }
 
-    public ResponseEntity<ApiResponse<Feature, Object>> save(Feature feature){
-        Feature response = repository.save(feature);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature created successfully", response, null);
+    public Feature save(Feature feature){
+        return repository.save(feature);
     }
 
-    public ResponseEntity<ApiResponse<Feature, Object>> update(Long id, Feature feature) throws ResourceNotFoundException, BadRequestException {
+    public Feature update(Long id, Feature feature) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = repository.existsById(id);
@@ -50,11 +49,11 @@ public class FeatureService {
         }
 
         feature.setId(id);
-        Feature response = repository.save(feature);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Feature updated successfully", response, null);
+        return repository.save(feature);
+
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = repository.existsById(id);
         if(!exists){
@@ -62,7 +61,6 @@ public class FeatureService {
         }
 
         repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Feature deleted successfully", null, null);
     }
 
 }

@@ -30,19 +30,17 @@ class LocationServiceTest {
         @Order(1)
         void save() {
             Location location = new Location("ProvinceName", "CityName", "CountryName");
-            ResponseEntity<ApiResponse<Location, Object>> saveLocation = locationService.save(location);
-            Assert.assertEquals(201, saveLocation.getStatusCodeValue());
-            Assert.assertEquals("ProvinceName", saveLocation.getBody().getData().getProvince_name());
-            Assert.assertEquals("CityName", saveLocation.getBody().getData().getCity_name());
-            Assert.assertEquals("CountryName", saveLocation.getBody().getData().getCountry_name());
+            Location saveLocation = locationService.save(location);
+            Assert.assertEquals("ProvinceName", saveLocation.getProvince_name());
+            Assert.assertEquals("CityName", saveLocation.getCity_name());
+            Assert.assertEquals("CountryName", saveLocation.getCountry_name());
         }
 
         @Test
         @Order(2)
         void findAll() {
-            ResponseEntity<ApiResponse<List<Location>, Object>> listLocation = locationService.findAll();
-            Assert.assertEquals(200, listLocation.getStatusCodeValue());
-            Assert.assertTrue(listLocation.getBody().getData().size()>=1);
+            List<Location> listLocation = locationService.findAll();
+            Assert.assertTrue(listLocation.size()>=1);
         }
 
         @Test
@@ -50,11 +48,10 @@ class LocationServiceTest {
         @Order(3)
         void findById() throws ResourceNotFoundException {
             Location location = new Location("ProvinceName", "CityName", "CountryName");
-            ResponseEntity<ApiResponse<Location, Object>> saveLocation = locationService.save(location);
-            Long createId = saveLocation.getBody().getData().getId();
-            ResponseEntity<ApiResponse<Location, Object>> findByIdLocation = locationService.findById(createId);
-            Assert.assertEquals(200, findByIdLocation.getStatusCodeValue());
-            Assert.assertEquals("ProvinceName", findByIdLocation.getBody().getData().getProvince_name());
+            Location saveLocation = locationService.save(location);
+            Long createId = saveLocation.getId();
+            Location findByIdLocation = locationService.findById(createId);
+            Assert.assertEquals("ProvinceName", findByIdLocation.getProvince_name());
         }
 
         @Test
@@ -62,14 +59,13 @@ class LocationServiceTest {
         @Order(4)
         void update() throws ResourceNotFoundException, BadRequestException {
             Location location = new Location("ProvinceName", "CityName", "CountryName");
-            ResponseEntity<ApiResponse<Location, Object>> saveLocation = locationService.save(location);
-            Long createId = saveLocation.getBody().getData().getId();
-            ResponseEntity<ApiResponse<Location, Object>> findByIdLocation = locationService.findById(createId);
-            Assert.assertEquals("ProvinceName", findByIdLocation.getBody().getData().getProvince_name());
-            Location updateLocation = findByIdLocation.getBody().getData();
-            updateLocation.setProvince_name("ProvinceName2");
-            ResponseEntity<ApiResponse<Location, Object>> update = locationService.update(createId, updateLocation);
-            Assert.assertEquals("ProvinceName2", update.getBody().getData().getProvince_name());
+            Location saveLocation = locationService.save(location);
+            Long createId = saveLocation.getId();
+            Location findByIdLocation = locationService.findById(createId);
+            Assert.assertEquals("ProvinceName", findByIdLocation.getProvince_name());
+            findByIdLocation.setProvince_name("ProvinceName2");
+            Location update = locationService.update(createId, findByIdLocation);
+            Assert.assertEquals("ProvinceName2", update.getProvince_name());
         }
 
         @Test
@@ -77,10 +73,10 @@ class LocationServiceTest {
         @Order(5)
         void deleteById() throws ResourceNotFoundException, BadRequestException {
             Location location = new Location("ProvinceName", "CityName", "CountryName");
-            ResponseEntity<ApiResponse<Location, Object>> saveLocation = locationService.save(location);
-            Long createId = saveLocation.getBody().getData().getId();
-            ResponseEntity<ApiResponse<Location, Object>> findByIdLocation = locationService.findById(createId);
-            Assert.assertEquals("ProvinceName", findByIdLocation.getBody().getData().getProvince_name());
+            Location saveLocation = locationService.save(location);
+            Long createId = saveLocation.getId();
+            Location findByIdLocation = locationService.findById(createId);
+            Assert.assertEquals("ProvinceName", findByIdLocation.getProvince_name());
             locationService.deleteById(createId);
             Throwable exception = Assert.assertThrows(ResourceNotFoundException.class, ()->locationService.deleteById(createId));
             Assert.assertEquals("Location with id " +  createId + " not found", exception.getMessage());

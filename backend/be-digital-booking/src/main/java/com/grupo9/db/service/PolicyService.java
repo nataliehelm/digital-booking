@@ -29,26 +29,25 @@ public class PolicyService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public ResponseEntity<ApiResponse<List<Policy>, Object>> findAll(){
+    public List<Policy> findAll(){
         List<Policy> policies = repository.findAll();
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Policy List successfully",policies, null);
+        return policies;
     }
 
-    public ResponseEntity<ApiResponse<Policy, Object>> findById(Long id) throws ResourceNotFoundException {
+    public Policy findById(Long id) throws ResourceNotFoundException {
         Optional<Policy> policy = repository.findById(id);
         if(policy.isEmpty()){
             throw new ResourceNotFoundException("Policy with id " + id + " not found");
         }
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Policy successfully", policy.get(), null);
+        return policy.get();
     }
 
-    public ResponseEntity<ApiResponse<Policy, Object>> save(SavePolicyDto policyDto) throws ResourceNotFoundException {
-        Policy policy = checkRelations(policyDto, null);
-        Policy response = repository.save(policy);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Policy created successfully", response, null);
+    public Policy save(SavePolicyDto policyDto) throws ResourceNotFoundException {
+        Policy policy = policyBuilding(policyDto, null);
+        return repository.save(policy);
     }
 
-    public ResponseEntity<ApiResponse<Policy, Object>> update(Long id, SavePolicyDto policyDto) throws ResourceNotFoundException, BadRequestException {
+    public Policy update(Long id, SavePolicyDto policyDto) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
 
         Boolean exists = repository.existsById(id);
@@ -56,24 +55,20 @@ public class PolicyService {
             throw new ResourceNotFoundException("Policy with id " + id + " not found");
         }
 
-        Policy policy = checkRelations(policyDto, id);
-        Policy response = repository.save(policy);
-
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Policy updated successfully", response, null);
+        Policy policy = policyBuilding(policyDto, id);
+        return repository.save(policy);
     }
 
-    public ResponseEntity<ApiResponse> deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = repository.existsById(id);
         if(!exists){
             throw new ResourceNotFoundException("Policy with id " + id + " not found");
         }
-
         repository.deleteById(id);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Policy deleted successfully", null, null);
     }
 
-    private Policy checkRelations (SavePolicyDto policyDto, Long id) throws ResourceNotFoundException {
+    private Policy policyBuilding (SavePolicyDto policyDto, Long id) throws ResourceNotFoundException {
 
         List<SubPolicy> subPolicies = new ArrayList<>();
         for(Long subPolicyId:policyDto.getSubPolicyIds()){
