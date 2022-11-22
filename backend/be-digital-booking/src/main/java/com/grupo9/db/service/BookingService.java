@@ -1,9 +1,11 @@
 package com.grupo9.db.service;
 
+import com.grupo9.db.dto.Bookings.SaveBookingAndUpdateUserDto;
 import com.grupo9.db.dto.Bookings.SaveBookingDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
+import com.grupo9.db.repository.ILocationRepository;
 import com.grupo9.db.repository.IProductRepository;
 import com.grupo9.db.repository.IBookingRepository;
 import com.grupo9.db.repository.IUserRepository;
@@ -25,12 +27,14 @@ public class BookingService {
     private IBookingRepository iBookingRepository;
     private IProductRepository iProductRepository;
     private IUserRepository iUserRepository;
+    private ILocationRepository iLocationRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public BookingService(IBookingRepository iBookingRepository, IProductRepository iProductRepository, IUserRepository iUserRepository, ResponsesBuilder responsesBuilder) {
+    public BookingService(IBookingRepository iBookingRepository, IProductRepository iProductRepository, IUserRepository iUserRepository, ILocationRepository iLocationRepository, ResponsesBuilder responsesBuilder) {
         this.iBookingRepository = iBookingRepository;
         this.iProductRepository = iProductRepository;
         this.iUserRepository = iUserRepository;
+        this.iLocationRepository = iLocationRepository;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -62,6 +66,19 @@ public class BookingService {
 
     public Booking save(SaveBookingDto bookingDto) throws ResourceNotFoundException {
         Booking booking = bookingBuilder(bookingDto, null);
+        return iBookingRepository.save(booking);
+    }
+
+    public Booking saveBookingAndUpdateUser(SaveBookingAndUpdateUserDto dto) throws ResourceNotFoundException {
+        Optional<Location> location = iLocationRepository.findById(dto.getLocationId());
+        if(location.isEmpty()){
+            throw new ResourceNotFoundException("Location with id " + dto.getLocationId() + " not found");
+        }
+        SaveBookingDto bookingToSave = new SaveBookingDto(dto.getStarting_time(), dto.getStarting_date(), dto.getEnding_date(), dto.getProductId(), dto.getUserId());
+        Booking booking = bookingBuilder(bookingToSave, null);
+        User currentUser = booking.getUser();
+        currentUser.setLocation(location.get());
+        booking.setUser(currentUser);
         return iBookingRepository.save(booking);
     }
 

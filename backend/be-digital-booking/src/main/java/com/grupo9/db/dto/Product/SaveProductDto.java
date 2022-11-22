@@ -30,7 +30,7 @@ public class SaveProductDto {
     private Long categoryId;
     @NotNull(message = "locationId is mandatory")
     private Long locationId;
-    @NotEmpty(message = "Address is mandatory")
+    @NotEmpty(message = "address is mandatory")
     private String address;
     @NotNull(message = "featureIds is mandatory")
     private List<Long> featureIds;

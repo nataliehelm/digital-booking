@@ -68,7 +68,7 @@ public class Product {
     private Location location;
 
     @Column(name = "address", nullable = false , length=100)
-    @NotEmpty(message = "Address is mandatory")
+    @NotEmpty(message = "address is mandatory")
     private String address;
 
     @ManyToMany()
