@@ -43,10 +43,12 @@ const Booking = ({
     },
   ]);
   const disabledDates = useMemo(() => {
-    return booking
-      .map((date) => date.booked_dates)
-      .flat()
-      .map((date) => new Date(date));
+    if (booking === null) return [addDays(new Date(), -1)];
+    if (booking !== null)
+      return booking
+        .map((date) => date.booked_dates)
+        .flat()
+        .map((date) => new Date(date));
   }, [booking]);
 
   const onClick = () => {

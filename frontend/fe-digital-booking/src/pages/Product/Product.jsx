@@ -16,6 +16,7 @@ import cn from 'classnames';
 import styles from './Product.module.scss';
 import { useRef, useState } from 'react';
 import { BookingCalendar } from '../../components';
+import { addDays } from 'date-fns';
 
 const Product = ({
   category,
@@ -40,9 +41,7 @@ const Product = ({
   };
 
   const [showSocialMediaModal, setShowSocialMediaModal] = useState(false);
-
   const breakpoint = useBreakpoint();
-
   const minDate = new Date();
 
   const handleOnClick = () => {
@@ -61,11 +60,14 @@ const Product = ({
   };
 
   const disabledDates = useMemo(() => {
-    return booking
-      .map((date) => date.booked_dates)
-      .flat()
-      .map((date) => new Date(date));
+    if (booking === null) return [addDays(new Date(), -1)];
+    if (booking !== null)
+      return booking
+        .map((date) => date.booked_dates)
+        .flat()
+        .map((date) => new Date(date));
   }, [booking]);
+
   const ref = useRef(null);
   useOnClickOutside(ref, () => setShowSocialMediaModal(false));
 
@@ -120,11 +122,13 @@ const Product = ({
           <Heading variant="h1" classname={styles['booking-title']}>
             Fechas disponibles
           </Heading>
-          <BookingCalendar
-            months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
-            minDate={minDate}
-            disabledDates={disabledDates}
-          />
+          {
+            <BookingCalendar
+              months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
+              minDate={minDate}
+              disabledDates={disabledDates}
+            />
+          }
         </section>
         <section className={styles['col-right']}>
           <Heading variant="h3" classname={styles['booking-subtitle']}>
