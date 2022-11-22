@@ -51,7 +51,7 @@ public class Product12 {
         policies.add(policy2);
         policies.add(policy3);
 
-        Product product12 = new Product("La Paula bed & breakfast", "A  14,2 km del centro", 4.0F, 8.0F, "Habitación Doble con vistas - 2 camas", "La Paula bed & breakfast se encuentra en San Luis, a 1,9 km del circuito internacional de Potrero de los Funes, y ofrece vistas a la montaña, WiFi gratuita y aparcamiento privado gratuito.\n\n El baño privado está totalmente equipado con ducha y artículos de aseo gratuitos.\n\n El hipódromo Rosendo Hernández se encuentra a 32 km del bed and breakfast, mientras que Potrero de los Funes está a 1 km. El aeropuerto Brigadier Mayor Cesar R. Ojeda es el más cercano y está a 21 km de La Paula bed & breakfast.", coordinates4, category4, location2, features4, policies );
+        Product product12 = new Product("La Paula bed & breakfast", "A  14,2 km del centro", 4.0F, 8.0F, "Habitación Doble con vistas - 2 camas", "La Paula bed & breakfast se encuentra en San Luis, a 1,9 km del circuito internacional de Potrero de los Funes, y ofrece vistas a la montaña, WiFi gratuita y aparcamiento privado gratuito.\n\n El baño privado está totalmente equipado con ducha y artículos de aseo gratuitos.\n\n El hipódromo Rosendo Hernández se encuentra a 32 km del bed and breakfast, mientras que Potrero de los Funes está a 1 km. El aeropuerto Brigadier Mayor Cesar R. Ojeda es el más cercano y está a 21 km de La Paula bed & breakfast.", coordinates4, category4, location2, "Las Acacias", features4, policies );
 
         iProductRepository.save(product12);
     }

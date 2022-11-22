@@ -7,8 +7,11 @@ import Home from './pages/Home';
 import styles from './App.module.scss';
 import Product from './pages/Product/ProductContainer';
 import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
+import Booking from './pages/Booking/BookingContainer';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import ResendEmail from './pages/Auth/ResendEmail';
+import withAuthGuardian from './hocs/withAuthGuardian';
+import SuccessBooking from './pages/SuccessBooking';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -17,6 +20,8 @@ function App() {
     localStorage.removeItem('jwt');
     cleanJwt();
   };
+
+  const BookingContainer = withAuthGuardian(() => <Booking />);
 
   return (
     <>
@@ -60,6 +65,14 @@ function App() {
                   children={<ActivateUserInfo />}
                 />
               }
+            />
+            <Route
+              path="/product/:id/booking"
+              element={<Layout children={<BookingContainer />} />}
+            />
+            <Route
+              path="/success-booking"
+              element={<Layout children={<SuccessBooking />} />}
             />
             <Route
               path="/resend-email"

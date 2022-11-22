@@ -1,4 +1,5 @@
 export * from './AuthButtons';
+export * from './BookingCalendar';
 export * from './Calendar';
 export * from './Drawer';
 export * from './Footer';

@@ -45,13 +45,17 @@ const LogIn = () => {
     if (data) {
       localStorage.setItem('jwt', JSON.stringify(data.token));
       setJwt(data.token);
-      navigate('/');
+      if (state?.path) {
+        navigate(state.path);
+      } else {
+        navigate('/');
+      }
     }
     if (error) {
       setErrorMsg(error.error);
       console.error(error.full_error);
     }
-  }, [data, error, navigate, setJwt]);
+  }, [data, error, navigate, setJwt, state]);
 
   useEffect(() => {
     if (!error) {

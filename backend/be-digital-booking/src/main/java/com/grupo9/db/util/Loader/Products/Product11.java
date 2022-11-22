@@ -51,7 +51,7 @@ public class Product11 {
         policies.add(policy2);
         policies.add(policy3);
 
-        Product product11 = new Product("Heaven Catedral", "A  11,5 km del centro", 4.0F, 8.5F, "Apartamento de 1 dormitorio", "El HEAVEN CATEDRAL se encuentra en San Carlos de Bariloche, a 18 km del centro cívico, y ofrece vistas a la piscina, WiFi gratuita y aparcamiento privado gratuito. El alojamiento cuenta con bañera de hidromasaje.\n\n Todos los alojamientos cuentan con zona de estar, sofá, TV de pantalla plana vía satélite y cocina totalmente equipada con zona de comedor. Hay microondas, nevera, horno, hervidor de agua y cafetera.\n\n Todas las mañanas se sirve un desayuno continental y a la carta.", coordinates3, category3, location6, features3, policies);
+        Product product11 = new Product("Heaven Catedral", "A  11,5 km del centro", 4.0F, 8.5F, "Apartamento de 1 dormitorio", "El HEAVEN CATEDRAL se encuentra en San Carlos de Bariloche, a 18 km del centro cívico, y ofrece vistas a la piscina, WiFi gratuita y aparcamiento privado gratuito. El alojamiento cuenta con bañera de hidromasaje.\n\n Todos los alojamientos cuentan con zona de estar, sofá, TV de pantalla plana vía satélite y cocina totalmente equipada con zona de comedor. Hay microondas, nevera, horno, hervidor de agua y cafetera.\n\n Todas las mañanas se sirve un desayuno continental y a la carta.", coordinates3, category3, location6, "Punta Nevada 652", features3, policies);
 
         iProductRepository.save(product11);
     }

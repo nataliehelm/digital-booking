@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import {
   Heading,
   Subheader,
@@ -9,17 +11,11 @@ import {
   SocialMedia,
 } from '../../atoms';
 import { useBreakpoint, useOnClickOutside } from '../../hooks';
-import {
-  Description,
-  Features,
-  Map,
-  Policies,
-  Carousel,
-  BookingCalendar,
-} from './components';
+import { Description, Features, Map, Policies, Carousel } from './components';
 import cn from 'classnames';
 import styles from './Product.module.scss';
 import { useRef, useState } from 'react';
+import { BookingCalendar } from '../../components';
 
 const Product = ({
   category,
@@ -34,8 +30,10 @@ const Product = ({
   coordinates,
   subtitle,
   description,
+  booking,
   id,
 }) => {
+  const { state } = useAuthContext();
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
@@ -45,6 +43,29 @@ const Product = ({
 
   const breakpoint = useBreakpoint();
 
+  const minDate = new Date();
+
+  const handleOnClick = () => {
+    const path = `/product/${id}/booking`;
+    if (state?.jwt) {
+      navigate(path);
+    } else {
+      navigate('/login', {
+        state: {
+          message:
+            'Para realizar una reserva debes iniciar sesión. Registrate si aún no tienes una cuenta',
+          path,
+        },
+      });
+    }
+  };
+
+  const disabledDates = useMemo(() => {
+    return booking
+      .map((date) => date.booked_dates)
+      .flat()
+      .map((date) => new Date(date));
+  }, [booking]);
   const ref = useRef(null);
   useOnClickOutside(ref, () => setShowSocialMediaModal(false));
 
@@ -99,14 +120,18 @@ const Product = ({
           <Heading variant="h1" classname={styles['booking-title']}>
             Fechas disponibles
           </Heading>
-          <BookingCalendar months={['sm', 'lg'].includes(breakpoint) ? 1 : 2} />
+          <BookingCalendar
+            months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
+            minDate={minDate}
+            disabledDates={disabledDates}
+          />
         </section>
         <section className={styles['col-right']}>
           <Heading variant="h3" classname={styles['booking-subtitle']}>
             Agregá tus fechas de viaje para obtener precios exactos
           </Heading>
           <Button
-            onClick={() => {}}
+            onClick={handleOnClick}
             type="submit"
             variant="b1"
             classname={styles['booking-button']}

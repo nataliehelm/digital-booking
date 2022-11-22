@@ -3,9 +3,8 @@ import { useRef, useEffect } from 'react';
 import { Button, Input } from '../../atoms';
 import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
-
 import styles from './Calendar.module.scss';
-import 'react-date-range/dist/styles.css';
+import '../../react-date-range-styles.scss';
 import { addDays } from 'date-fns';
 
 const Calendar = ({
@@ -58,6 +57,7 @@ const Calendar = ({
       {showCalendar && (
         <>
           <DateRange
+            minDate={new Date()}
             locale={es}
             onChange={(item) => setDatesRange([item.selection])}
             editableDateInputs={false}
@@ -70,7 +70,6 @@ const Calendar = ({
             showDateDisplay={false}
             monthDisplayFormat="MMMM"
             weekdayDisplayFormat="EEEEE"
-            minDate={new Date()}
           />
 
           <div className={styles['buttons-container']}>

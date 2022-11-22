@@ -67,6 +67,10 @@ public class Product {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Column(name = "address", nullable = false , length=100)
+    @NotEmpty(message = "Address is mandatory")
+    private String address;
+
     @ManyToMany()
     @JoinTable(name = "product_feature", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
             @JoinColumn(name = "feature_id") })
@@ -92,14 +96,15 @@ public class Product {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Product(String name, String distance_to_nearest_tourist_site, Category category, Location location, List<Feature> features) {
+    public Product(String name, String distance_to_nearest_tourist_site, Category category, Location location, String address, List<Feature> features) {
         this.name = name;
         this.category = category;
         this.location = location;
+        this.address = address;
         this.features = features;
     }
 
-    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, List<Feature> features, List<Policy> policies) {
+    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies) {
         this.name = name;
         this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
         this.ranking = ranking;
@@ -109,11 +114,12 @@ public class Product {
         this.coordinates = coordinates;
         this.category = category;
         this.location = location;
+        this.address = address;
         this.features = features;
         this.policies = policies;
     }
 
-    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, List<Double> coordinates, Category category, Location location, List<Feature> features, List<Policy> policies) {
+    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies) {
         this.id = id;
         this.name = name;
         this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
@@ -124,6 +130,7 @@ public class Product {
         this.coordinates = coordinates;
         this.category = category;
         this.location = location;
+        this.address = address;
         this.features = features;
         this.policies = policies;
     }
