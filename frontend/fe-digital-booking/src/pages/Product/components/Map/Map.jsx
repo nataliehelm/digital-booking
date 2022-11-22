@@ -24,7 +24,7 @@ const Map = ({ location, coordinates, name, address = '' }) => {
           />
           <Marker position={coordinates}>
             <Tooltip direction="right" offset={[0, 0]} opacity={1}>
-              {`${name} ${address}`}
+              {`${address} - ${name}`}
             </Tooltip>
           </Marker>
         </MapContainer>
@@ -37,6 +37,7 @@ Map.propTypes = {
   location: PropTypes.string.isRequired,
   coordinates: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
+  address: PropTypes.string,
 };
 
 export default Map;

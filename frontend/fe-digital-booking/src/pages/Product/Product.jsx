@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useMemo } from 'react';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import {
   Heading,
@@ -14,13 +13,14 @@ import { useBreakpoint, useOnClickOutside } from '../../hooks';
 import { Description, Features, Map, Policies, Carousel } from './components';
 import cn from 'classnames';
 import styles from './Product.module.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { BookingCalendar } from '../../components';
 
 const Product = ({
   category,
   name,
   address,
+  location,
   reference,
   ranking,
   score,
@@ -69,6 +69,8 @@ const Product = ({
   const ref = useRef(null);
   useOnClickOutside(ref, () => setShowSocialMediaModal(false));
 
+  const fullAddress = `${location.city_name}, ${location.province_name}, ${location.country_name}`;
+
   return (
     <>
       <Subheader title={category} subtitle={name} onBackClick={onBackClick} />
@@ -78,7 +80,7 @@ const Product = ({
             <i className="fa-solid fa-location-dot"></i>
           </aside>
           <aside>
-            <Text variant="t1">{address}</Text>
+            <Text variant="t1">{fullAddress}</Text>
             <Text variant="t1">{reference}</Text>
           </aside>
         </section>
@@ -141,7 +143,12 @@ const Product = ({
         </section>
       </div>
       <div className={styles.container}>
-        <Map location={address} coordinates={coordinates} name={name} />
+        <Map
+          location={fullAddress}
+          coordinates={coordinates}
+          name={name}
+          address={address}
+        />
         <Policies policies={policies} />
       </div>
     </>
