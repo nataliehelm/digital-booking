@@ -2,10 +2,8 @@ import PropTypes from 'prop-types';
 import styles from './Toast.module.scss';
 import cn from 'classnames';
 import { Botton } from './../Botton';
-import { useState } from 'react';
 
-const Toast = ({ variant, label, isClosable }) => {
-  const [showToast, setShowToast] = useState(true);
+const Toast = ({ variant, label, onClick }) => {
   const variantClass = {
     success: styles.success,
     error: styles.error,
@@ -18,18 +16,8 @@ const Toast = ({ variant, label, isClosable }) => {
     ),
   }[variant];
 
-  if (!showToast) return null;
-
   return (
-    <div className={cn(styles.toast, variantClass)}>
-      {isClosable && (
-        <div
-          onClick={() => setShowToast(false)}
-          className={styles['close-icon']}
-        >
-          <i className="fa-solid fa-x fa-xl"></i>
-        </div>
-      )}
+    <div className={cn(styles.toast, variantClass)} onClick={onClick}>
       {variantIcon}
       <Botton variant="b2">{label}</Botton>
     </div>
@@ -39,7 +27,7 @@ const Toast = ({ variant, label, isClosable }) => {
 Toast.propTypes = {
   variant: PropTypes.oneOf(['success', 'error']).isRequired,
   label: PropTypes.string.isRequired,
-  isClosable: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Toast;

@@ -54,6 +54,7 @@ const Product = ({
         state: {
           message:
             'Para realizar una reserva debes iniciar sesión. Registrate si aún no tienes una cuenta',
+          type: 'error',
           path,
         },
       });
