@@ -122,13 +122,11 @@ const Product = ({
           <Heading variant="h1" classname={styles['booking-title']}>
             Fechas disponibles
           </Heading>
-          {
-            <BookingCalendar
-              months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
-              minDate={minDate}
-              disabledDates={disabledDates}
-            />
-          }
+          <BookingCalendar
+            months={['sm', 'lg'].includes(breakpoint) ? 1 : 2}
+            minDate={minDate}
+            disabledDates={disabledDates}
+          />
         </section>
         <section className={styles['col-right']}>
           <Heading variant="h3" classname={styles['booking-subtitle']}>
