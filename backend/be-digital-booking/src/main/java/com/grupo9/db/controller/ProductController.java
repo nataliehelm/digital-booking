@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/page")
-    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 150) Pageable pageable){
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 8) Pageable pageable){
         System.out.println(pageable);
         Page<Product> products = service.findAllPage(pageable);
 
