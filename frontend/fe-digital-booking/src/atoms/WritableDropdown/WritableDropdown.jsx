@@ -5,11 +5,27 @@ import { useOnClickOutside } from '../../hooks';
 import PropTypes from 'prop-types';
 import styles from './WritableDropdown.module.scss';
 
-const WritableDropdown = ({ options, onChange, reset }) => {
+const WritableDropdown = ({
+  options,
+  onChange,
+  reset,
+  placeholder,
+  location,
+}) => {
   const [showList, setShowList] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, () => setShowList(false));
   const search = useInput('');
+
+  useEffect(() => {
+    if (location) {
+      onChange(location);
+      search.onChange({
+        target: { value: location.title || location.description },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   useEffect(() => {
     if (reset) {
@@ -50,7 +66,7 @@ const WritableDropdown = ({ options, onChange, reset }) => {
       <Input
         {...search}
         name="basic-input"
-        placeholder="¿A dónde vamos?"
+        placeholder={placeholder}
         placeholderIcon={<i className="fa-solid fa-location-dot"></i>}
         onFocus={() => setShowList(true)}
         classname={styles['input-with-icon']}
