@@ -1,0 +1,61 @@
+@use '../../../../styles/variables' as *;
+
+.input-title{
+    padding-left: 10px;
+    padding-top: 35px;
+    padding-bottom: 15px;
+    color: $color-secondary;    
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    
+    .reservation-info-container{
+        background-color: $color-white;
+        border: 1px solid #dfe4ea;
+        border-radius: 5px;
+        box-shadow: (0px 4px 4px rgba(0, 0, 0, 0.25));
+        max-width: 100%;
+        height: 100%;
+        padding: 15px;
+        gap: 15px;
+        display: flex;
+        flex-direction: column;
+    
+    .input-divider {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 15px;
+        .input-style{
+            background-color: #DFE4EA;
+            color: $color-tertiary;
+        }
+    }
+}
+}
+
+@media (min-width: $md) {
+    .container{
+        max-width: 850px;
+
+        .reservation-info-container {
+            display: flex;
+            padding: 15px;
+            flex-direction: row;            
+            }
+            .input-divider {
+                justify-content: space-between;
+            }
+    }
+}
+
+@media (min-width: $lg) {
+    .container{
+        max-width: 850px;
+        .reservation-info-container{ 
+            max-width: 850px;
+        }
+    }   
+}
