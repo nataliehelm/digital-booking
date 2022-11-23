@@ -1,7 +1,6 @@
 import { Button, Heading, Rank, Text } from '../../../../atoms';
 import styles from './BookingDetails.module.scss';
-import { format, parseISO } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 
 const BookingDetails = ({
   image,

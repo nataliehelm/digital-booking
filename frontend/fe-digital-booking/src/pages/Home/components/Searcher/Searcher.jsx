@@ -66,6 +66,7 @@ const Searcher = ({
                     onChange={setLocationSelected}
                     options={locations}
                     reset={reset}
+                    placeholder="¿A dónde vamos?"
                   />
                 </div>
               </div>

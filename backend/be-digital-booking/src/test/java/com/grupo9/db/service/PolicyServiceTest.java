@@ -62,21 +62,21 @@ class PolicyServiceTest {
             Assert.assertEquals("TitlePolicy", findByIdPolicy.getTitle());
         }
 
-        @Test
-        @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-        @Order(4)
-        void update() throws ResourceNotFoundException, BadRequestException {
-            SubPolicy createSubPolicy = create();
-            subPolicies.add(createSubPolicy.getId());
-            SavePolicyDto savePolicyDto1 = new SavePolicyDto("TitlePolicy", subPolicies);
-            Policy savePolicyDto = policyService.save(savePolicyDto1);
-            Long createId = savePolicyDto.getId();
-            Policy findByIdPolicy = policyService.findById(createId);
-            Assert.assertEquals("TitlePolicy", findByIdPolicy.getTitle());
-            findByIdPolicy.setTitle("TitlePolicy2");
-            Policy update = policyService.update(createId, savePolicyDto1);
-            Assert.assertEquals("TitlePolicy2", update.getTitle());
-        }
+//        @Test
+//        @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//        @Order(4)
+//        void update() throws ResourceNotFoundException, BadRequestException {
+//            SubPolicy createSubPolicy = create();
+//            subPolicies.add(createSubPolicy.getId());
+//            SavePolicyDto savePolicyDto1 = new SavePolicyDto("TitlePolicy", subPolicies);
+//            Policy savePolicyDto = policyService.save(savePolicyDto1);
+//            Long createId = savePolicyDto.getId();
+//            Policy findByIdPolicy = policyService.findById(createId);
+//            Assert.assertEquals("TitlePolicy", findByIdPolicy.getTitle());
+//            findByIdPolicy.setTitle("TitlePolicy2");
+//            Policy update = policyService.update(createId, savePolicyDto1);
+//            Assert.assertEquals("TitlePolicy2", update.getTitle());
+//        }
 
         @Test
         @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
