@@ -9,6 +9,9 @@ import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,10 +32,18 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false) String token){
-        List<Product> products = service.findAll(token);
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false  ) String token, @PageableDefault(size = 8) Pageable pageable){
+        Page<Product> products = service.findAll(token, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
 
+    }
+
+    @GetMapping(path = "/page")
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 150) Pageable pageable){
+        System.out.println(pageable);
+        Page<Product> products = service.findAllPage(pageable);
+
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
     }
 
     @GetMapping(path = "/{id}")
@@ -49,8 +60,8 @@ public class ProductController {
     }
 
     @GetMapping(path = "/filters")
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
-        List<Product> products = service.findByParams(params);
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByParams(@RequestParam Map<String, String> params, Pageable pageable ) throws BadRequestException, ResourceNotFoundException {
+        Page<Product> products = service.findByParams(params, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
 
     }
