@@ -18,9 +18,9 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
 
     Page <Product> findByOrderByIdAsc(Pageable pageable);
 
-    List<Product> findByCategoryIn(List<Category> categories, Pageable pageable);
+    Page<Product> findByCategoryIn(List<Category> categories, Pageable pageable);
 
-    List<Product> findByLocation(Location location, Pageable pageable);
+    Page<Product> findByLocation(Location location, Pageable pageable);
     
     Page<Product> findByLocationAndCategoryIn(Location location, List<Category> categories, Pageable pageable);
 
@@ -38,7 +38,7 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
             "OR (:startingDate BETWEEN bookings.starting_date AND bookings.ending_date OR :endingDate BETWEEN bookings.starting_date AND bookings.ending_date) " +
             "GROUP BY products.id);",
             nativeQuery=true)
-    List<Product> findAllByStartingDateAndEndingDate(@Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
+    Page<Product> findAllByStartingDateAndEndingDate(@Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
 
     @Query(value="SELECT * " +
             "FROM digital_booking_g9.product " +
@@ -52,7 +52,6 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
             "GROUP BY products.id) " +
             "AND location_id = :locationId;",
             nativeQuery=true)
-    List <Product> findAllByStartingDateAndEndingDateAndLocation(@Param("locationId") String locationId, @Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
+    Page <Product> findAllByStartingDateAndEndingDateAndLocation(@Param("locationId") String locationId, @Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
 
-  //  Page<Product> findAllPage(Pageable pageable);
 }
