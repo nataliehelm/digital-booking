@@ -24,7 +24,7 @@ const BookingContainer = () => {
       const finalLocations = parsedLocationsWithoutCity(_locations);
       setLocations(finalLocations);
       const location = finalLocations.find(
-        (l) => l.id === jwtState.decodedJwt.location.id
+        (l) => l.id === jwtState.decodedJwt.location?.id
       );
       setLocationSelected(location);
     }
