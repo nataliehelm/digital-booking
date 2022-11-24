@@ -12,6 +12,7 @@ import useAuthContext from './providers/AuthProvider/useAuthContext';
 import ResendEmail from './pages/Auth/ResendEmail';
 import withAuthGuardian from './hocs/withAuthGuardian';
 import SuccessBooking from './pages/SuccessBooking';
+import NotFound from './pages/NotFound';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -83,6 +84,7 @@ function App() {
                 />
               }
             />
+            <Route path="*" element={<Layout children={<NotFound />} />} />
           </Routes>
         </div>
         <Footer />
