@@ -7,22 +7,22 @@ const AuthButtons = () => {
   return (
     <section className={styles.container}>
       {!pathname.includes('signup') && (
-        <>
+        <div className={styles.subcontainer}>
           <Link to="/signup" className={styles.button}>
             <Button variant="b2" onClick={console.log}>
               Crear cuenta
             </Button>
           </Link>
-        </>
+        </div>
       )}
       {!pathname.includes('login') && (
-        <>
+        <div className={styles.subcontainer}>
           <Link to="/login" className={styles.button}>
             <Button variant="b2" onClick={console.log}>
               Iniciar sesión
             </Button>
           </Link>
-        </>
+        </div>
       )}
     </section>
   );
