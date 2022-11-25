@@ -7,6 +7,8 @@ import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import { addDays } from 'date-fns/esm';
 import { isSameOrBefore } from '../../utils/dates';
 import { format, parseISO } from 'date-fns';
+import parsedLocations from '../../mappers/locations.mapper';
+import Loader from '../../components/Loader';
 
 const Home = () => {
   const { state } = useAuthContext();
@@ -14,6 +16,7 @@ const Home = () => {
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [datesRange, setDatesRange] = useState([
     {
       startDate: addDays(new Date(), -1),
@@ -31,6 +34,16 @@ const Home = () => {
 
   const { isLoading: isLoadingCategories, data: categories } =
     useFetch('categories');
+
+  const { isLoading: isLoadingLocations, data: _locations } =
+    useFetch('locations');
+
+  useEffect(() => {
+    if (!isLoadingLocations) {
+      const finalLocations = parsedLocations(_locations);
+      setLocations(finalLocations);
+    }
+  }, [_locations, isLoadingLocations]);
 
   useEffect(() => {
     setRequestOptions(null);
@@ -109,6 +122,13 @@ const Home = () => {
     [categoryNames]
   );
 
+  if (isLoadingLocations || isLoadingCategories)
+    return (
+      <div className={styles.loader}>
+        <Loader />
+      </div>
+    );
+
   return (
     <div className={styles['home-container']}>
       {state && state.decodedJwt && !state.decodedJwt.isActive && (
@@ -125,9 +145,9 @@ const Home = () => {
         onSubmit={handleOnSubmit}
         reset={!!categoryIds.length}
         onClick={() => scrollBottom(scrollRef)}
+        locations={locations}
       />
       <CategoryList
-        isLoading={isLoadingCategories}
         categories={categories}
         onClick={handleSelectIds}
         selectedIds={categoryIds}

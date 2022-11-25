@@ -5,10 +5,14 @@ import styles from './ProductList.module.scss';
 const ProductList = ({ products, isLoading, recommendationsTitle }) => {
   if (isLoading)
     return (
-      <div className={styles['product-list-container']}>
-        <figure>
-          <img src="assets/loading-gif.gif" alt="Loading..."></img>
-        </figure>
+      <div className={styles.loader}>
+        <Heading variant="h3">Cargando productos</Heading>
+        <div className={styles['lds-ellipsis']}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     );
 

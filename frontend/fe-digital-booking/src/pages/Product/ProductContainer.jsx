@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/Loader';
 import useFetch from '../../hooks/useFetch/useFetch';
 import Product from './Product';
+import styles from './ProductContainer.module.scss';
 
 const ProductContainer = () => {
   const { id } = useParams();
@@ -8,10 +10,8 @@ const ProductContainer = () => {
 
   if (isLoading)
     return (
-      <div>
-        <figure>
-          <img src="assets/loading-gif.gif" alt="Loading..."></img>
-        </figure>
+      <div className={styles.loader}>
+        <Loader />
       </div>
     );
   const { product, bookings } = data;
