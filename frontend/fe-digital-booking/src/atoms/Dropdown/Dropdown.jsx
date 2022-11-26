@@ -22,28 +22,36 @@ const Dropdown = ({ options, onChange }) => {
         onFocus={() => setShowList(true)}
         classname={styles['input']}
       />
-      <i
-        className={cn('fa-solid fa-chevron-down', styles.chevron)}
-        onClick={() => setShowList(true)}
-      ></i>
+      {!showList && (
+        <div onClick={() => setShowList(true)}>
+          <i className={cn('fa-solid fa-chevron-down', styles.chevron)}></i>
+        </div>
+      )}
+      {showList && (
+        <div onClick={() => setShowList(false)}>
+          <i className={cn('fa-solid fa-chevron-up', styles.chevron)}></i>
+        </div>
+      )}
       {showList && !!options.length && (
         <div className={styles['list-container']}>
-          {options.map((p) => (
-            <Option
-              key={p.id}
-              title={p.title}
-              onClick={() => {
-                onChange({
-                  id: p.id,
-                  title: p.title,
-                });
-                search.onChange({
-                  target: { value: p.title },
-                });
-                setShowList(false);
-              }}
-            />
-          ))}
+          <div className={styles.list}>
+            {options.map((p) => (
+              <Option
+                key={p.id}
+                title={p.title}
+                onClick={() => {
+                  onChange({
+                    id: p.id,
+                    title: p.title,
+                  });
+                  search.onChange({
+                    target: { value: p.title },
+                  });
+                  setShowList(false);
+                }}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

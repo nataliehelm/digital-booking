@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './UserInfoForm.module.scss';
-import cn from 'classnames';
 import { Input, WritableDropdown } from '../../../../atoms';
 
 const UserInfoForm = ({
@@ -35,7 +34,7 @@ const UserInfoForm = ({
           />
         </div>
         <div
-          className={cn(styles['input-divider'], styles['latest-inputs'])}
+          className={styles['input-divider']}
           style={{ position: 'relative' }}
         >
           <Input
@@ -46,14 +45,7 @@ const UserInfoForm = ({
             disabled
             classname={styles['input-style']}
           />
-          <div
-            style={{
-              position: 'absolute',
-              right: '0',
-              marginTop: '23px',
-              zIndex: '2',
-            }}
-          >
+          <div className={styles['locations-container']}>
             <WritableDropdown
               options={locations}
               onChange={onChangeLocation}
@@ -61,6 +53,7 @@ const UserInfoForm = ({
               location={locationSelected}
             />
           </div>
+          <div className={styles.locations}></div>
         </div>
       </div>
     </div>

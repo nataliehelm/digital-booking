@@ -6,12 +6,13 @@
   border-radius: 8px;
   background-color: $color-white;
   position: relative;
-  max-height: 290px;
-  overflow: auto;
+  overflow: hidden;
 
   .list-container {
     height: 100%;
     padding: 15px 20px;
+    overflow: auto;
+    max-height: 290px;
   }
 
   .input {

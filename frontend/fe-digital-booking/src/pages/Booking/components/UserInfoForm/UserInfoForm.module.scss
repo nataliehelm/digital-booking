@@ -26,14 +26,26 @@
       display: flex;
       justify-content: space-between;
       gap: 15px;
+      flex-direction: column;
+
       .input-style {
         background-color: #dfe4ea;
         color: $color-tertiary;
       }
     }
 
-    .latest-inputs > div {
-      width: 49%;
+    .input-divider:last-child > div {
+      width: 100%;
+    }
+    .locations {
+      display: block;
+      height: 64px;
+    }
+    .locations-container {
+      position: absolute;
+      right: 0;
+      margin-top: 90px;
+      z-index: 2;
     }
   }
 }
@@ -44,15 +56,25 @@
       display: flex;
       padding: 15px;
       flex-direction: row;
-    }
-    .input-divider {
-      justify-content: space-between;
+      .input-divider {
+        justify-content: space-between;
+        flex-direction: row;
+      }
+      .input-divider:last-child > div {
+        width: 49%;
+      }
+      .locations {
+        display: none;
+      }
+      .locations-container {
+        margin-top: 23px;
+      }
     }
   }
 }
 
 @media (min-width: $lg) {
   .container {
-    width: 85%;
+    width: 95%;
   }
 }

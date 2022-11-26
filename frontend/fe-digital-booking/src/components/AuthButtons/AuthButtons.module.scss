@@ -14,6 +14,7 @@
     justify-content: flex-end;
     gap: 16px;
     width: 50%;
+    max-width: 600px;
     .subcontainer {
       width: 50%;
 
@@ -21,11 +22,5 @@
         width: 50%;
       }
     }
-  }
-  .container {
-    display: flex;
-    gap: 16px;
-    width: 50%;
-    max-width: 600px;
   }
 }
