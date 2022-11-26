@@ -1,1 +1,1 @@
-export { default } from './SuccessBooking';
+export { default as SuccessBooking } from './SuccessBooking';

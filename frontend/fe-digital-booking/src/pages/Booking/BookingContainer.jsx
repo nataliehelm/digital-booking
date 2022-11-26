@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Loader from '../../components/Loader';
 import useFetch from '../../hooks/useFetch/useFetch';
 import { parsedLocationsWithoutCity } from '../../mappers/locations.mapper';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import Booking from './Booking';
+import styles from './BookingContainer.module.scss';
 
 const BookingContainer = () => {
   const { state: jwtState } = useAuthContext();
@@ -24,7 +26,7 @@ const BookingContainer = () => {
       const finalLocations = parsedLocationsWithoutCity(_locations);
       setLocations(finalLocations);
       const location = finalLocations.find(
-        (l) => l.id === jwtState.decodedJwt.location.id
+        (l) => l.id === jwtState.decodedJwt.location?.id
       );
       setLocationSelected(location);
     }
@@ -32,10 +34,8 @@ const BookingContainer = () => {
 
   if (isLoading || isLoadingLocations)
     return (
-      <div>
-        <figure>
-          <img src="assets/loading-gif.gif" alt="Loading..."></img>
-        </figure>
+      <div className={styles.loader}>
+        <Loader />
       </div>
     );
 
