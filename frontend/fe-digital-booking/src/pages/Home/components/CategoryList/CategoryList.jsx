@@ -3,16 +3,7 @@ import { CategoryCard } from '../CategoryCard';
 import { Heading } from '../../../../atoms';
 import cn from 'classnames';
 
-const CategoryList = ({ isLoading, categories, onClick, selectedIds }) => {
-  if (isLoading)
-    return (
-      <div className={styles['category-list-container']}>
-        <figure>
-          <img src="assets/loading-gif.gif" alt="Loading..."></img>
-        </figure>
-      </div>
-    );
-
+const CategoryList = ({ categories, onClick, selectedIds }) => {
   return (
     <div className={styles['category-list-container']}>
       <div className={styles['list-header']}>
