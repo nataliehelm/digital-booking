@@ -3,9 +3,8 @@ import { useRef, useEffect } from 'react';
 import { Button, Input } from '../../atoms';
 import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
-import styles from './Calendar.module.scss';
-import '../../react-date-range-styles.scss';
 import { addDays } from 'date-fns';
+import styles from './Calendar.module.scss';
 
 const Calendar = ({
   months,
