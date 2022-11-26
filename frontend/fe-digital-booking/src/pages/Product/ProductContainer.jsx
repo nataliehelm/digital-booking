@@ -1,12 +1,10 @@
-import { useParams } from 'react-router-dom';
 import Loader from '../../components/Loader';
-import useFetch from '../../hooks/useFetch/useFetch';
+import useProduct from './hooks/useProduct';
 import Product from './Product';
 import styles from './ProductContainer.module.scss';
 
 const ProductContainer = () => {
-  const { id } = useParams();
-  const { isLoading, data } = useFetch(`products/${id}/bookings`);
+  const { isLoading, data } = useProduct();
 
   if (isLoading)
     return (
@@ -14,15 +12,15 @@ const ProductContainer = () => {
         <Loader />
       </div>
     );
-  const { product, bookings } = data;
+
   return (
     <Product
-      {...product}
-      booking={bookings}
-      address={product.address}
-      reference={product.distance_to_nearest_tourist_site}
-      subtitle={product.description_title}
-      category={product.category.name}
+      {...data.product}
+      booking={data.bookings}
+      address={data.product.address}
+      reference={data.product.distance_to_nearest_tourist_site}
+      subtitle={data.product.description_title}
+      category={data.product.category.name}
     />
   );
 };
