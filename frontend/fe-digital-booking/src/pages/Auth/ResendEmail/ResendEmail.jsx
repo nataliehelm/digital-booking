@@ -5,7 +5,7 @@ import styles from './ResendEmail.module.scss';
 import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 import { useEffect, useState } from 'react';
 
-const ActivateUserInfo = () => {
+const ResendEmail = () => {
   const { error, data, callback: signUpFunction } = useFetchLazy();
   const [disabled, setDisabled] = useState(false);
   const email = useInput('');
@@ -83,4 +83,4 @@ const ActivateUserInfo = () => {
   );
 };
 
-export default ActivateUserInfo;
+export default ResendEmail;

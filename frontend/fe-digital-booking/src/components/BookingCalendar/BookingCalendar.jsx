@@ -2,7 +2,6 @@ import { DateRange } from 'react-date-range';
 import { es } from 'date-fns/locale';
 import { useEffect } from 'react';
 import styles from './BookingCalendar.module.scss';
-import '../../react-date-range-styles.scss';
 import PropTypes from 'prop-types';
 
 const BookingCalendar = ({
