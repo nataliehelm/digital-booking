@@ -52,6 +52,7 @@
 
 @media (min-width: $md) {
   .container {
+    padding-top: 20px;
     .user-form-container {
       display: flex;
       padding: 15px;
@@ -76,5 +77,6 @@
 @media (min-width: $lg) {
   .container {
     width: 95%;
+    padding-top: 0px;
   }
 }
