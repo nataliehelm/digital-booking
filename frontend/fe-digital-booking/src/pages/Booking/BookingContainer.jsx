@@ -1,23 +1,41 @@
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Loader from '../../components/Loader';
 import useFetch from '../../hooks/useFetch/useFetch';
+import { parsedLocationsWithoutCity } from '../../mappers/locations.mapper';
+import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import Booking from './Booking';
+import styles from './BookingContainer.module.scss';
 
 const BookingContainer = () => {
+  const { state: jwtState } = useAuthContext();
   const { id } = useParams();
+  const { isLoading, data } = useFetch(`products/${id}/bookings`);
+  const { isLoading: isLoadingLocations, data: _locations } =
+    useFetch('locations');
+  const [locations, setLocations] = useState([]);
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
-  const minDate = new Date();
 
-  const { isLoading, data } = useFetch(`products/${id}/bookings`);
+  const [locationSelected, setLocationSelected] = useState(null);
 
-  if (isLoading)
+  useEffect(() => {
+    if (!isLoadingLocations) {
+      const finalLocations = parsedLocationsWithoutCity(_locations);
+      setLocations(finalLocations);
+      const location = finalLocations.find(
+        (l) => l.id === jwtState.decodedJwt.location?.id
+      );
+      setLocationSelected(location);
+    }
+  }, [_locations, isLoadingLocations, jwtState]);
+
+  if (isLoading || isLoadingLocations)
     return (
-      <div>
-        <figure>
-          <img src="assets/loading-gif.gif" alt="Loading..."></img>
-        </figure>
+      <div className={styles.loader}>
+        <Loader />
       </div>
     );
 
@@ -32,7 +50,11 @@ const BookingContainer = () => {
       ranking={data.product.ranking}
       address={data.product.address}
       location={`${data.product.location.city_name}, ${data.product.location.province_name}, ${data.product.location.country_name}`}
-      minDate={minDate}
+      minDate={new Date()}
+      locations={locations}
+      user={jwtState.decodedJwt}
+      locationSelected={locationSelected}
+      setLocationSelected={setLocationSelected}
     />
   );
 };

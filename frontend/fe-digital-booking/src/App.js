@@ -1,17 +1,22 @@
-import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-import { Header } from './components/Header';
-import { LogIn, SignUp, UserActivation } from './pages/Auth';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import styles from './App.module.scss';
-import Product from './pages/Product/ProductContainer';
-import ActivateUserInfo from './pages/Auth/ActivateUserInfo/ActivateUserInfo';
-import Booking from './pages/Booking/BookingContainer';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
-import ResendEmail from './pages/Auth/ResendEmail';
 import withAuthGuardian from './hocs/withAuthGuardian';
-import SuccessBooking from './pages/SuccessBooking';
+import styles from './App.module.scss';
+import { Routes, Route } from 'react-router-dom';
+import { Header } from './components/Header';
+import {
+  Booking,
+  Home,
+  Product,
+  ResendEmail,
+  ActivateUserInfo,
+  SuccessBooking,
+  LogIn,
+  SignUp,
+  UserActivation,
+  NotFound,
+} from './pages';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -83,6 +88,7 @@ function App() {
                 />
               }
             />
+            <Route path="*" element={<Layout children={<NotFound />} />} />
           </Routes>
         </div>
         <Footer />

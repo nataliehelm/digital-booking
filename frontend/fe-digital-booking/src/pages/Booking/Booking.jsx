@@ -10,6 +10,7 @@ import times from '../Product/lib/time-list.json';
 import useFetchLazy from '../../hooks/useFetch/useFetchLazy';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import UserInfoForm from './components/UserInfoForm/UserInfoForm';
 
 const Booking = ({
   title,
@@ -22,6 +23,10 @@ const Booking = ({
   location,
   minDate,
   booking,
+  locations,
+  user,
+  locationSelected,
+  setLocationSelected,
 }) => {
   const breakpoint = useBreakpoint();
   const { id } = useParams();
@@ -68,9 +73,10 @@ const Booking = ({
         ending_date: range[0].endDate,
         productId: Number(id),
         userId: state.decodedJwt.userId,
+        locationId: locationSelected.id,
       }),
     };
-    callback('bookings', option);
+    callback('bookings/create-with-user-update', option);
   };
 
   useEffect(() => {
@@ -95,6 +101,14 @@ const Booking = ({
       )}
       <div className={styles.container}>
         <div className={styles['left-container']}>
+          <UserInfoForm
+            email={user.sub}
+            lastname={user.lastname}
+            locations={locations}
+            name={user.name}
+            onChangeLocation={setLocationSelected}
+            locationSelected={locationSelected}
+          />
           <div className={styles['booking-calendar']}>
             <section className={styles['col-left']}>
               <Heading variant="h1" classname={styles['calendar-title']}>
@@ -141,7 +155,7 @@ const Booking = ({
             address={address}
             location={location}
             range={range}
-            disabled={!selectedTime}
+            disabled={!selectedTime || !locationSelected}
             onClick={onClick}
           />
         </div>

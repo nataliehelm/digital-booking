@@ -1,105 +1,29 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
-import { useFetch } from '../../hooks';
+import { useMemo, useRef } from 'react';
 import { ProductList, CategoryList, Searcher } from './components';
-import styles from './Home.module.scss';
 import { Toast } from '../../atoms';
-import useAuthContext from '../../providers/AuthProvider/useAuthContext';
-import { addDays } from 'date-fns/esm';
-import { isSameOrBefore } from '../../utils/dates';
-import { format, parseISO } from 'date-fns';
+import Loader from '../../components/Loader';
+import styles from './Home.module.scss';
 
-const Home = () => {
-  const { state } = useAuthContext();
+const Home = ({
+  authState,
+  categories,
+  categoryIds,
+  categoryNames,
+  datesRange,
+  handleOnSubmit,
+  handleSelectIds,
+  isLoading,
+  isLoadingProducts,
+  locations,
+  locationSelected,
+  products,
+  setDatesRange,
+  setLocationSelected,
+}) => {
   const scrollRef = useRef(null);
-  const [requestOptions, setRequestOptions] = useState(null);
-  const [categoryIds, setCategoryIds] = useState([]);
-  const [categoryNames, setCategoryNames] = useState([]);
-  const [datesRange, setDatesRange] = useState([
-    {
-      startDate: addDays(new Date(), -1),
-      endDate: addDays(new Date(), -1),
-      key: 'selection',
-    },
-  ]);
-  const [locationSelected, setLocationSelected] = useState(null);
-  const [endpoint, setEndpoint] = useState('products');
 
-  const { isLoading: isLoadingProducts, data: products } = useFetch(
-    endpoint,
-    requestOptions
-  );
-
-  const { isLoading: isLoadingCategories, data: categories } =
-    useFetch('categories');
-
-  useEffect(() => {
-    setRequestOptions(null);
-    if (state && state.jwt) {
-      setRequestOptions({
-        headers: {
-          Authorization: state.jwt,
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
-
-  useEffect(() => {
-    if (categoryIds.length > 0) {
-      setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
-      setLocationSelected(null);
-      setDatesRange([
-        {
-          startDate: addDays(new Date(), -1),
-          endDate: addDays(new Date(), -1),
-          key: 'selection',
-        },
-      ]);
-    }
-    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
-    if (!categoryIds.length && !locationSelected && !hasDateFilter) {
-      setEndpoint('products');
-    }
-  }, [categoryIds, datesRange, locationSelected]);
-
-  const handleSelectIds = (id, name) => {
-    if (categoryIds.includes(id)) {
-      setCategoryIds(categoryIds.filter((c) => c !== id));
-      setCategoryNames(categoryNames.filter((c) => c !== name));
-    } else {
-      setCategoryIds([...categoryIds, id]);
-      setCategoryNames([...categoryNames, name]);
-    }
-  };
-
-  const handleOnSubmit = () => {
-    setCategoryIds([]);
-    setCategoryNames([]);
-    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
-    let finalEndpoint = 'products';
-    if (locationSelected || hasDateFilter) {
-      finalEndpoint += '/filters/?';
-      if (locationSelected) {
-        finalEndpoint += `locationId=${locationSelected.id}&`;
-      }
-      if (hasDateFilter) {
-        const { startDate, endDate } = datesRange[0];
-        const startingDate = format(
-          parseISO(startDate.toISOString()),
-          'yyyy-MM-dd'
-        );
-        const endingDate = format(
-          parseISO(endDate.toISOString()),
-          'yyyy-MM-dd'
-        );
-        finalEndpoint += `startingDate=${startingDate}&endingDate=${endingDate}&`;
-      }
-    }
-    setEndpoint(finalEndpoint);
-  };
-
-  const scrollBottom = (e) => {
-    e.current.scrollIntoView({
+  const scrollBottom = (element) => {
+    element.current.scrollIntoView({
       behavior: 'smooth',
     });
   };
@@ -109,9 +33,16 @@ const Home = () => {
     [categoryNames]
   );
 
+  if (isLoading)
+    return (
+      <div className={styles.loader}>
+        <Loader />
+      </div>
+    );
+
   return (
     <div className={styles['home-container']}>
-      {state && state.decodedJwt && !state.decodedJwt.isActive && (
+      {!authState?.decodedJwt?.isActive && (
         <Toast
           variant="error"
           label="No has activado tu cuenta, recuerda activarla y volver a loguearte para disfrutar nuestros servicios"
@@ -125,9 +56,9 @@ const Home = () => {
         onSubmit={handleOnSubmit}
         reset={!!categoryIds.length}
         onClick={() => scrollBottom(scrollRef)}
+        locations={locations}
       />
       <CategoryList
-        isLoading={isLoadingCategories}
         categories={categories}
         onClick={handleSelectIds}
         selectedIds={categoryIds}
