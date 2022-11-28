@@ -7,12 +7,12 @@ import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
-import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -45,12 +45,13 @@ public class ProductService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public List<Product> findAll(String token){
+    public Page<Product> findAll(String token, Pageable pageable){
         if(token != null){
-            return repository.findTop8ByOrderByIdAsc();
+            return repository.findByOrderByIdAsc(pageable);
         }
-        return repository.findAllRandom();
+        return repository.findAllRandom(pageable);
         }
+
 
     public Product findById(Long id) throws ResourceNotFoundException {
         Optional<Product> product = repository.findById(id);
@@ -58,6 +59,10 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
         return product.get();
+    }
+
+    public Page<Product> findAllPage(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public GetProductWithBookingsDto findByIdWithBookings(Long id) throws ResourceNotFoundException {
@@ -84,7 +89,7 @@ public class ProductService {
         return response;
     }
 
-    public List<Product> findByParams(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+    public Page<Product> findByParams(Map<String, String> params, Pageable pageable) throws ResourceNotFoundException, BadRequestException {
         if(params.get("locationId") != null && params.get("categoryId") != null){
             Long locationId = Long.valueOf(params.get("locationId"));
             Optional<Location> location = locationRepository.findById(locationId);
@@ -100,7 +105,7 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-                return repository.findTop8ByLocationAndCategoryIn(location.get(), categories);
+                return repository.findByLocationAndCategoryIn(location.get(), categories, pageable);
         }
         if(params.get("categoryId") != null){
             String[] categoryIds = (params.get("categoryId")).split(",");
@@ -112,7 +117,7 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            return repository.findTop8ByCategoryIn(categories);
+            return repository.findByCategoryIn(categories, pageable);
 
         }
         if(params.get("locationId") != null){
@@ -121,14 +126,13 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            return repository.findTop8ByLocation(location.get());
+            return repository.findByLocation(location.get(), pageable);
         }
 
         if(params.get("startingDate") != null && params.get("endingDate") != null){
             String startingDate = params.get("startingDate");
             String endingDate = params.get("endingDate");
-            return repository.findAllByStartingDateAndEndingDate(startingDate, endingDate);
-
+            return repository.findAllByStartingDateAndEndingDate(startingDate, endingDate, pageable);
         }
 
         if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
@@ -139,14 +143,13 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            return repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate);
+            return repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate, pageable);
         }
 
         throw new BadRequestException("Invalid Params");
     }
 
-
-    public Product save(SaveProductDto productDto) throws ResourceNotFoundException {
+        public Product save(SaveProductDto productDto) throws ResourceNotFoundException {
         Product product = productBuilder(productDto, null);
         return repository.save(product);
     }
@@ -209,5 +212,4 @@ public class ProductService {
 
         return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies);
     }
-
 }
