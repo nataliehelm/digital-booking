@@ -1,12 +1,13 @@
 @use './../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .subheader-container {
-  background-color: $color-tertiary;
   width: 100%;
   display: flex;
   justify-content: space-between;
   color: $color-white;
   line-height: 23px;
+  @include variable(color-tertiary, background-color, $theme-a-color-tertiary);
 
   aside {
     margin: 9px;

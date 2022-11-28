@@ -1,4 +1,5 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .loader {
   display: flex;
@@ -20,8 +21,8 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: $color-primary;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  @include variable(color-primary, background-color, $theme-a-color-primary);
 }
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
@@ -69,7 +70,7 @@
   padding: 36px 13px 3px;
 
   .list-header {
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
   .list ul {
     display: grid;

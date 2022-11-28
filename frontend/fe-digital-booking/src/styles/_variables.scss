@@ -14,18 +14,32 @@ $text-1: 14px;
 $text-2: 12px;
 
 // Colors
-$color-primary: #1dbeb4;
-$color-secondary: #383b58;
-$color-tertiary: #545776;
-$color-light-grey: #f3f1ed;
 $color-white: #ffffff;
 $color-error: #ff0000;
+$color-dark-red: #b00020;
 $color-error-opacity: #fbe3e3;
 $color-error-background: #ffe1e1;
 $color-grey: #7f7f7f;
 $color-snow: #f9f9f9;
 $color-dark-grey: #4f4f50;
-$color-dark-red: #b00020;
+
+// Theme A
+$theme-a-color-primary: #1dbeb4;
+$theme-a-color-secondary: #383b58;
+$theme-a-color-tertiary: #545776;
+$theme-a-color-quaternary: #f3f1ed;
+
+// Theme B
+$theme-b-color-primary: #f0572d;
+$theme-b-color-secondary: #31363f;
+$theme-b-color-tertiary: #191b1d;
+$theme-b-color-quaternary: #dfe4ea;
+
+// Theme C
+$theme-c-color-primary: #fbc02d;
+$theme-c-color-secondary: #263238;
+$theme-c-color-tertiary: #607d8b;
+$theme-c-color-quaternary: #fffbe2;
 
 // Breakpoints
 $sm: 640px;

@@ -1,11 +1,12 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .description-container {
   padding: 30px 0px;
 
   .title {
     padding-right: 64px;
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
   .description {
     white-space: pre-line;

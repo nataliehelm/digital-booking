@@ -1,4 +1,5 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .category-list-container {
   background-color: $color-white;
@@ -12,7 +13,7 @@
     }
   }
   .list-header {
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
   .list {
     padding-bottom: 10px;
@@ -29,8 +30,9 @@
 }
 
 .selected {
-  border: 4px solid $color-primary;
+  border: 4px solid;
   border-radius: 10px;
+  @include variable(color-primary, border-color, $theme-a-color-primary);
 }
 
 @media (min-width: $md) {

@@ -47,19 +47,50 @@ h4 {
 }
 
 // Colors
+// Themes
 
-.color-primary {
+// Theme A
+.theme-a-color-primary {
   color: #1dbeb4;
 }
-.color-secondary {
+.theme-a-color-secondary {
   color: #383b58;
 }
-.color-tertiary {
+.theme-a-color-tertiary {
   color: #545776;
 }
-.color-light-grey {
+.theme-a-color-quaternary {
   color: #f3f1ed;
 }
+
+// Theme B
+.theme-b-color-primary {
+  color: #f0572d;
+}
+.theme-b-color-secondary {
+  color: #31363f;
+}
+.theme-b-color-tertiary {
+  color: #191b1d;
+}
+.theme-b-color-quaternary {
+  color: #dfe4ea;
+}
+
+// Theme C
+.theme-c-color-primary {
+  color: #fbc02d;
+}
+.theme-c-color-secondary {
+  color: #263238;
+}
+.theme-c-color-tertiary {
+  color: #607d8b;
+}
+.theme-c-color-quaternary {
+  color: #fffbe2;
+}
+
 .color-white {
   color: #ffffff;
 }

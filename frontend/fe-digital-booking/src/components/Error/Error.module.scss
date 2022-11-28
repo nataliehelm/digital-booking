@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .container {
   height: 100vh;
@@ -16,14 +17,14 @@
   height: 100%;
 
   h1 {
-    color: $color-primary;
+    @include variable(color-primary, color, $theme-a-color-primary);
     margin: 20px;
     font-size: 30px;
   }
 
   h3 {
-    color: $color-secondary;
     margin-bottom: 15px;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
 }
 

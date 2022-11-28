@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Botton } from '../../atoms';
+import { Avatar, Botton, Logo } from '../../atoms';
 import { Drawer } from '../Drawer';
 import AuthButtons from '../AuthButtons';
 import styles from './Header.module.scss';
 import PropTypes from 'prop-types';
+import { THEME, THEME_A, THEME_B } from '../../utils/constants';
 
 const Header = ({ name, lastname, onLogout }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const username = name ? `${name} ${lastname}` : undefined;
+  const theme = localStorage.getItem(THEME) || THEME_A;
+  const logoColor = useMemo(() => {
+    if (theme === THEME_A) {
+      return '#545776';
+    }
+    if (theme === THEME_B) {
+      return '#F0572D';
+    }
+    return '#FBC02D';
+  }, [theme]);
 
   return (
     <>
@@ -16,7 +27,7 @@ const Header = ({ name, lastname, onLogout }) => {
         <>
           <main className={styles['header-container']} id="header">
             <figure style={{ marginTop: '4px' }}>
-              <img src="/assets/logo.svg" alt="DB Logo" />
+              <Logo color={logoColor} />
             </figure>
           </main>
           <div className={styles['drawer-container']}>
@@ -33,7 +44,7 @@ const Header = ({ name, lastname, onLogout }) => {
         <main className={styles['header-container']} id="header">
           <Link to="/">
             <figure>
-              <img src="/assets/logo.svg" alt="DB Logo" />
+              <Logo color={logoColor} />
               <span className={styles['slogan']}>Sentite como en tu hogar</span>
             </figure>
           </Link>

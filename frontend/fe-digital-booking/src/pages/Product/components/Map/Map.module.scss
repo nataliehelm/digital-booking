@@ -1,9 +1,10 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .map-container {
   margin-top: 45px;
   .map-title {
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
 
   .location {
@@ -14,9 +15,10 @@
   .divider {
     height: 0;
     margin: 10px 0;
-    border-top: 1.3px solid $color-primary;
+    border-top: 1.3px solid;
     margin-left: -43px;
     width: 150vw;
+    @include variable(color-primary, border-color, $theme-a-color-primary);
   }
 
   .map {

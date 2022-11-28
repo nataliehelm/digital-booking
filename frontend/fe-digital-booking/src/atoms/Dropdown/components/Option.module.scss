@@ -1,4 +1,5 @@
 @use './../../../styles/variables' as *;
+@import './../../../styles/mixins';
 
 .option-container {
   display: flex;
@@ -6,8 +7,12 @@
   width: 100%;
 
   :hover {
-    background-color: $color-light-grey;
     cursor: pointer;
+    @include variable(
+      color-quaternary,
+      background-color,
+      $theme-a-color-quaternary
+    );
   }
 
   > div {
@@ -19,14 +24,15 @@
     p {
       font-size: 16px;
       line-height: 19px;
-      color: $color-tertiary;
+      @include variable(color-tertiary, color, $theme-a-color-tertiary);
     }
   }
 
   .divider {
     height: 0;
     margin: 10px 0;
-    border-top: 1px solid #1dbeb4;
+    border-top: 1px solid;
     cursor: default;
+    @include variable(color-primary, border-color, $theme-a-color-primary);
   }
 }

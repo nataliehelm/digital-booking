@@ -1,26 +1,28 @@
-@use "./../../styles/variables" as *;
+@use './../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .button-1 {
   height: 40px;
   width: 100%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
-  background-color: $color-primary;
   color: $color-white;
+  @include variable(color-primary, background-color, $theme-a-color-primary);
 }
 
 .button-2 {
   height: 40px;
   width: 100%;
   background: $color-white;
-  border: 1px solid $color-primary;
+  border: 1px solid;
   border-radius: 5px;
-  color: $color-primary;
+  @include variable(color-primary, border-color, $theme-a-color-primary);
+  @include variable(color-primary, color, $theme-a-color-primary);
 }
 
 .disabled {
   background: $color-grey;
   cursor: not-allowed;
   opacity: 0.4;
-  color: $color-secondary;
+  @include variable(color-secondary, color, $theme-a-color-secondary);
 }

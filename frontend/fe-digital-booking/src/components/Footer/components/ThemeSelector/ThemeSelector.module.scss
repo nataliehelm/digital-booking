@@ -1,0 +1,25 @@
+@use './../../../../styles/variables' as *;
+
+.theme-container {
+  display: flex;
+  gap: 10px;
+  width: auto;
+
+  .theme {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: 1.5px solid black;
+    cursor: pointer;
+  }
+
+  .theme-a {
+    background-color: $theme-a-color-primary;
+  }
+  .theme-b {
+    background-color: $theme-b-color-primary;
+  }
+  .theme-c {
+    background-color: $theme-c-color-primary;
+  }
+}

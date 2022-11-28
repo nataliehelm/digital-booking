@@ -1,9 +1,10 @@
 @use '../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .input-title {
   padding-left: 10px;
   padding-bottom: 15px;
-  color: $color-secondary;
+  @include variable(color-secondary, color, $theme-a-color-secondary);
 }
 
 .container {
@@ -30,7 +31,7 @@
 
       .input-style {
         background-color: #dfe4ea;
-        color: $color-tertiary;
+        @include variable(color-tertiary, color, $theme-a-color-tertiary);
       }
     }
 

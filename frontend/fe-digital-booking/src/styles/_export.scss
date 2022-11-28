@@ -1,4 +1,4 @@
-@import "./variables";
+@import './variables';
 
 :export {
   fontPrimary: $font-primary;
@@ -14,14 +14,23 @@
   text2: $text-2;
 
   // Colors
-  colorPrimary: $color-primary;
-  colorSecondary: $color-secondary;
-  colorTertiary: $color-tertiary;
-  colorLightGrey: $color-light-grey;
-  colorWhite: $color-white;
-  colorError: $color-error;
-  colorErrorBackground: $color-error-background;
-  colorGrey: $color-grey;
+  // Theme A
+  themeAColorPrimary: $theme-a-color-primary;
+  themeAColorSecondary: $theme-a-color-secondary;
+  themeAColorTertiary: $theme-a-color-tertiary;
+  themeAColorQuaternary: $theme-a-color-quaternary;
+
+  // Theme B
+  themeBColorPrimary: $theme-b-color-primary;
+  themeBColorSecondary: $theme-b-color-secondary;
+  themeBColorTertiary: $theme-b-color-tertiary;
+  themeBColorQuaternary: $theme-b-color-quaternary;
+
+  // Theme C
+  themeCColorPrimary: $theme-c-color-primary;
+  themeCColorSecondary: $theme-c-color-secondary;
+  themeCColorTertiary: $theme-c-color-tertiary;
+  themeCColorQuaternary: $theme-c-color-quaternary;
 
   // Breakpoints
   sm: $sm;

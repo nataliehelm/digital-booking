@@ -1,4 +1,5 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .card {
   background-color: $color-white;
@@ -49,21 +50,22 @@
     .description {
       margin-bottom: 13px;
       h4 {
-        color: $color-secondary;
         opacity: 1;
 
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        @include variable(color-secondary, color, $theme-a-color-secondary);
       }
     }
     .product-name {
       gap: 5px;
-      color: $color-secondary;
       display: flex;
       justify-content: space-between;
       padding-bottom: 20px;
+      @include variable(color-secondary, color, $theme-a-color-secondary);
+
       img {
         width: 75px;
       }
@@ -82,10 +84,8 @@
       }
       .product-score {
         align-items: center;
-        background-color: $color-secondary;
         border-radius: 10px;
-        border: 1px solid $color-secondary;
-        color: $color-light-grey;
+        border: 1px solid;
         display: flex;
         font-size: 17px;
         font-weight: 600;
@@ -93,21 +93,33 @@
         justify-content: center;
         text-align: center;
         width: 34px;
+        @include variable(
+          color-secondary,
+          background-color,
+          $theme-a-color-secondary
+        );
+        @include variable(
+          color-secondary,
+          border-color,
+          $theme-a-color-secondary
+        );
+        @include variable(color-quaternary, color, $theme-a-color-quaternary);
       }
     }
     .location {
-      color: $color-secondary;
       display: flex;
       font-weight: 500;
       gap: 6px;
       padding-bottom: 20px;
+      @include variable(color-secondary, color, $theme-a-color-secondary);
+
       span.show-map {
-        color: $color-primary;
+        @include variable(color-primary, color, $theme-a-color-primary);
       }
       svg {
         position: relative;
-        color: $color-secondary;
         padding: 0;
+        @include variable(color-secondary, color, $theme-a-color-secondary);
       }
     }
     .services {
@@ -131,9 +143,9 @@
       .services {
         display: inline;
         svg {
-          color: $color-secondary;
           position: relative;
           padding: 0 7px 15px 0;
+          @include variable(color-secondary, color, $theme-a-color-secondary);
         }
       }
     }

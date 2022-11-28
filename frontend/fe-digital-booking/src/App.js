@@ -3,8 +3,11 @@ import Layout from './components/Layout';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
 import styles from './App.module.scss';
-import { Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
+import { useState } from 'react';
+import { useTheme } from './hooks';
+import { Routes, Route } from 'react-router-dom';
+import { THEME, THEMES, THEME_A } from './utils/constants';
 import {
   Booking,
   Home,
@@ -19,11 +22,18 @@ import {
 } from './pages';
 
 function App() {
+  const [theme, setTheme] = useState(localStorage.getItem(THEME) || THEME_A);
+  useTheme(THEMES[theme]);
   const { state, cleanJwt } = useAuthContext();
 
   const handleOnLogout = () => {
     localStorage.removeItem('jwt');
     cleanJwt();
+  };
+
+  const handleTheme = (theme) => {
+    setTheme(theme);
+    localStorage.setItem(THEME, theme);
   };
 
   const BookingContainer = withAuthGuardian(() => <Booking />);
@@ -91,7 +101,7 @@ function App() {
             <Route path="*" element={<Layout children={<NotFound />} />} />
           </Routes>
         </div>
-        <Footer />
+        <Footer handleTheme={handleTheme} />
       </div>
     </>
   );

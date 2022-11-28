@@ -1,15 +1,16 @@
-@use "./../../styles/variables" as *;
+@use './../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .social {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   font-size: 24px;
-  color: $color-tertiary;
   gap: 17.04px;
+  @include variable(color-tertiary, color, $theme-a-color-tertiary);
 
   a {
-    color: $color-tertiary;
+    @include variable(color-tertiary, color, $theme-a-color-tertiary);
   }
 }
 

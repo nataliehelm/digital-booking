@@ -1,4 +1,6 @@
 @use './../../styles/variables' as *;
+@import './../../styles/mixins';
+
 span.rank {
   margin: 0 3px;
   font-size: 10px;
@@ -7,6 +9,6 @@ span.rank {
     color: #bebebe;
   }
   .star-on {
-    color: $color-primary;
+    @include variable(color-primary, color, $theme-a-color-primary);
   }
 }

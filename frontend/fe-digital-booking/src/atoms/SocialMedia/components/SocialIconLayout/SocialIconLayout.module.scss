@@ -1,12 +1,13 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .icon {
   font-size: 30px;
   cursor: pointer;
   width: auto;
-  color: $color-tertiary;
+  @include variable(color-tertiary, color, $theme-a-color-tertiary);
 }
 
 .icon:hover {
-  color: $color-primary;
+  @include variable(color-primary, color, $theme-a-color-primary);
 }

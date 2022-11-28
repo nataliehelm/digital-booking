@@ -1,11 +1,10 @@
 @use './../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .score-container {
   align-items: center;
-  background-color: $color-secondary;
   border-radius: 10px;
-  border: 1px solid $color-secondary;
-  color: $color-light-grey;
+  border: 1px solid;
   display: flex;
   font-size: 18px;
   font-weight: 700;
@@ -14,4 +13,11 @@
   text-align: center;
   width: 34px;
   min-width: 34px;
+  @include variable(
+    color-secondary,
+    background-color,
+    $theme-a-color-secondary
+  );
+  @include variable(color-secondary, border-color, $theme-a-color-secondary);
+  @include variable(color-quaternary, color, $theme-a-color-quaternary);
 }

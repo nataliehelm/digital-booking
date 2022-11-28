@@ -1,21 +1,23 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .policies-container {
   margin-top: 60px;
   .title {
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
 
   .divider {
     height: 0;
     margin: 10px 0;
-    border-top: 1.3px solid $color-primary;
+    border-top: 1.3px solid;
+    @include variable(color-primary, border-color, $theme-a-color-primary);
     margin-left: -43px;
     width: 150vw;
   }
 
   .subtitle {
-    color: $color-tertiary;
+    @include variable(color-tertiary, color, $theme-a-color-tertiary);
   }
 
   .policy {

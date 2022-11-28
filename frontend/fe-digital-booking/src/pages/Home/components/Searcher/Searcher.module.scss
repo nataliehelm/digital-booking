@@ -1,8 +1,14 @@
 @use './../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .searcher-container {
-  background-color: $color-secondary;
   padding-bottom: 20px;
+  @include variable(
+    color-secondary,
+    background-color,
+    $theme-a-color-secondary
+  );
+
   h1 {
     color: $color-white;
     font-weight: 700;

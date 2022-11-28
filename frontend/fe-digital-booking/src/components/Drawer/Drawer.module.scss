@@ -1,4 +1,5 @@
 @use './../../styles/variables' as *;
+@import './../../styles/mixins';
 
 .drawer-container {
   height: 100vh;
@@ -12,13 +13,13 @@
   z-index: 3;
 
   header {
-    background-color: $color-primary;
     color: $color-white;
     display: flex;
     flex-direction: column;
     height: 175px;
     justify-content: space-between;
     padding: 12px 10px 6px 14px;
+    @include variable(color-primary, background-color, $theme-a-color-primary);
 
     button {
       width: min-content;
@@ -32,8 +33,8 @@
 
 .divider,
 .divider-logout {
-  background-color: $color-tertiary;
   height: 1px;
+  @include variable(color-tertiary, background-color, $theme-a-color-tertiary);
 }
 
 .divider {
@@ -59,7 +60,7 @@
   align-self: flex-end;
   margin-right: 15px;
   cursor: pointer;
-  color: $color-secondary;
+  @include variable(color-secondary, color, $theme-a-color-secondary);
 }
 
 .footer {
@@ -88,7 +89,7 @@
   }
 
   .user-name {
-    color: $color-secondary;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
 }
 
@@ -99,7 +100,7 @@
 }
 
 .span-logout {
-  color: $color-primary;
+  @include variable(color-primary, color, $theme-a-color-primary);
 }
 
 .social-network-container {

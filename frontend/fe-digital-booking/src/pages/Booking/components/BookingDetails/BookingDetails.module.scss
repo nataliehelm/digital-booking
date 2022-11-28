@@ -1,4 +1,5 @@
 @use '../../../../styles/variables' as *;
+@import './../../../../styles/mixins';
 
 .container {
   display: flex;
@@ -9,9 +10,9 @@
   border-radius: 8px;
 
   .title {
-    color: $color-secondary;
     padding: 20px 10px 10px;
     font-size: 20px;
+    @include variable(color-secondary, color, $theme-a-color-secondary);
   }
   .wrapper {
     .image img {
@@ -26,14 +27,14 @@
       }
       h2,
       h3 {
-        color: $color-secondary;
+        @include variable(color-secondary, color, $theme-a-color-secondary);
       }
 
       .location {
         display: flex;
         flex-direction: row;
         gap: 5px;
-        color: $color-secondary;
+        @include variable(color-secondary, color, $theme-a-color-secondary);
         padding-top: 10px;
       }
       .divider {
