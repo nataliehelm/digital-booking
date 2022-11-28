@@ -46,6 +46,7 @@
 
 @media (min-width: $lg) {
   .category-list-container {
+    padding: 36px 40px 3px;
     .list ul {
       grid-template-columns: $col-4;
     }

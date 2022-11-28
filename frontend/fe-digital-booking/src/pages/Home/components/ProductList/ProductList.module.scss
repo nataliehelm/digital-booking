@@ -77,9 +77,15 @@
   }
 }
 
+@media (min-width: $md) {
+  .product-list-container {
+    padding: 36px 30px 3px;
+  }
+}
+
 @media (min-width: $lg) {
   .product-list-container {
-    padding: 20px 50px;
+    padding: 20px 40px;
     .list ul {
       grid-template-columns: $col-2;
       gap: 10px;

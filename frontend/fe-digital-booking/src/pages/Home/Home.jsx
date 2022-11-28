@@ -42,7 +42,7 @@ const Home = ({
 
   return (
     <div className={styles['home-container']}>
-      {!authState?.decodedJwt?.isActive && (
+      {authState?.decodedJwt?.isActive === false && (
         <Toast
           variant="error"
           label="No has activado tu cuenta, recuerda activarla y volver a loguearte para disfrutar nuestros servicios"
