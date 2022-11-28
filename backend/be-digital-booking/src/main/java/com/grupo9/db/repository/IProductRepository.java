@@ -50,4 +50,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "AND location_id = :locationId;",
             nativeQuery=true)
     List <Product> findAllByStartingDateAndEndingDateAndLocation(@Param("locationId") String locationId, @Param("startingDate") String startingDate, @Param("endingDate") String endingDate);
+
+
+
 }

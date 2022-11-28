@@ -145,7 +145,6 @@ public class ProductService {
         throw new BadRequestException("Invalid Params");
     }
 
-
     public Product save(SaveProductDto productDto) throws ResourceNotFoundException {
         Product product = productBuilder(productDto, null);
         return repository.save(product);
@@ -174,7 +173,6 @@ public class ProductService {
         }
 
     private Product productBuilder (SaveProductDto productDto, Long id) throws ResourceNotFoundException {
-
 
         Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());
         if(category.isEmpty()){
