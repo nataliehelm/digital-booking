@@ -1,20 +1,15 @@
 import PropTypes from 'prop-types';
+import styles from './PaginatorItem.module.scss';
+import cn from 'classnames';
 
-const PaginatorItem = ({ children, onClick, disabled }) => {
+const PaginatorItem = ({ children, onClick, disabled, isCurrent }) => {
   return (
     <button
       onClick={() => onClick(Number(children))}
-      style={{
-        cursor: 'pointer',
-        width: '20px',
-        height: '20px',
-        padding: '20px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '5px',
-      }}
+      className={cn(styles.item, {
+        [styles['is-current']]: isCurrent,
+        [styles.disabled]: disabled,
+      })}
       disabled={disabled}
     >
       {children}
@@ -23,9 +18,11 @@ const PaginatorItem = ({ children, onClick, disabled }) => {
 };
 
 PaginatorItem.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.number])
+    .isRequired,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+  isCurrent: PropTypes.bool,
 };
 
 export default PaginatorItem;

@@ -1,8 +1,17 @@
-import { Heading } from '../../../../atoms';
+import { Heading, Paginator } from '../../../../atoms';
 import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
 
-const ProductList = ({ products, isLoading, recommendationsTitle }) => {
+const ProductList = ({
+  products,
+  isLoading,
+  recommendationsTitle,
+  currentPage,
+  onPageChange,
+  isFirstPage,
+  isLastPage,
+  displayPages,
+}) => {
   if (isLoading)
     return (
       <div className={styles.loader}>
@@ -44,6 +53,15 @@ const ProductList = ({ products, isLoading, recommendationsTitle }) => {
             );
           })}
         </ul>
+      </div>
+      <div className={styles['paginator-container']}>
+        <Paginator
+          currentPage={currentPage}
+          onClick={onPageChange}
+          isFirstPage={isFirstPage}
+          isLastPage={isLastPage}
+          displayPages={displayPages}
+        />
       </div>
     </div>
   );

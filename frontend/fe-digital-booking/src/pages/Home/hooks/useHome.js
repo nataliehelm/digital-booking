@@ -9,7 +9,8 @@ import { format, parseISO } from 'date-fns';
 const useHome = () => {
   const { state } = useAuthContext();
 
-  const [endpoint, setEndpoint] = useState('products');
+  const [currentPage, setCurrentPage] = useState(`page=0`);
+  const [endpoint, setEndpoint] = useState(`products?${currentPage}`);
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
@@ -55,14 +56,16 @@ const useHome = () => {
 
   useEffect(() => {
     if (categoryIds.length > 0) {
-      setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
+      setEndpoint(
+        `products/filters?categoryId=${categoryIds.join(',')}&${currentPage}`
+      );
       setLocationSelected(null);
     }
     const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
     if (!categoryIds.length && !locationSelected && !hasDateFilter) {
-      setEndpoint('products');
+      setEndpoint(`products?${currentPage}`);
     }
-  }, [categoryIds, datesRange, locationSelected]);
+  }, [categoryIds, datesRange, locationSelected, currentPage]);
 
   const handleSelectIds = (id, name) => {
     if (categoryIds.includes(id)) {
@@ -79,9 +82,11 @@ const useHome = () => {
         key: 'selection',
       },
     ]);
+    setCurrentPage(`page=0`);
   };
 
   const handleOnSubmit = () => {
+    setCurrentPage(`page=0`);
     setCategoryIds([]);
     setCategoryNames([]);
     const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
@@ -104,7 +109,11 @@ const useHome = () => {
         finalEndpoint += `startingDate=${startingDate}&endingDate=${endingDate}&`;
       }
     }
-    setEndpoint(finalEndpoint);
+    setEndpoint(finalEndpoint + 'page=0');
+  };
+
+  const handleOnPageChange = (page) => {
+    setCurrentPage(`page=${page - 1}`);
   };
 
   return {
@@ -114,6 +123,7 @@ const useHome = () => {
     categoryNames,
     datesRange,
     handleOnSubmit,
+    handleOnPageChange,
     handleSelectIds,
     isLoading: isLoadingLocations || isLoadingCategories,
     isLoadingProducts,
