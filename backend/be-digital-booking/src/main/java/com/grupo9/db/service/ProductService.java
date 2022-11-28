@@ -117,7 +117,7 @@ public class ProductService {
                 }
                 categories.add(category.get());
             }
-            return (Page<Product>) repository.findByCategoryIn(categories, pageable);
+            return repository.findByCategoryIn(categories, pageable);
 
         }
         if(params.get("locationId") != null){
@@ -126,14 +126,13 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            return (Page<Product>) repository.findByLocation(location.get(), pageable);
+            return repository.findByLocation(location.get(), pageable);
         }
 
         if(params.get("startingDate") != null && params.get("endingDate") != null){
             String startingDate = params.get("startingDate");
             String endingDate = params.get("endingDate");
-            return (Page<Product>) repository.findAllByStartingDateAndEndingDate(startingDate, endingDate, pageable);
-
+            return repository.findAllByStartingDateAndEndingDate(startingDate, endingDate, pageable);
         }
 
         if(params.get("starting_date") != null && params.get("ending_date") != null && params.get("locationId") != null){
@@ -144,7 +143,7 @@ public class ProductService {
             if(location.isEmpty()){
                 throw new ResourceNotFoundException("Location with id " + locationId + " not found");
             }
-            return (Page<Product>) repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate, pageable);
+            return repository.findAllByStartingDateAndEndingDateAndLocation(locationId, startingDate, endingDate, pageable);
         }
 
         throw new BadRequestException("Invalid Params");
@@ -213,5 +212,4 @@ public class ProductService {
 
         return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies);
     }
-
 }

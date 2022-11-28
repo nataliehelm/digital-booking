@@ -36,7 +36,7 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
             "ON bookings.product_id = products.id " +
             "WHERE (bookings.starting_date BETWEEN :startingDate AND :endingDate OR bookings.ending_date BETWEEN :startingDate AND :endingDate) " +
             "OR (:startingDate BETWEEN bookings.starting_date AND bookings.ending_date OR :endingDate BETWEEN bookings.starting_date AND bookings.ending_date) " +
-            "GROUP BY products.id);",
+            "GROUP BY products.id)",
             nativeQuery=true)
     Page<Product> findAllByStartingDateAndEndingDate(@Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
 
@@ -50,8 +50,7 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
             "WHERE (bookings.starting_date BETWEEN :startingDate AND :endingDate OR bookings.ending_date BETWEEN :startingDate AND :endingDate) " +
             "OR (:startingDate BETWEEN bookings.starting_date AND bookings.ending_date OR :endingDate BETWEEN bookings.starting_date AND bookings.ending_date) " +
             "GROUP BY products.id) " +
-            "AND location_id = :locationId;",
+            "AND location_id = :locationId",
             nativeQuery=true)
     Page <Product> findAllByStartingDateAndEndingDateAndLocation(@Param("locationId") String locationId, @Param("startingDate") String startingDate, @Param("endingDate") String endingDate, Pageable pageable);
-
 }

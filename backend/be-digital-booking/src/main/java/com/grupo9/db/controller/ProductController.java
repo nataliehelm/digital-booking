@@ -30,19 +30,15 @@ public class ProductController {
     @Autowired
     private ResponsesBuilder responsesBuilder;
 
-
     @GetMapping
     public ResponseEntity<ApiResponse<Page<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false  ) String token, @PageableDefault(size = 8) Pageable pageable){
         Page<Product> products = service.findAll(token, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
-
     }
 
     @GetMapping(path = "/page")
     public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 8) Pageable pageable){
-        System.out.println(pageable);
         Page<Product> products = service.findAllPage(pageable);
-
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
     }
 
@@ -56,14 +52,12 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         GetProductWithBookingsDto response = service.findByIdWithBookings(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
-
     }
 
     @GetMapping(path = "/filters")
-    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByParams(@RequestParam Map<String, String> params, Pageable pageable ) throws BadRequestException, ResourceNotFoundException {
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByParams(@RequestParam Map<String, String> params, @PageableDefault(size = 8) Pageable pageable ) throws BadRequestException, ResourceNotFoundException {
         Page<Product> products = service.findByParams(params, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -71,7 +65,6 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
         Product response =  service.save(product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -79,7 +72,6 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException, BadRequestException {
         Product response = service.update(id, product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product updated successfully", response, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -87,7 +79,5 @@ public class ProductController {
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         service.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Product deleted successfully", null, null);
-
     }
-
 }
