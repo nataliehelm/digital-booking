@@ -29,8 +29,10 @@ const ProductList = ({
     <div className={styles['product-list-container']}>
       <div className={styles['list-header']}>
         <Heading variant="h1">
-          Recomendaciones{' '}
-          {recommendationsTitle && `de: ${recommendationsTitle}`}
+          <>
+            Recomendaciones{' '}
+            {recommendationsTitle && `de: ${recommendationsTitle}`}
+          </>
         </Heading>
       </div>
       <div className={styles.list}>

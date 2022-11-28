@@ -46,7 +46,7 @@ const Paginator = ({
 Paginator.propTypes = {
   currentPage: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
-  totalPages: PropTypes.number.isRequired,
+  totalPages: PropTypes.number,
   numberOfElements: PropTypes.number,
   totalElements: PropTypes.number,
   isFirstPage: PropTypes.bool.isRequired,
