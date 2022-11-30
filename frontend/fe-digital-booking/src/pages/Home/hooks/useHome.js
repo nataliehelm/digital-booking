@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useAuthContext from '../../../providers/AuthProvider/useAuthContext';
 import parsedLocations from '../../../mappers/locations.mapper';
 import { useEffect, useState } from 'react';
@@ -5,11 +6,13 @@ import { useFetch } from '../../../hooks';
 import { addDays } from 'date-fns/esm';
 import { isSameOrBefore } from '../../../utils/dates';
 import { format, parseISO } from 'date-fns';
+import useFetchLazy from '../../../hooks/useFetch/useFetchLazy';
 
 const useHome = () => {
   const { state } = useAuthContext();
 
-  const [endpoint, setEndpoint] = useState('products');
+  const [currentPage, setCurrentPage] = useState(`page=0`);
+  const [endpoint, setEndpoint] = useState(`products`);
   const [requestOptions, setRequestOptions] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
   const [categoryNames, setCategoryNames] = useState([]);
@@ -23,10 +26,11 @@ const useHome = () => {
     },
   ]);
 
-  const { isLoading: isLoadingProducts, data: products } = useFetch(
-    endpoint,
-    requestOptions
-  );
+  const {
+    isLoading: isLoadingProducts,
+    data: products,
+    callback,
+  } = useFetchLazy();
 
   const { isLoading: isLoadingCategories, data: categories } =
     useFetch('categories');
@@ -34,37 +38,8 @@ const useHome = () => {
   const { isLoading: isLoadingLocations, data: _locations } =
     useFetch('locations');
 
-  useEffect(() => {
-    if (!isLoadingLocations) {
-      const finalLocations = parsedLocations(_locations);
-      setLocations(finalLocations);
-    }
-  }, [_locations, isLoadingLocations]);
-
-  useEffect(() => {
-    setRequestOptions(null);
-    if (state && state.jwt) {
-      setRequestOptions({
-        headers: {
-          Authorization: state.jwt,
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
-
-  useEffect(() => {
-    if (categoryIds.length > 0) {
-      setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
-      setLocationSelected(null);
-    }
-    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
-    if (!categoryIds.length && !locationSelected && !hasDateFilter) {
-      setEndpoint('products');
-    }
-  }, [categoryIds, datesRange, locationSelected]);
-
   const handleSelectIds = (id, name) => {
+    setCurrentPage(`page=0`);
     if (categoryIds.includes(id)) {
       setCategoryIds(categoryIds.filter((c) => c !== id));
       setCategoryNames(categoryNames.filter((c) => c !== name));
@@ -82,6 +57,7 @@ const useHome = () => {
   };
 
   const handleOnSubmit = () => {
+    setCurrentPage(`page=0`);
     setCategoryIds([]);
     setCategoryNames([]);
     const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
@@ -107,6 +83,48 @@ const useHome = () => {
     setEndpoint(finalEndpoint);
   };
 
+  const handleOnPageChange = (page) => {
+    setCurrentPage(`page=${page - 1}`);
+  };
+
+  useEffect(() => {
+    if (!isLoadingLocations) {
+      const finalLocations = parsedLocations(_locations);
+      setLocations(finalLocations);
+    }
+  }, [_locations, isLoadingLocations]);
+
+  useEffect(() => {
+    setRequestOptions(null);
+    if (state && state.jwt) {
+      setRequestOptions({
+        headers: {
+          Authorization: state.jwt,
+        },
+      });
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (categoryIds.length > 0) {
+      setEndpoint(`products/filters?categoryId=${categoryIds.join(',')}`);
+      setLocationSelected(null);
+    }
+    const hasDateFilter = isSameOrBefore(new Date(), datesRange[0].startDate);
+    if (!categoryIds.length && !locationSelected && !hasDateFilter) {
+      setEndpoint(`products`);
+    }
+  }, [categoryIds, datesRange, locationSelected, currentPage]);
+
+  useEffect(() => {
+    const endpointHasFilters = endpoint.includes('?');
+    if (endpointHasFilters) {
+      callback(`${endpoint}&${currentPage}`, requestOptions);
+    } else {
+      callback(`${endpoint}?${currentPage}`, requestOptions);
+    }
+  }, [currentPage, endpoint]);
+
   return {
     authState: state,
     categories,
@@ -114,6 +132,7 @@ const useHome = () => {
     categoryNames,
     datesRange,
     handleOnSubmit,
+    handleOnPageChange,
     handleSelectIds,
     isLoading: isLoadingLocations || isLoadingCategories,
     isLoadingProducts,

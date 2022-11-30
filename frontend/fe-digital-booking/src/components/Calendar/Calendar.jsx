@@ -55,6 +55,7 @@ const Calendar = ({
         onClick={() => {
           setShowCalendar(true);
         }}
+        onChange={() => {}}
       />
       {showCalendar && (
         <>
