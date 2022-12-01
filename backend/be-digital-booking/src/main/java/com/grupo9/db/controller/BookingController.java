@@ -14,6 +14,8 @@ import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,6 +43,12 @@ public class BookingController {
     public ResponseEntity<ApiResponse<List<Booking>, Object>> findByParams(@RequestParam Map<String, String> params) throws BadRequestException {
         List<Booking> bookings = bookingService.findByParams(params);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List by Product Id successfully",bookings, null);
+    }
+
+    @GetMapping(path = "/user/{id}")
+    public ResponseEntity<ApiResponse<Page<Booking>, Object>> findAllBookingsByUserId(@PathVariable("id") Long id, Pageable pageable) throws ResourceNotFoundException {
+        Page<Booking> bookings = bookingService.findAllBookingsByUserId(id, pageable);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List by user Id successfully",bookings, null);
     }
 
     @GetMapping(path = "/{id}")

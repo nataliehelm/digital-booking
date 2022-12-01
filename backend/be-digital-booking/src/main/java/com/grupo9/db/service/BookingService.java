@@ -11,6 +11,8 @@ import com.grupo9.db.repository.IBookingRepository;
 import com.grupo9.db.repository.IUserRepository;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,11 @@ public class BookingService {
     public List<Booking> findAllBookingsByProductId(Long productId) {
         List<Booking> bookings = iBookingRepository.findBookedDatesByProductId(productId);
         return bookings;
+    }
+
+    public Page<Booking> findAllBookingsByUserId(Long userId, Pageable pageable) {
+        Page<Booking> bookingsByUserId = iBookingRepository.findAllBookingsByUserId(userId, pageable);
+        return bookingsByUserId;
     }
 
     public Booking findById(Long id) throws ResourceNotFoundException {

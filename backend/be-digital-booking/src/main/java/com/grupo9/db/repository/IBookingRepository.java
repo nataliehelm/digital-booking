@@ -1,6 +1,8 @@
 package com.grupo9.db.repository;
 
 import com.grupo9.db.model.Booking;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +18,7 @@ public interface IBookingRepository extends JpaRepository<Booking, Long> {
             "ON bookings.product_id = products.id " +
             "WHERE products.id = :locationId ", nativeQuery = true)
     List <Booking> findBookedDatesByProductId(@Param("locationId") Long locationId);
+
+    Page<Booking> findAllBookingsByUserId (Long userId, Pageable pageable);
+
 }
