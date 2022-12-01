@@ -141,6 +141,7 @@ const Booking = ({
                   classname={styles.dropdown}
                   options={times}
                   onChange={handleOnChange}
+                  placeholder="Seleccionar hora de llegada"
                 />
               </section>
             </div>

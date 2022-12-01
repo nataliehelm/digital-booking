@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Heading } from '../Heading';
 import styles from './Subheader.module.scss';
 
@@ -13,6 +14,12 @@ const Subheader = ({ title, subtitle, onBackClick }) => {
       </figure>
     </section>
   );
+};
+
+Subheader.prototype = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  onBackClick: PropTypes.func,
 };
 
 export default Subheader;

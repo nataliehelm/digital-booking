@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+
+.container {
+  .heading {
+    color: $color-secondary;
+    margin: 25px 9px 17px;
+  }
+
+  .create-container {
+    background-color: $color-white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 27px;
+
+    .product-name {
+      display: flex;
+      flex-direction: column;
+      gap: 23px;
+    }
+  }
+}

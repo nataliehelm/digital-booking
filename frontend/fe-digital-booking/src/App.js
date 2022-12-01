@@ -3,8 +3,10 @@ import Layout from './components/Layout';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
 import styles from './App.module.scss';
-import { Routes, Route } from 'react-router-dom';
+import { Admin } from './modules';
+import CreateProduct from './modules/Admin/pages/CreateProduct';
 import { Header } from './components/Header';
+import { Routes, Route } from 'react-router-dom';
 import {
   Booking,
   Home,
@@ -78,6 +80,16 @@ function App() {
             <Route
               path="/success-booking"
               element={<Layout children={<SuccessBooking />} />}
+            />
+
+            <Route path="/admin" element={<Layout children={<Admin />} />} />
+            <Route
+              path="/admin/product/create"
+              element={<Layout children={<CreateProduct />} />}
+            />
+            <Route
+              path="/admin/product/:id/edit"
+              element={<Layout children={<Admin />} />}
             />
             <Route
               path="/resend-email"
