@@ -123,7 +123,7 @@ const useHome = () => {
     } else {
       callback(`${endpoint}?${currentPage}`, requestOptions);
     }
-  }, [currentPage, endpoint]);
+  }, [currentPage, endpoint, requestOptions]);
 
   return {
     authState: state,

@@ -1,0 +1,30 @@
+@use './../../styles/variables' as *;
+
+.textarea-container {
+  background: $color-white;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+  padding: 15px 10px;
+  resize: none;
+  width: 100%;
+}
+
+.textarea-1 {
+  height: 200px;
+}
+
+.textarea-2 {
+  height: 120px;
+}
+
+.textarea-error {
+  background-color: $color-error-background;
+  border: 1px solid $color-error;
+}
+
+.label-error {
+  color: $color-error;
+  margin-top: 12px;
+  text-align: right;
+}
