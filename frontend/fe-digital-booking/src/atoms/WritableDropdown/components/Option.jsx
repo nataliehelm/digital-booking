@@ -26,7 +26,7 @@ Option.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   hasBottomBorder: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 Option.defaultProps = {
