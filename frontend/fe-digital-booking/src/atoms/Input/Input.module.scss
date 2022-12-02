@@ -7,7 +7,7 @@ div {
     margin-bottom: 10px;
   }
 
-  input {
+  .input {
     height: 40px;
     width: 100%;
     border-radius: 5px;
@@ -24,8 +24,8 @@ div {
     caret-color: transparent;
   }
 
-  input::-ms-reveal,
-  input::-ms-clear {
+  .input::-ms-reveal,
+  .input::-ms-clear {
     display: none;
   }
 
@@ -69,11 +69,11 @@ div {
   }
 }
 
-input[type='password'] {
+.input[type='password'] {
   font-family: Verdana;
   letter-spacing: 0.125em;
 }
 
-input:disabled {
+.input:disabled {
   background-color: $color-white;
 }

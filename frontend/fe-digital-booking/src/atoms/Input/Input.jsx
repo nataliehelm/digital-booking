@@ -52,7 +52,7 @@ const Input = ({
           onBlur={() => {
             setShowPlaceholder(true);
           }}
-          className={cn('text-2', classname, {
+          className={cn('text-2', styles.input, classname, {
             [styles['input-error']]: hasError,
             [styles['no-caret']]: noCaret,
           })}
