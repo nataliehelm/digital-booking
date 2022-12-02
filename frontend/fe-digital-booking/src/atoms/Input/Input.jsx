@@ -48,6 +48,7 @@ const Input = ({
           onChange={onChange}
           onFocus={() => {
             onFocus && onFocus();
+            !noCaret && setShowPlaceholder(false);
           }}
           onBlur={() => {
             setShowPlaceholder(true);

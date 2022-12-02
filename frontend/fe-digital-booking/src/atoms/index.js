@@ -14,3 +14,5 @@ export * from './WritableDropdown';
 export * from './SocialMedia';
 export * from './Modal';
 export * from './Paginator';
+export * from './Uploader';
+export * from './TextArea';
