@@ -1,9 +1,8 @@
 package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.SubPolicy;
+import com.grupo9.db.model.Product;
 import com.grupo9.db.model.User;
-import com.grupo9.db.service.SubPolicyService;
 import com.grupo9.db.service.UserService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -11,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,4 +36,9 @@ public class UserController {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get User successfully", user, null);
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ApiResponse<Object, Object>> findAllProductsByUserId(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        List<Product> products = service.findAllProductsByUserId(id);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get User List successfully", products, null);
+    }
 }

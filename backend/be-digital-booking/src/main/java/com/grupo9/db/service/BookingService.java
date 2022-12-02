@@ -67,6 +67,7 @@ public class BookingService {
     public Booking save(SaveBookingDto bookingDto) throws ResourceNotFoundException {
         Booking booking = bookingBuilder(bookingDto, null);
         return iBookingRepository.save(booking);
+
     }
 
     public Booking saveBookingAndUpdateUser(SaveBookingAndUpdateUserDto dto) throws ResourceNotFoundException {

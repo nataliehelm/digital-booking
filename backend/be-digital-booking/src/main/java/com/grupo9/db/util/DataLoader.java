@@ -44,7 +44,7 @@ public class DataLoader implements ApplicationRunner {
         locationsLoader.Loader();
         FeaturesLoader featuresLoader = new FeaturesLoader(iFeatureRepository);
         featuresLoader.Loader();
-        ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
+        ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository, iUserRepository);
         productsLoader.Loader();
         ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
         imagesLoader.Loader();

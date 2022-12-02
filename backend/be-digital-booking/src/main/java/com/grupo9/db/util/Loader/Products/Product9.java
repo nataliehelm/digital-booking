@@ -14,7 +14,7 @@ public class Product9 {
     IFeatureRepository iFeatureRepository;
     IPolicyRepository iPolicyRepository;
 
-    public Product9(IProductRepository iProductRepository, ILocationRepository iLocationRepository, ICategoryRepository iCategoryRepository, IFeatureRepository iFeatureRepository, IPolicyRepository iPolicyRepository) {
+    public Product9(IProductRepository iProductRepository, ILocationRepository iLocationRepository, ICategoryRepository iCategoryRepository, IFeatureRepository iFeatureRepository, IPolicyRepository iPolicyRepository, IUserRepository iUserRepository) {
         this.iProductRepository = iProductRepository;
         this.iLocationRepository = iLocationRepository;
         this.iCategoryRepository = iCategoryRepository;

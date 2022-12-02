@@ -58,6 +58,10 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive = false;
 
+    @OneToMany
+    @JoinColumn(name = "product_Id")
+    private Product product;
+
     public User(String name, String lastname, String email, String password, Location location) {
         this.name = name;
         this.lastname = lastname;

@@ -117,3 +117,59 @@ com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
 java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 
 
+[2022-11-24 02:36:44] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 02:55:42] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 02:58:54] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 02:59:30] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 03:02:03] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 03:02:32] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 03:06:07] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
+[2022-11-24 13:28:01] [ ERROR] [GlobalExceptions:39] ERROR: Description: El correo ya se encuentra registrado
+Location: 
+com.grupo9.db.service.AuthService.signup(AuthService.java:108)
+com.grupo9.db.controller.AuthController.signup(AuthController.java:29)
+java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+
+
