@@ -64,6 +64,8 @@ public class WebSecurityConfig {
                 .and().authorizeRequests().antMatchers(HttpMethod.GET, "/locations/").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET,"/categories").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.GET, "/categories/").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/features").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET, "/features/").permitAll()
                 .and().authorizeRequests().antMatchers("/swagger-ui.html/**").permitAll()
                 .and().authorizeRequests().antMatchers("/swagger-ui/**").permitAll()
                 .and().authorizeRequests().antMatchers("/v3/api-docs/**").permitAll()

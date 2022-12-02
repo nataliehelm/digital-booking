@@ -34,6 +34,7 @@ public class JwtUtils {
                 .claim("isActive", userPrincipal.isActive())
                 .claim("location", userPrincipal.getLocation())
                 .claim("userId", userPrincipal.getId())
+                .claim("role" , userPrincipal.getAuthorities())
                 .compact();
     }
 
