@@ -1,0 +1,14 @@
+@use '../../styles/variables' as *;
+
+.icon {
+  color: $color-primary;
+}
+
+.input {
+  accent-color: $color-primary;
+  margin: 7px;
+}
+.input + label {
+  padding: 10px;
+  color: $color-secondary;
+}

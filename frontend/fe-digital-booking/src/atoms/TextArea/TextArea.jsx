@@ -26,9 +26,8 @@ const TextArea = ({
         )}
         placeholder={placeholder}
         onChange={onChange}
-      >
-        {value}
-      </textarea>
+        value={value}
+      ></textarea>
       {hasError && errorMessage && (
         <Text variant="t2" classname={styles['label-error']}>
           {errorMessage}
