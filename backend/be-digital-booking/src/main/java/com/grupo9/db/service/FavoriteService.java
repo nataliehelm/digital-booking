@@ -1,6 +1,7 @@
 package com.grupo9.db.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.grupo9.db.dto.Bookings.SaveBookingDto;
 import com.grupo9.db.dto.Favorite.SaveFavoriteDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
@@ -26,10 +27,15 @@ public class FavoriteService {
         return favorites;
     }
 
-    public Favorite addFavorite(SaveFavoriteDto saveFavoriteDto) {
-        favoriteRepository.save(mapper.convertValue(saveFavoriteDto, Favorite.class));
-        return null;
+    public List<Favorite> findAllFavoritesByProductId(Long productId) {
+        List<Favorite> favorites = favoriteRepository.findFavoritesByProductId(productId);
+        return favorites;
     }
+
+    public Favorite save(SaveFavoriteDto favoriteDto) throws ResourceNotFoundException {
+        return favoriteRepository.save(favoriteDto);
+    }
+
     public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
         if(id == null) throw new BadRequestException("ID missing");
         Boolean exists = favoriteRepository.existsById(id);
