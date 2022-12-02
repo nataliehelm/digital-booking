@@ -31,6 +31,9 @@
     .description {
       padding-bottom: 23px;
     }
+    .places {
+      margin-bottom: 23px;
+    }
     .features {
       padding-bottom: 23px;
     }
@@ -81,6 +84,9 @@
       .description {
         margin-bottom: 31px;
       }
+      .places {
+        margin-bottom: 31px;
+      }
       .features {
         .checkbox {
           display: flex;
@@ -106,6 +112,9 @@
 @media (min-width: $lg) {
   .container {
     .create-container {
+      .places {
+        width: 50%;
+      }
       .features {
         .checkbox > div {
           width: 33%;

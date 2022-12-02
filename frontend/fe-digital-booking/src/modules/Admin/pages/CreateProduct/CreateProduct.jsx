@@ -15,8 +15,8 @@ import { parsedLocationsWithoutCity } from '../../../../mappers/locations.mapper
 import styles from './CreateProduct.module.scss';
 import TextArea from '../../../../atoms/TextArea/TextArea';
 import Checkbox from '../../../../atoms/Checkbox';
-import useAuthContext from '../../../../providers/AuthProvider/useAuthContext';
 import useFetchLazy from '../../../../hooks/useFetch/useFetchLazy';
+import PlacesAutocomplete from '../components/PlacesAutocomplete';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -155,6 +155,12 @@ const CreateProduct = () => {
                 location={locationSelected}
               />
             </section>
+          </div>
+          <div className={styles.places}>
+            <Text variant="t2" classname={styles.text}>
+              Coordenadas
+            </Text>
+            <PlacesAutocomplete placeholder="Ingresa un lugar o dirección" />
           </div>
           <div className={styles.description}>
             <Text variant="t2" classname={styles.text}>
