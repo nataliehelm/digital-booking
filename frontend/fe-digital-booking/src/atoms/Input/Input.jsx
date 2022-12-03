@@ -56,6 +56,7 @@ const Input = ({
           className={cn('text-2', styles.input, classname, {
             [styles['input-error']]: hasError,
             [styles['no-caret']]: noCaret,
+            [styles['input-with-icon']]: !!placeholderIcon,
           })}
           onClick={onClick}
         />

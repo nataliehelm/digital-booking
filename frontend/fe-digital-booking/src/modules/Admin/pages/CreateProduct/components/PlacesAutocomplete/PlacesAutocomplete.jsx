@@ -3,9 +3,9 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { Input } from '../../../../../atoms';
-import { Option } from '../../../../../atoms/WritableDropdown/components';
-import { useOnClickOutside } from '../../../../../hooks';
+import { Input } from '../../../../../../atoms';
+import { Option } from '../../../../../../atoms/WritableDropdown/components';
+import { useOnClickOutside } from '../../../../../../hooks';
 import styles from './PlacesAutocomplete.module.scss';
 
 const PlacesAutocomplete = ({ setCoords, placeholder }) => {

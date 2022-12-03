@@ -4,6 +4,7 @@ import styles from './Uploader.module.scss';
 import cn from 'classnames';
 
 const Uploader = ({
+  id,
   placeholder,
   value,
   onChange,
@@ -14,14 +15,19 @@ const Uploader = ({
   const [showUpload, setShowUpload] = useState(true);
   return (
     <div className={styles['uploader-container']}>
-      <Input value={value} placeholder={placeholder} onChange={onChange} />
+      <Input
+        value={value}
+        name={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
       {showUpload && (
         <button
           className={cn(styles.button, styles['upload-button'], {
             [styles.disabled]: disabled,
           })}
           onClick={() => {
-            onUpload(value);
+            onUpload(value, id);
             setShowUpload(false);
           }}
           disabled={disabled}
@@ -33,7 +39,7 @@ const Uploader = ({
         <button
           className={cn(styles.button, styles['remove-button'])}
           onClick={() => {
-            onRemove(value);
+            onRemove(value, id);
             setShowUpload(true);
             onChange({ target: { value: '' } });
           }}

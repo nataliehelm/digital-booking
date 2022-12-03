@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import {
   Button,
   Dropdown,
@@ -7,6 +8,7 @@ import {
   Subheader,
   Text,
   Uploader,
+  useInput,
   WritableDropdown,
 } from '../../../../atoms';
 import styles from './CreateProduct.module.scss';
@@ -14,6 +16,9 @@ import TextArea from '../../../../atoms/TextArea/TextArea';
 import Checkbox from '../../../../atoms/Checkbox';
 import PlacesAutocomplete from '../components/PlacesAutocomplete';
 import Loader from '../../../../components/Loader';
+import Images from './components/Images';
+
+const IMAGES_MIN_LENGTH = 5;
 
 const CreateProduct = ({
   name,
@@ -35,6 +40,14 @@ const CreateProduct = ({
   onClick,
 }) => {
   const navigate = useNavigate();
+
+  const [images, setImages] = useState([
+    {
+      id: 0,
+      value: '',
+    },
+  ]);
+
   const onBackClick = () => {
     navigate(-1);
   };
@@ -209,12 +222,16 @@ const CreateProduct = ({
               </section>
             </div>
           </div>
-          <div className={styles.images}>
-            <Heading variant="h3" classname={styles['features-heading']}>
-              Cargar imágenes
-            </Heading>
-            <Uploader value={images.value} placeholder={'Insertar https://'} />
-          </div>
+
+          <Images
+            images={images}
+            setImages={setImages}
+            hasError={
+              images.length > 1 && images.length < IMAGES_MIN_LENGTH + 1
+            }
+            minLength={IMAGES_MIN_LENGTH}
+          />
+
           <div className={styles.submit}>
             <Button
               type="submit"
