@@ -4,7 +4,7 @@ import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
 import styles from './App.module.scss';
 import { Admin } from './modules';
-import CreateProduct from './modules/Admin/pages/CreateProduct';
+import { CreateProduct } from './modules/Admin/pages/CreateProduct';
 import { Header } from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import {
