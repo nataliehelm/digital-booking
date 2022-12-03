@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { mandatoryValidator } from '../../../../utils/validators';
 import {
+  Button,
   Dropdown,
   Heading,
   Input,
   Subheader,
   Text,
+  Uploader,
   useInput,
   WritableDropdown,
 } from '../../../../atoms';
@@ -17,6 +19,7 @@ import TextArea from '../../../../atoms/TextArea/TextArea';
 import Checkbox from '../../../../atoms/Checkbox';
 import useFetchLazy from '../../../../hooks/useFetch/useFetchLazy';
 import PlacesAutocomplete from '../components/PlacesAutocomplete';
+import useAuthContext from '../../../../providers/AuthProvider/useAuthContext';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -34,6 +37,10 @@ const CreateProduct = () => {
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
+  const images = useInput('', mandatoryValidator);
+  const { state } = useAuthContext();
+  const { data, error, callback } = useFetchLazy();
+  const [coords, setCoords] = useState();
 
   const [features, setFeatures] = useState([]);
 
@@ -53,6 +60,46 @@ const CreateProduct = () => {
     });
     setFeatures(options);
   };
+
+  const onClick = () => {
+    const finalCoords = [coords.lat, coords.lng];
+    const selectedFeatures = [];
+    features.map((f) => {
+      if (f.isChecked) {
+        selectedFeatures.push(f.id);
+      }
+    });
+    const option = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + state.jwt,
+      },
+      body: JSON.stringify({
+        name: name.value,
+        address: address.value,
+        distance_to_nearest_tourist_site: distance.value,
+        description_title: slogan.value,
+        description: description.value,
+        coordinates: finalCoords,
+        categoryId: categorySelected.id,
+        locationId: locationSelected.id,
+        featureIds: selectedFeatures,
+        policiyIds: [1, 2, 3],
+        //userId: state.decodedJwt.userId,
+      }),
+    };
+    callback('products', option);
+  };
+  useEffect(() => {
+    if (data) {
+      navigate('/success-booking');
+    }
+    if (error) {
+      console.error(error);
+    }
+  }, [data, error, navigate]);
 
   useEffect(() => {
     if (!isLoadingLocations) {
@@ -160,7 +207,10 @@ const CreateProduct = () => {
             <Text variant="t2" classname={styles.text}>
               Coordenadas
             </Text>
-            <PlacesAutocomplete placeholder="Ingresa un lugar o dirección" />
+            <PlacesAutocomplete
+              setCoords={setCoords}
+              placeholder="Ingresa un lugar o dirección"
+            />
           </div>
           <div className={styles.description}>
             <Text variant="t2" classname={styles.text}>
@@ -237,6 +287,23 @@ const CreateProduct = () => {
                 />
               </section>
             </div>
+          </div>
+          <div className={styles.images}>
+            <Heading variant="h3" classname={styles['features-heading']}>
+              Cargar imágenes
+            </Heading>
+            <Uploader value={images.value} placeholder={'Insertar https://'} />
+          </div>
+          <div className={styles.submit}>
+            <Button
+              type="submit"
+              variant="b1"
+              classname={styles.button}
+              //disabled={disabled}
+              onClick={onClick}
+            >
+              Crear
+            </Button>
           </div>
         </div>
       </div>

@@ -37,6 +37,12 @@
     .features {
       padding-bottom: 23px;
     }
+    .policies {
+      padding-bottom: 23px;
+    }
+    .images {
+      padding-bottom: 23px;
+    }
   }
   .text {
     color: $color-secondary;
@@ -106,11 +112,25 @@
           }
         }
       }
+      .images > div {
+        padding: 16px;
+      }
+      .submit {
+        display: flex;
+        justify-content: center;
+        padding: 30px 0px;
+
+        .button {
+          width: 365px;
+          height: 50px;
+        }
+      }
     }
   }
 }
 @media (min-width: $lg) {
   .container {
+    padding: 13px 40px 30px;
     .create-container {
       .places {
         width: 50%;
