@@ -4,6 +4,7 @@ import com.grupo9.db.model.Category;
 import com.grupo9.db.model.Location;
 import com.grupo9.db.model.Product;
 
+import com.grupo9.db.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,8 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
 
     Page<Product> findByLocation(Location location, Pageable pageable);
     
+    Page<Product> findByUser(User user, Pageable pageable);
+
     Page<Product> findByLocationAndCategoryIn(Location location, List<Category> categories, Pageable pageable);
 
     @Query(value="SELECT * FROM product ORDER BY rand()", nativeQuery=true)

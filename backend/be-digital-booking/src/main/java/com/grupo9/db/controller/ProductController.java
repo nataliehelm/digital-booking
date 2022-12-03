@@ -1,10 +1,12 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Auth.JwtDto;
 import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Product;
+import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -60,6 +62,13 @@ public class ProductController {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(path = "/admin")
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByUser(@RequestHeader(value="Authorization" ) String token, @PageableDefault(size = 8) Pageable pageable) throws BadRequestException, ResourceNotFoundException {
+        Page<Product> products = service.findByUser(token, pageable);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
+    }
+    
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {

@@ -36,4 +36,6 @@ public class SaveProductDto {
     private List<Long> featureIds;
     @NotNull(message = "policiyIds is mandatory")
     private List<Long> policiyIds;
+    @NotNull(message = "userId is mandatory")
+    private Long userId;
 }

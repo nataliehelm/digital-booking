@@ -86,6 +86,10 @@ public class Product {
     @JsonManagedReference
     private Set<Image> images;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @CreationTimestamp
     @JsonIgnore
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -96,15 +100,7 @@ public class Product {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public Product(String name, String distance_to_nearest_tourist_site, Category category, Location location, String address, List<Feature> features) {
-        this.name = name;
-        this.category = category;
-        this.location = location;
-        this.address = address;
-        this.features = features;
-    }
-
-    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies) {
+    public Product(String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, @NotEmpty(message = "Coordinates is mandatory") List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies, User user) {
         this.name = name;
         this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
         this.ranking = ranking;
@@ -117,9 +113,10 @@ public class Product {
         this.address = address;
         this.features = features;
         this.policies = policies;
+        this.user = user;
     }
 
-    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies) {
+    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, List<Double> coordinates, Category category, Location location, String address, List<Feature> features, List<Policy> policies, User user) {
         this.id = id;
         this.name = name;
         this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
@@ -133,20 +130,7 @@ public class Product {
         this.address = address;
         this.features = features;
         this.policies = policies;
+        this.user = user;
     }
 
-    public Product(Long id, String name, String distance_to_nearest_tourist_site, double ranking, double score, String description_title, String description, Category category, Location location, List<Feature> features, List<Policy> policies, Set<Image> images) {
-        this.id = id;
-        this.name = name;
-        this.distance_to_nearest_tourist_site = distance_to_nearest_tourist_site;
-        this.ranking = ranking;
-        this.score = score;
-        this.description_title = description_title;
-        this.description = description;
-        this.category = category;
-        this.location = location;
-        this.features = features;
-        this.policies = policies;
-        this.images = images;
-    }
 }

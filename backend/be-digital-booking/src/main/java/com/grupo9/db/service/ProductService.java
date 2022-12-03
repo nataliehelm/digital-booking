@@ -1,5 +1,6 @@
 package com.grupo9.db.service;
 
+import com.grupo9.db.dto.Auth.JwtDto;
 import com.grupo9.db.dto.Product.GetBookedDatesDto;
 import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
@@ -7,6 +8,7 @@ import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
 import com.grupo9.db.repository.*;
+import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,15 +30,18 @@ public class ProductService {
     private final IProductRepository repository;
     private final ICategoryRepository categoryRepository;
     private final ILocationRepository locationRepository;
+    private final IUserRepository userRepository;
     private final IFeatureRepository featureRepository;
     private final IPolicyRepository policyRepository;
     private final IBookingRepository bookingRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(BookingService bookingService, IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IUserRepository userRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
+        this.bookingService = bookingService;
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.locationRepository = locationRepository;
+        this.userRepository = userRepository;
         this.featureRepository = featureRepository;
         this.policyRepository = policyRepository;
         this.bookingRepository = bookingRepository;
@@ -51,6 +54,22 @@ public class ProductService {
         }
         return repository.findAllRandom(pageable);
         }
+
+    public Page<Product> findByUser(String token, Pageable pageable) throws BadRequestException, ResourceNotFoundException {
+        if(token == null){
+            throw new BadRequestException("Token invalido");
+        }
+        JwtUtils jwtUtils = new JwtUtils();
+
+        JwtDto jwtDto = jwtUtils.getDecodedJwt(token);
+
+        Optional<User> user = userRepository.findById(jwtDto.getUserId());
+        if(user.isEmpty()){
+            throw new ResourceNotFoundException("User with id " + jwtDto.getUserId() + " not found");
+        }
+
+        return repository.findByUser(user.get(), pageable);
+    }
 
 
     public Product findById(Long id) throws ResourceNotFoundException {
@@ -186,6 +205,10 @@ public class ProductService {
         if(location.isEmpty()){
             throw new ResourceNotFoundException("Location with id " + productDto.getLocationId() + " not found");
         }
+        Optional<User> user = userRepository.findById(productDto.getUserId());
+        if(user.isEmpty()){
+            throw new ResourceNotFoundException("User with id " + productDto.getUserId() + " not found");
+        }
 
         List<Feature> features = new ArrayList<>();
         for(Long featureId:productDto.getFeatureIds()){
@@ -206,9 +229,9 @@ public class ProductService {
         }
 
         if(id != null){
-            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies);
+            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
         }
 
-        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies);
+        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
     }
 }

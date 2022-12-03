@@ -31,8 +31,12 @@ public class UsersLoader {
         User user2 = new User("user", "user", "user@user.com", passwordEncoder.encode("user"), iLocationRepository.findById(1L).get(),true);
         user2.setRoles(iRoleRepository.findByName(ERole.ROLE_USER).get());
 
+        User user3 = new User("admin2", "admin2", "admin2@admin.com", passwordEncoder.encode("admin"), iLocationRepository.findById(1L).get(), true);
+        user3.setRoles(iRoleRepository.findByName(ERole.ROLE_ADMIN).get());
+
         iUserRepository.save(user1);
         iUserRepository.save(user2);
+        iUserRepository.save(user3);
 
     }
 }

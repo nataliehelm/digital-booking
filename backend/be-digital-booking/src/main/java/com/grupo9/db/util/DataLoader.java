@@ -42,16 +42,16 @@ public class DataLoader implements ApplicationRunner {
         categoriesLoader.Loader();
         LocationsLoader locationsLoader = new LocationsLoader(iLocationRepository);
         locationsLoader.Loader();
-        FeaturesLoader featuresLoader = new FeaturesLoader(iFeatureRepository);
-        featuresLoader.Loader();
-        ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository);
-        productsLoader.Loader();
-        ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
-        imagesLoader.Loader();
         RolesLoader rolesLoader = new RolesLoader(iRoleRepository);
         rolesLoader.Loader();
         UsersLoader usersLoader = new UsersLoader(iUserRepository, iRoleRepository, iLocationRepository);
         usersLoader.Loader();
+        FeaturesLoader featuresLoader = new FeaturesLoader(iFeatureRepository);
+        featuresLoader.Loader();
+        ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository, iUserRepository);
+        productsLoader.Loader();
+        ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
+        imagesLoader.Loader();
         BookingsLoader bookingsLoader = new BookingsLoader(iBookingRepository, iProductRepository, iUserRepository);
         bookingsLoader.Loader();
     }
