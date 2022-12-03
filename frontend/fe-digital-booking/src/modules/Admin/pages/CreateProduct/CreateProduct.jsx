@@ -37,10 +37,17 @@ const CreateProduct = () => {
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
-  const images = useInput('', mandatoryValidator);
+  const currentImage = useInput('', mandatoryValidator);
   const { state } = useAuthContext();
   const { data, error, callback } = useFetchLazy();
   const [coords, setCoords] = useState();
+
+  const [images, setImages] = useState([
+    {
+      id: 0,
+      value: '',
+    },
+  ]);
 
   const [features, setFeatures] = useState([]);
 
@@ -300,7 +307,25 @@ const CreateProduct = () => {
             <Heading variant="h3" classname={styles['features-heading']}>
               Cargar imágenes
             </Heading>
-            <Uploader value={images.value} placeholder={'Insertar https://'} />
+            {images.map((image) => (
+              <Uploader
+                id={image.id}
+                key={image.id}
+                value={image.value || currentImage.value}
+                onChange={currentImage.onChange}
+                onUpload={(value) => {
+                  image.value = value;
+                  setImages([...images, { id: image.id + 1, value: '' }]);
+                  currentImage.onChange({ target: { value: '' } });
+                }}
+                onRemove={(_, id) => {
+                  setImages(images.filter((image) => image.id !== id));
+                  currentImage.onChange({ target: { value: '' } });
+                }}
+                placeholder={'Insertar https://'}
+                disabled={!image.value && !currentImage.value}
+              />
+            ))}
           </div>
           <div className={styles.submit}>
             <Button
