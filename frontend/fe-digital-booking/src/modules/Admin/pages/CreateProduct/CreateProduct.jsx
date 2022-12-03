@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { mandatoryValidator } from '../../../../utils/validators';
 import {
   Button,
@@ -8,7 +8,6 @@ import {
   Input,
   Subheader,
   Text,
-  Uploader,
   useInput,
   WritableDropdown,
 } from '../../../../atoms';
@@ -18,8 +17,11 @@ import styles from './CreateProduct.module.scss';
 import TextArea from '../../../../atoms/TextArea/TextArea';
 import Checkbox from '../../../../atoms/Checkbox';
 import useFetchLazy from '../../../../hooks/useFetch/useFetchLazy';
-import PlacesAutocomplete from '../components/PlacesAutocomplete';
 import useAuthContext from '../../../../providers/AuthProvider/useAuthContext';
+import Images from './components/Images';
+import PlacesAutocomplete from './components/PlacesAutocomplete/PlacesAutocomplete';
+
+const IMAGES_MIN_LENGTH = 5;
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -37,7 +39,6 @@ const CreateProduct = () => {
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
-  const currentImage = useInput('', mandatoryValidator);
   const { state } = useAuthContext();
   const { data, error, callback } = useFetchLazy();
   const [coords, setCoords] = useState();
@@ -303,30 +304,16 @@ const CreateProduct = () => {
               </section>
             </div>
           </div>
-          <div className={styles.images}>
-            <Heading variant="h3" classname={styles['features-heading']}>
-              Cargar imágenes
-            </Heading>
-            {images.map((image) => (
-              <Uploader
-                id={image.id}
-                key={image.id}
-                value={image.value || currentImage.value}
-                onChange={currentImage.onChange}
-                onUpload={(value) => {
-                  image.value = value;
-                  setImages([...images, { id: image.id + 1, value: '' }]);
-                  currentImage.onChange({ target: { value: '' } });
-                }}
-                onRemove={(_, id) => {
-                  setImages(images.filter((image) => image.id !== id));
-                  currentImage.onChange({ target: { value: '' } });
-                }}
-                placeholder={'Insertar https://'}
-                disabled={!image.value && !currentImage.value}
-              />
-            ))}
-          </div>
+
+          <Images
+            images={images}
+            setImages={setImages}
+            hasError={
+              images.length > 1 && images.length < IMAGES_MIN_LENGTH + 1
+            }
+            minLength={IMAGES_MIN_LENGTH}
+          />
+
           <div className={styles.submit}>
             <Button
               type="submit"
