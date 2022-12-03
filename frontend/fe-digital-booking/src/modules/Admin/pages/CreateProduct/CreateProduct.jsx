@@ -79,12 +79,16 @@ const CreateProduct = ({
               <Text variant="t2" classname={styles.text}>
                 Categoría
               </Text>
-              <Dropdown
-                options={categories}
-                onChange={setCategorySelected}
-                placeholder="Hotel"
-                hasDivider
-              />
+              <div className={styles['dropdown-container']}>
+                <div className={styles.dropdown}>
+                  <Dropdown
+                    options={categories}
+                    onChange={setCategorySelected}
+                    placeholder="Hotel"
+                    hasDivider
+                  />
+                </div>
+              </div>
             </section>
           </div>
           <div className={styles['product-address']}>
@@ -108,12 +112,16 @@ const CreateProduct = ({
               <Text variant="t2" classname={styles.text}>
                 Ciudad
               </Text>
-              <WritableDropdown
-                options={locations}
-                onChange={setLocationSelected}
-                placeholder="Ciudad"
-                location={locationSelected}
-              />
+              <div className={styles['dropdown-container']}>
+                <div className={styles.dropdown}>
+                  <WritableDropdown
+                    options={locations}
+                    onChange={setLocationSelected}
+                    placeholder="Ciudad"
+                    location={locationSelected}
+                  />
+                </div>
+              </div>
             </section>
           </div>
           <div className={styles.places}>
