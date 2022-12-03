@@ -1,23 +1,30 @@
 package com.grupo9.db.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grupo9.db.dto.Bookings.SaveBookingDto;
 import com.grupo9.db.dto.Favorite.SaveFavoriteDto;
+import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.Booking;
-import com.grupo9.db.model.Favorite;
+import com.grupo9.db.model.*;
 import com.grupo9.db.repository.IFavoriteRepository;
+import com.grupo9.db.repository.IProductRepository;
+import com.grupo9.db.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FavoriteService {
 
     @Autowired
     IFavoriteRepository favoriteRepository;
+    @Autowired
+    IProductRepository productRepository;
+    @Autowired
+    IUserRepository userRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -27,13 +34,15 @@ public class FavoriteService {
         return favorites;
     }
 
-    public List<Favorite> findAllFavoritesByProductId(Long productId) {
-        List<Favorite> favorites = favoriteRepository.findFavoritesByProductId(productId);
+    public List<Favorite> findAllFavoritesByUserId(Long userId) {
+        List<Favorite> favorites = favoriteRepository.findFavoritesByUserId(userId);
         return favorites;
     }
 
-    public Favorite save(SaveFavoriteDto favoriteDto) throws ResourceNotFoundException {
-        return favoriteRepository.save(favoriteDto);
+    public Favorite save(SaveFavoriteDto saveFavoriteDto) throws ResourceNotFoundException {
+        System.out.println(saveFavoriteDto);
+        Favorite favorite = favoriteBuilder(saveFavoriteDto);
+        return favoriteRepository.save(favorite);
     }
 
     public void deleteById(Long id) throws ResourceNotFoundException, BadRequestException {
@@ -44,4 +53,19 @@ public class FavoriteService {
         }
         favoriteRepository.deleteById(id);
     }
+
+    private Favorite favoriteBuilder (SaveFavoriteDto favoriteDto) throws ResourceNotFoundException {
+        System.out.println(favoriteDto);
+        Optional<Product> product = productRepository.findById(favoriteDto.getProductId());
+        if(product.isEmpty()){
+            throw new ResourceNotFoundException("Product with id " + favoriteDto.getProductId() + " not found");
+        }
+        Optional<User> user = userRepository.findById(favoriteDto.getUserId());
+        if(user.isEmpty()){
+            throw new ResourceNotFoundException("User with id " + favoriteDto.getUserId() + " not found");
+        }
+
+        return new Favorite(product.get(), user.get());
+    }
+
 }

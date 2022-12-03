@@ -1,9 +1,10 @@
 package com.grupo9.db.controller;
-
 import com.grupo9.db.dto.Favorite.SaveFavoriteDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Favorite;
+import com.grupo9.db.model.Product;
+import com.grupo9.db.model.User;
 import com.grupo9.db.service.FavoriteService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -30,10 +31,17 @@ public class FavoriteController {
         List<Favorite> favorites = favoriteService.findAll();
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Favorite List successfully",favorites, null);
     }
+
+    @GetMapping(path = "/{user_id}")
+    public ResponseEntity<ApiResponse<List<Favorite>, Object>> findFavoritesByUserId(@PathVariable("user_id") Long userId){
+        List<Favorite> favorites = favoriteService.findAllFavoritesByUserId(userId);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Favorite List successfully",favorites, null);
+    }
     @PostMapping
-    public ResponseEntity<ApiResponse<Object, Object>> addFavorite(@RequestBody SaveFavoriteDto saveFavoriteDto) throws ResourceNotFoundException {
-        Favorite favorites = favoriteService.save(saveFavoriteDto);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product added to favorites successfully", favorites, null);
+    public ResponseEntity<ApiResponse<Favorite, Object>> save (@RequestBody SaveFavoriteDto saveFavoriteDto) throws ResourceNotFoundException {
+        System.out.println(saveFavoriteDto);
+        Favorite favoriteSaved = favoriteService.save(saveFavoriteDto);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product added to favorites successfully", favoriteSaved, null);
     }
 
     @DeleteMapping(path = "/{id}")

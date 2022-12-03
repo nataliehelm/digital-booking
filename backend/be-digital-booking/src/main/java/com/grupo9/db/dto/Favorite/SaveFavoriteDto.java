@@ -1,29 +1,14 @@
 package com.grupo9.db.dto.Favorite;
+import lombok.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 public class SaveFavoriteDto {
 
-    private Long product;
-    private Long user;
+    private Long productId;
+    private Long userId;
 
-    public SaveFavoriteDto() {
-    }
-
-    public Long getProduct() {
-        return product;
-    }
-
-    public void setProduct(Long product) {
-        this.product = product;
-    }
-
-    public Long getUser() {
-        return user;
-    }
-
-    public void setUser(Long user) {
-        this.user = user;
-    }
 }
