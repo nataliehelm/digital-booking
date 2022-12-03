@@ -40,7 +40,6 @@ public class FavoriteService {
     }
 
     public Favorite save(SaveFavoriteDto saveFavoriteDto) throws ResourceNotFoundException {
-        System.out.println(saveFavoriteDto);
         Favorite favorite = favoriteBuilder(saveFavoriteDto);
         return favoriteRepository.save(favorite);
     }
@@ -55,14 +54,13 @@ public class FavoriteService {
     }
 
     private Favorite favoriteBuilder (SaveFavoriteDto favoriteDto) throws ResourceNotFoundException {
-        System.out.println(favoriteDto);
-        Optional<Product> product = productRepository.findById(favoriteDto.getProductId());
+        Optional<Product> product = productRepository.findById(favoriteDto.getProduct_id());
         if(product.isEmpty()){
-            throw new ResourceNotFoundException("Product with id " + favoriteDto.getProductId() + " not found");
+            throw new ResourceNotFoundException("Product with id " + favoriteDto.getProduct_id() + " not found");
         }
-        Optional<User> user = userRepository.findById(favoriteDto.getUserId());
+        Optional<User> user = userRepository.findById(favoriteDto.getUser_id());
         if(user.isEmpty()){
-            throw new ResourceNotFoundException("User with id " + favoriteDto.getUserId() + " not found");
+            throw new ResourceNotFoundException("User with id " + favoriteDto.getUser_id() + " not found");
         }
 
         return new Favorite(product.get(), user.get());
