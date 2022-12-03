@@ -1,25 +1,24 @@
 import { useRef, useState } from 'react';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Input } from '../../../../../../atoms';
 import { Option } from '../../../../../../atoms/WritableDropdown/components';
 import { useOnClickOutside } from '../../../../../../hooks';
 import styles from './PlacesAutocomplete.module.scss';
 
-const PlacesAutocomplete = ({ setCoords, placeholder }) => {
+const PlacesAutocomplete = ({
+  setCoords,
+  placeholder,
+  clearSuggestions,
+  setValue,
+  address,
+  data,
+  value,
+  ready,
+  status,
+  name,
+  label,
+}) => {
   const [showList, setShowList] = useState(false);
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {},
-    debounce: 300,
-  });
 
   const ref = useRef();
   useOnClickOutside(ref, () => {
@@ -29,6 +28,7 @@ const PlacesAutocomplete = ({ setCoords, placeholder }) => {
 
   const handleInput = (e) => {
     setValue(e.target.value);
+    address.onChange(e);
     if (e.target.value) setShowList(true);
   };
 
@@ -36,6 +36,7 @@ const PlacesAutocomplete = ({ setCoords, placeholder }) => {
     ({ description }) =>
     () => {
       setValue(description, false);
+      address.onChange({ target: { value: description } });
       clearSuggestions();
       setShowList(false);
 
@@ -66,7 +67,8 @@ const PlacesAutocomplete = ({ setCoords, placeholder }) => {
         onChange={handleInput}
         disabled={!ready}
         placeholder={placeholder}
-        name={value}
+        name={name}
+        label={label}
       />
       {status === 'OK' && (
         <ul className={styles.list}>{renderSuggestions()}</ul>

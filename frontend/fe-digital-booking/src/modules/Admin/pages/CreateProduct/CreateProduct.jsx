@@ -19,7 +19,7 @@ import Checkbox from '../../../../atoms/Checkbox';
 import useFetchLazy from '../../../../hooks/useFetch/useFetchLazy';
 import useAuthContext from '../../../../providers/AuthProvider/useAuthContext';
 import Images from './components/Images';
-import PlacesAutocomplete from './components/PlacesAutocomplete/PlacesAutocomplete';
+import Address from './components/Address/Address';
 
 const IMAGES_MIN_LENGTH = 5;
 
@@ -37,6 +37,8 @@ const CreateProduct = () => {
   const slogan = useInput('', mandatoryValidator);
   const address = useInput('', mandatoryValidator);
   const distance = useInput('', mandatoryValidator);
+  const lat = useInput('', mandatoryValidator);
+  const lng = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
   const { state } = useAuthContext();
@@ -141,6 +143,14 @@ const CreateProduct = () => {
     }
   }, [_features, isLoadingFeatures]);
 
+  useEffect(() => {
+    if (coords) {
+      lat.onChange({ target: { value: coords.lat } });
+      lng.onChange({ target: { value: coords.lng } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coords]);
+
   return (
     <>
       <Subheader
@@ -187,14 +197,7 @@ const CreateProduct = () => {
             </section>
           </div>
           <div className={styles['product-address']}>
-            <Input
-              name="address"
-              label={'Dirección'}
-              placeholder="Av. Colón 1643"
-              type="text"
-              value={address.value}
-              onChange={address.onChange}
-            />
+            <Address setCoords={setCoords} address={address} />
             <Input
               name="distance"
               label={'Distancia a punto turístico'}
@@ -223,10 +226,24 @@ const CreateProduct = () => {
             <Text variant="t2" classname={styles.text}>
               Coordenadas
             </Text>
-            <PlacesAutocomplete
-              setCoords={setCoords}
-              placeholder="Ingresa un lugar o dirección"
-            />
+            <div className={styles.coords}>
+              <Input
+                name="Latitud"
+                label="Latitud"
+                placeholder="Latitud:"
+                type="text"
+                value={lat.value}
+                onChange={lat.onChange}
+              />
+              <Input
+                name="Longitud"
+                label="Longitud"
+                placeholder="Longitud"
+                type="text"
+                value={lng.value}
+                onChange={lng.onChange}
+              />
+            </div>
           </div>
           <div className={styles.description}>
             <Text variant="t2" classname={styles.text}>
