@@ -17,6 +17,7 @@ import Checkbox from '../../../../atoms/Checkbox';
 import PlacesAutocomplete from '../components/PlacesAutocomplete';
 import Loader from '../../../../components/Loader';
 import Images from './components/Images';
+import Address from './components/Address/Address';
 
 const IMAGES_MIN_LENGTH = 5;
 
@@ -40,6 +41,8 @@ const CreateProduct = ({
   onClick,
 }) => {
   const navigate = useNavigate();
+  const lat = useInput('', mandatoryValidator);
+  const lng = useInput('', mandatoryValidator);
 
   const [images, setImages] = useState([
     {
@@ -58,6 +61,14 @@ const CreateProduct = ({
         <Loader />
       </div>
     );
+
+  useEffect(() => {
+    if (coords) {
+      lat.onChange({ target: { value: coords.lat } });
+      lng.onChange({ target: { value: coords.lng } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coords]);
 
   return (
     <>
@@ -105,14 +116,7 @@ const CreateProduct = ({
             </section>
           </div>
           <div className={styles['product-address']}>
-            <Input
-              name="address"
-              label={'Dirección'}
-              placeholder="Av. Colón 1643"
-              type="text"
-              value={address.value}
-              onChange={address.onChange}
-            />
+            <Address setCoords={setCoords} address={address} />
             <Input
               name="distance"
               label={'Distancia a punto turístico'}
@@ -141,10 +145,24 @@ const CreateProduct = ({
             <Text variant="t2" classname={styles.text}>
               Coordenadas
             </Text>
-            <PlacesAutocomplete
-              setCoords={setCoords}
-              placeholder="Ingresa un lugar o dirección"
-            />
+            <div className={styles.coords}>
+              <Input
+                name="Latitud"
+                label="Latitud"
+                placeholder="Latitud:"
+                type="text"
+                value={lat.value}
+                onChange={lat.onChange}
+              />
+              <Input
+                name="Longitud"
+                label="Longitud"
+                placeholder="Longitud"
+                type="text"
+                value={lng.value}
+                onChange={lng.onChange}
+              />
+            </div>
           </div>
           <div className={styles.description}>
             <Text variant="t2" classname={styles.text}>

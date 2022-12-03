@@ -160,6 +160,11 @@
     .create-container {
       .places {
         width: 50%;
+
+        .coords {
+          display: flex;
+          gap: 20px;
+        }
       }
       .features {
         .checkbox > div {
