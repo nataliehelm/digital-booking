@@ -1,9 +1,7 @@
 package com.grupo9.db.service;
 
-import com.grupo9.db.dto.Bookings.SaveBookingDto;
-import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.*;
+import com.grupo9.db.model.User;
 import com.grupo9.db.repository.IUserRepository;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -20,6 +18,7 @@ public class UserService {
     private final IUserRepository repository;
     private ResponsesBuilder responsesBuilder;
 
+
     public UserService(IUserRepository repository, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.responsesBuilder = responsesBuilder;
@@ -35,10 +34,5 @@ public class UserService {
             throw new ResourceNotFoundException("User with id " + id + " not found");
         }
         return user.get();
-    }
-
-    public List<Product> findAllProductsByUserId(Long userId) throws ResourceNotFoundException {
-        List<Product> products = repository.findProductsByUserId(userId);
-        return products;
     }
 }

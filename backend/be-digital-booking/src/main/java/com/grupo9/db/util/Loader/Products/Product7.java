@@ -13,6 +13,7 @@ public class Product7 {
     ICategoryRepository iCategoryRepository;
     IFeatureRepository iFeatureRepository;
     IPolicyRepository iPolicyRepository;
+    IUserRepository iUserRepository;
 
     public Product7(IProductRepository iProductRepository, ILocationRepository iLocationRepository, ICategoryRepository iCategoryRepository, IFeatureRepository iFeatureRepository, IPolicyRepository iPolicyRepository, IUserRepository iUserRepository) {
         this.iProductRepository = iProductRepository;
@@ -20,6 +21,7 @@ public class Product7 {
         this.iCategoryRepository = iCategoryRepository;
         this.iFeatureRepository = iFeatureRepository;
         this.iPolicyRepository = iPolicyRepository;
+        this.iUserRepository = iUserRepository;
     }
 
     public void Loader(){
@@ -32,6 +34,7 @@ public class Product7 {
         Policy policy1 = iPolicyRepository.findById(Long.valueOf(1)).get();
         Policy policy2 = iPolicyRepository.findById(Long.valueOf(2)).get();
         Policy policy3 = iPolicyRepository.findById(Long.valueOf(3)).get();
+        User user = iUserRepository.findById(Long.valueOf(1)).get();
 
         List features = new ArrayList<>();
 
@@ -51,7 +54,7 @@ public class Product7 {
         policies.add(policy2);
         policies.add(policy3);
 
-        Product product3 = new Product("Corrientes Plaza Hostel", "A 450 metros del centro", 3.9, 7F,"Todo Corrientes cerca a ti","El Corrientes Plaza Hotel se encuentra en el centro de Corrientes y dispone de jardín con piscina, centro de fitness y habitaciones elegantes con WiFi gratuita. El desayuno está incluido en la tarifa. El establecimiento está a 2 km de un paseo que discurre junto al río.\n\n Las habitaciones del Corrientes Plaza están totalmente enmoquetadas y decoradas con colores suaves. Todas ellas cuentan con televisión por cable, aire acondicionado y calefacción. Algunas incluyen balcón privado con vistas al jardín.\n\n El Corrientes Plaza Hotel se encuentra a 5 km de la estación de autobuses y a 10 km del aeropuerto Piragine Niveyro.", coordinates,category2, location14, "Junin 1549",features, policies);
+        Product product3 = new Product("Corrientes Plaza Hostel", "A 450 metros del centro", 3.9, 7F,"Todo Corrientes cerca a ti","El Corrientes Plaza Hotel se encuentra en el centro de Corrientes y dispone de jardín con piscina, centro de fitness y habitaciones elegantes con WiFi gratuita. El desayuno está incluido en la tarifa. El establecimiento está a 2 km de un paseo que discurre junto al río.\n\n Las habitaciones del Corrientes Plaza están totalmente enmoquetadas y decoradas con colores suaves. Todas ellas cuentan con televisión por cable, aire acondicionado y calefacción. Algunas incluyen balcón privado con vistas al jardín.\n\n El Corrientes Plaza Hotel se encuentra a 5 km de la estación de autobuses y a 10 km del aeropuerto Piragine Niveyro.", coordinates,category2, location14, "Junin 1549",features, policies, user);
 
         iProductRepository.save(product3);
     }
