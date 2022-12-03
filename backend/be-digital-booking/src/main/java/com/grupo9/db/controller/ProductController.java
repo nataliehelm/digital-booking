@@ -9,6 +9,9 @@ import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,12 +30,16 @@ public class ProductController {
     @Autowired
     private ResponsesBuilder responsesBuilder;
 
-
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false) String token){
-        List<Product> products = service.findAll(token);
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAll(@RequestHeader(value="Authorization", required = false  ) String token, @PageableDefault(size = 8) Pageable pageable){
+        Page<Product> products = service.findAll(token, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
+    }
 
+    @GetMapping(path = "/page")
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 8) Pageable pageable){
+        Page<Product> products = service.findAllPage(pageable);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
     }
 
     @GetMapping(path = "/{id}")
@@ -45,14 +52,12 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> findByIdWithBookings(@PathVariable("id") Long id) throws ResourceNotFoundException  {
         GetProductWithBookingsDto response = service.findByIdWithBookings(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product successfully", response, null);
-
     }
 
     @GetMapping(path = "/filters")
-    public ResponseEntity<ApiResponse<List<Product>, Object>> findByParams(@RequestParam Map<String, String> params ) throws BadRequestException, ResourceNotFoundException {
-        List<Product> products = service.findByParams(params);
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByParams(@RequestParam Map<String, String> params, @PageableDefault(size = 8) Pageable pageable ) throws BadRequestException, ResourceNotFoundException {
+        Page<Product> products = service.findByParams(params, pageable);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -60,7 +65,6 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
         Product response =  service.save(product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -68,7 +72,6 @@ public class ProductController {
     public ResponseEntity<ApiResponse<Product, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException, BadRequestException {
         Product response = service.update(id, product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product updated successfully", response, null);
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -76,7 +79,5 @@ public class ProductController {
     public ResponseEntity<ApiResponse> deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         service.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Product deleted successfully", null, null);
-
     }
-
 }

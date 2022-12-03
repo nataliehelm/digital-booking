@@ -133,7 +133,7 @@ const Booking = ({
                   10:00 AM y las 11:00 PM
                 </Text>
               </section>
-              <section>
+              <section className={styles.drop}>
                 <Text variant="t2" classname={styles.text}>
                   Indicá tu horario estimado de llegada
                 </Text>

@@ -3,6 +3,7 @@ import { ProductList, CategoryList, Searcher } from './components';
 import { Toast } from '../../atoms';
 import Loader from '../../components/Loader';
 import styles from './Home.module.scss';
+import { useBreakpoint } from '../../hooks';
 
 const Home = ({
   authState,
@@ -11,6 +12,7 @@ const Home = ({
   categoryNames,
   datesRange,
   handleOnSubmit,
+  handleOnPageChange,
   handleSelectIds,
   isLoading,
   isLoadingProducts,
@@ -20,6 +22,7 @@ const Home = ({
   setDatesRange,
   setLocationSelected,
 }) => {
+  const breakpoint = useBreakpoint();
   const scrollRef = useRef(null);
 
   const scrollBottom = (element) => {
@@ -33,16 +36,25 @@ const Home = ({
     [categoryNames]
   );
 
-  if (isLoading)
+  if (isLoading || !products)
     return (
       <div className={styles.loader}>
         <Loader />
       </div>
     );
 
+  const displayPages =
+    products.totalPages < 5
+      ? products.totalPages
+      : breakpoint === 'sm'
+      ? 3
+      : breakpoint === 'md'
+      ? 5
+      : 10;
+
   return (
     <div className={styles['home-container']}>
-      {!authState?.decodedJwt?.isActive && (
+      {authState?.decodedJwt?.isActive === false && (
         <Toast
           variant="error"
           label="No has activado tu cuenta, recuerda activarla y volver a loguearte para disfrutar nuestros servicios"
@@ -67,7 +79,12 @@ const Home = ({
         <ProductList
           recommendationsTitle={recommendationsTitle}
           isLoading={isLoadingProducts}
-          products={products}
+          products={products.content}
+          currentPage={products.number + 1}
+          onPageChange={handleOnPageChange}
+          isFirstPage={products.first}
+          isLastPage={products.last}
+          displayPages={displayPages}
         />
       </div>
     </div>
