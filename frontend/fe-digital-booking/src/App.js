@@ -2,6 +2,7 @@ import Footer from './components/Footer';
 import Layout from './components/Layout';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
+import withAdminGuardian from './hocs/withAdminAuthGuardian';
 import styles from './App.module.scss';
 import { Admin } from './modules';
 import { CreateProduct } from './modules/Admin/pages/CreateProduct';
@@ -19,6 +20,7 @@ import {
   UserActivation,
   NotFound,
 } from './pages';
+import SuccessCreateProduct from './modules/Admin/pages/SuccessCreateProduct';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -29,6 +31,8 @@ function App() {
   };
 
   const BookingContainer = withAuthGuardian(() => <Booking />);
+  const AdminContainer = withAdminGuardian(() => <Admin />);
+  const AdminCreateProduct = withAdminGuardian(() => <CreateProduct />);
 
   return (
     <>
@@ -82,10 +86,17 @@ function App() {
               element={<Layout children={<SuccessBooking />} />}
             />
 
-            <Route path="/admin" element={<Layout children={<Admin />} />} />
+            <Route
+              path="/admin"
+              element={<Layout children={<AdminContainer />} />}
+            />
             <Route
               path="/admin/product/create"
-              element={<Layout children={<CreateProduct />} />}
+              element={<Layout children={<AdminCreateProduct />} />}
+            />
+            <Route
+              path="/product-create-success"
+              element={<Layout children={<SuccessCreateProduct />} />}
             />
             <Route
               path="/admin/product/:id/edit"
