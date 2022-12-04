@@ -1,1 +1,1 @@
-export { default } from './PlacesAutocomplete';
+export { default as PlacesAutocomplete } from './PlacesAutocomplete';

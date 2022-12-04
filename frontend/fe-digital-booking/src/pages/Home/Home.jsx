@@ -1,9 +1,9 @@
+import { Toast } from '../../atoms';
+import { Loader } from '../../components';
+import { useBreakpoint } from '../../hooks';
 import { useMemo, useRef } from 'react';
 import { ProductList, CategoryList, Searcher } from './components';
-import { Toast } from '../../atoms';
-import Loader from '../../components/Loader';
 import styles from './Home.module.scss';
-import { useBreakpoint } from '../../hooks';
 
 const Home = ({
   authState,

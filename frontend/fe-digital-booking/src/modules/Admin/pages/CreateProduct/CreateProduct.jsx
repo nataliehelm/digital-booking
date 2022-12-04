@@ -1,20 +1,19 @@
+import styles from './CreateProduct.module.scss';
+import { Loader } from '../../../../components';
+import { Images, Address } from './components';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
+  Checkbox,
   Dropdown,
   Heading,
   Input,
   Subheader,
   Text,
+  TextArea,
   Toast,
   WritableDropdown,
 } from '../../../../atoms';
-import styles from './CreateProduct.module.scss';
-import TextArea from '../../../../atoms/TextArea/TextArea';
-import Checkbox from '../../../../atoms/Checkbox';
-import Loader from '../../../../components/Loader';
-import Images from './components/Images';
-import Address from './components/Address/Address';
 
 const IMAGES_MIN_LENGTH = 5;
 
