@@ -38,6 +38,7 @@ const CreateProduct = ({
   images,
   setImages,
   onClick,
+  disabled,
 }) => {
   const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ const CreateProduct = ({
         <div className={styles['create-container']}>
           <div className={styles['product-name']}>
             <Input
+              {...name}
               name="name"
               label={'Nombre de la propiedad'}
               placeholder="Nombre"
@@ -74,6 +76,7 @@ const CreateProduct = ({
               onChange={name.onChange}
             />
             <Input
+              {...slogan}
               name="slogan"
               label={'Slogan'}
               placeholder="Todo Corrientes cerca a ti"
@@ -100,6 +103,7 @@ const CreateProduct = ({
           <div className={styles['product-address']}>
             <Address setCoords={setCoords} address={address} />
             <Input
+              {...distance}
               name="distance"
               label={'Distancia a punto turístico'}
               placeholder="A 940 m del centro"
@@ -151,6 +155,7 @@ const CreateProduct = ({
               Descripción
             </Text>
             <TextArea
+              {...description}
               variant="t1"
               value={description.value}
               onChange={description.onChange}
@@ -237,7 +242,7 @@ const CreateProduct = ({
               type="submit"
               variant="b1"
               classname={styles.button}
-              //disabled={disabled}
+              disabled={disabled}
               onClick={onClick}
             >
               Crear

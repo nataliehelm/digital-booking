@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInput } from '../../../../../atoms';
 import { useFetch } from '../../../../../hooks';
@@ -22,7 +22,6 @@ const useCreateProduct = () => {
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
-  //const images = useInput('', mandatoryValidator);
   const { state } = useAuthContext();
   const { data, error, callback } = useFetchLazy();
   const [coords, setCoords] = useState();
@@ -55,11 +54,18 @@ const useCreateProduct = () => {
   const onClick = () => {
     const finalCoords = [coords.lat, coords.lng];
     const selectedFeatures = [];
+    const uploadedImages = images.filter((image) => image.value !== '');
+    const finalImages = uploadedImages.map((i) => ({
+      title: name.value,
+      url: i.value,
+    }));
+
     features.map((f) => {
       if (f.isChecked) {
         selectedFeatures.push(f.id);
       }
     });
+
     const option = {
       method: 'POST',
       headers: {
@@ -78,14 +84,42 @@ const useCreateProduct = () => {
         locationId: locationSelected.id,
         featureIds: selectedFeatures,
         policiyIds: [1, 2, 3],
+        images: finalImages,
         //userId: state.decodedJwt.userId,
       }),
     };
     callback('products', option);
   };
+
+  const disabled = useMemo(() => {
+    return (
+      [
+        name,
+        address,
+        distance,
+        slogan,
+        description,
+        categorySelected,
+        locationSelected,
+      ].some((item) => item.value === '' || item.hasError) ||
+      !features.some((feat) => feat.isChecked) ||
+      images.length < 6
+    );
+  }, [
+    name,
+    address,
+    distance,
+    slogan,
+    description,
+    categorySelected,
+    locationSelected,
+    features,
+    images,
+  ]);
+
   useEffect(() => {
     if (data) {
-      navigate('/success-booking');
+      navigate('/create-product-success');
     }
     if (error) {
       console.error(error);
@@ -96,7 +130,6 @@ const useCreateProduct = () => {
     if (!isLoadingLocations) {
       const finalLocations = parsedLocationsWithoutCity(_locations);
       setLocations(finalLocations);
-      //setLocationSelected(location);
     }
   }, [_locations, isLoadingLocations]);
 
@@ -107,7 +140,6 @@ const useCreateProduct = () => {
         title: c.name,
       }));
       setCategories(finalCategories);
-      //setLocationSelected(location);
     }
   }, [_categories, isLoadingCategories]);
 
@@ -120,7 +152,6 @@ const useCreateProduct = () => {
         isChecked: false,
       }));
       setFeatures(finalFeatures);
-      //setLocationSelected(location);
     }
   }, [_features, isLoadingFeatures]);
 
@@ -131,8 +162,6 @@ const useCreateProduct = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coords]);
-
-  console.log(name);
 
   return {
     name,
@@ -155,6 +184,7 @@ const useCreateProduct = () => {
     images,
     setImages,
     onClick,
+    disabled,
   };
 };
 
