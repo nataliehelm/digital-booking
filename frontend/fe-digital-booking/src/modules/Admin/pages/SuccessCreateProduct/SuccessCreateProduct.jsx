@@ -25,7 +25,7 @@ const SuccessCreateProduct = () => {
             </Heading>
             <div className={styles['button-container']}>
               <div>
-                <Link to="/admin/product/create">
+                <Link to="/">
                   <Button
                     variant="b1"
                     classname={styles.button}

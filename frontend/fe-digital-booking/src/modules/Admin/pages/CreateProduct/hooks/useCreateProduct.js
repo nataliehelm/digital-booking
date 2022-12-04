@@ -185,6 +185,7 @@ const useCreateProduct = () => {
     setImages,
     onClick,
     disabled,
+    error,
   };
 };
 

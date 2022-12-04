@@ -10,9 +10,9 @@ const withAdminAuthGuardian = (Component) => {
 
     useEffect(() => {
       if (
-        decodedJwt.role.authority !== 'ROLE_ADMIN' ||
         !jwt ||
-        !decodedJwt?.isActive
+        !decodedJwt?.isActive ||
+        decodedJwt.role[0].authority !== 'ROLE_ADMIN'
       ) {
         navigate('/login');
       }

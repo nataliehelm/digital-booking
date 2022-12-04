@@ -6,6 +6,7 @@ import {
   Input,
   Subheader,
   Text,
+  Toast,
   WritableDropdown,
 } from '../../../../atoms';
 import styles from './CreateProduct.module.scss';
@@ -39,6 +40,7 @@ const CreateProduct = ({
   setImages,
   onClick,
   disabled,
+  error,
 }) => {
   const navigate = useNavigate();
 
@@ -248,6 +250,17 @@ const CreateProduct = ({
               Crear
             </Button>
           </div>
+          {error && (
+            <div className={styles['sign-up-form']}>
+              <Toast
+                variant="error"
+                label={
+                  error.error ||
+                  'Lamentablemente el producto no ha podido crearse. Por favor intente más tarde'
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
