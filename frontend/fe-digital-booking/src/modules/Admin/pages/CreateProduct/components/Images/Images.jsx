@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Images.module.scss';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 import { Heading, Text, Uploader, useInput } from '../../../../../../atoms';
 import { mandatoryValidator } from '../../../../../../utils/validators';
 
@@ -43,11 +44,18 @@ const Images = ({ images, setImages, hasError, minLength }) => {
       )}
       {hasError && (
         <Text variant="t2" classname={cn(styles.label, styles['label-error'])}>
-          Se deben cargar minimo {minLength} imágenes
+          <span>Se deben cargar minimo {minLength} imágenes</span>
         </Text>
       )}
     </div>
   );
+};
+
+Images.propTypes = {
+  images: PropTypes.array.isRequired,
+  setImages: PropTypes.func.isRequired,
+  hasError: PropTypes.bool.isRequired,
+  minLength: PropTypes.number.isRequired,
 };
 
 export default Images;

@@ -1,0 +1,29 @@
+@use './../../../../../../styles/variables' as *;
+
+.policies section {
+  padding-bottom: 15px;
+}
+
+@media (min-width: $md) {
+  .policies-container {
+    .policies {
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+      border-radius: 5px;
+      > section {
+        padding: 16px;
+      }
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .policies-container {
+    .policies {
+      flex-direction: row;
+      display: flex;
+      > section {
+        width: 33%;
+      }
+    }
+  }
+}

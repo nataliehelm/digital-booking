@@ -1,0 +1,41 @@
+@use './../../../../../../styles/variables' as *;
+
+.product-name {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding-bottom: 23px;
+
+  .categories {
+    .dropdown-container {
+      height: 40px;
+      position: relative;
+
+      .dropdown {
+        position: absolute;
+        z-index: 3;
+      }
+    }
+  }
+}
+
+.text {
+  color: $color-secondary;
+  margin-bottom: 10px;
+}
+
+@media (min-width: $md) {
+  .product-name {
+    flex-direction: row;
+    margin-bottom: 31px;
+    > div {
+      width: 33%;
+    }
+
+    .categories {
+      display: flex;
+      flex-direction: column;
+      width: 33%;
+    }
+  }
+}
