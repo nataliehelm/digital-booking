@@ -14,11 +14,12 @@ const withAdminAuthGuardian = (Component) => {
         !decodedJwt?.isActive ||
         decodedJwt.role[0].authority !== 'ROLE_ADMIN'
       ) {
-        navigate('/login');
+        navigate('/');
       }
     }, [decodedJwt, jwt, navigate]);
 
     if (jwt) return <Component {...props} />;
+
     return (
       <div>
         <figure>

@@ -31,6 +31,8 @@ function App() {
   };
 
   const BookingContainer = withAuthGuardian(() => <Booking />);
+
+  // TODO: refactorizar implementación
   const AdminContainer = withAdminGuardian(() => <Admin />);
   const AdminCreateProduct = withAdminGuardian(() => <CreateProduct />);
 
