@@ -8,36 +8,37 @@ import useAuthContext from '../../../../../providers/AuthProvider/useAuthContext
 import { mandatoryValidator } from '../../../../../utils/validators';
 
 const useCreateProduct = () => {
+  const navigate = useNavigate();
+
+  const { state } = useAuthContext();
+
+  const [coords, setCoords] = useState();
+  const [features, setFeatures] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [images, setImages] = useState([{ id: 0, value: '' }]);
   const [locationSelected, setLocationSelected] = useState(null);
+  const [categorySelected, setCategorySelected] = useState(null);
+
+  const lat = useInput('', mandatoryValidator);
+  const lng = useInput('', mandatoryValidator);
+  const name = useInput('', mandatoryValidator);
+  const slogan = useInput('', mandatoryValidator);
+  const policy1 = useInput('', mandatoryValidator);
+  const address = useInput('', mandatoryValidator);
+  const distance = useInput('', mandatoryValidator);
+  const description = useInput('', mandatoryValidator);
+
+  const {
+    data: createProductData,
+    error: createProductError,
+    callback: createProduct,
+  } = useFetchLazy();
+
   const { isLoading: isLoadingLocations, data: _locations } =
     useFetch('locations');
   const { isLoading: isLoadingCategories, data: _categories } =
     useFetch('categories');
-  const [categories, setCategories] = useState([]);
-  const [categorySelected, setCategorySelected] = useState(null);
-  const name = useInput('', mandatoryValidator);
-  const slogan = useInput('', mandatoryValidator);
-  const address = useInput('', mandatoryValidator);
-  const distance = useInput('', mandatoryValidator);
-  const description = useInput('', mandatoryValidator);
-  const policy1 = useInput('', mandatoryValidator);
-  const { state } = useAuthContext();
-  const { data, error, callback } = useFetchLazy();
-  const [coords, setCoords] = useState();
-  const lat = useInput('', mandatoryValidator);
-  const lng = useInput('', mandatoryValidator);
-  const navigate = useNavigate();
-
-  const [features, setFeatures] = useState([]);
-
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      value: '',
-    },
-  ]);
-
   const { isLoading: isLoadingFeatures, data: _features } =
     useFetch('features');
 
@@ -51,21 +52,7 @@ const useCreateProduct = () => {
     setFeatures(options);
   };
 
-  const onClick = () => {
-    const finalCoords = [coords.lat, coords.lng];
-    const selectedFeatures = [];
-    const uploadedImages = images.filter((image) => image.value !== '');
-    const finalImages = uploadedImages.map((i) => ({
-      title: name.value,
-      url: i.value,
-    }));
-
-    features.map((f) => {
-      if (f.isChecked) {
-        selectedFeatures.push(f.id);
-      }
-    });
-
+  const onSubmit = (payload) => {
     const option = {
       method: 'POST',
       headers: {
@@ -73,78 +60,69 @@ const useCreateProduct = () => {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + state.jwt,
       },
-      body: JSON.stringify({
-        name: name.value,
-        address: address.value,
-        distance_to_nearest_tourist_site: distance.value,
-        description_title: slogan.value,
-        description: description.value,
-        coordinates: finalCoords,
-        categoryId: categorySelected.id,
-        locationId: locationSelected.id,
-        featureIds: selectedFeatures,
-        policiyIds: [1, 2, 3],
-        images: finalImages,
-        //userId: state.decodedJwt.userId,
-      }),
+      body: JSON.stringify(payload),
     };
-    callback('products', option);
+    createProduct('products', option);
   };
 
   const disabled = useMemo(() => {
-    return (
-      [
-        name,
-        address,
-        distance,
-        slogan,
-        description,
-        categorySelected,
-        locationSelected,
-      ].some((item) => item.value === '' || item.hasError) ||
-      !features.some((feat) => feat.isChecked) ||
-      images.length < 6
-    );
+    if (features.every((f) => !f.isChecked)) return true;
+    if (images.length < 6) return true;
+    return [
+      name,
+      slogan,
+      categorySelected,
+      address,
+      distance,
+      locationSelected,
+      lat,
+      lng,
+      policy1,
+      description,
+    ].some((item) => item.value === '' || item.hasError);
   }, [
-    name,
-    address,
-    distance,
-    slogan,
-    description,
-    categorySelected,
-    locationSelected,
     features,
     images,
+    name,
+    slogan,
+    categorySelected,
+    address,
+    distance,
+    locationSelected,
+    lat,
+    lng,
+    policy1,
+    description,
   ]);
 
   useEffect(() => {
-    if (data) {
+    if (createProductData) {
       navigate('/create-product-success');
     }
-    if (error) {
-      console.error(error);
+    if (createProductError) {
+      console.error(createProductError);
     }
-  }, [data, error, navigate]);
+  }, [createProductData, createProductError, navigate]);
 
   useEffect(() => {
-    if (!isLoadingLocations) {
+    if (_locations) {
       const finalLocations = parsedLocationsWithoutCity(_locations);
       setLocations(finalLocations);
     }
-  }, [_locations, isLoadingLocations]);
+  }, [_locations]);
 
   useEffect(() => {
-    if (!isLoadingCategories) {
+    if (_categories) {
       const finalCategories = _categories.map((c) => ({
         id: c.id,
         title: c.name,
       }));
       setCategories(finalCategories);
     }
-  }, [_categories, isLoadingCategories]);
+  }, [_categories]);
 
   useEffect(() => {
-    if (!isLoadingFeatures) {
+    if (_features) {
       const finalFeatures = _features.map((f) => ({
         id: f.id,
         title: f.name,
@@ -153,39 +131,41 @@ const useCreateProduct = () => {
       }));
       setFeatures(finalFeatures);
     }
-  }, [_features, isLoadingFeatures]);
+  }, [_features]);
 
   useEffect(() => {
     if (coords) {
-      lat.onChange({ target: { value: coords.lat } });
-      lng.onChange({ target: { value: coords.lng } });
+      lat.onChange({ target: { value: coords.lat.toString() } });
+      lng.onChange({ target: { value: coords.lng.toString() } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coords]);
 
   return {
-    name,
-    slogan,
-    categories,
-    setCategorySelected,
     address,
+    categories,
+    categorySelected,
+    coords,
+    createProductError,
+    description,
+    disabled,
     distance,
+    features,
+    handleOnCheckboxChange,
+    images,
     isLoading: isLoadingLocations || isLoadingCategories || isLoadingFeatures,
     lat,
     lng,
     locations,
-    setLocationSelected,
     locationSelected,
-    setCoords,
-    description,
-    features,
-    handleOnCheckboxChange,
+    name,
+    onSubmit,
     policy1,
-    images,
+    setCategorySelected,
+    setCoords,
     setImages,
-    onClick,
-    disabled,
-    error,
+    setLocationSelected,
+    slogan,
   };
 };
 

@@ -28,7 +28,7 @@ const Error = () => {
             children={'Volver a Inicio'}
             classname={styles.button}
             onClick={() => {
-              navigate('/');
+              window.location = '/';
             }}
           ></Button>
         </div>

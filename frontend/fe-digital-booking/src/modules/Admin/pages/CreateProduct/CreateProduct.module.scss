@@ -8,70 +8,19 @@
   align-items: center;
 }
 
-.container {
-  .heading {
+.create-product-container {
+  .title {
     color: $color-secondary;
     margin: 25px 9px 17px;
   }
-  .features-heading {
-    color: $color-secondary;
-    margin-bottom: 13px;
-  }
 
-  .create-container {
+  .form-container {
     background-color: $color-white;
     display: flex;
     flex-direction: column;
     padding: 24px 27px;
+    gap: 23px;
 
-    .product-name {
-      display: flex;
-      flex-direction: column;
-      gap: 23px;
-      padding-bottom: 23px;
-
-      .categories {
-        .dropdown-container {
-          height: 40px;
-          position: relative;
-
-          .dropdown {
-            position: absolute;
-            z-index: 3;
-          }
-        }
-      }
-    }
-    .product-address {
-      display: flex;
-      flex-direction: column;
-      gap: 23px;
-      padding-bottom: 23px;
-
-      .categories {
-        .dropdown-container {
-          position: relative;
-          height: 40px;
-
-          .dropdown {
-            position: absolute;
-            z-index: 2;
-          }
-        }
-      }
-    }
-    .description {
-      padding-bottom: 23px;
-    }
-    .places {
-      margin-bottom: 23px;
-    }
-    .features {
-      padding-bottom: 23px;
-    }
-    .policies {
-      padding-bottom: 23px;
-    }
     .submit {
       padding-bottom: 15px;
     }
@@ -80,70 +29,17 @@
     color: $color-secondary;
     margin-bottom: 10px;
   }
-
-  .policies-container section {
-    padding-bottom: 15px;
-  }
 }
 
 @media (min-width: $md) {
-  .container {
+  .create-product-container {
     padding: 13px 30px;
 
-    .create-container {
+    .form-container {
       border: 1px solid #dfe4ea;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 8px;
 
-      .product-name {
-        flex-direction: row;
-        margin-bottom: 31px;
-        > div {
-          width: 33%;
-        }
-
-        .categories {
-          display: flex;
-          flex-direction: column;
-          width: 33%;
-        }
-      }
-      .product-address {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 31px;
-        > div {
-          width: 33%;
-        }
-        .categories {
-          width: 33%;
-        }
-      }
-      .description {
-        margin-bottom: 31px;
-      }
-      .places {
-        margin-bottom: 31px;
-      }
-      .features {
-        .checkbox {
-          display: flex;
-          flex-wrap: wrap;
-        }
-        .checkbox > div {
-          width: 50%;
-          padding-bottom: 7px;
-        }
-      }
-      .policies {
-        .policies-container {
-          box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
-          border-radius: 5px;
-          > section {
-            padding: 16px;
-          }
-        }
-      }
       .submit {
         display: flex;
         justify-content: center;
@@ -158,31 +54,7 @@
   }
 }
 @media (min-width: $lg) {
-  .container {
+  .create-product-container {
     padding: 13px 40px 30px;
-    .create-container {
-      .places {
-        width: 50%;
-
-        .coords {
-          display: flex;
-          gap: 20px;
-        }
-      }
-      .features {
-        .checkbox > div {
-          width: 33%;
-        }
-      }
-    }
-    .policies {
-      .policies-container {
-        flex-direction: row;
-        display: flex;
-        > section {
-          width: 33%;
-        }
-      }
-    }
   }
 }

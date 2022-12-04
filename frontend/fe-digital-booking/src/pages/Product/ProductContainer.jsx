@@ -1,4 +1,4 @@
-import Loader from '../../components/Loader';
+import { Loader } from '../../components';
 import useProduct from './hooks/useProduct';
 import Product from './Product';
 import styles from './ProductContainer.module.scss';

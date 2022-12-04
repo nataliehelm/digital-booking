@@ -1,8 +1,8 @@
+import { Loader } from '../../components';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Loader from '../../components/Loader';
-import useFetch from '../../hooks/useFetch/useFetch';
 import { parsedLocationsWithoutCity } from '../../mappers/locations.mapper';
+import useFetch from '../../hooks/useFetch/useFetch';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import Booking from './Booking';
 import styles from './BookingContainer.module.scss';
