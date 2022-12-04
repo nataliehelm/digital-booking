@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://s3.${AWS_DEFAULT_REGION}.amazonaws.com
+  accessKey: ${AWS_ACCESS_KEY_ID}
+  secretKey: ${AWS_SECRET_ACCESS_KEY}
+  bucketName: ${S3_BUCKET}
