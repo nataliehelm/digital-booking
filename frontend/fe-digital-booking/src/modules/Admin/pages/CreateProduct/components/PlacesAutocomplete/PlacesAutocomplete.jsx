@@ -54,7 +54,11 @@ const PlacesAutocomplete = ({
       } = suggestion;
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
+        <li
+          className={styles.dropdown}
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+        >
           <Option title={main_text} description={secondary_text} />
         </li>
       );
