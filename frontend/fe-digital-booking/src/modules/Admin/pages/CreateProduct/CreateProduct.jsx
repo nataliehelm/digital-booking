@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import {
   Button,
   Dropdown,
@@ -7,14 +6,11 @@ import {
   Input,
   Subheader,
   Text,
-  Uploader,
-  useInput,
   WritableDropdown,
 } from '../../../../atoms';
 import styles from './CreateProduct.module.scss';
 import TextArea from '../../../../atoms/TextArea/TextArea';
 import Checkbox from '../../../../atoms/Checkbox';
-import PlacesAutocomplete from '../components/PlacesAutocomplete';
 import Loader from '../../../../components/Loader';
 import Images from './components/Images';
 import Address from './components/Address/Address';
@@ -31,6 +27,8 @@ const CreateProduct = ({
   isLoading,
   locations,
   setLocationSelected,
+  lat,
+  lng,
   locationSelected,
   setCoords,
   description,
@@ -38,18 +36,10 @@ const CreateProduct = ({
   handleOnCheckboxChange,
   policy1,
   images,
+  setImages,
   onClick,
 }) => {
   const navigate = useNavigate();
-  const lat = useInput('', mandatoryValidator);
-  const lng = useInput('', mandatoryValidator);
-
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      value: '',
-    },
-  ]);
 
   const onBackClick = () => {
     navigate(-1);
@@ -61,14 +51,6 @@ const CreateProduct = ({
         <Loader />
       </div>
     );
-
-  useEffect(() => {
-    if (coords) {
-      lat.onChange({ target: { value: coords.lat } });
-      lng.onChange({ target: { value: coords.lng } });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coords]);
 
   return (
     <>

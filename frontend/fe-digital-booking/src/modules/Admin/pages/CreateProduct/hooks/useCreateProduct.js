@@ -22,13 +22,22 @@ const useCreateProduct = () => {
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
   const policy1 = useInput('', mandatoryValidator);
-  const images = useInput('', mandatoryValidator);
+  //const images = useInput('', mandatoryValidator);
   const { state } = useAuthContext();
   const { data, error, callback } = useFetchLazy();
   const [coords, setCoords] = useState();
+  const lat = useInput('', mandatoryValidator);
+  const lng = useInput('', mandatoryValidator);
   const navigate = useNavigate();
 
   const [features, setFeatures] = useState([]);
+
+  const [images, setImages] = useState([
+    {
+      id: 0,
+      value: '',
+    },
+  ]);
 
   const { isLoading: isLoadingFeatures, data: _features } =
     useFetch('features');
@@ -115,6 +124,14 @@ const useCreateProduct = () => {
     }
   }, [_features, isLoadingFeatures]);
 
+  useEffect(() => {
+    if (coords) {
+      lat.onChange({ target: { value: coords.lat } });
+      lng.onChange({ target: { value: coords.lng } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coords]);
+
   console.log(name);
 
   return {
@@ -125,6 +142,8 @@ const useCreateProduct = () => {
     address,
     distance,
     isLoading: isLoadingLocations || isLoadingCategories || isLoadingFeatures,
+    lat,
+    lng,
     locations,
     setLocationSelected,
     locationSelected,
@@ -134,6 +153,7 @@ const useCreateProduct = () => {
     handleOnCheckboxChange,
     policy1,
     images,
+    setImages,
     onClick,
   };
 };
