@@ -56,11 +56,7 @@ const CreateProduct = ({
 
   return (
     <>
-      <Subheader
-        title={''}
-        subtitle={'Administración'}
-        onBackClick={onBackClick}
-      />
+      <Subheader subtitle={'Administración'} onBackClick={onBackClick} />
       <div className={styles.container}>
         <Heading variant="h2" classname={styles.heading}>
           Crear propiedad
