@@ -12,7 +12,10 @@ const Address = ({ setCoords, address }) => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
-    requestOptions: {},
+    requestOptions: {
+      componentRestrictions: { country: 'ar' },
+      region: 'ar',
+    },
     debounce: 300,
   });
 
