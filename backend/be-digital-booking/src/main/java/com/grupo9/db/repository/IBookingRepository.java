@@ -19,6 +19,6 @@ public interface IBookingRepository extends JpaRepository<Booking, Long> {
             "WHERE products.id = :locationId ", nativeQuery = true)
     List <Booking> findBookedDatesByProductId(@Param("locationId") Long locationId);
 
-    Page<Booking> findAllBookingsByUserId (Long userId, Pageable pageable);
+
 
 }

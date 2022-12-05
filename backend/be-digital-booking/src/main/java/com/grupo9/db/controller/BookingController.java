@@ -46,12 +46,6 @@ public class BookingController {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List by Product Id successfully",bookings, null);
     }
 
-    @GetMapping(path = "/user/{id}")
-    public ResponseEntity<ApiResponse<Page<Booking>, Object>> findAllBookingsByUserId(@PathVariable("id") Long id, @PageableDefault(size = 8) Pageable pageable) throws ResourceNotFoundException {
-        Page<Booking> bookings = bookingService.findAllBookingsByUserId(id, pageable);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Booking List by user Id successfully",bookings, null);
-    }
-
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<Booking, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         Booking booking = bookingService.findById(id);

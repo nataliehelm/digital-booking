@@ -55,6 +55,10 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     private Role roles;
 
+    @OneToMany
+    @JoinColumn(name = "booking_Id")
+    private Booking booking;
+
     @Column(name = "is_active")
     private boolean isActive = false;
 

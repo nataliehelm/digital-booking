@@ -40,13 +40,13 @@ public class BookingService {
         this.responsesBuilder = responsesBuilder;
     }
 
-    public List<Booking> findAll(){
+    public List<Booking> findAll() {
         List<Booking> bookings = iBookingRepository.findAll();
         return bookings;
     }
 
     public List<Booking> findByParams(Map<String, String> params) throws BadRequestException {
-        if(params.get("productId") != null){
+        if (params.get("productId") != null) {
             Long productId = Long.valueOf(params.get("productId"));
             return iBookingRepository.findBookedDatesByProductId(productId);
         }
@@ -56,11 +56,6 @@ public class BookingService {
     public List<Booking> findAllBookingsByProductId(Long productId) {
         List<Booking> bookings = iBookingRepository.findBookedDatesByProductId(productId);
         return bookings;
-    }
-
-    public Page<Booking> findAllBookingsByUserId(Long userId, Pageable pageable) {
-        Page<Booking> bookingsByUserId = iBookingRepository.findAllBookingsByUserId(userId, pageable);
-        return bookingsByUserId;
     }
 
     public Booking findById(Long id) throws ResourceNotFoundException {
