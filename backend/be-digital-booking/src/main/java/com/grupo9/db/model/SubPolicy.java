@@ -25,9 +25,17 @@ public class SubPolicy {
     private Long id;
 
     @NotEmpty(message = "Description is mandatory")
-    @Column(name = "description", nullable=false)
+    @Column(name = "description", nullable = false)
     private String description;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
 
     @CreationTimestamp
     @JsonIgnore
@@ -39,7 +47,9 @@ public class SubPolicy {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    public SubPolicy(String description) {
+    public SubPolicy(String description, Product product, Policy policy) {
         this.description = description;
+        this.product = product;
+        this.policy = policy;
     }
 }

@@ -12,7 +12,6 @@ import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -219,19 +218,10 @@ public class ProductService {
             features.add(feature.get());
         }
 
-        List<Policy> policies = new ArrayList<>();
-        for(Long policyId:productDto.getPoliciyIds()){
-            Optional<Policy> policy = policyRepository.findById(policyId);
-            if(policy.isEmpty()){
-                throw new ResourceNotFoundException("Policy with id " + policyId + " not found");
-            }
-            policies.add(policy.get());
-        }
-
         if(id != null){
-            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
+            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, user.get());
         }
 
-        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
+        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, user.get());
     }
 }
