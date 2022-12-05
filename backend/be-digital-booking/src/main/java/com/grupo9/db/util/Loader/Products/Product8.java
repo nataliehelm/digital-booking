@@ -48,13 +48,8 @@ public class Product8 {
         coordinates.add(-32.48499756942883);
         coordinates.add(-58.22413741141344);
 
-        List policies = new ArrayList<>();
 
-        policies.add(policy1);
-        policies.add(policy2);
-        policies.add(policy3);
-
-        Product product3 = new Product("Paarivar Host", "A menos de 1 km de Concepción del Uruguay", 4.2, 8F,"Cerca al centro de Concepcion","El Parivaar Host se encuentra en Concepción del Uruguay, a 35 km del Palacio San José, y ofrece alojamiento con piscina exterior de temporada, aparcamiento privado, bar y jardín. Ofrece habitaciones familiares y parque infantil. Ofrece conexión WiFi gratuita y cocina compartida.\n\n Algunos alojamientos tienen vistas a la piscina. Las habitaciones cuentan con baño compartido y armario. Todas las habitaciones incluyen ropa de cama.\n\n El Parivaar Host se encuentra a 45 km de la estación de autobuses de Colón y a menos de 1 km de Concepción del Uruguay.  ", coordinates,category4, location4, "Virrey Vértiz 128", features, policies, user);
+        Product product3 = new Product("Paarivar Host", "A menos de 1 km de Concepción del Uruguay", 4.2, 8F,"Cerca al centro de Concepcion","El Parivaar Host se encuentra en Concepción del Uruguay, a 35 km del Palacio San José, y ofrece alojamiento con piscina exterior de temporada, aparcamiento privado, bar y jardín. Ofrece habitaciones familiares y parque infantil. Ofrece conexión WiFi gratuita y cocina compartida.\n\n Algunos alojamientos tienen vistas a la piscina. Las habitaciones cuentan con baño compartido y armario. Todas las habitaciones incluyen ropa de cama.\n\n El Parivaar Host se encuentra a 45 km de la estación de autobuses de Colón y a menos de 1 km de Concepción del Uruguay.  ", coordinates,category4, location4, "Virrey Vértiz 128", features, user);
 
         iProductRepository.save(product3);
     }
