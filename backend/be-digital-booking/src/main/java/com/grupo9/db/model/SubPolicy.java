@@ -52,4 +52,11 @@ public class SubPolicy {
         this.product = product;
         this.policy = policy;
     }
+
+    public SubPolicy(Long id, String description, Product product, Policy policy) {
+        this.id = id;
+        this.description = description;
+        this.product = product;
+        this.policy = policy;
+    }
 }

@@ -2,7 +2,7 @@ package com.grupo9.db.service;
 
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.Policy;
+import com.grupo9.db.model.*;
 import com.grupo9.db.repository.IPolicyRepository;
 import com.grupo9.db.repository.ISubPolicyRepository;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -47,6 +47,7 @@ public class PolicyService {
         if(!exists){
             throw new ResourceNotFoundException("Policy with id " + id + " not found");
         }
+        policy.setId(id);
         return repository.save(policy);
     }
 
