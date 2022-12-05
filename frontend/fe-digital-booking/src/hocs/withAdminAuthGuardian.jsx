@@ -12,7 +12,8 @@ const withAdminAuthGuardian = (Component) => {
       if (
         !jwt ||
         !decodedJwt?.isActive ||
-        decodedJwt.role[0].authority !== 'ROLE_ADMIN'
+        !decodedJwt?.role ||
+        decodedJwt?.role[0].authority !== 'ROLE_ADMIN'
       ) {
         navigate('/');
       }
