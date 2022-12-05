@@ -76,11 +76,6 @@ public class Product {
             @JoinColumn(name = "feature_id") })
     private List<Feature> features = new ArrayList<>();
 
-    //@ManyToMany()
-    //@JoinTable(name = "product_policy", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
-      //      @JoinColumn(name = "policy_id") })
- //   private List<Policy> policies = new ArrayList<>();
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @OrderBy("id ASC")
     @JsonManagedReference
