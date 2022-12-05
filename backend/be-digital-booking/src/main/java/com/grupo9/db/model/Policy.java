@@ -29,11 +29,6 @@ public class Policy {
     @Column(name = "title", nullable=false, length=80)
     private String title;
 
-  //  @ManyToMany()
-  //  @JoinTable(name = "policy_subpolicy", joinColumns = { @JoinColumn(name = "policy_id") }, inverseJoinColumns = {
-  //          @JoinColumn(name = "subpolicy_id") })
-  //  private List<SubPolicy> subPolicies = new ArrayList<>();
-
     @CreationTimestamp
     @JsonIgnore
     @Column(name = "created_at", nullable = false, updatable = false)
