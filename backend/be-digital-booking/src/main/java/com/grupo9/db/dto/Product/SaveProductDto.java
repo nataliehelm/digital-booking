@@ -16,10 +16,10 @@ public class SaveProductDto {
     private String name;
     @NotEmpty(message = "distance_to_nearest_tourist_site is mandatory")
     private String distance_to_nearest_tourist_site;
-    @NotNull(message = "ranking is mandatory")
+
     private Double ranking;
-    @NotNull(message = "score is mandatory")
     private Double score;
+
     @NotEmpty(message = "description_title is mandatory")
     private String description_title;
     @NotEmpty(message = "description is mandatory")
