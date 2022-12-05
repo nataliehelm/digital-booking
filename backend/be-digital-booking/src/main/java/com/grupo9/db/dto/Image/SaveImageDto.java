@@ -15,6 +15,5 @@ public class SaveImageDto {
   private String url;
   @NotEmpty(message = "title is mandatory")
   private String title;
-  @NotNull(message = "product_id is mandatory")
   private Long product_id;
 }

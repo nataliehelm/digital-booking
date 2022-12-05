@@ -1,5 +1,6 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.SubPolicy.SaveSubPolicyDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.SubPolicy;
@@ -38,7 +39,7 @@ public class SubPolicyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ResponseEntity<ApiResponse<SubPolicy, Object>> save(@Valid @RequestBody SubPolicy subPolicy){
+    public ResponseEntity<ApiResponse<SubPolicy, Object>> save(@Valid @RequestBody SaveSubPolicyDto subPolicy) throws ResourceNotFoundException {
         SubPolicy response = service.save(subPolicy);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"SubPolicy created successfully", response, null);
 
@@ -46,7 +47,7 @@ public class SubPolicyController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ApiResponse<SubPolicy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SubPolicy subPolicy) throws ResourceNotFoundException, BadRequestException {
+    public ResponseEntity<ApiResponse<SubPolicy, Object>> update(@PathVariable("id") Long id, @Valid @RequestBody SaveSubPolicyDto subPolicy) throws ResourceNotFoundException, BadRequestException {
         SubPolicy response = service.update(id, subPolicy);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"SubPolicy updated successfully", response, null);
     }
