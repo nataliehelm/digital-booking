@@ -1,5 +1,7 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.exceptions.BadRequestException;
+import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Category;
 import com.grupo9.db.service.AmazonClient;
 import com.grupo9.db.util.ApiResponse;
@@ -29,14 +31,14 @@ public class BucketController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/uploadFile")
-    public ResponseEntity<ApiResponse<String, Object>> uploadFile(@RequestPart(value = "file") MultipartFile file) {
+    public ResponseEntity<ApiResponse<String, Object>> uploadFile(@RequestPart(value = "file") MultipartFile file) throws BadRequestException {
         String response = this.amazonClient.uploadFile(file);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image uploaded successfully",response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/deleteFile")
-    public ResponseEntity<ApiResponse<String, Object>>  deleteFile(@RequestPart(value = "url") String fileUrl) {
+    public ResponseEntity<ApiResponse<String, Object>>  deleteFile(@RequestPart(value = "url") String fileUrl) throws ResourceNotFoundException {
         String response = this.amazonClient.deleteFileFromS3Bucket(fileUrl);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully",response, null);
     }

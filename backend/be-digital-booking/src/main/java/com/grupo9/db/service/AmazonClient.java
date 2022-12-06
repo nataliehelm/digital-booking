@@ -7,15 +7,22 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.grupo9.db.exceptions.BadRequestException;
+import com.grupo9.db.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Date;
+import java.util.Iterator;
 
 @Service
 public class AmazonClient {
@@ -53,7 +60,11 @@ public class AmazonClient {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
-    public String uploadFile(MultipartFile multipartFile) {
+    public String uploadFile(MultipartFile multipartFile) throws BadRequestException {
+
+        if(multipartFile.getSize() / 1000 > 250){
+            throw new BadRequestException("El tamaño del archivo es superior a 250, el peso actual del archivo es: " + multipartFile.getSize() / 1000 + " KB");
+        }
 
         String fileUrl = "";
         try {
@@ -68,9 +79,12 @@ public class AmazonClient {
         return fileUrl;
     }
 
-    public String deleteFileFromS3Bucket(String fileUrl) {
+    public String deleteFileFromS3Bucket(String fileUrl) throws ResourceNotFoundException {
         String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
         Boolean exists = checkIfFileExists(fileName);
+        if(!exists){
+            throw new ResourceNotFoundException("File with name " + fileName + " not found");
+        }
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
