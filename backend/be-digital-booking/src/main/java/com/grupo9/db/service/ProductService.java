@@ -1,9 +1,12 @@
 package com.grupo9.db.service;
 
 import com.grupo9.db.dto.Auth.JwtDto;
+import com.grupo9.db.dto.Image.SaveImageDto;
 import com.grupo9.db.dto.Product.GetBookedDatesDto;
 import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
+import com.grupo9.db.dto.Product.SaveFullProductDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
+import com.grupo9.db.dto.SubPolicy.SaveSubPolicyDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.*;
@@ -12,11 +15,12 @@ import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.util.ObjectMapperUtils;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,9 +38,11 @@ public class ProductService {
     private final IFeatureRepository featureRepository;
     private final IPolicyRepository policyRepository;
     private final IBookingRepository bookingRepository;
+    private final ISubPolicyRepository subPolicyRepository;
+    private final IImageRepository iImageRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(BookingService bookingService, IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IUserRepository userRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(BookingService bookingService, IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IUserRepository userRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ISubPolicyRepository subPolicyRepository, IImageRepository iImageRepository, ResponsesBuilder responsesBuilder) {
         this.bookingService = bookingService;
         this.repository = repository;
         this.categoryRepository = categoryRepository;
@@ -45,6 +51,8 @@ public class ProductService {
         this.featureRepository = featureRepository;
         this.policyRepository = policyRepository;
         this.bookingRepository = bookingRepository;
+        this.subPolicyRepository = subPolicyRepository;
+        this.iImageRepository = iImageRepository;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -168,9 +176,18 @@ public class ProductService {
         throw new BadRequestException("Invalid Params");
     }
 
-    public Product save(SaveProductDto productDto) throws ResourceNotFoundException {
+    public Product saveBasic(SaveProductDto productDto) throws ResourceNotFoundException {
         Product product = productBuilder(productDto, null);
         return repository.save(product);
+    }
+
+    public Product save(SaveFullProductDto productDto) throws ResourceNotFoundException {
+        SaveProductDto saveProductDto = new SaveProductDto(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), productDto.getCategoryId(), productDto.getLocationId(), productDto.getAddress(), productDto.getFeatureIds(), productDto.getUserId());
+        Product product = productBuilder(saveProductDto, null);
+
+        Product newProduct = repository.save(product);
+
+        return fullProductBuilder(productDto, newProduct);
     }
 
     public Product update(Long id, SaveProductDto productDto) throws ResourceNotFoundException, BadRequestException {
@@ -219,19 +236,28 @@ public class ProductService {
             features.add(feature.get());
         }
 
-        List<Policy> policies = new ArrayList<>();
-        for(Long policyId:productDto.getPoliciyIds()){
-            Optional<Policy> policy = policyRepository.findById(policyId);
-            if(policy.isEmpty()){
-                throw new ResourceNotFoundException("Policy with id " + policyId + " not found");
-            }
-            policies.add(policy.get());
-        }
-
         if(id != null){
-            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
+            return new Product(id, productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, user.get());
         }
 
-        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, policies, user.get());
+        return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, user.get());
+    }
+
+    private Product fullProductBuilder (SaveFullProductDto productDto, Product product) throws ResourceNotFoundException {
+        for(SaveSubPolicyDto subPolicyDto:productDto.getSubPolicies()){
+            Optional<Policy> policy = policyRepository.findById(subPolicyDto.getPolicy_id());
+            if(policy.isEmpty()){
+                throw new ResourceNotFoundException("Policy with id " + subPolicyDto.getPolicy_id() + " not found");
+            }
+            SubPolicy subPolicy = new SubPolicy(subPolicyDto.getDescription(), product, policy.get());
+            subPolicyRepository.save(subPolicy);
+        }
+
+        for(SaveImageDto imageDto:productDto.getImages()){
+            Image image = new Image(imageDto.getTitle(), imageDto.getUrl(), product);
+            iImageRepository.save(image);
+        }
+
+        return findById(product.getId());
     }
 }

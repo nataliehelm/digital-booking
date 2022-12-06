@@ -31,11 +31,10 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private  IBookingRepository iBookingRepository;
 
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        SubPoliciesLoader subPoliciesLoader = new SubPoliciesLoader(iSubPolicyRepository);
-        subPoliciesLoader.Loader();
         PoliciesLoader policiesLoader = new PoliciesLoader(iPolicyRepository, iSubPolicyRepository);
         policiesLoader.Loader();
         CategoriesLoader categoriesLoader = new CategoriesLoader(iCategoryRepository);
@@ -50,6 +49,8 @@ public class DataLoader implements ApplicationRunner {
         featuresLoader.Loader();
         ProductsLoader productsLoader = new ProductsLoader(iProductRepository, iLocationRepository, iCategoryRepository, iFeatureRepository, iPolicyRepository, iUserRepository);
         productsLoader.Loader();
+        SubPoliciesLoader subPoliciesLoader = new SubPoliciesLoader(iSubPolicyRepository, iPolicyRepository, iProductRepository);
+        subPoliciesLoader.Loader();
         ImagesLoader imagesLoader = new ImagesLoader(iImageRepository, iProductRepository);
         imagesLoader.Loader();
         BookingsLoader bookingsLoader = new BookingsLoader(iBookingRepository, iProductRepository, iUserRepository);
