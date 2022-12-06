@@ -38,7 +38,7 @@ public class UserController {
         return responsesBuilder.buildResponse(HttpStatus.OK.value(), "Get Users List successfully", users, null);
     }
 
-    @GetMapping(path = "/bookings/{id}")
+    @GetMapping(path = "/bookings")
     public ResponseEntity<ApiResponse<User, Object>> findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         User user = service.findById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get User successfully", user, null);

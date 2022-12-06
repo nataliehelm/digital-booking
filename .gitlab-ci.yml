@@ -22,8 +22,9 @@ test-front: # This job runs in the test stage, which runs first.
       files:
         - $FRONTEND_PATH/package-lock.json
   rules:
-  - changes:
-    - frontend/**/*  
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - frontend/**/* 
 
 build-front: # This job runs in the build stage, which runs second.
   stage: build
@@ -43,8 +44,9 @@ build-front: # This job runs in the build stage, which runs second.
     paths:
       - $FRONTEND_PATH/build/
   rules:
-    - changes:
-      - frontend/**/*
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - frontend/**/* 
 
 delivery-front: # This job runs in the deploy stage, which runs third.
   stage: delivery
@@ -66,8 +68,9 @@ delivery-front: # This job runs in the deploy stage, which runs third.
       - $FRONTEND_PATH/build
     policy: pull
   rules:
-  - changes:
-    - frontend/**/*      
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - frontend/**/*    
 
 ############################################################################
 
@@ -76,8 +79,9 @@ test-back:       # This job runs in the test stage, which runs first.
   script:
   - echo "//TODO test"
   rules:
-    - changes:
-      - backend/**/*
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - backend/**/* 
     
 build-back:       # This job runs in the build stage, which runs first.
   stage: build
@@ -89,8 +93,9 @@ build-back:       # This job runs in the build stage, which runs first.
     paths: 
       - $BACKEND_PATH/target/*.jar
   rules:
-    - changes:
-      - backend/**/*
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - backend/**/* 
 
 delivery-back:       # This job runs in the deploy stage, which runs first.
   stage: delivery
@@ -108,5 +113,6 @@ delivery-back:       # This job runs in the deploy stage, which runs first.
     - scp $BACKEND_PATH/target/*.jar ubuntu@$$DEPLOY_SERVER_IP_BE:~/target/dbapi.jar
   environment: prod
   rules:
-    - changes:
-      - backend/**/*
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^main/
+      changes:
+        - backend/**/* 

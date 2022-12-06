@@ -9,17 +9,8 @@ import com.grupo9.db.repository.ILocationRepository;
 import com.grupo9.db.repository.IProductRepository;
 import com.grupo9.db.repository.IBookingRepository;
 import com.grupo9.db.repository.IUserRepository;
-import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

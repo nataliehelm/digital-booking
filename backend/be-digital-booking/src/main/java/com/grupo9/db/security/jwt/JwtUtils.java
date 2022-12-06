@@ -2,9 +2,12 @@ package com.grupo9.db.security.jwt;
 
 import java.util.Date;
 
+import com.grupo9.db.dto.Auth.JwtDto;
+import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.security.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -15,11 +18,17 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${digitalBooking.app.jwtSecret}")
-    private String jwtSecret;
+    private static String jwtSecret;
+    private static int jwtExpirationMs;
 
+    @Value("${digitalBooking.app.jwtSecret}")
+    public void setJwtSecret(String jwtSecret) {
+        this.jwtSecret = jwtSecret;
+    }
     @Value("${digitalBooking.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    public void setJwtExpirationMs(int jwtExpirationMs) {
+        this.jwtExpirationMs = jwtExpirationMs;
+    }
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -58,5 +67,23 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    public JwtDto getDecodedJwt(String token) throws BadRequestException {
+        try{
+            String jwt = token.substring(7);
+            Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt).getBody();
+            String sub = claims.get("sub").toString();
+            Integer iat = Integer.parseInt(claims.get("iat").toString());
+            Integer exp = Integer.parseInt(claims.get("exp").toString());
+            String name = claims.get("name").toString();
+            String lastname = claims.get("lastname").toString();
+            Boolean isActive = Boolean.parseBoolean(claims.get("lastname").toString());
+            Long userId = Long.parseLong(claims.get("userId").toString());
+
+            return new JwtDto(sub, iat, exp, name, lastname, isActive, userId);
+        }catch (Exception e){
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }
