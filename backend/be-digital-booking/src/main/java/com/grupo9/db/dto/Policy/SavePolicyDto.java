@@ -15,7 +15,4 @@ import java.util.List;
 public class SavePolicyDto {
     @NotEmpty(message = "title is mandatory")
     private String title;
-
-    @NotNull(message = "subPolicyIds is mandatory")
-    private List<Long> subPolicyIds;
 }
