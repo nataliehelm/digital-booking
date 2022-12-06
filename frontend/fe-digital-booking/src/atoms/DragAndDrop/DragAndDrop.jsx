@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import useDragAndDrop from './hooks/useDragAndDrop';
 import styles from './DragAndDrop.module.scss';
 
-const DragAndDrop = ({ file, setFile }) => {
+const DragAndDrop = ({ id, value, onUpload, onRemove, disabled }) => {
   const [image, setImage] = useState(null);
   const { dragOver, setDragOver, onDragOver, onDragLeave, setFileDropError } =
     useDragAndDrop();
@@ -18,7 +18,7 @@ const DragAndDrop = ({ file, setFile }) => {
       return setFileDropError('Please provide an image file to upload!');
     }
 
-    setFile(selectedFile);
+    onUpload(selectedFile, id);
   };
 
   const fileSelect = (e) => {
@@ -29,12 +29,12 @@ const DragAndDrop = ({ file, setFile }) => {
     }
 
     setFileDropError('');
-    setFile(selectedFile);
+    onUpload(selectedFile, id);
   };
 
   useEffect(() => {
-    if (file) setImage(URL.createObjectURL(file));
-  }, [file]);
+    if (value) setImage(URL.createObjectURL(value));
+  }, [value]);
 
   return (
     <div className={styles.container}>
@@ -45,7 +45,7 @@ const DragAndDrop = ({ file, setFile }) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
-        {!file && <h1>{!dragOver ? '+' : 'Drop here...'}</h1>}
+        {!value && <h1>{!dragOver ? '+' : 'Drop here...'}</h1>}
       </label>
       {!image && (
         <input
@@ -58,12 +58,12 @@ const DragAndDrop = ({ file, setFile }) => {
       )}
       {image && (
         <div className={styles['layout-container']}>
-          <img className={styles.image} src={image} alt={file.name} />
+          <img className={styles.image} src={image} alt={value.name} />
           <section
             className={styles.layout}
             onClick={() => {
               setImage(null);
-              setFile(null);
+              onRemove(value, id);
             }}
           >
             <i className="fa-solid fa-x"></i>

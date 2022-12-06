@@ -1,10 +1,13 @@
 package com.grupo9.db.controller;
 
+import com.grupo9.db.dto.Auth.JwtDto;
 import com.grupo9.db.dto.Product.GetProductWithBookingsDto;
+import com.grupo9.db.dto.Product.SaveFullProductDto;
 import com.grupo9.db.dto.Product.SaveProductDto;
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
 import com.grupo9.db.model.Product;
+import com.grupo9.db.security.jwt.JwtUtils;
 import com.grupo9.db.service.ProductService;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -18,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +43,7 @@ public class ProductController {
     @GetMapping(path = "/page")
     public ResponseEntity<ApiResponse<Page<Product>, Object>> findAllPage(@PageableDefault(size = 8) Pageable pageable){
         Page<Product> products = service.findAllPage(pageable);
-        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List Random successfully",products, null);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
     }
 
     @GetMapping(path = "/{id}")
@@ -61,8 +65,22 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(path = "/admin")
+    public ResponseEntity<ApiResponse<Page<Product>, Object>> findByUser(@RequestHeader(value="Authorization" ) String token, @PageableDefault(size = 8) Pageable pageable) throws BadRequestException, ResourceNotFoundException {
+        Page<Product> products = service.findByUser(token, pageable);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Get Product List successfully",products, null);
+    }
+    
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(path = "/basic")
+    public ResponseEntity<ApiResponse<Product, Object>> saveBasic(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
+        Product response =  service.saveBasic(product);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveProductDto product) throws ResourceNotFoundException {
+    public ResponseEntity<ApiResponse<Product, Object>> save(@Valid @RequestBody SaveFullProductDto product) throws ResourceNotFoundException, BadRequestException {
         Product response =  service.save(product);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Product created successfully", response, null);
     }

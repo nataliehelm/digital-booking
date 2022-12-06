@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Images.module.scss';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { Heading, Text, Uploader, useInput } from '../../../../../../atoms';
+import { DragAndDrop, Heading, Text, useInput } from '../../../../../../atoms';
 import { mandatoryValidator } from '../../../../../../utils/validators';
 
 const Images = ({ images, setImages, hasError, minLength }) => {
@@ -13,16 +13,33 @@ const Images = ({ images, setImages, hasError, minLength }) => {
         Cargar imágenes
       </Heading>
       <div
-        className={cn(styles['images-list'], {
+        className={cn(styles['images-drag-n-drop'], {
           [styles['container-error']]: hasError,
         })}
       >
         {images.map((image) => (
-          <Uploader
+          // TODO: Implementar si hace falta
+          // <Uploader
+          //   id={image.id}
+          //   key={image.id}
+          //   value={image.value || currentImage.value}
+          //   onChange={currentImage.onChange}
+          //   onUpload={(value) => {
+          //     image.value = value;
+          //     setImages([...images, { id: image.id + 1, value: '' }]);
+          //     currentImage.onChange({ target: { value: '' } });
+          //   }}
+          //   onRemove={(_, id) => {
+          //     setImages(images.filter((image) => image.id !== id));
+          //     currentImage.onChange({ target: { value: '' } });
+          //   }}
+          //   placeholder={'Insertar https://'}
+          //   disabled={!image.value && !currentImage.value}
+          // />
+          <DragAndDrop
             id={image.id}
             key={image.id}
             value={image.value || currentImage.value}
-            onChange={currentImage.onChange}
             onUpload={(value) => {
               image.value = value;
               setImages([...images, { id: image.id + 1, value: '' }]);
@@ -32,8 +49,6 @@ const Images = ({ images, setImages, hasError, minLength }) => {
               setImages(images.filter((image) => image.id !== id));
               currentImage.onChange({ target: { value: '' } });
             }}
-            placeholder={'Insertar https://'}
-            disabled={!image.value && !currentImage.value}
           />
         ))}
       </div>

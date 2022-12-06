@@ -17,7 +17,6 @@ const CreateProduct = ({
   address,
   categories,
   categorySelected,
-  coords,
   createProductError,
   description,
   disabled,
@@ -41,6 +40,7 @@ const CreateProduct = ({
   setLocationSelected,
   slogan,
   userId,
+  uploadFiles,
 }) => {
   const navigate = useNavigate();
 
@@ -48,12 +48,22 @@ const CreateProduct = ({
     navigate(-1);
   };
 
-  const handleOnSubmit = () => {
-    const finalCoords = [coords.lat, coords.lng];
-    const uploadedImages = images.filter((image) => image.value !== '');
-    const finalImages = uploadedImages.map((i) => ({
+  const handleOnSubmit = async () => {
+    const urls = [];
+    const files = images.filter((image) => image.value);
+
+    for (const image of files) {
+      const file = new FormData();
+      file.append('file', image.value);
+      const response = await uploadFiles(file);
+      urls.push(response);
+    }
+
+    const finalCoords = [parseFloat(lat.value), parseFloat(lng.value)];
+
+    const finalImages = urls.map((i) => ({
       title: name.value,
-      url: i.value,
+      url: i,
     }));
 
     const selectedFeatures = features
