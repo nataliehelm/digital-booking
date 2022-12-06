@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { digitalBookingAPI } from '../../../../../api/digital-booking.api';
 import { useInput } from '../../../../../atoms';
 import { useFetch } from '../../../../../hooks';
 import useFetchLazy from '../../../../../hooks/useFetch/useFetchLazy';
@@ -65,6 +66,20 @@ const useCreateProduct = () => {
       body: JSON.stringify(payload),
     };
     createProduct('products', option);
+  };
+
+  const uploadFiles = async (payload) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjJAYWRtaW4uY29tIiwiaWF0IjoxNjcwMzA5NzAwLCJleHAiOjE2NzAzOTYxMDAsIm5hbWUiOiJhZG1pbjIiLCJsYXN0bmFtZSI6ImFkbWluMiIsImlzQWN0aXZlIjp0cnVlLCJsb2NhdGlvbiI6eyJpZCI6MSwicHJvdmluY2VfbmFtZSI6IlByb3ZpbmNpYSBkZSBNaXNpb25lcyIsImNpdHlfbmFtZSI6IlBvc2FkYXMiLCJjb3VudHJ5X25hbWUiOiJBcmdlbnRpbmEifSwidXNlcklkIjozLCJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dfQ.8YF6Oli-L6oxI_TkyEQnJlUl_3yjFKX0vpoKFncRJ3yAlt2QvkdLXyLoWqJA-A5OJSqus9rz9rDBOFxApyftDA',
+      },
+      body: payload,
+    };
+    const response = await digitalBookingAPI('storage/uploadFile', options);
+    const data = await response.json();
+    return data.data;
   };
 
   const disabled = useMemo(() => {
@@ -175,6 +190,7 @@ const useCreateProduct = () => {
     setLocationSelected,
     slogan,
     userId: state.decodedJwt.userId,
+    uploadFiles,
   };
 };
 

@@ -10,6 +10,11 @@
     flex-direction: column;
     gap: 16px;
   }
+  .images-drag-n-drop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 }
 
 .container-error {
