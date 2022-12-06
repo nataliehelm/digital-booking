@@ -8,6 +8,7 @@ import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,14 @@ public class BucketController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/uploadFile")
+    @PostMapping(path = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<String, Object>> uploadFile(@RequestPart(value = "file") MultipartFile file) throws BadRequestException {
         String response = this.amazonClient.uploadFile(file);
         return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image uploaded successfully",response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/deleteFile")
+    @DeleteMapping(path = "/deleteFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<String, Object>>  deleteFile(@RequestPart(value = "url") String fileUrl) throws ResourceNotFoundException {
         String response = this.amazonClient.deleteFileFromS3Bucket(fileUrl);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully",response, null);
