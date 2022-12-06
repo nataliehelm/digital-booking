@@ -2,7 +2,7 @@ import styles from './Policies.module.scss';
 import PropTypes from 'prop-types';
 import { Heading, Text, TextArea } from '../../../../../../atoms';
 
-const Policies = ({ policy }) => {
+const Policies = ({ policyCancel, policyHouse, policySecurity }) => {
   return (
     <div className={styles['policies-container']}>
       <Heading variant="h2" classname={styles['features-title']}>
@@ -16,7 +16,7 @@ const Policies = ({ policy }) => {
           <Text variant="t2" classname={styles.text}>
             Descripción
           </Text>
-          <TextArea {...policy} variant="t2" />
+          <TextArea {...policyHouse} variant="t2" />
         </section>
         <section>
           <Heading variant="h3" classname={styles['features-title']}>
@@ -25,7 +25,7 @@ const Policies = ({ policy }) => {
           <Text variant="t2" classname={styles.text}>
             Descripción
           </Text>
-          <TextArea {...policy} variant="t2" />
+          <TextArea {...policySecurity} variant="t2" />
         </section>
         <section>
           <Heading variant="h3" classname={styles['features-heading']}>
@@ -34,7 +34,7 @@ const Policies = ({ policy }) => {
           <Text variant="t2" classname={styles.text}>
             Descripción
           </Text>
-          <TextArea {...policy} variant="t2" />
+          <TextArea {...policyCancel} variant="t2" />
         </section>
       </div>
     </div>
@@ -42,7 +42,19 @@ const Policies = ({ policy }) => {
 };
 
 Policies.propTypes = {
-  policy: PropTypes.shape({
+  policyCancel: PropTypes.shape({
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    hasError: PropTypes.bool,
+    errorMessage: PropTypes.string,
+  }).isRequired,
+  policyHouse: PropTypes.shape({
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    hasError: PropTypes.bool,
+    errorMessage: PropTypes.string,
+  }).isRequired,
+  policySecurity: PropTypes.shape({
     value: PropTypes.string,
     onChange: PropTypes.func,
     hasError: PropTypes.bool,

@@ -27,7 +27,7 @@ const Product = ({
   score,
   images,
   features,
-  policies,
+  subPolicies,
   coordinates,
   subtitle,
   description,
@@ -152,7 +152,7 @@ const Product = ({
           name={name}
           address={address}
         />
-        <Policies policies={policies} />
+        <Policies policies={subPolicies} />
       </div>
     </>
   );

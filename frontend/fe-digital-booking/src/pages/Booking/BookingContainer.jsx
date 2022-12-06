@@ -45,7 +45,7 @@ const BookingContainer = () => {
       subtitle={data.product.name}
       onBackClick={onBackClick}
       booking={data.bookings}
-      policies={data.product.policies}
+      policies={data.product.subPolicies}
       image={data.product.images[0].url}
       ranking={data.product.ranking}
       address={data.product.address}

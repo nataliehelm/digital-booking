@@ -1,5 +1,8 @@
 @use './../../../../styles/variables' as *;
 
+.pre-line {
+  white-space: pre-line;
+}
 .policies-container {
   margin-top: 60px;
   .title {

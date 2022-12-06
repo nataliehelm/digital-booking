@@ -32,12 +32,15 @@ const CreateProduct = ({
   locationSelected,
   name,
   onSubmit,
-  policy1,
+  policyCancel,
+  policyHouse,
+  policySecurity,
   setCategorySelected,
   setCoords,
   setImages,
   setLocationSelected,
   slogan,
+  userId,
 }) => {
   const navigate = useNavigate();
 
@@ -59,17 +62,32 @@ const CreateProduct = ({
 
     const payload = {
       name: name.value,
-      address: address.value,
       distance_to_nearest_tourist_site: distance.value,
+      ranking: 0.0,
+      score: 0.0,
       description_title: slogan.value,
       description: description.value,
       coordinates: finalCoords,
+      address: address.value,
       categoryId: categorySelected.id,
       locationId: locationSelected.id,
       featureIds: selectedFeatures,
-      policiyIds: [1, 2, 3],
+      subPolicies: [
+        {
+          description: policyHouse.value,
+          policy_id: 1,
+        },
+        {
+          description: policySecurity.value,
+          policy_id: 2,
+        },
+        {
+          description: policyCancel.value,
+          policy_id: 3,
+        },
+      ],
       images: finalImages,
-      //userId: state.decodedJwt.userId,
+      userId,
     };
 
     onSubmit(payload);
@@ -107,7 +125,11 @@ const CreateProduct = ({
           />
           <Description description={description} />
           <Features features={features} onChange={handleOnCheckboxChange} />
-          <Policies policy={policy1} />
+          <Policies
+            policyCancel={policyCancel}
+            policyHouse={policyHouse}
+            policySecurity={policySecurity}
+          />
           <Images
             images={images}
             setImages={setImages}

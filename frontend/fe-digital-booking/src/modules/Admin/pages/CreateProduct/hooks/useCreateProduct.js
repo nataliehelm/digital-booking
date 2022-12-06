@@ -24,7 +24,9 @@ const useCreateProduct = () => {
   const lng = useInput('', mandatoryValidator);
   const name = useInput('', mandatoryValidator);
   const slogan = useInput('', mandatoryValidator);
-  const policy1 = useInput('', mandatoryValidator);
+  const policyHouse = useInput('', mandatoryValidator);
+  const policySecurity = useInput('', mandatoryValidator);
+  const policyCancel = useInput('', mandatoryValidator);
   const address = useInput('', mandatoryValidator);
   const distance = useInput('', mandatoryValidator);
   const description = useInput('', mandatoryValidator);
@@ -77,7 +79,9 @@ const useCreateProduct = () => {
       locationSelected,
       lat,
       lng,
-      policy1,
+      policyCancel,
+      policyHouse,
+      policySecurity,
       description,
     ].some((item) => item.value === '' || item.hasError);
   }, [
@@ -91,7 +95,9 @@ const useCreateProduct = () => {
     locationSelected,
     lat,
     lng,
-    policy1,
+    policyHouse,
+    policyCancel,
+    policySecurity,
     description,
   ]);
 
@@ -160,12 +166,15 @@ const useCreateProduct = () => {
     locationSelected,
     name,
     onSubmit,
-    policy1,
+    policyCancel,
+    policyHouse,
+    policySecurity,
     setCategorySelected,
     setCoords,
     setImages,
     setLocationSelected,
     slogan,
+    userId: state.decodedJwt.userId,
   };
 };
 

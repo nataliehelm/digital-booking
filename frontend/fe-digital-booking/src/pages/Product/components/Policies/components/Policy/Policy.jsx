@@ -9,23 +9,16 @@ const Policy = ({ subPolicies, title }) => {
       <Heading variant="h2" classname={styles['subtitle']}>
         {title}
       </Heading>
-      {subPolicies.map(({ id, description }) => (
-        <Text variant="t1" key={id}>
-          {description}
-        </Text>
-      ))}
+      <Text variant="t1" classname={styles['pre-line']}>
+        {subPolicies}
+      </Text>
     </article>
   );
 };
 
 Policy.propTypes = {
   title: PropTypes.string.isRequired,
-  subPolicies: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ),
+  subPolicies: PropTypes.string.isRequired,
 };
 
 export default Policy;
