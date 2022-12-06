@@ -97,7 +97,7 @@ function App() {
               element={<Layout children={<AdminCreateProduct />} />}
             />
             <Route
-              path="/product-create-success"
+              path="/create-product-success"
               element={<Layout children={<SuccessCreateProduct />} />}
             />
             <Route
