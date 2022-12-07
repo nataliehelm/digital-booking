@@ -30,8 +30,6 @@ function App() {
     cleanJwt();
   };
 
-  const BookingContainer = withAuthGuardian(() => <Booking />);
-
   // TODO: refactorizar implementación
   const AdminContainer = withAdminGuardian(() => <Admin />);
   const AdminCreateProduct = withAdminGuardian(() => <CreateProduct />);
@@ -43,6 +41,7 @@ function App() {
           name={state.decodedJwt?.name || ''}
           lastname={state.decodedJwt?.lastname || ''}
           onLogout={handleOnLogout}
+          role={state.decodedJwt?.role[0].authority || ''}
         />
         <div>
           <Routes>
@@ -81,7 +80,7 @@ function App() {
             />
             <Route
               path="/product/:id/booking"
-              element={<Layout children={<BookingContainer />} />}
+              element={<Layout children={<Booking />} />}
             />
             <Route
               path="/success-booking"

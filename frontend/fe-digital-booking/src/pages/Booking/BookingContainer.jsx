@@ -6,6 +6,7 @@ import useFetch from '../../hooks/useFetch/useFetch';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import Booking from './Booking';
 import styles from './BookingContainer.module.scss';
+import withAuthGuardian from '../../hocs/withAuthGuardian';
 
 const BookingContainer = () => {
   const { state: jwtState } = useAuthContext();
@@ -59,4 +60,4 @@ const BookingContainer = () => {
   );
 };
 
-export default BookingContainer;
+export default withAuthGuardian(BookingContainer);
