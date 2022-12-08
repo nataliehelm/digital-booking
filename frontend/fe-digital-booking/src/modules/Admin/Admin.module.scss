@@ -1,7 +1,9 @@
 @use '../../styles/variables' as *;
 
 .main-container {
-  overflow: hidden;
+  overflow: auto;
+  height: 100%;
+
   .container {
     display: flex;
     height: 100%;
