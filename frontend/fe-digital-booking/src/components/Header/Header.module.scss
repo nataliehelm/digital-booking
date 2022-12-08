@@ -29,10 +29,24 @@
   .user-info-container {
     display: none;
 
+    .module-container {
+      width: auto;
+      position: relative;
+      display: flex;
+      padding: 0 64px;
+
+      .module-divider {
+        height: 110%;
+        border-left: 2px solid #1dbeb4;
+        width: 10px;
+        position: absolute;
+        right: 26px;
+      }
+    }
+
     .user-info {
       display: flex;
       position: relative;
-      width: 100%;
       gap: 10px;
       justify-content: flex-end;
       max-width: 206px;
