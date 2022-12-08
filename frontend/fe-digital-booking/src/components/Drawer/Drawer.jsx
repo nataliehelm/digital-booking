@@ -4,7 +4,7 @@ import SocialNetwork from '../SocialNetwork';
 import PropTypes from 'prop-types';
 import styles from './Drawer.module.scss';
 
-const Drawer = ({ setShowDrawer, username, onLogout }) => {
+const Drawer = ({ setShowDrawer, username, isAdmin, onLogout }) => {
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
@@ -58,6 +58,32 @@ const Drawer = ({ setShowDrawer, username, onLogout }) => {
                 }}
               >
                 <Heading variant="h3">Iniciar sesión</Heading>
+              </li>
+            )}
+          </ul>
+        )}
+        {/* TODO: Agregar redirects */}
+        {username && (
+          <ul>
+            {!isAdmin ? (
+              <li
+                className={styles['navbar-item']}
+                onClick={() => {
+                  setShowDrawer(false);
+                  navigate('/');
+                }}
+              >
+                <Heading variant="h3">Reservas</Heading>
+              </li>
+            ) : (
+              <li
+                className={styles['navbar-item']}
+                onClick={() => {
+                  setShowDrawer(false);
+                  navigate('/');
+                }}
+              >
+                <Heading variant="h3">Administración</Heading>
               </li>
             )}
           </ul>

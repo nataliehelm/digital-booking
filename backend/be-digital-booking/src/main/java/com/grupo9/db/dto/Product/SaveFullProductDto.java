@@ -1,12 +1,8 @@
 package com.grupo9.db.dto.Product;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.grupo9.db.dto.Image.SaveImageDto;
 import com.grupo9.db.dto.SubPolicy.SaveSubPolicyDto;
-import com.grupo9.db.model.Image;
-import com.grupo9.db.model.SubPolicy;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

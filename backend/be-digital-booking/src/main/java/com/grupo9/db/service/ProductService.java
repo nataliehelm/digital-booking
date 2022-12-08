@@ -19,8 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,6 +28,9 @@ public class ProductService {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private AmazonClient amazonClient;
 
     private final IProductRepository repository;
     private final ICategoryRepository categoryRepository;
@@ -42,8 +43,9 @@ public class ProductService {
     private final IImageRepository iImageRepository;
     private ResponsesBuilder responsesBuilder;
 
-    public ProductService(BookingService bookingService, IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IUserRepository userRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ISubPolicyRepository subPolicyRepository, IImageRepository iImageRepository, ResponsesBuilder responsesBuilder) {
+    public ProductService(BookingService bookingService, AmazonClient amazonClient, IProductRepository repository, ICategoryRepository categoryRepository, ILocationRepository locationRepository, IUserRepository userRepository, IFeatureRepository featureRepository, IPolicyRepository policyRepository, IBookingRepository bookingRepository, ISubPolicyRepository subPolicyRepository, IImageRepository iImageRepository, ResponsesBuilder responsesBuilder) {
         this.bookingService = bookingService;
+        this.amazonClient = amazonClient;
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.locationRepository = locationRepository;
@@ -181,12 +183,10 @@ public class ProductService {
         return repository.save(product);
     }
 
-    public Product save(SaveFullProductDto productDto) throws ResourceNotFoundException {
+    public Product save(SaveFullProductDto productDto) throws ResourceNotFoundException, BadRequestException {
         SaveProductDto saveProductDto = new SaveProductDto(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), productDto.getCategoryId(), productDto.getLocationId(), productDto.getAddress(), productDto.getFeatureIds(), productDto.getUserId());
         Product product = productBuilder(saveProductDto, null);
-
         Product newProduct = repository.save(product);
-
         return fullProductBuilder(productDto, newProduct);
     }
 
@@ -243,7 +243,7 @@ public class ProductService {
         return new Product(productDto.getName(), productDto.getDistance_to_nearest_tourist_site(), productDto.getRanking(), productDto.getScore(), productDto.getDescription_title(), productDto.getDescription(), productDto.getCoordinates(), category.get(), location.get(), productDto.getAddress(), features, user.get());
     }
 
-    private Product fullProductBuilder (SaveFullProductDto productDto, Product product) throws ResourceNotFoundException {
+    private Product fullProductBuilder (SaveFullProductDto productDto, Product product) throws ResourceNotFoundException, BadRequestException {
         for(SaveSubPolicyDto subPolicyDto:productDto.getSubPolicies()){
             Optional<Policy> policy = policyRepository.findById(subPolicyDto.getPolicy_id());
             if(policy.isEmpty()){

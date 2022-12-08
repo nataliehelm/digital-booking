@@ -1,7 +1,10 @@
 export * from './Avatar';
 export * from './Botton';
 export * from './Button';
+export * from './Checkbox';
+export * from './DragAndDrop';
 export * from './Heading';
+export * from './IconCard';
 export * from './Input';
 export * from './InfoBanner';
 export * from './Rank';
@@ -14,3 +17,5 @@ export * from './WritableDropdown';
 export * from './SocialMedia';
 export * from './Modal';
 export * from './Paginator';
+export * from './Uploader';
+export * from './TextArea';

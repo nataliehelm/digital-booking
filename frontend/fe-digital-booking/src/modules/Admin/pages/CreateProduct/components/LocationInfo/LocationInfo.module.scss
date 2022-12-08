@@ -1,0 +1,53 @@
+@use './../../../../../../styles/variables' as *;
+
+.product-address {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding-bottom: 23px;
+
+  .categories {
+    .dropdown-container {
+      position: relative;
+      height: 40px;
+
+      .dropdown {
+        position: absolute;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+.text {
+  color: $color-secondary;
+  margin-bottom: 10px;
+}
+
+@media (min-width: $md) {
+  .product-address {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 31px;
+    > div {
+      width: 33%;
+    }
+    .categories {
+      width: 33%;
+    }
+  }
+  .places {
+    margin-bottom: 31px;
+  }
+}
+
+@media (min-width: $lg) {
+  .places {
+    width: 50%;
+
+    .coords {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}

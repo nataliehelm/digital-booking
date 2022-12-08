@@ -2,7 +2,6 @@ package com.grupo9.db.controller;
 
 import com.grupo9.db.exceptions.BadRequestException;
 import com.grupo9.db.exceptions.ResourceNotFoundException;
-import com.grupo9.db.model.Category;
 import com.grupo9.db.service.AmazonClient;
 import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/storage/")
@@ -34,7 +31,7 @@ public class BucketController {
     @PostMapping(path = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<String, Object>> uploadFile(@RequestPart(value = "file") MultipartFile file) throws BadRequestException {
         String response = this.amazonClient.uploadFile(file);
-        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image uploaded successfully",response, null);
+        return responsesBuilder.buildResponse(HttpStatus.CREATED.value(),"Image uploaded successfully", response, null);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

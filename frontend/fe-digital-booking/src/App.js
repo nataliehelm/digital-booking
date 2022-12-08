@@ -2,9 +2,12 @@ import Footer from './components/Footer';
 import Layout from './components/Layout';
 import useAuthContext from './providers/AuthProvider/useAuthContext';
 import withAuthGuardian from './hocs/withAuthGuardian';
+import withAdminGuardian from './hocs/withAdminAuthGuardian';
 import styles from './App.module.scss';
-import { Routes, Route } from 'react-router-dom';
+import { Admin } from './modules';
+import { CreateProduct } from './modules/Admin/pages/CreateProduct';
 import { Header } from './components/Header';
+import { Routes, Route } from 'react-router-dom';
 import {
   Booking,
   Home,
@@ -17,6 +20,7 @@ import {
   UserActivation,
   NotFound,
 } from './pages';
+import SuccessCreateProduct from './modules/Admin/pages/SuccessCreateProduct';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -26,7 +30,9 @@ function App() {
     cleanJwt();
   };
 
-  const BookingContainer = withAuthGuardian(() => <Booking />);
+  // TODO: refactorizar implementación
+  const AdminContainer = withAdminGuardian(() => <Admin />);
+  const AdminCreateProduct = withAdminGuardian(() => <CreateProduct />);
 
   return (
     <>
@@ -35,6 +41,7 @@ function App() {
           name={state.decodedJwt?.name || ''}
           lastname={state.decodedJwt?.lastname || ''}
           onLogout={handleOnLogout}
+          role={state.decodedJwt?.role[0].authority || ''}
         />
         <div>
           <Routes>
@@ -73,11 +80,28 @@ function App() {
             />
             <Route
               path="/product/:id/booking"
-              element={<Layout children={<BookingContainer />} />}
+              element={<Layout children={<Booking />} />}
             />
             <Route
               path="/success-booking"
               element={<Layout children={<SuccessBooking />} />}
+            />
+
+            <Route
+              path="/admin"
+              element={<Layout children={<AdminContainer />} />}
+            />
+            <Route
+              path="/admin/product/create"
+              element={<Layout children={<AdminCreateProduct />} />}
+            />
+            <Route
+              path="/create-product-success"
+              element={<Layout children={<SuccessCreateProduct />} />}
+            />
+            <Route
+              path="/admin/product/:id/edit"
+              element={<Layout children={<Admin />} />}
             />
             <Route
               path="/resend-email"

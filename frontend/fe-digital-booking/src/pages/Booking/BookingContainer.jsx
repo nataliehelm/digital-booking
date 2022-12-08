@@ -1,11 +1,12 @@
+import { Loader } from '../../components';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Loader from '../../components/Loader';
-import useFetch from '../../hooks/useFetch/useFetch';
 import { parsedLocationsWithoutCity } from '../../mappers/locations.mapper';
+import useFetch from '../../hooks/useFetch/useFetch';
 import useAuthContext from '../../providers/AuthProvider/useAuthContext';
 import Booking from './Booking';
 import styles from './BookingContainer.module.scss';
+import withAuthGuardian from '../../hocs/withAuthGuardian';
 
 const BookingContainer = () => {
   const { state: jwtState } = useAuthContext();
@@ -45,7 +46,7 @@ const BookingContainer = () => {
       subtitle={data.product.name}
       onBackClick={onBackClick}
       booking={data.bookings}
-      policies={data.product.policies}
+      policies={data.product.subPolicies}
       image={data.product.images[0].url}
       ranking={data.product.ranking}
       address={data.product.address}
@@ -59,4 +60,4 @@ const BookingContainer = () => {
   );
 };
 
-export default BookingContainer;
+export default withAuthGuardian(BookingContainer);

@@ -1,0 +1,27 @@
+@use './../../../../../../styles/variables' as *;
+
+.features-title {
+  color: $color-secondary;
+  margin-bottom: 13px;
+}
+
+@media (min-width: $md) {
+  .features {
+    .feature {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .feature > div {
+      width: 50%;
+      padding-bottom: 7px;
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .features {
+    .feature > div {
+      width: 33%;
+    }
+  }
+}

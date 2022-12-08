@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import styles from './Dropdown.module.scss';
 import cn from 'classnames';
 
-const Dropdown = ({ options, onChange }) => {
+const Dropdown = ({ options, onChange, placeholder, hasDivider }) => {
   const [showList, setShowList] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, () => setShowList(false));
@@ -18,7 +18,7 @@ const Dropdown = ({ options, onChange }) => {
         value={search.value}
         onChange={() => undefined}
         name="basic-input"
-        placeholder="Seleccionar hora de llegada"
+        placeholder={placeholder}
         onFocus={() => setShowList(true)}
         classname={styles['input']}
       />
@@ -35,10 +35,11 @@ const Dropdown = ({ options, onChange }) => {
       {showList && !!options.length && (
         <div className={styles['list-container']}>
           <div className={styles.list}>
-            {options.map((p) => (
+            {options.map((p, index) => (
               <Option
                 key={p.id}
                 title={p.title}
+                hasBottomBorder={hasDivider && index !== options.length - 1}
                 onClick={() => {
                   onChange({
                     id: p.id,

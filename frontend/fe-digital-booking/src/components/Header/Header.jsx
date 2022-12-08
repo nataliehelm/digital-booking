@@ -5,8 +5,9 @@ import { Drawer } from '../Drawer';
 import AuthButtons from '../AuthButtons';
 import styles from './Header.module.scss';
 import PropTypes from 'prop-types';
+import ModulesButton from '../ModulesButton/ModulesButton';
 
-const Header = ({ name, lastname, onLogout }) => {
+const Header = ({ name, lastname, role, onLogout }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const username = name ? `${name} ${lastname}` : undefined;
 
@@ -25,6 +26,7 @@ const Header = ({ name, lastname, onLogout }) => {
               username={username}
               setShowDrawer={setShowDrawer}
               onLogout={onLogout}
+              isAdmin={role === 'ROLE_ADMIN'}
             />
           </div>
         </>
@@ -48,6 +50,17 @@ const Header = ({ name, lastname, onLogout }) => {
 
           {username ? (
             <div className={styles['user-info-container']}>
+              {/* TODO: Agregar redirects */}
+              {role && (
+                <div className={styles['module-container']}>
+                  <ModulesButton
+                    label={
+                      role === 'ROLE_ADMIN' ? 'Administración' : 'Reservas'
+                    }
+                  />
+                  <div className={styles['module-divider']} />
+                </div>
+              )}
               <aside className={styles['user-info']}>
                 <div className={styles['close-icon']} onClick={onLogout}>
                   <i className="fa-solid fa-x"></i>

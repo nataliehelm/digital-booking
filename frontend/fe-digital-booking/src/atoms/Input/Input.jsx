@@ -48,13 +48,15 @@ const Input = ({
           onChange={onChange}
           onFocus={() => {
             onFocus && onFocus();
+            !noCaret && setShowPlaceholder(false);
           }}
           onBlur={() => {
             setShowPlaceholder(true);
           }}
-          className={cn('text-2', classname, {
+          className={cn('text-2', styles.input, classname, {
             [styles['input-error']]: hasError,
             [styles['no-caret']]: noCaret,
+            [styles['input-with-icon']]: !!placeholderIcon,
           })}
           onClick={onClick}
         />

@@ -1,0 +1,32 @@
+@use './../../../../../../styles/variables' as *;
+
+.images-container {
+  .title {
+    color: $color-primary;
+    margin-bottom: 13px;
+  }
+  .images-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .images-drag-n-drop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+.container-error {
+  background-color: $color-error-background;
+  border: 1px solid $color-error;
+}
+
+.label {
+  margin-top: 12px;
+  text-align: right;
+}
+
+.label-error {
+  color: $color-error;
+}

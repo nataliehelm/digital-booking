@@ -7,9 +7,13 @@
   justify-content: space-between;
   color: $color-white;
   line-height: 23px;
+  height: 60px;
 
   aside {
-    margin: 9px;
+    margin: 0 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   figure {
     font-size: 28px;
@@ -20,17 +24,17 @@
 @media (min-width: $md) {
   .subheader-container {
     aside {
-      margin: 9px 30px;
+      margin: 0px 30px;
     }
     figure {
-      margin: 20px 33px;
+      margin: 0 33px;
     }
   }
 }
 @media (min-width: $lg) {
   .subheader-container {
     aside {
-      margin: 10px 43px 5px;
+      margin: 0px 43px;
     }
     figure {
       margin: 14px 40px 0 0;
