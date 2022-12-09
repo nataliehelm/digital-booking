@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInput } from '../../../../../atoms';
 import { useFetch } from '../../../../../hooks';
@@ -12,7 +12,6 @@ const useEditProduct = () => {
   const { isLoading: isLoadingProduct, data: product } = useFetch(
     `products/${id}`
   );
-  console.log(product);
   const { state } = useAuthContext();
 
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const useEditProduct = () => {
 
   const lat = useInput('', mandatoryValidator);
   const lng = useInput('', mandatoryValidator);
-  const name = useInput(`${product?.name}`, mandatoryValidator);
+
   const slogan = useInput('', mandatoryValidator);
   const policyHouse = useInput('', mandatoryValidator);
   const policySecurity = useInput('', mandatoryValidator);
@@ -72,39 +71,6 @@ const useEditProduct = () => {
     createProduct('products', option);
   };
 
-  const disabled = useMemo(() => {
-    if (features.every((f) => !f.isChecked)) return true;
-    if (images.length < 6) return true;
-    return [
-      name,
-      slogan,
-      categorySelected,
-      address,
-      distance,
-      locationSelected,
-      lat,
-      lng,
-      policyCancel,
-      policyHouse,
-      policySecurity,
-      description,
-    ].some((item) => item.value === '' || item.hasError);
-  }, [
-    features,
-    images,
-    name,
-    slogan,
-    categorySelected,
-    address,
-    distance,
-    locationSelected,
-    lat,
-    lng,
-    policyHouse,
-    policyCancel,
-    policySecurity,
-    description,
-  ]);
   /* useEffect(() => {
     if (product) {
       setProductToEdit(product);
@@ -141,7 +107,6 @@ const useEditProduct = () => {
   return {
     product,
     categories,
-    name,
     setCategorySelected,
     slogan,
     isLoading:
@@ -164,7 +129,6 @@ const useEditProduct = () => {
     policySecurity,
     images,
     setImages,
-    disabled,
     createProductError,
     coords,
   };
