@@ -13,6 +13,7 @@ const useCreateProduct = () => {
 
   const { state } = useAuthContext();
 
+  const [loading, setLoading] = useState(false);
   const [coords, setCoords] = useState();
   const [features, setFeatures] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -69,29 +70,30 @@ const useCreateProduct = () => {
   };
 
   const uploadFiles = async (payload) => {
+    setLoading(true);
     const options = {
       method: 'POST',
       headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjJAYWRtaW4uY29tIiwiaWF0IjoxNjcwMzA5NzAwLCJleHAiOjE2NzAzOTYxMDAsIm5hbWUiOiJhZG1pbjIiLCJsYXN0bmFtZSI6ImFkbWluMiIsImlzQWN0aXZlIjp0cnVlLCJsb2NhdGlvbiI6eyJpZCI6MSwicHJvdmluY2VfbmFtZSI6IlByb3ZpbmNpYSBkZSBNaXNpb25lcyIsImNpdHlfbmFtZSI6IlBvc2FkYXMiLCJjb3VudHJ5X25hbWUiOiJBcmdlbnRpbmEifSwidXNlcklkIjozLCJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dfQ.8YF6Oli-L6oxI_TkyEQnJlUl_3yjFKX0vpoKFncRJ3yAlt2QvkdLXyLoWqJA-A5OJSqus9rz9rDBOFxApyftDA',
+        Authorization: 'Bearer ' + state.jwt,
       },
       body: payload,
     };
     const response = await digitalBookingAPI('storage/uploadFile', options);
     const data = await response.json();
+    setLoading(false);
     return data.data;
   };
 
   const disabled = useMemo(() => {
     if (features.every((f) => !f.isChecked)) return true;
     if (images.length < 6) return true;
+    if (!categorySelected) return true;
+    if (!locationSelected) return true;
     return [
       name,
       slogan,
-      categorySelected,
       address,
       distance,
-      locationSelected,
       lat,
       lng,
       policyCancel,
@@ -100,20 +102,20 @@ const useCreateProduct = () => {
       description,
     ].some((item) => item.value === '' || item.hasError);
   }, [
-    features,
-    images,
-    name,
-    slogan,
-    categorySelected,
     address,
+    categorySelected,
+    description,
     distance,
-    locationSelected,
+    features,
+    images.length,
     lat,
     lng,
-    policyHouse,
+    locationSelected,
+    name,
     policyCancel,
+    policyHouse,
     policySecurity,
-    description,
+    slogan,
   ]);
 
   useEffect(() => {
@@ -191,6 +193,7 @@ const useCreateProduct = () => {
     slogan,
     userId: state.decodedJwt.userId,
     uploadFiles,
+    loading,
   };
 };
 

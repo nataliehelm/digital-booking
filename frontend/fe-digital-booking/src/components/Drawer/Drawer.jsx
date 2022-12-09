@@ -80,7 +80,7 @@ const Drawer = ({ setShowDrawer, username, isAdmin, onLogout }) => {
                 className={styles['navbar-item']}
                 onClick={() => {
                   setShowDrawer(false);
-                  navigate('/');
+                  navigate('/admin');
                 }}
               >
                 <Heading variant="h3">Administración</Heading>

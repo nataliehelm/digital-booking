@@ -10,6 +10,7 @@ import {
 } from './components';
 import { useNavigate } from 'react-router-dom';
 import { Button, Heading, Subheader, Toast } from '../../../../atoms';
+import { useState } from 'react';
 
 const IMAGES_MIN_LENGTH = 5;
 
@@ -41,8 +42,10 @@ const CreateProduct = ({
   slogan,
   userId,
   uploadFiles,
+  loading,
 }) => {
   const navigate = useNavigate();
+  const [imageError, setImageError] = useState(false);
 
   const onBackClick = () => {
     navigate(-1);
@@ -52,58 +55,65 @@ const CreateProduct = ({
     const urls = [];
     const files = images.filter((image) => image.value);
 
-    for (const image of files) {
-      const file = new FormData();
-      file.append('file', image.value);
-      const response = await uploadFiles(file);
-      urls.push(response);
+    try {
+      for (const image of files) {
+        const file = new FormData();
+        file.append('file', image.value);
+        const response = await uploadFiles(file);
+        urls.push(response);
+      }
+    } catch (error) {
+      setImageError(true);
+      console.error(error);
     }
 
-    const finalCoords = [parseFloat(lat.value), parseFloat(lng.value)];
+    if (!imageError) {
+      const finalCoords = [parseFloat(lat.value), parseFloat(lng.value)];
 
-    const finalImages = urls.map((i) => ({
-      title: name.value,
-      url: i,
-    }));
+      const finalImages = urls.map((i) => ({
+        title: name.value,
+        url: i,
+      }));
 
-    const selectedFeatures = features
-      .filter((f) => f.isChecked)
-      .map((f) => f.id);
+      const selectedFeatures = features
+        .filter((f) => f.isChecked)
+        .map((f) => f.id);
 
-    const payload = {
-      name: name.value,
-      distance_to_nearest_tourist_site: distance.value,
-      ranking: 0.0,
-      score: 0.0,
-      description_title: slogan.value,
-      description: description.value,
-      coordinates: finalCoords,
-      address: address.value,
-      categoryId: categorySelected.id,
-      locationId: locationSelected.id,
-      featureIds: selectedFeatures,
-      subPolicies: [
-        {
-          description: policyHouse.value,
-          policy_id: 1,
-        },
-        {
-          description: policySecurity.value,
-          policy_id: 2,
-        },
-        {
-          description: policyCancel.value,
-          policy_id: 3,
-        },
-      ],
-      images: finalImages,
-      userId,
-    };
+      const payload = {
+        name: name.value,
+        distance_to_nearest_tourist_site: distance.value,
+        ranking: 0.0,
+        score: 0.0,
+        description_title: slogan.value,
+        description: description.value,
+        coordinates: finalCoords,
+        address: address.value,
+        categoryId: categorySelected.id,
+        locationId: locationSelected.id,
+        featureIds: selectedFeatures,
+        subPolicies: [
+          {
+            description: policyHouse.value,
+            policy_id: 1,
+          },
+          {
+            description: policySecurity.value,
+            policy_id: 2,
+          },
+          {
+            description: policyCancel.value,
+            policy_id: 3,
+          },
+        ],
+        images: finalImages,
+        userId,
+      };
 
-    onSubmit(payload);
+      onSubmit(payload);
+    }
   };
 
-  if (isLoading)
+  if (isLoading || loading)
     return (
       <div className={styles.loader}>
         <Loader />
