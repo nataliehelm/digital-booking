@@ -27,8 +27,8 @@ const Address = ({ setCoords, address }) => {
 
   useEffect(() => {
     if (status === 'ZERO_RESULTS') {
-      setValue('');
       setGoogleApiError(false);
+      setValue('');
     }
   }, [status, setGoogleApiError, setValue]);
 

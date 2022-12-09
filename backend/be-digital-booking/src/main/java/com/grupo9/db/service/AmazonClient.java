@@ -62,9 +62,9 @@ public class AmazonClient {
 
     public String uploadFile(MultipartFile multipartFile) throws BadRequestException {
 
-        if(multipartFile.getSize() / 1000 > 250){
-            throw new BadRequestException("El tamaño del archivo es superior a 250, el peso actual del archivo es: " + multipartFile.getSize() / 1000 + " KB");
-        }
+//        if(multipartFile.getSize() / 1000 > 250){
+//            throw new BadRequestException("El tamaño del archivo es superior a 250, el peso actual del archivo es: " + multipartFile.getSize() / 1000 + " KB");
+//        }
 
         String fileUrl = "";
         try {

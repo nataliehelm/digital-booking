@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Botton } from '../../atoms';
 import { Drawer } from '../Drawer';
 import AuthButtons from '../AuthButtons';
@@ -10,6 +10,7 @@ import ModulesButton from '../ModulesButton/ModulesButton';
 const Header = ({ name, lastname, role, onLogout }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const username = name ? `${name} ${lastname}` : undefined;
+  const navigate = useNavigate();
 
   return (
     <>
@@ -56,6 +57,9 @@ const Header = ({ name, lastname, role, onLogout }) => {
                   <ModulesButton
                     label={
                       role === 'ROLE_ADMIN' ? 'Administración' : 'Reservas'
+                    }
+                    onClick={() =>
+                      role === 'ROLE_ADMIN' ? navigate('/admin') : undefined
                     }
                   />
                   <div className={styles['module-divider']} />

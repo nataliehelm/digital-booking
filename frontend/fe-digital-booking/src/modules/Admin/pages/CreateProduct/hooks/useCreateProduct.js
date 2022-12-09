@@ -13,6 +13,7 @@ const useCreateProduct = () => {
 
   const { state } = useAuthContext();
 
+  const [loading, setLoading] = useState(false);
   const [coords, setCoords] = useState();
   const [features, setFeatures] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -69,6 +70,7 @@ const useCreateProduct = () => {
   };
 
   const uploadFiles = async (payload) => {
+    setLoading(true);
     const options = {
       method: 'POST',
       headers: {
@@ -78,19 +80,20 @@ const useCreateProduct = () => {
     };
     const response = await digitalBookingAPI('storage/uploadFile', options);
     const data = await response.json();
+    setLoading(false);
     return data.data;
   };
 
   const disabled = useMemo(() => {
     if (features.every((f) => !f.isChecked)) return true;
     if (images.length < 6) return true;
+    if (!categorySelected) return true;
+    if (!locationSelected) return true;
     return [
       name,
       slogan,
-      categorySelected,
       address,
       distance,
-      locationSelected,
       lat,
       lng,
       policyCancel,
@@ -190,6 +193,7 @@ const useCreateProduct = () => {
     slogan,
     userId: state.decodedJwt.userId,
     uploadFiles,
+    loading,
   };
 };
 
