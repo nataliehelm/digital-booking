@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { digitalBookingAPI } from '../../../../../api/digital-booking.api';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useInput } from '../../../../../atoms';
 import { useFetch } from '../../../../../hooks';
 import useFetchLazy from '../../../../../hooks/useFetch/useFetchLazy';
@@ -8,11 +7,15 @@ import { parsedLocationsWithoutCity } from '../../../../../mappers/locations.map
 import useAuthContext from '../../../../../providers/AuthProvider/useAuthContext';
 import { mandatoryValidator } from '../../../../../utils/validators';
 
-const useCreateProduct = () => {
-  const navigate = useNavigate();
-
+const useEditProduct = () => {
+  const { id } = useParams();
+  const { isLoading: isLoadingProduct, data: product } = useFetch(
+    `products/${id}`
+  );
+  console.log(product);
   const { state } = useAuthContext();
 
+  const navigate = useNavigate();
   const [coords, setCoords] = useState();
   const [features, setFeatures] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -20,10 +23,11 @@ const useCreateProduct = () => {
   const [images, setImages] = useState([{ id: 0, value: '' }]);
   const [locationSelected, setLocationSelected] = useState(null);
   const [categorySelected, setCategorySelected] = useState(null);
+  //const [productToEdit, setProductToEdit] = useState(null);
 
   const lat = useInput('', mandatoryValidator);
   const lng = useInput('', mandatoryValidator);
-  const name = useInput('', mandatoryValidator);
+  const name = useInput(`${product?.name}`, mandatoryValidator);
   const slogan = useInput('', mandatoryValidator);
   const policyHouse = useInput('', mandatoryValidator);
   const policySecurity = useInput('', mandatoryValidator);
@@ -68,19 +72,6 @@ const useCreateProduct = () => {
     createProduct('products', option);
   };
 
-  const uploadFiles = async (payload) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + state.jwt,
-      },
-      body: payload,
-    };
-    const response = await digitalBookingAPI('storage/uploadFile', options);
-    const data = await response.json();
-    return data.data;
-  };
-
   const disabled = useMemo(() => {
     if (features.every((f) => !f.isChecked)) return true;
     if (images.length < 6) return true;
@@ -99,21 +90,27 @@ const useCreateProduct = () => {
       description,
     ].some((item) => item.value === '' || item.hasError);
   }, [
-    address,
-    categorySelected,
-    description,
-    distance,
     features,
-    images.length,
+    images,
+    name,
+    slogan,
+    categorySelected,
+    address,
+    distance,
+    locationSelected,
     lat,
     lng,
-    locationSelected,
-    name,
-    policyCancel,
     policyHouse,
+    policyCancel,
     policySecurity,
-    slogan,
+    description,
   ]);
+  /* useEffect(() => {
+    if (product) {
+      setProductToEdit(product);
+    }
+  }, [product]);
+  console.log(productToEdit); */
 
   useEffect(() => {
     if (createProductData) {
@@ -141,56 +138,35 @@ const useCreateProduct = () => {
     }
   }, [_categories]);
 
-  useEffect(() => {
-    if (_features) {
-      const finalFeatures = _features.map((f) => ({
-        id: f.id,
-        title: f.name,
-        icon: f.icon,
-        isChecked: false,
-      }));
-      setFeatures(finalFeatures);
-    }
-  }, [_features]);
-
-  useEffect(() => {
-    if (coords) {
-      lat.onChange({ target: { value: coords.lat.toString() } });
-      lng.onChange({ target: { value: coords.lng.toString() } });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coords]);
-
   return {
-    address,
+    product,
     categories,
-    categorySelected,
-    coords,
-    createProductError,
-    description,
-    disabled,
+    name,
+    setCategorySelected,
+    slogan,
+    isLoading:
+      isLoadingLocations ||
+      isLoadingCategories ||
+      isLoadingFeatures ||
+      isLoadingProduct,
+    address,
     distance,
-    features,
-    handleOnCheckboxChange,
-    images,
-    isLoading: isLoadingLocations || isLoadingCategories || isLoadingFeatures,
+    locations,
+    setCoords,
+    setLocationSelected,
     lat,
     lng,
-    locations,
-    locationSelected,
-    name,
-    onSubmit,
+    description,
+    features,
+    handleOnCheckboxChange,
     policyCancel,
     policyHouse,
     policySecurity,
-    setCategorySelected,
-    setCoords,
+    images,
     setImages,
-    setLocationSelected,
-    slogan,
-    userId: state.decodedJwt.userId,
-    uploadFiles,
+    disabled,
+    createProductError,
+    coords,
   };
 };
-
-export default useCreateProduct;
+export default useEditProduct;

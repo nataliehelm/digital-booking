@@ -21,6 +21,7 @@ import {
   NotFound,
 } from './pages';
 import SuccessCreateProduct from './modules/Admin/pages/SuccessCreateProduct';
+import EditProductContainer from './modules/Admin/pages/EditProduct/EditProductContainer';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -101,7 +102,7 @@ function App() {
             />
             <Route
               path="/admin/product/:id/edit"
-              element={<Layout children={<Admin />} />}
+              element={<Layout children={<EditProductContainer />} />}
             />
             <Route
               path="/resend-email"
