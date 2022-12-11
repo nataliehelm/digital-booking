@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Heading, Subheader, Toast } from '../../../../atoms';
-import { Loader } from '../../../../components';
+import { Button, Heading, Subheader, Toast, useInput } from '../../../../atoms';
+import { mandatoryValidator } from '../../../../utils/validators';
 import {
   Description,
   Features,
@@ -14,7 +15,6 @@ import styles from './EditProduct.module.scss';
 const EditProduct = ({
   product,
   categories,
-  name,
   setCategorySelected,
   slogan,
   address,
@@ -32,11 +32,10 @@ const EditProduct = ({
   policySecurity,
   images,
   setImages,
-  disabled,
   createProductError,
   coords,
-  isLoading,
 }) => {
+  const name = useInput(product?.name || '', mandatoryValidator);
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
@@ -53,12 +52,35 @@ const EditProduct = ({
     }));
   };
 
-  if (isLoading)
-    return (
-      <div className={styles.loader}>
-        <Loader />
-      </div>
-    );
+  const disabled = useMemo(() => {
+    if (features.every((f) => !f.isChecked)) return true;
+    if (images.length < 6) return true;
+    return [
+      name,
+      slogan,
+      address,
+      distance,
+      lat,
+      lng,
+      policyCancel,
+      policyHouse,
+      policySecurity,
+      description,
+    ].some((item) => item.value === '' || item.hasError);
+  }, [
+    address,
+    description,
+    distance,
+    features,
+    images.length,
+    lat,
+    lng,
+    name,
+    policyCancel,
+    policyHouse,
+    policySecurity,
+    slogan,
+  ]);
 
   return (
     <>
