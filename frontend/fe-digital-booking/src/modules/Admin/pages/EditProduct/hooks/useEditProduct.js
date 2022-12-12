@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetch } from '../../../../../hooks';
 import useFetchLazy from '../../../../../hooks/useFetch/useFetchLazy';
 import { parsedLocationsWithoutCity } from '../../../../../mappers/locations.mapper';
 import useAuthContext from '../../../../../providers/AuthProvider/useAuthContext';
+import { getFileFromUrl } from '../../../../../utils/images';
 
 const useEditProduct = () => {
   const { id } = useParams();
@@ -73,6 +74,27 @@ const useEditProduct = () => {
     }
   }, [_locations]);
 
+  const transformUrlToFile = useCallback(async () => {
+    if (product?.images) {
+      const promises = product.images.map(async (image, index) => ({
+        id: index,
+        value: await getFileFromUrl(image.url, image.title),
+      }));
+      return Promise.all(promises);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    if (product?.images) {
+      transformUrlToFile().then((response) => {
+        setImages([
+          ...response,
+          { id: response[response.length - 1].id + 1, value: '' },
+        ]);
+      });
+    }
+  }, [product?.images, transformUrlToFile]);
+
   useEffect(() => {
     if (_categories) {
       const finalCategories = _categories.map((c) => ({
@@ -84,7 +106,7 @@ const useEditProduct = () => {
   }, [_categories]);
 
   useEffect(() => {
-    if (_features) {
+    if (_features && product) {
       const actualFeatures = product.features.map((i) => i.id);
       const finalFeatures = _features.map((f) => ({
         id: f.id,
@@ -94,7 +116,7 @@ const useEditProduct = () => {
       }));
       setFeatures(finalFeatures);
     }
-  }, [_features]);
+  }, [_features, product]);
 
   return {
     product,
