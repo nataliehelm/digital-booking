@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useInput } from '../../../../../atoms';
 import { useFetch } from '../../../../../hooks';
 import useFetchLazy from '../../../../../hooks/useFetch/useFetchLazy';
 import { parsedLocationsWithoutCity } from '../../../../../mappers/locations.mapper';
 import useAuthContext from '../../../../../providers/AuthProvider/useAuthContext';
-import { mandatoryValidator } from '../../../../../utils/validators';
 
 const useEditProduct = () => {
   const { id } = useParams();
@@ -22,18 +20,6 @@ const useEditProduct = () => {
   const [images, setImages] = useState([{ id: 0, value: '' }]);
   const [locationSelected, setLocationSelected] = useState(null);
   const [categorySelected, setCategorySelected] = useState(null);
-  //const [productToEdit, setProductToEdit] = useState(null);
-
-  const lat = useInput('', mandatoryValidator);
-  const lng = useInput('', mandatoryValidator);
-
-  const slogan = useInput('', mandatoryValidator);
-  const policyHouse = useInput('', mandatoryValidator);
-  const policySecurity = useInput('', mandatoryValidator);
-  const policyCancel = useInput('', mandatoryValidator);
-  const address = useInput('', mandatoryValidator);
-  const distance = useInput('', mandatoryValidator);
-  const description = useInput('', mandatoryValidator);
 
   const {
     data: createProductData,
@@ -71,13 +57,6 @@ const useEditProduct = () => {
     createProduct('products', option);
   };
 
-  /* useEffect(() => {
-    if (product) {
-      setProductToEdit(product);
-    }
-  }, [product]);
-  console.log(productToEdit); */
-
   useEffect(() => {
     if (createProductData) {
       navigate('/create-product-success');
@@ -104,29 +83,33 @@ const useEditProduct = () => {
     }
   }, [_categories]);
 
+  useEffect(() => {
+    if (_features) {
+      const actualFeatures = product.features.map((i) => i.id);
+      const finalFeatures = _features.map((f) => ({
+        id: f.id,
+        title: f.name,
+        icon: f.icon,
+        isChecked: actualFeatures.includes(f.id),
+      }));
+      setFeatures(finalFeatures);
+    }
+  }, [_features]);
+
   return {
     product,
     categories,
     setCategorySelected,
-    slogan,
     isLoading:
       isLoadingLocations ||
       isLoadingCategories ||
       isLoadingFeatures ||
       isLoadingProduct,
-    address,
-    distance,
     locations,
     setCoords,
     setLocationSelected,
-    lat,
-    lng,
-    description,
     features,
     handleOnCheckboxChange,
-    policyCancel,
-    policyHouse,
-    policySecurity,
     images,
     setImages,
     createProductError,

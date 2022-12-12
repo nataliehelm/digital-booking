@@ -2,7 +2,13 @@ import { Dropdown, Input, Text } from '../../../../../../atoms';
 import styles from './ProductInfo.module.scss';
 import PropTypes from 'prop-types';
 
-const ProductInfo = ({ name, slogan, categories, setCategorySelected }) => {
+const ProductInfo = ({
+  name,
+  slogan,
+  categories,
+  setCategorySelected,
+  placeholder,
+}) => {
   return (
     <div className={styles['product-name']}>
       <Input
@@ -28,7 +34,7 @@ const ProductInfo = ({ name, slogan, categories, setCategorySelected }) => {
             <Dropdown
               options={categories}
               onChange={setCategorySelected}
-              placeholder="Hotel"
+              placeholder={placeholder}
               hasDivider
             />
           </div>

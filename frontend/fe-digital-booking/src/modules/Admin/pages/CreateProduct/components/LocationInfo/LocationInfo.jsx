@@ -9,6 +9,7 @@ const LocationInfo = ({
   lat,
   lng,
   locations,
+  placeholder,
   setCoords,
   setLocationSelected,
 }) => {
@@ -32,7 +33,7 @@ const LocationInfo = ({
               <WritableDropdown
                 options={locations}
                 onChange={setLocationSelected}
-                placeholder="Ciudad"
+                placeholder={placeholder}
               />
             </div>
           </div>

@@ -16,32 +16,50 @@ const EditProduct = ({
   product,
   categories,
   setCategorySelected,
-  slogan,
-  address,
-  distance,
   locations,
   setCoords,
   setLocationSelected,
-  lat,
-  lng,
-  description,
   features,
   handleOnCheckboxChange,
-  policyCancel,
-  policyHouse,
-  policySecurity,
   images,
   setImages,
   createProductError,
   coords,
 }) => {
   const name = useInput(product?.name || '', mandatoryValidator);
+  const slogan = useInput(product?.description_title || '', mandatoryValidator);
+  const lat = useInput(product?.coordinates[0] || '', mandatoryValidator);
+  const lng = useInput(product?.coordinates[1] || '', mandatoryValidator);
+
+  const policyHouse = useInput(
+    product?.subPolicies[0].description || '',
+    mandatoryValidator
+  );
+  const policySecurity = useInput(
+    product?.subPolicies[1].description || '',
+    mandatoryValidator
+  );
+  const policyCancel = useInput(
+    product?.subPolicies[2].description || '',
+    mandatoryValidator
+  );
+  const address = useInput(product?.address || '', mandatoryValidator);
+  const distance = useInput(
+    product?.distance_to_nearest_tourist_site || '',
+    mandatoryValidator
+  );
+  const description = useInput(product?.description || '', mandatoryValidator);
   const navigate = useNavigate();
   const onBackClick = () => {
     navigate(-1);
   };
+  const actualImages = product.images.map((img) => ({
+    id: img.id,
+    value: img.url,
+  }));
 
   const IMAGES_MIN_LENGTH = 5;
+  console.log(product);
 
   const handleOnSubmit = () => {
     const finalCoords = [coords.lat, coords.lng];
@@ -95,6 +113,7 @@ const EditProduct = ({
             name={name}
             setCategorySelected={setCategorySelected}
             slogan={slogan}
+            placeholder={product.category.name}
           />
           <LocationInfo
             address={address}
@@ -102,6 +121,7 @@ const EditProduct = ({
             locations={locations}
             setCoords={setCoords}
             setLocationSelected={setLocationSelected}
+            placeholder={`${product.location.province_name}, ${product.location.country_name}`}
             lat={lat}
             lng={lng}
           />
@@ -113,6 +133,7 @@ const EditProduct = ({
             policySecurity={policySecurity}
           />
           <Images
+            actualImages={actualImages}
             images={images}
             setImages={setImages}
             hasError={
