@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/images")
@@ -60,6 +61,14 @@ public class ImageController {
         service.deleteById(id);
         return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully", null, null);
 
+    }
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(path = "/")
+    public ResponseEntity<ApiResponse> deleteByUrl(@RequestParam Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+        service.deleteByUrl(params);
+        return responsesBuilder.buildResponse(HttpStatus.OK.value(),"Image deleted successfully", null, null);
     }
 
 }

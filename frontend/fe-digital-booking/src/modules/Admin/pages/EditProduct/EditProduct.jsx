@@ -5,11 +5,11 @@ import { mandatoryValidator } from '../../../../utils/validators';
 import {
   Description,
   Features,
-  Images,
   LocationInfo,
   Policies,
   ProductInfo,
 } from '../CreateProduct/components';
+import Images from './components/Images/Images';
 import styles from './EditProduct.module.scss';
 
 const EditProduct = ({
@@ -26,6 +26,7 @@ const EditProduct = ({
   createProductError,
   coords,
   uploadFiles,
+  handleOnRemove,
 }) => {
   const name = useInput(product?.name || '', mandatoryValidator);
   const slogan = useInput(product?.description_title || '', mandatoryValidator);
@@ -156,6 +157,7 @@ const EditProduct = ({
               images.length > 1 && images.length < IMAGES_MIN_LENGTH + 1
             }
             minLength={IMAGES_MIN_LENGTH}
+            onRemove={handleOnRemove}
           />
           <div className={styles.submit}>
             <Button

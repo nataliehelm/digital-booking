@@ -7,24 +7,24 @@ import com.grupo9.db.model.Image;
 import com.grupo9.db.model.Product;
 import com.grupo9.db.repository.IImageRepository;
 import com.grupo9.db.repository.IProductRepository;
-import com.grupo9.db.util.ApiResponse;
 import com.grupo9.db.util.ResponsesBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ImageService {
     private final IImageRepository repository;
     private final IProductRepository productRepository;
+    private AmazonClient amazonClient;
     private ResponsesBuilder responsesBuilder;
 
-    public ImageService(IImageRepository repository, IProductRepository productRepository, ResponsesBuilder responsesBuilder) {
+    public ImageService(IImageRepository repository, IProductRepository productRepository, AmazonClient amazonClient, ResponsesBuilder responsesBuilder) {
         this.repository = repository;
         this.productRepository = productRepository;
+        this.amazonClient = amazonClient;
         this.responsesBuilder = responsesBuilder;
     }
 
@@ -67,6 +67,20 @@ public class ImageService {
         }
         repository.deleteById(id);
         }
+
+
+    public void deleteByUrl(Map<String, String> params) throws ResourceNotFoundException, BadRequestException {
+        if(params.get("url") != null) {
+            Optional<Image> image = repository.findByUrl(params.get("url"));
+            if (image.isEmpty()) {
+                throw new ResourceNotFoundException("Image with url " + params.get("url")  + " not found in DB");
+            }
+            repository.deleteById(image.get().getId());
+            amazonClient.deleteFileFromS3Bucket(params.get("url") );
+            return;
+        }
+        throw new BadRequestException("Invalid URL");
+    }
 
     private Image imageBuilder (SaveImageDto imageDto, Long id) throws ResourceNotFoundException {
 

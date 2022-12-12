@@ -82,6 +82,7 @@ const useEditProduct = () => {
         id: index,
         value: await getFileFromUrl(image.url, image.title),
         isNew: false,
+        url: image.url,
       }));
       return Promise.all(promises);
     }
@@ -123,6 +124,20 @@ const useEditProduct = () => {
     return data.data;
   };
 
+  const handleOnRemove = async (url) => {
+    setLoading(true);
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + state.jwt,
+      },
+    };
+    const response = await digitalBookingAPI(`images/?url=${url}`, options);
+    const data = await response.json();
+    setLoading(false);
+    return data.data;
+  };
+
   useEffect(() => {
     if (_features && product) {
       const actualFeatures = product.features.map((i) => i.id);
@@ -156,6 +171,7 @@ const useEditProduct = () => {
     createProductError,
     coords,
     uploadFiles,
+    handleOnRemove
   };
 };
 export default useEditProduct;
