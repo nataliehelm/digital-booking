@@ -25,6 +25,7 @@ const EditProduct = ({
   setImages,
   createProductError,
   coords,
+  uploadFiles,
 }) => {
   const name = useInput(product?.name || '', mandatoryValidator);
   const slogan = useInput(product?.description_title || '', mandatoryValidator);
@@ -61,7 +62,22 @@ const EditProduct = ({
   const IMAGES_MIN_LENGTH = 5;
   console.log(product);
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = async () => {
+    const urls = [];
+    const files = images.filter((image) => image.value);
+    try {
+      for (const image of files) {
+        if (image.isNew) {
+          const file = new FormData();
+          file.append('file', image.value);
+          const response = await uploadFiles(file);
+          urls.push(response);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     const finalCoords = [coords.lat, coords.lng];
     const uploadedImages = images.filter((image) => image.value !== '');
     const finalImages = uploadedImages.map((i) => ({

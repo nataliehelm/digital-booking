@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { digitalBookingAPI } from '../../../../../api/digital-booking.api';
 import { useFetch } from '../../../../../hooks';
 import useFetchLazy from '../../../../../hooks/useFetch/useFetchLazy';
 import { parsedLocationsWithoutCity } from '../../../../../mappers/locations.mapper';
@@ -16,6 +17,7 @@ const useEditProduct = () => {
   const navigate = useNavigate();
   const [coords, setCoords] = useState();
   const [features, setFeatures] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   const [locations, setLocations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([{ id: 0, value: '' }]);
@@ -79,6 +81,7 @@ const useEditProduct = () => {
       const promises = product.images.map(async (image, index) => ({
         id: index,
         value: await getFileFromUrl(image.url, image.title),
+        isNew: false,
       }));
       return Promise.all(promises);
     }
@@ -105,6 +108,21 @@ const useEditProduct = () => {
     }
   }, [_categories]);
 
+  const uploadFiles = async (payload) => {
+    setLoading(true);
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + state.jwt,
+      },
+      body: payload,
+    };
+    const response = await digitalBookingAPI('storage/uploadFile', options);
+    const data = await response.json();
+    setLoading(false);
+    return data.data;
+  };
+
   useEffect(() => {
     if (_features && product) {
       const actualFeatures = product.features.map((i) => i.id);
@@ -126,7 +144,8 @@ const useEditProduct = () => {
       isLoadingLocations ||
       isLoadingCategories ||
       isLoadingFeatures ||
-      isLoadingProduct,
+      isLoadingProduct ||
+      isLoading,
     locations,
     setCoords,
     setLocationSelected,
@@ -136,6 +155,7 @@ const useEditProduct = () => {
     setImages,
     createProductError,
     coords,
+    uploadFiles,
   };
 };
 export default useEditProduct;

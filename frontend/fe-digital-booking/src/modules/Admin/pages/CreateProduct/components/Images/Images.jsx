@@ -63,6 +63,7 @@ const Images = ({ actualImages, images, setImages, hasError, minLength }) => {
             value={image.value || currentImage.value}
             onUpload={(value) => {
               image.value = value;
+              image.isNew = true;
               setImages([...images, { id: image.id + 1, value: '' }]);
               currentImage.onChange({ target: { value: '' } });
             }}
