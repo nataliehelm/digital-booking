@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Heading, Subheader, Toast, useInput } from '../../../../atoms';
+import { Loader } from '../../../../components';
 import { mandatoryValidator } from '../../../../utils/validators';
 import {
   Description,
@@ -18,7 +19,6 @@ const EditProduct = ({
   setCategorySelected,
   locations,
   setCoords,
-  setLocationSelected,
   features,
   handleOnCheckboxChange,
   images,
@@ -27,7 +27,13 @@ const EditProduct = ({
   coords,
   uploadFiles,
   handleOnRemove,
+  categorySelected,
+  userId,
+  onSubmit,
+  isLoading,
 }) => {
+  const [locationSelected, setLocationSelected] = useState(null);
+  const [imageError, setImageError] = useState(false);
   const name = useInput(product?.name || '', mandatoryValidator);
   const slogan = useInput(product?.description_title || '', mandatoryValidator);
   const lat = useInput(product?.coordinates[0] || '', mandatoryValidator);
@@ -55,13 +61,22 @@ const EditProduct = ({
   const onBackClick = () => {
     navigate(-1);
   };
-  const actualImages = product.images.map((img) => ({
-    id: img.id,
-    value: img.url,
-  }));
-
+  useEffect(() => {
+    if (coords) {
+      lat.onChange({ target: { value: coords.lat.toString() } });
+      lng.onChange({ target: { value: coords.lng.toString() } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coords]);
   const IMAGES_MIN_LENGTH = 5;
-  console.log(product);
+  useEffect(() => {
+    if (!isLoading) {
+      const location = locations.find((l) => l.id === product.location.id);
+      if (location) {
+        setLocationSelected(location);
+      }
+    }
+  }, [isLoading, locations, product.location.id]);
 
   const handleOnSubmit = async () => {
     const urls = [];
@@ -76,20 +91,59 @@ const EditProduct = ({
         }
       }
     } catch (error) {
+      setImageError(true);
       console.error(error);
     }
+    if (!imageError) {
+      const finalCoords = [parseFloat(lat.value), parseFloat(lng.value)];
 
-    const finalCoords = [coords.lat, coords.lng];
-    const uploadedImages = images.filter((image) => image.value !== '');
-    const finalImages = uploadedImages.map((i) => ({
-      title: name.value,
-      url: i.value,
-    }));
+      const finalImages = urls.map((i) => ({
+        title: name.value,
+        url: i,
+      }));
+      const selectedFeatures = features
+        .filter((f) => f.isChecked)
+        .map((f) => f.id);
+
+      const payload = {
+        name: name.value,
+        distance_to_nearest_tourist_site: distance.value,
+        ranking: 0.0,
+        score: 0.0,
+        description_title: slogan.value,
+        description: description.value,
+        coordinates: finalCoords,
+        address: address.value,
+        categoryId: categorySelected.id,
+        locationId: locationSelected?.id || product.location.id,
+        featureIds: selectedFeatures,
+        subPolicies: [
+          {
+            description: policyHouse.value,
+            policy_id: 1,
+          },
+          {
+            description: policySecurity.value,
+            policy_id: 2,
+          },
+          {
+            description: policyCancel.value,
+            policy_id: 3,
+          },
+        ],
+        images: finalImages,
+        userId,
+      };
+
+      onSubmit(payload);
+    }
   };
 
   const disabled = useMemo(() => {
     if (features.every((f) => !f.isChecked)) return true;
     if (images.length < 6) return true;
+    if (!categorySelected) return true;
+    //if (!locationSelected) return true;
     return [
       name,
       slogan,
@@ -104,18 +158,22 @@ const EditProduct = ({
     ].some((item) => item.value === '' || item.hasError);
   }, [
     address,
+    categorySelected,
     description,
     distance,
     features,
     images.length,
     lat,
     lng,
+    //locationSelected,
     name,
     policyCancel,
     policyHouse,
     policySecurity,
     slogan,
   ]);
+  console.log(categorySelected, locationSelected);
+  //console.log(product);
 
   return (
     <>
@@ -128,20 +186,25 @@ const EditProduct = ({
           <ProductInfo
             categories={categories}
             name={name}
-            setCategorySelected={setCategorySelected}
+            setCategorySelected={
+              setCategorySelected(product.category) || setCategorySelected
+            }
             slogan={slogan}
             placeholder={product.category.name}
           />
-          <LocationInfo
-            address={address}
-            distance={distance}
-            locations={locations}
-            setCoords={setCoords}
-            setLocationSelected={setLocationSelected}
-            placeholder={`${product.location.province_name}, ${product.location.country_name}`}
-            lat={lat}
-            lng={lng}
-          />
+          {
+            <LocationInfo
+              address={address}
+              distance={distance}
+              locations={locations}
+              setCoords={setCoords}
+              locationSelected={locationSelected}
+              setLocationSelected={setLocationSelected}
+              placeholder={`${product.location.province_name}, ${product.location.country_name}`}
+              lat={lat}
+              lng={lng}
+            />
+          }
           <Description description={description} />
           <Features features={features} onChange={handleOnCheckboxChange} />
           <Policies
@@ -150,7 +213,6 @@ const EditProduct = ({
             policySecurity={policySecurity}
           />
           <Images
-            actualImages={actualImages}
             images={images}
             setImages={setImages}
             hasError={
@@ -167,7 +229,7 @@ const EditProduct = ({
               disabled={disabled}
               onClick={handleOnSubmit}
             >
-              Crear
+              Editar
             </Button>
           </div>
           {createProductError && (
@@ -176,7 +238,7 @@ const EditProduct = ({
                 variant="error"
                 label={
                   createProductError.error ||
-                  'Lamentablemente el producto no ha podido crearse. Por favor intente más tarde'
+                  'Lamentablemente el producto no ha podido modificarse. Por favor intente más tarde'
                 }
               />
             </div>

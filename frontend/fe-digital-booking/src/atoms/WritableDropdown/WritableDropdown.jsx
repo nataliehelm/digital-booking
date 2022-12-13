@@ -24,8 +24,7 @@ const WritableDropdown = ({
         target: { value: location.title || location.description },
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [location, onChange]);
 
   useEffect(() => {
     if (reset) {

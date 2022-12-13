@@ -6,14 +6,13 @@ import styles from './EditProduct.module.scss';
 const EditProductContainer = () => {
   const props = useEditProduct();
 
-  if (props.isLoading)
-    return (
-      <div className={styles.loader}>
-        <Loader />
-      </div>
-    );
-
-  return <EditProduct {...props} />;
+  return props.isLoading ? (
+    <div className={styles.loader}>
+      <Loader />
+    </div>
+  ) : (
+    <EditProduct {...props} />
+  );
 };
 
 export default EditProductContainer;

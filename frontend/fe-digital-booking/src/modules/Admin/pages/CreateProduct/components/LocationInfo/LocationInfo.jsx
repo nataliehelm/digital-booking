@@ -11,6 +11,7 @@ const LocationInfo = ({
   locations,
   placeholder,
   setCoords,
+  locationSelected,
   setLocationSelected,
 }) => {
   return (
@@ -34,6 +35,7 @@ const LocationInfo = ({
                 options={locations}
                 onChange={setLocationSelected}
                 placeholder={placeholder}
+                location={locationSelected}
               />
             </div>
           </div>

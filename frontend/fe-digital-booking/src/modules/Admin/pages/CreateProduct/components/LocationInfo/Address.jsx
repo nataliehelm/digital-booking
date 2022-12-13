@@ -38,7 +38,7 @@ const Address = ({ setCoords, address }) => {
         setCoords={setCoords}
         name="address"
         label="Dirección"
-        placeholder="Av. Colón 1643"
+        placeholder={`${address.value}` || 'Av. Colón 1643'}
         clearSuggestions={clearSuggestions}
         setValue={setValue}
         address={address}

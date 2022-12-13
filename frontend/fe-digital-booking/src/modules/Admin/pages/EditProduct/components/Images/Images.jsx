@@ -15,8 +15,6 @@ const Images = ({
 }) => {
   const currentImage = useInput('', mandatoryValidator);
 
-  console.log(actualImages);
-  console.log(images);
   return (
     <div className={cn(styles['images-container'])}>
       <Heading variant="h3" classname={styles.title}>

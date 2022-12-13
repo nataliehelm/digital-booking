@@ -10,7 +10,6 @@ const UserInfoForm = ({
   onChangeLocation,
   locationSelected,
 }) => {
-  console.log({ locationSelected });
   return (
     <div className={styles['container']}>
       <h2 className={styles['input-title']}>Cómpleta tus datos</h2>

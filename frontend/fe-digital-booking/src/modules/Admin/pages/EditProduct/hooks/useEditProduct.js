@@ -13,15 +13,14 @@ const useEditProduct = () => {
     `products/${id}`
   );
   const { state } = useAuthContext();
-
   const navigate = useNavigate();
   const [coords, setCoords] = useState();
   const [features, setFeatures] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [locations, setLocations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([{ id: 0, value: '' }]);
-  const [locationSelected, setLocationSelected] = useState(null);
+
   const [categorySelected, setCategorySelected] = useState(null);
 
   const {
@@ -49,7 +48,7 @@ const useEditProduct = () => {
 
   const onSubmit = (payload) => {
     const option = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -57,7 +56,22 @@ const useEditProduct = () => {
       },
       body: JSON.stringify(payload),
     };
-    createProduct('products', option);
+    createProduct(`products/${id}`, option);
+  };
+
+  const uploadFiles = async (payload) => {
+    setLoading(true);
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + state.jwt,
+      },
+      body: payload,
+    };
+    const response = await digitalBookingAPI('storage/uploadFile', options);
+    const data = await response.json();
+    setLoading(false);
+    return data.data;
   };
 
   useEffect(() => {
@@ -109,21 +123,6 @@ const useEditProduct = () => {
     }
   }, [_categories]);
 
-  const uploadFiles = async (payload) => {
-    setLoading(true);
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + state.jwt,
-      },
-      body: payload,
-    };
-    const response = await digitalBookingAPI('storage/uploadFile', options);
-    const data = await response.json();
-    setLoading(false);
-    return data.data;
-  };
-
   const handleOnRemove = async (url) => {
     setLoading(true);
     const options = {
@@ -152,18 +151,20 @@ const useEditProduct = () => {
   }, [_features, product]);
 
   return {
+    _locations,
     product,
     categories,
+    categorySelected,
     setCategorySelected,
     isLoading:
       isLoadingLocations ||
       isLoadingCategories ||
       isLoadingFeatures ||
       isLoadingProduct ||
-      isLoading,
+      loading,
     locations,
     setCoords,
-    setLocationSelected,
+    setLocations,
     features,
     handleOnCheckboxChange,
     images,
@@ -171,7 +172,9 @@ const useEditProduct = () => {
     createProductError,
     coords,
     uploadFiles,
-    handleOnRemove
+    handleOnRemove,
+    userId: state.decodedJwt.userId,
+    onSubmit,
   };
 };
 export default useEditProduct;
