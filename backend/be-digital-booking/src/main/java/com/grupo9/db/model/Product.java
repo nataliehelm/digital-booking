@@ -46,11 +46,11 @@ public class Product {
     @Max(10)
     private double score = 0.0;
 
-    @Column(name = "description_title")
+    @Column(name = "description_title", length=300)
     @NotEmpty(message = "Description Title is mandatory")
     private String description_title;
 
-    @Column(name = "description",columnDefinition="LONGTEXT")
+    @Column(name = "description",columnDefinition="LONGTEXT", length=2000)
     @NotEmpty(message = "Description is mandatory")
     private String description;
 

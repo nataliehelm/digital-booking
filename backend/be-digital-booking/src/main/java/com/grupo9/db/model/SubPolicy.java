@@ -25,7 +25,7 @@ public class SubPolicy {
     private Long id;
 
     @NotEmpty(message = "Description is mandatory")
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length=1000)
     private String description;
 
     @ManyToOne(optional = false)
