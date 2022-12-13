@@ -8,16 +8,17 @@ const useAdmin = () => {
   const { state } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [options, setOptions] = useState(null);
+  const [currentPage, setCurrentPage] = useState(`page=0`);
 
   const {
     isLoading,
     data: _products,
     error,
-  } = useFetch('products/admin', options);
+  } = useFetch(`products/admin?${currentPage}`, options);
 
   useEffect(() => {
     if (_products) {
-      const productList = _products.content;
+      const productList = _products;
       setProducts(productList);
     }
   }, [_products]);
@@ -36,11 +37,10 @@ const useAdmin = () => {
     }
   }, [state]);
 
-  console.log(products);
-
   return {
     products,
     isLoading,
+    setCurrentPage,
   };
 };
 

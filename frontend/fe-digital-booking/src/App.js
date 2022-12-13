@@ -22,6 +22,7 @@ import {
 } from './pages';
 import SuccessCreateProduct from './modules/Admin/pages/SuccessCreateProduct';
 import EditProductContainer from './modules/Admin/pages/EditProduct/EditProductContainer';
+import SuccessEditProduct from './modules/Admin/pages/SuccessEditProduct/SuccessEditProduct';
 
 function App() {
   const { state, cleanJwt } = useAuthContext();
@@ -34,6 +35,7 @@ function App() {
   // TODO: refactorizar implementación
   const AdminContainer = withAdminGuardian(() => <Admin />);
   const AdminCreateProduct = withAdminGuardian(() => <CreateProduct />);
+  const AdminEditProduct = withAdminGuardian(() => <EditProductContainer />);
 
   return (
     <>
@@ -102,7 +104,11 @@ function App() {
             />
             <Route
               path="/admin/product/:id/edit"
-              element={<Layout children={<EditProductContainer />} />}
+              element={<Layout children={<AdminEditProduct />} />}
+            />
+            <Route
+              path="/edit-product-success"
+              element={<Layout children={<SuccessEditProduct />} />}
             />
             <Route
               path="/resend-email"

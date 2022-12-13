@@ -76,7 +76,7 @@ const useEditProduct = () => {
 
   useEffect(() => {
     if (createProductData) {
-      navigate('/create-product-success');
+      navigate('/edit-product-success');
     }
     if (createProductError) {
       console.error(createProductError);
