@@ -67,7 +67,7 @@ public class Product {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Column(name = "address", nullable = false , length=100)
+    @Column(name = "address", nullable = false , length=300)
     @NotEmpty(message = "address is mandatory")
     private String address;
 

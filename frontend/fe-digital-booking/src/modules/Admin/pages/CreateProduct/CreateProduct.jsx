@@ -133,11 +133,13 @@ const CreateProduct = ({
             name={name}
             setCategorySelected={setCategorySelected}
             slogan={slogan}
+            placeholder="Hotel"
           />
           <LocationInfo
             address={address}
             distance={distance}
             locations={locations}
+            placeholder="Ciudad"
             setCoords={setCoords}
             setLocationSelected={setLocationSelected}
             lat={lat}

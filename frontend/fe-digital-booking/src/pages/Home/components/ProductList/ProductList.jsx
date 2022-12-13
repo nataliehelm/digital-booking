@@ -42,7 +42,7 @@ const ProductList = ({
               <li key={product.id}>
                 <ProductCard
                   id={product.id}
-                  img={product.images[0].url}
+                  img={product.images[0]?.url || []}
                   category={product.category.name.toUpperCase()}
                   title={product.name}
                   score={product.score}

@@ -5,11 +5,16 @@ import PropTypes from 'prop-types';
 import { DragAndDrop, Heading, Text, useInput } from '../../../../../../atoms';
 import { mandatoryValidator } from '../../../../../../utils/validators';
 
-const Images = ({ actualImages, images, setImages, hasError, minLength }) => {
+const Images = ({
+  actualImages,
+  images,
+  setImages,
+  hasError,
+  minLength,
+  onRemove,
+}) => {
   const currentImage = useInput('', mandatoryValidator);
 
-  console.log(actualImages);
-  console.log(images);
   return (
     <div className={cn(styles['images-container'])}>
       <Heading variant="h3" classname={styles.title}>
@@ -70,6 +75,9 @@ const Images = ({ actualImages, images, setImages, hasError, minLength }) => {
             onRemove={(_, id) => {
               setImages(images.filter((image) => image.id !== id));
               currentImage.onChange({ target: { value: '' } });
+              if (image.url) {
+                onRemove(image.url);
+              }
             }}
           />
         ))}

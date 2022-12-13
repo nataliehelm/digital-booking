@@ -12,6 +12,8 @@ const Carousel = ({ images }) => {
     setShowSlider(true);
   };
 
+  if (!images.length) return null;
+
   if (breakpoint === 'sm' || breakpoint === 'md') {
     return <CarouselMobile images={images} />;
   }
