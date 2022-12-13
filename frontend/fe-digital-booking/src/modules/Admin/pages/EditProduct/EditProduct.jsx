@@ -172,8 +172,6 @@ const EditProduct = ({
     policySecurity,
     slogan,
   ]);
-  console.log(categorySelected, locationSelected);
-  //console.log(product);
 
   return (
     <>
