@@ -52,11 +52,11 @@ const Header = ({ name, lastname, role, onLogout }) => {
           {username ? (
             <div className={styles['user-info-container']}>
               {/* TODO: Agregar redirects */}
-              {role && (
+              {role === 'ROLE_ADMIN' && (
                 <div className={styles['module-container']}>
                   <ModulesButton
                     label={
-                      role === 'ROLE_ADMIN' ? 'Administración' : 'Reservas'
+                      role === 'ROLE_ADMIN' ? 'Administración' : undefined
                     }
                     onClick={() =>
                       role === 'ROLE_ADMIN' ? navigate('/admin') : undefined

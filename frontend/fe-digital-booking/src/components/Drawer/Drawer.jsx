@@ -66,16 +66,17 @@ const Drawer = ({ setShowDrawer, username, isAdmin, onLogout }) => {
         {username && (
           <ul>
             {!isAdmin ? (
-              <li
-                className={styles['navbar-item']}
-                onClick={() => {
-                  setShowDrawer(false);
-                  navigate('/');
-                }}
-              >
-                <Heading variant="h3">Reservas</Heading>
-              </li>
+              <></>
             ) : (
+              // <li
+              //   className={styles['navbar-item']}
+              //   onClick={() => {
+              //     setShowDrawer(false);
+              //     navigate('/');
+              //   }}
+              // >
+              //   <Heading variant="h3">Reservas</Heading>
+              // </li>
               <li
                 className={styles['navbar-item']}
                 onClick={() => {
