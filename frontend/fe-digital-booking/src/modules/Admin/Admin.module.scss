@@ -3,6 +3,13 @@
 .main-container {
   overflow: auto;
   height: 100%;
+  .paginator-container {
+    div {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 10px;
+    }
+  }
 
   .container {
     display: flex;
