@@ -1,0 +1,119 @@
+@use '../../styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 40px;
+  position: relative;
+}
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .booking-calendar {
+    color: $color-dark-grey;
+    display: flex;
+    flex-direction: column;
+
+    .col-left {
+      div {
+        font-size: 16px;
+      }
+    }
+
+    .calendar-title {
+      color: $color-secondary;
+      padding: 10px 0;
+      font-size: 20px;
+    }
+  }
+  .dropdown-container {
+    color: $color-secondary;
+    h1 {
+      padding-bottom: 15px;
+    }
+    .drop {
+      position: absolute;
+      width: 80%;
+    }
+    .dropcard {
+      padding: 24px 17px;
+      background-color: $color-white;
+      border: 1px solid #dfe4ea;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      height: 180px;
+    }
+    .text {
+      padding-bottom: 10px;
+    }
+    .dropcard-text {
+      display: flex;
+      gap: 13px;
+      padding-bottom: 31px;
+    }
+  }
+}
+
+.policies {
+  padding: 0 10px;
+  overflow: hidden;
+  background-color: $color-white;
+  margin-top: 30px;
+}
+
+@media (min-width: $md) {
+  .container {
+    padding: 0 30px;
+  }
+  .policies {
+    padding: 0 30px;
+  }
+  .dropdown-container {
+    .drop {
+      width: 45%;
+    }
+  }
+  .dropcard {
+    max-height: 150px;
+  }
+}
+
+@media (min-width: $lg) {
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-top: 37px;
+  }
+  .left-container {
+    flex-direction: column;
+    width: 70%;
+
+    .booking-calendar {
+      padding-left: 0;
+      width: 95%;
+
+      .calendar-title {
+        margin-left: 0px;
+      }
+    }
+    .dropdown-container {
+      width: 95%;
+    }
+  }
+  .right-container {
+    width: 30%;
+    margin-top: 33px;
+  }
+  .policies {
+    padding: 0 43px;
+  }
+  .dropdown-container {
+    .drop {
+      max-width: 30%;
+    }
+  }
+}

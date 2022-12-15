@@ -1,0 +1,17 @@
+@use './../../styles/variables' as *;
+
+.score-container {
+  align-items: center;
+  background-color: $color-secondary;
+  border-radius: 10px;
+  border: 1px solid $color-secondary;
+  color: $color-light-grey;
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  height: 34px;
+  justify-content: center;
+  text-align: center;
+  width: 34px;
+  min-width: 34px;
+}

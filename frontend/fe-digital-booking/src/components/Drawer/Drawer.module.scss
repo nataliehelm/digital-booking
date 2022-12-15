@@ -1,0 +1,113 @@
+@use './../../styles/variables' as *;
+
+.drawer-container {
+  height: 100vh;
+  overflow: hidden;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 3;
+
+  header {
+    background-color: $color-primary;
+    color: $color-white;
+    display: flex;
+    flex-direction: column;
+    height: 175px;
+    justify-content: space-between;
+    padding: 12px 10px 6px 14px;
+
+    button {
+      width: min-content;
+    }
+
+    .title {
+      align-self: end;
+    }
+  }
+}
+
+.divider,
+.divider-logout {
+  background-color: $color-tertiary;
+  height: 1px;
+}
+
+.divider {
+  margin: 16px 10px 21px 14px;
+}
+
+.divider-logout {
+  margin: 5px 10px 7px 14px;
+}
+
+.navbar {
+  background-color: $color-white;
+  flex-grow: 1;
+
+  ul {
+    margin-top: 23px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.navbar-item {
+  align-self: flex-end;
+  margin-right: 15px;
+  cursor: pointer;
+  color: $color-secondary;
+}
+
+.footer {
+  height: 23px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 17.04px;
+  padding: 0 15px 29px 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 159px;
+  text-align: right;
+  align-items: flex-end;
+  align-self: end;
+
+  span {
+    display: block;
+  }
+
+  p {
+    margin-top: 9px;
+  }
+
+  .user-name {
+    color: $color-secondary;
+  }
+}
+
+.p-logout {
+  margin-right: 15px;
+  text-align: right;
+  background-color: $color-white;
+}
+
+.span-logout {
+  color: $color-primary;
+}
+
+.social-network-container {
+  padding: 30px 15px;
+  background-color: $color-white;
+}
+
+.logout-container {
+  text-align: right;
+  background-color: $color-white;
+}

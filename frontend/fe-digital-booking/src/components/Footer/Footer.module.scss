@@ -1,0 +1,38 @@
+@use './../../styles/variables' as *;
+
+.footer-container {
+  background-color: $color-primary;
+  bottom: 0px;
+  color: $color-white;
+  display: flex;
+  flex-direction: row;
+  font-family: $font-primary;
+  font-size: 14px;
+  height: 58px;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12),
+    0px 1px 10px rgba(0, 0, 0, 0.2);
+
+  section {
+    display: none;
+  }
+}
+
+@media (min-width: $md) {
+  .footer-container {
+    padding: 15px 30px;
+    section {
+      display: flex;
+    }
+  }
+}
+@media (min-width: $lg) {
+  .footer-container {
+    padding: 20px 50px;
+  }
+}

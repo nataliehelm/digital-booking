@@ -1,0 +1,39 @@
+@use './../../../../styles/variables' as *;
+
+.features-container {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px 0 10px;
+  row-gap: 15px;
+
+  .article {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 50%;
+    padding: 2px 0;
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .features-container {
+    margin: 40px 0;
+    row-gap: 25px;
+  }
+}
+
+@media (min-width: $lg) {
+  .features-container {
+    row-gap: 35px;
+    justify-content: flex-start;
+    .article {
+      width: 25%;
+    }
+  }
+}

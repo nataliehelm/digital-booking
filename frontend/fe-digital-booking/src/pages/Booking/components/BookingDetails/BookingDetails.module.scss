@@ -1,0 +1,101 @@
+@use '../../../../styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  border: 1px solid #dfe4ea;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+
+  .title {
+    color: $color-secondary;
+    padding: 20px 10px 10px;
+    font-size: 20px;
+  }
+  .wrapper {
+    .image img {
+      object-fit: cover;
+      width: 100%;
+      overflow: hidden;
+    }
+    .details {
+      padding: 16px;
+      h4 {
+        color: rgba(56, 59, 88, 0.5);
+      }
+      h2,
+      h3 {
+        color: $color-secondary;
+      }
+
+      .location {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        color: $color-secondary;
+        padding-top: 10px;
+      }
+      .divider {
+        height: 0;
+        margin: 10px 0px 15px;
+        border-top: 1px solid #bebebe;
+      }
+      .dates {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .button {
+        margin-top: 20px;
+        height: 50px;
+      }
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    .image {
+      border-radius: 5px;
+      padding: 16px 0 16px 16px;
+
+      img {
+        box-shadow: (0px 4px 4px rgba(0, 0, 0, 0.25));
+        height: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .container {
+    max-width: 570px;
+    margin-left: auto;
+    .wrapper {
+      flex-direction: column;
+      .details {
+        padding: 43px 21px 20px;
+        .divider {
+          margin: 20px 0px 20px;
+        }
+        .location {
+          padding: 17px 0px 23px;
+        }
+      }
+    }
+    .title {
+      padding: 24px 21px 18px;
+    }
+    .image {
+      padding: 0;
+      img {
+        border-radius: 0px;
+      }
+    }
+  }
+}

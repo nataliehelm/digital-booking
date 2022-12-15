@@ -1,0 +1,138 @@
+@use './../../styles/variables' as *;
+
+.location {
+  background-color: rgba(84, 87, 118, 0.1);
+  color: $color-secondary;
+  display: flex;
+  padding: 14px 11px 10px;
+  .loc {
+    display: flex;
+    gap: 4px;
+    width: 60%;
+    align-self: center;
+    p {
+      font-weight: 500;
+    }
+  }
+  .ranking {
+    display: flex;
+    gap: 4px;
+    width: 40%;
+    div {
+      display: flex;
+      flex-direction: column;
+      text-align: end;
+      justify-content: center;
+    }
+  }
+}
+
+.container {
+  padding: 0 10px;
+  overflow: hidden;
+  background-color: $color-white;
+
+  .social-media {
+    padding: 15px 0;
+    div {
+      width: max-content;
+      svg {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .services-title {
+    color: $color-secondary;
+  }
+  .divider {
+    height: 0;
+    margin: 10px 0;
+    border-top: 1.3px solid $color-primary;
+    margin-left: -43px;
+    width: 150vw;
+  }
+}
+.booking-calendar {
+  background-color: rgba(84, 87, 118, 0.1);
+  padding: 10px;
+  color: $color-dark-grey;
+  display: flex;
+  flex-direction: column;
+
+  .col-left {
+    div {
+      font-size: 16px;
+    }
+  }
+
+  .booking-title {
+    color: $color-secondary;
+    padding: 10px 0;
+  }
+  .booking-subtitle {
+    padding: 20px 0 10px;
+  }
+  .booking-button {
+    margin: 10px 0 30px;
+  }
+}
+
+@media (min-width: $md) {
+  .container {
+    padding: 0 30px;
+  }
+  .location {
+    padding: 16px 30px 8px;
+  }
+  .booking-calendar {
+    padding: 10px 30px;
+
+    .col-right {
+      display: flex;
+      flex-direction: row;
+      padding-top: 20px;
+    }
+    .booking-button {
+      width: 50%;
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .container {
+    padding: 0 43px;
+  }
+  .location {
+    padding: 16px 43px 8px;
+  }
+  .booking-calendar {
+    padding: 10px 43px 43px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10%;
+
+    .col-left {
+      width: 55%;
+      div {
+        font-size: 16px;
+      }
+    }
+    .col-right {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      width: 40%;
+      max-width: 410px;
+      background-color: $color-white;
+      max-height: 200px;
+      border: 1px solid #dfe4ea;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+    }
+    .booking-button {
+      width: 100%;
+    }
+  }
+}

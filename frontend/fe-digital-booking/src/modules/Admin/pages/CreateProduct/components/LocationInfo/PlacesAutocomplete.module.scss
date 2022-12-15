@@ -1,0 +1,12 @@
+.list {
+  background-color: white;
+  padding-top: 20px;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+
+  .dropdown {
+    z-index: 4;
+    background-color: white;
+  }
+}

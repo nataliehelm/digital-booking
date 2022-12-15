@@ -1,0 +1,86 @@
+@use './_variables.scss' as *;
+
+// Headings
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: $heading-1;
+}
+
+h2 {
+  font-size: $heading-2;
+}
+
+h3 {
+  font-size: $heading-3;
+}
+
+h4 {
+  font-size: $heading-4;
+}
+
+// Bottons
+
+.botton-1 {
+  font-weight: bold;
+  font-size: $botton-1;
+}
+
+.botton-2 {
+  font-weight: bold;
+  font-size: $botton-2;
+}
+
+// Texts
+
+.text-1 {
+  font-size: $text-1;
+}
+
+.text-2 {
+  font-size: $text-2;
+}
+
+// Colors
+
+.color-primary {
+  color: #1dbeb4;
+}
+.color-secondary {
+  color: #383b58;
+}
+.color-tertiary {
+  color: #545776;
+}
+.color-light-grey {
+  color: #f3f1ed;
+}
+.color-white {
+  color: #ffffff;
+}
+.color-error {
+  color: #ff0000;
+}
+.color-error-opacity {
+  color: rgb(255, 0, 0, 0.1);
+}
+.color-error-background {
+  color: #ffe1e1;
+}
+.color-grey {
+  color: #7f7f7f;
+}
+.color-snow {
+  color: #f9f9f9;
+}
+.color-dark-grey {
+  color: #4f4f50;
+}
+.color-dark-red {
+  color: #b00020;
+}

@@ -1,0 +1,31 @@
+@import "./variables";
+
+:export {
+  fontPrimary: $font-primary;
+  heading1: $heading-1;
+  heading2: $heading-2;
+  heading3: $heading-3;
+  heading4: $heading-4;
+
+  botton1: $botton-1;
+  botton2: $botton-2;
+
+  text1: $text-1;
+  text2: $text-2;
+
+  // Colors
+  colorPrimary: $color-primary;
+  colorSecondary: $color-secondary;
+  colorTertiary: $color-tertiary;
+  colorLightGrey: $color-light-grey;
+  colorWhite: $color-white;
+  colorError: $color-error;
+  colorErrorBackground: $color-error-background;
+  colorGrey: $color-grey;
+
+  // Breakpoints
+  sm: $sm;
+  md: $md;
+  lg: $lg;
+  xl: $xl;
+}

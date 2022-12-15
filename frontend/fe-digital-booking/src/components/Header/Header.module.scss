@@ -1,0 +1,127 @@
+@use './../../styles/variables' as *;
+
+.header-container {
+  position: fixed;
+  top: 0;
+  height: 93px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 13.25px 23px 11px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12),
+    0px 1px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: $color-white;
+
+  a {
+    figure {
+      align-items: flex-end;
+      display: flex;
+      font-style: italic;
+      gap: 7px;
+
+      span {
+        width: max-content;
+      }
+    }
+  }
+  .user-info-container {
+    display: none;
+
+    .module-container {
+      width: auto;
+      position: relative;
+      display: flex;
+      padding: 0 64px;
+
+      .module-divider {
+        height: 110%;
+        border-left: 2px solid #1dbeb4;
+        width: 10px;
+        position: absolute;
+        right: 26px;
+      }
+    }
+
+    .user-info {
+      display: flex;
+      position: relative;
+      gap: 10px;
+      justify-content: flex-end;
+      max-width: 206px;
+
+      .close-icon {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        cursor: pointer;
+      }
+
+      .avatar {
+        background-color: $color-secondary;
+        color: $color-white;
+      }
+
+      .label {
+        display: flex;
+        flex-direction: column;
+        color: $color-grey;
+
+        .user-name {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}
+
+.drawer-container {
+  display: flex;
+  position: fixed;
+  z-index: 3;
+  .bg-opacity {
+    height: 100vh;
+    width: 25%;
+    opacity: 0.2;
+    background: black;
+    z-index: 10;
+  }
+}
+
+.menu-icon {
+  color: $color-tertiary;
+  font-size: 24px;
+}
+
+.slogan {
+  display: none;
+}
+
+@media (min-width: $md) {
+  .header-container {
+    .user-info-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .menu-icon {
+    display: none;
+  }
+  .header-container {
+    padding: 25px 32px 21px 30px;
+  }
+}
+
+@media (min-width: $lg) {
+  .header-container {
+    height: 80px;
+    padding: 15px 40px 15px 40px;
+    a {
+      width: auto;
+    }
+  }
+  .slogan {
+    display: inline;
+  }
+}

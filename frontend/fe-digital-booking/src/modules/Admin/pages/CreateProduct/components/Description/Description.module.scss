@@ -1,0 +1,12 @@
+@use './../../../../../../styles/variables' as *;
+
+.text {
+  color: $color-secondary;
+  margin-bottom: 10px;
+}
+
+@media (min-width: $md) {
+  .description {
+    margin-bottom: 31px;
+  }
+}

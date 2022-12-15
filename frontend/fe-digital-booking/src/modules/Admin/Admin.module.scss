@@ -1,0 +1,65 @@
+@use '../../styles/variables' as *;
+
+.main-container {
+  overflow: auto;
+  height: 100%;
+  .paginator-container {
+    div {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 10px;
+    }
+  }
+
+  .container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding-bottom: 15px;
+    padding: 11px;
+
+    .cards {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .main-container {
+    .container {
+      flex-direction: row;
+      padding: 30px;
+      .cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        > div {
+          width: 30%;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $xl) {
+  .main-container {
+    .container {
+      flex-direction: row;
+      padding: 40px;
+      .cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        > div {
+          width: 20%;
+        }
+      }
+    }
+  }
+}
