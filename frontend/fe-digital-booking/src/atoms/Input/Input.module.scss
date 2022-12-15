@@ -1,0 +1,83 @@
+@use './../../styles/variables' as *;
+div {
+  width: 100%;
+
+  .label {
+    color: $color-secondary;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+    color: $color-secondary;
+    box-sizing: border-box;
+    display: block;
+    min-width: 0;
+    padding: 0 18px;
+    appearance: none;
+  }
+
+  .input-with-icon {
+    padding: 0 0 0 35px;
+  }
+
+  .no-caret {
+    caret-color: transparent;
+  }
+
+  .input::-ms-reveal,
+  .input::-ms-clear {
+    display: none;
+  }
+
+  .input-container {
+    position: relative;
+  }
+
+  .placeholder {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    color: $color-grey;
+    position: absolute;
+    top: 25%;
+    gap: 10px;
+    padding-left: 10px;
+
+    svg {
+      font-size: 20px;
+    }
+  }
+
+  .input-error {
+    background-color: $color-error-background;
+    border: 1px solid $color-error;
+  }
+
+  .label-error {
+    color: $color-error;
+    margin-top: 12px;
+    text-align: right;
+  }
+
+  .password-icon {
+    color: $color-grey;
+    position: absolute;
+    top: 25%;
+    right: 0;
+    text-align: right;
+    padding-right: 12px;
+  }
+}
+
+.input[type='password'] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
+}
+
+.input:disabled {
+  background-color: $color-white;
+}

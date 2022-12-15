@@ -1,0 +1,10 @@
+@use './styles/variables' as *;
+
+.App {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.auth-background {
+  background: $color-snow;
+}

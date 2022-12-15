@@ -1,0 +1,12 @@
+@use './../../styles/variables' as *;
+span.rank {
+  margin: 0 3px;
+  font-size: 10px;
+  gap: 2px;
+  .star-off {
+    color: #bebebe;
+  }
+  .star-on {
+    color: $color-primary;
+  }
+}

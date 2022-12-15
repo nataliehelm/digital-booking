@@ -1,0 +1,12 @@
+@use './../../../../styles/variables' as *;
+
+.icon {
+  font-size: 30px;
+  cursor: pointer;
+  width: auto;
+  color: $color-tertiary;
+}
+
+.icon:hover {
+  color: $color-primary;
+}

@@ -1,0 +1,39 @@
+// Fonts
+$font-primary: 'Roboto', sans-serif;
+
+// Font sizes
+$heading-1: 24px;
+$heading-2: 20px;
+$heading-3: 16px;
+$heading-4: 14px;
+
+$botton-1: 14px;
+$botton-2: 16px;
+
+$text-1: 14px;
+$text-2: 12px;
+
+// Colors
+$color-primary: #1dbeb4;
+$color-secondary: #383b58;
+$color-tertiary: #545776;
+$color-light-grey: #f3f1ed;
+$color-white: #ffffff;
+$color-error: #ff0000;
+$color-error-opacity: #fbe3e3;
+$color-error-background: #ffe1e1;
+$color-grey: #7f7f7f;
+$color-snow: #f9f9f9;
+$color-dark-grey: #4f4f50;
+$color-dark-red: #b00020;
+
+// Breakpoints
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+
+//Grid Template Columns
+$col-1: 100%;
+$col-2: repeat(2, 1fr);
+$col-4: repeat(4, 1fr);

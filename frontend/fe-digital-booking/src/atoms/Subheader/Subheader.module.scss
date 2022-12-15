@@ -1,0 +1,43 @@
+@use './../../styles/variables' as *;
+
+.subheader-container {
+  background-color: $color-tertiary;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: $color-white;
+  line-height: 23px;
+  height: 60px;
+
+  aside {
+    margin: 0 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  figure {
+    font-size: 28px;
+    margin: 20px 14px;
+    cursor: pointer;
+  }
+}
+@media (min-width: $md) {
+  .subheader-container {
+    aside {
+      margin: 0px 30px;
+    }
+    figure {
+      margin: 0 33px;
+    }
+  }
+}
+@media (min-width: $lg) {
+  .subheader-container {
+    aside {
+      margin: 0px 43px;
+    }
+    figure {
+      margin: 14px 40px 0 0;
+    }
+  }
+}

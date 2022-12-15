@@ -1,0 +1,7 @@
+@use './../../styles/variables' as *;
+
+.layout-container {
+  background-color: rgba(56, 59, 88, 0.1);
+  width: 100vw;
+  overflow: auto;
+}

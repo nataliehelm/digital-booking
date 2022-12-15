@@ -1,0 +1,12 @@
+@use './../../styles/variables' as *;
+
+.avatar-container {
+  height: 37px;
+  width: 37px;
+  background-color: $color-white;
+  color: $color-tertiary;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

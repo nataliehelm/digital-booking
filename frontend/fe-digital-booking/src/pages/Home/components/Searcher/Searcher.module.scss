@@ -1,0 +1,89 @@
+@use './../../../../styles/variables' as *;
+
+.searcher-container {
+  background-color: $color-secondary;
+  padding-bottom: 20px;
+  h1 {
+    color: $color-white;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    padding: 28px 0;
+    text-align: center;
+  }
+
+  form {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    .inputs-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 8px;
+
+      .cities-container {
+        height: 40px;
+        position: relative;
+
+        .dropdown {
+          border-radius: 5px;
+          position: absolute;
+          background: white;
+          z-index: 2;
+        }
+      }
+    }
+    .submit-container {
+      width: 100%;
+    }
+
+    .calendars-container {
+      height: 40px;
+      position: relative;
+
+      .calendars {
+        position: absolute;
+        background: white;
+        z-index: 1;
+        width: 100%;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+@media (min-width: $md) {
+  .searcher-container {
+    form {
+      padding: 0 30px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+
+      .inputs-container {
+        flex-direction: row;
+        gap: 18px;
+        width: 80%;
+      }
+
+      .submit-container {
+        width: 20%;
+      }
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .searcher-container {
+    form {
+      padding: 0 90px;
+      flex-direction: row;
+      gap: 18px;
+      justify-content: center;
+    }
+  }
+}

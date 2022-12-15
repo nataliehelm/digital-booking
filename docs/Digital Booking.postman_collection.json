@@ -1,0 +1,5266 @@
+{
+	"info": {
+		"_postman_id": "187f0c99-92fc-425e-bcc5-ff619ff65e73",
+		"name": "Digital Booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Felipe\",\n    \"lastname\": \"Monterrosa\",\n    \"email\": \"felipe.monterrosa@hotmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup body error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Message should be Validation of fields failed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Validation of fields failed');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name1\": \"Felipe\",\n    \"lastname1\": \"Monterrosa\",\n    \"email1\": \"felipe.monterrosa@hotmail.com\",\n    \"password1\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup email error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Message should be Error: 'El correo ya se encuentra registrado'\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('El correo ya se encuentra registrado');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Felipe\",\n    \"lastname\": \"Monterrosa\",\n    \"email\": \"felipe.monterrosa@hotmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login user role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"token\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"type\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"roles\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const response = jsonData.data",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@user.com\",\n    \"password\": \"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login admin role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"token\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"type\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"roles\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const response = jsonData.data",
+									"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First category should have id 1 and name Hoteles\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstCategory = jsonData.data[0]",
+									"    pm.expect(firstCategory.id).to.eql(1);",
+									"    pm.expect(firstCategory.name).to.eql('Hoteles');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(categories.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"createdAt\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"updatedAt\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/categories/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Category should have id 1 and name Hoteles\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstCategory = jsonData.data",
+									"    pm.expect(firstCategory.id).to.eql(1);",
+									"    pm.expect(firstCategory.name).to.eql('Hoteles');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/categories/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/categories/32",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Categoria 1\",\n  \"description\": \"descripcion categoria 1\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Categoria 1\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"image_url\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdAt\": {",
+									"            \"type\": \"null\"",
+									"        },",
+									"        \"updatedAt\": {",
+									"            \"type\": \"null\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test('Response name should be \"nueva Categoria 1\"', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const category = jsonData.data",
+									"    pm.expect(category.name).to.eql('nueva Categoria 1');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"nueva imagen\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Location should have id 1 and province_name Provincia de Misiones\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.province_name).to.eql('Provincia de Misiones');",
+									"});",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"province_name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"city_name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"country_name\": {",
+									"                \"type\": \"string\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/locations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Category should have id 2 and province_name Provincia de San Luis\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstCategory = jsonData.data",
+									"    console.log(firstCategory)",
+									"    pm.expect(firstCategory.id).to.eql(2);",
+									"    pm.expect(firstCategory.province_name).to.eql('Provincia de San Luis');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/locations/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/locations/-2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								"-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"createdAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"updatedAt\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const location = jsonData.data",
+									"    pm.expect(tv4.validate(location, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"province_name\": \"Bogotá\",\n    \"city_name\": \"Bogotá\",\n    \"country_name\": \"Colombia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/locations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"province_namea\": \"Bogotá\",\n    \"city_namea\": \"Bogotá\",\n    \"country_namea\": \"Colombia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/locations/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Response Province Name should be \"Antioquia\"', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const category = jsonData.data",
+									"    pm.expect(category.province_name).to.eql('Antioquia');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"province_name\": \"Antioquia\",\n    \"city_name\": \"Medellin\",\n    \"country_name\": \"Colombia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/locations/15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/locations/15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"locations",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Features",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and title Hoteles\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Cocina');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"icon\": {",
+									"                \"type\": \"string\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/features/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and name Cocina\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Cocina');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"icon\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/features/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/features/32",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"icon\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Feature 1\",\n  \"icon\": \"feature-feature\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Feature 1\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"icon\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test('Response name should be \"nueva Feature 1\"', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const element = jsonData.data",
+									"    pm.expect(element.name).to.eql('nueva Feature 1');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"nueva Feature 1\",\n  \"icon\": \"fe-feature\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/features/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"features",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and title Hermitage Hotel 1\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.title).to.eql('Hermitage Hotel 1');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"url\": {",
+									"                \"type\": \"string\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/images/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and title Hermitage Hotel 1\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.title).to.eql('Hermitage Hotel 1');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/images/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/images/32532532",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"32532532"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Image 1\",\n  \"url\": \"localhost:8080/mi_logo\",\n  \"product_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Image 1\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test('Response title should be \"nueva Image 1\"', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const category = jsonData.data",
+									"    pm.expect(category.title).to.eql('nueva Image 1');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Image 1\",\n  \"url\": \"localhost:8081/mi_logo\",\n  \"product_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/64",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"64"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/images/64533",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"64533"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Policies",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and title Normas de la casa\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.title).to.eql('Normas de la casa');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"subPolicies\": {",
+									"                \"type\": \"array\",",
+									"                \"items\": [{",
+									"                    type: \"object\",",
+									"                    properties: {",
+									"                        \"id\": \"integer\",",
+									"                        \"description\": \"string\"",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/policies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and title Normas de la casa\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.title).to.eql('Normas de la casa');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"subPolicies\": {",
+									"            \"type\": \"array\",",
+									"            \"items\": [{",
+									"                type: \"object\",",
+									"                properties: {",
+									"                    \"id\": \"integer\",",
+									"                    \"description\": \"string\"",
+									"                }",
+									"            }]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/policies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/policies/32",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"subPolicies\": {",
+									"            \"type\": \"array\",",
+									"            \"items\": [{",
+									"                type: \"object\",",
+									"                properties: {",
+									"                    \"id\": \"integer\",",
+									"                    \"description\": \"string\"",
+									"                }",
+									"            }]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Politica nueva\",\n  \"subPolicyIds\": [1,2,3]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Image 1\",\n  \"image_url\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"subPolicies\": {",
+									"            \"type\": \"array\",",
+									"            \"items\": [{",
+									"                type: \"object\",",
+									"                properties: {",
+									"                    \"id\": \"integer\",",
+									"                    \"description\": \"string\"",
+									"                }",
+									"            }]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test('Response title should be \"Politica nueva\" and subPolicies should have 1 length', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const category = jsonData.data",
+									"    pm.expect(category.title).to.eql('Politica nueva');",
+									"    pm.expect(category.subPolicies.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Politica nueva\",\n  \"subPolicyIds\": [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SubPolicies",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and description Check-out: 10:00\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.description).to.eql('Check-out: 10:00');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/subPolicies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and description Check-out: 10:00\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.description).to.eql('Check-out: 10:00');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/subPolicies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/subPolicies/32",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"32"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"subPolicies\": {",
+									"            \"type\": \"array\",",
+									"            \"items\": [{",
+									"                type: \"object\",",
+									"                properties: {",
+									"                    \"id\": \"integer\",",
+									"                    \"description\": \"string\"",
+									"                }",
+									"            }]",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Nueva Subpolitica\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const categories = jsonData.data",
+									"    pm.expect(tv4.validate(categories, schema, false, true)).to.be.true;",
+									"});",
+									"",
+									"pm.test('Response description should be \"Nueva Sub-politica\"', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const category = jsonData.data",
+									"    pm.expect(category.description).to.eql('Nueva Sub-politica');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Nueva Sub-politica\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/subPolicies/8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"subPolicies",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "findAllRandom",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name Hermitage Hotel\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(typeof firstElement.id).to.eql('number');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"distance_to_nearest_tourist_site\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ranking\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"score\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"description_title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"coordinates\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"category\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"location\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"features\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"policies\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"images\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name Hermitage Hotel\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Hermitage Hotel');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"distance_to_nearest_tourist_site\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ranking\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"score\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"description_title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"coordinates\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"category\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"location\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"features\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"policies\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"images\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and name Hermitage Hotel\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Hermitage Hotel');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"distance_to_nearest_tourist_site\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ranking\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"score\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"description_title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"coordinates\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"category\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"location\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"features\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"policies\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"images\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"        }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById with Booked Dates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Element should have id 1 and name Hermitage Hotel\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('Hermitage Hotel');",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"distance_to_nearest_tourist_site\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ranking\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"score\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"description_title\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"description\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"coordinates\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"category\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"location\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"features\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"policies\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"            \"images\": {",
+									"                \"type\": \"array\"",
+									"            },",
+									"        }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById nonexistent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/32",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByDates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/filters/?startingDate=2022-11-22&endingDate=2022-11-27",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "startingDate",
+									"value": "2022-11-22"
+								},
+								{
+									"key": "endingDate",
+									"value": "2022-11-27"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByLocationId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/filters/?locationId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "startingDate",
+									"value": "2022-11-22",
+									"disabled": true
+								},
+								{
+									"key": "endingDate",
+									"value": "2022-11-27",
+									"disabled": true
+								},
+								{
+									"key": "locationId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/filters/?categoryId=1,2,3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "startingDate",
+									"value": "2022-11-22",
+									"disabled": true
+								},
+								{
+									"key": "endingDate",
+									"value": "2022-11-27",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "1,2,3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByDatesAndLocationId Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/filters/?startingDate=2022-11-22&endingDate=2022-11-27&locationId=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "startingDate",
+									"value": "2022-11-22"
+								},
+								{
+									"key": "endingDate",
+									"value": "2022-11-27"
+								},
+								{
+									"key": "locationId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"distance_to_nearest_tourist_site\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"ranking\": {",
+									"            \"type\": \"number\"",
+									"        },",
+									"        \"score\": {",
+									"            \"type\": \"number\"",
+									"        },",
+									"        \"description_title\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"description\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"coordinates\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"        \"category\": {",
+									"            \"type\": \"object\"",
+									"        },",
+									"        \"location\": {",
+									"            \"type\": \"object\"",
+									"        },",
+									"        \"features\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"        \"policies\": {",
+									"            \"type\": \"array\"",
+									"        },",
+									"        \"images\": {",
+									"            \"type\": \"null\"",
+									"        },",
+									"    }",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"address\": \"prueba\",\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [],\n    \"policiyIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Response features length should be 2 and policies length should be 3', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const element = jsonData.data",
+									"    pm.expect(element.features.length).to.eql(2);",
+									"    pm.expect(element.policies.length).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Chalten Suites Hotel\",\n    \"distance_to_nearest_tourist_site\": \"A 100 m de la plaza principal\",\n    \"ranking\": 4.0,\n    \"score\": 9.0,\n    \"description_title\": \"Este hotel se encuentra en la mejor zona de El Chaltén y tiene un puntaje excelente por la ubicación.\",\n    \"description\": \"Este alojamiento se encuentra en El Chalten, a 100 metros de la plaza principal. Ofrece habitaciones acogedoras y elegantes y conexión wifi gratis. El Chalten Suites tiene una zona de desayunos amplia, con muchas ventanas y vistas al jardín y las montañas de los alrededores.\\n\\nEl Chalten Suites Hotel dispone de habitaciones con TV y minibar. El baño privado incluye ducha y secador de pelo. Todas tienen escritorio.\\n\\nEl Chalten Suite cuenta con mostrador de información turística y consigna de equipaje.\\n\\nEl alojamiento cuenta con estacionamiento gratuito. Está a 200 metros del río Fitz Roy y a 210 km del aeropuerto de El Calafate.\\n\\nNuestros clientes dicen que esta parte de El Chaltén es su favorita, según los comentarios independientes.\\n\\nA las parejas les gusta la ubicación. Le pusieron un puntaje de 9,6 para un viaje de a dos.\",\n    \"coordinates\": [\n        -49.330412,\n        -72.888143\n    ],\n    \"address\": \"prueba2\",\n    \"categoryId\": 1,\n    \"locationId\": 5,\n    \"featureIds\": [\n        4,\n        3\n    ],\n    \"policiyIds\": [\n        1,\n        2,\n        3\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"nueva Categoria 1\",\n  \"description\": \"nueva descripcion categoria 1\",\n  \"image_url\": \"string1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Successful PUT request\", function () {",
+									"    console.log(pm.response.code)",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/13",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/13",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "findAll with admin role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name admin\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data[0]",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('admin');",
+									"});",
+									"",
+									"pm.test(\"Response should have more than 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(elements.length).to.be.gt(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"integer\"",
+									"            },",
+									"            \"name\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"lastname\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"email\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"roles\": {",
+									"                \"type\": \"object\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const elements = jsonData.data",
+									"    pm.expect(tv4.validate(elements, schema, false)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll with user role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First element should have id 1 and name admin\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstElement = jsonData.data",
+									"    pm.expect(firstElement.id).to.eql(1);",
+									"    pm.expect(firstElement.name).to.eql('admin');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Email",
+			"item": [
+				{
+					"name": "Send Email without attachments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipient\": \"felipe.monterrosa@hotmail.com\",\n    \"msgBody\": \"Prueba Correo Body\",\n    \"subject\": \"Prueba Correo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/mailing/sendMail",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mailing",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"felipe.monterrosa@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/resend",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"resend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First booking should have id 1 and product id 1\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstBooking = jsonData.data[0]",
+									"    pm.expect(firstBooking.id).to.eql(1);",
+									"    pm.expect(firstBooking.product.id).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Response should have more than or equal to 1 result\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const bookings = jsonData.data",
+									"    pm.expect(bookings.length).to.be.gte(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"starting time\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"starting date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ending date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"product\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"user\": {",
+									"                \"type\": \"object\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const bookings = jsonData.data",
+									"    pm.expect(tv4.validate(bookings, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll by productId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First booking should have product id 1\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const firstBooking = jsonData.data[0]",
+									"    pm.expect(firstBooking.product.id).to.eql(1);",
+									"});",
+									"",
+									"const schema = {",
+									"    \"type\": \"array\",",
+									"    \"items\": [{",
+									"        type: \"object\",",
+									"        properties: {",
+									"            \"id\": {",
+									"                \"type\": \"number\"",
+									"            },",
+									"            \"starting time\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"starting date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"ending date\": {",
+									"                \"type\": \"string\"",
+									"            },",
+									"            \"product\": {",
+									"                \"type\": \"object\"",
+									"            },",
+									"            \"user\": {",
+									"                \"type\": \"object\"",
+									"            }",
+									"        }",
+									"    }]",
+									"};",
+									"",
+									"pm.test('Response schema type nodes verification', function () {",
+									"    const jsonData = pm.response.json();",
+									"    const bookings = jsonData.data",
+									"    pm.expect(tv4.validate(bookings, schema)).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/filters/?productId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"filters",
+								""
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Element should have id 1\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const firstElement = jsonData.data\r",
+									"    pm.expect(firstElement.id).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    properties: {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"number\"\r",
+									"        },\r",
+									"        \"starting time\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"starting date\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"ending date\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"product\": {\r",
+									"            \"type\": \"object\"\r",
+									"        },\r",
+									"        \"user\": {\r",
+									"            \"type\": \"object\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response schema type nodes verification', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const elements = jsonData.data\r",
+									"    pm.expect(tv4.validate(elements, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    type: \"object\",\r",
+									"    properties: {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"starting time\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"starting date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"ending date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"product id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"user id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response schema type nodes verification', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const categories = jsonData.data\r",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save Body Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time1\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date1\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date1\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId1\": 1,\r\n    \"userId1\": 1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save booking with user update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User id should be 1 and location should have id 2\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const element = jsonData.data\r",
+									"    pm.expect(element.user.id).to.eql(1);\r",
+									"    pm.expect(element.user.location.id).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    type: \"object\",\r",
+									"    properties: {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"starting time\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"starting date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"ending date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"product id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"user id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response schema type nodes verification', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const categories = jsonData.data\r",
+									"    pm.expect(tv4.validate(categories, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1,\r\n    \"locationId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/create-with-user-update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"create-with-user-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save booking with user update body error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-13T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-20T05:00:00.000Z\",\r\n    \"productId\": 1,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/create-with-user-update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"create-with-user-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists\r",
+									"\r",
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    console.log(pm.response.code)\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    type: \"object\",\r",
+									"    properties: {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"starting time\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"starting date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"ending date\": {\r",
+									"            \"type\": \"date\"\r",
+									"        },\r",
+									"        \"product id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"user id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response schema type nodes verification', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const bookings = jsonData.data\r",
+									"    pm.expect(tv4.validate(bookings, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test('User and Product id should be \"2\"', function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const booking = jsonData.data\r",
+									"    pm.expect(booking.user.id).to.eql(1);\r",
+									"    pm.expect(booking.product.id).to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"starting_time\": \"2022-12-13T06:10:00.000Z\",\r\n    \"starting_date\": \"2022-12-15T05:00:00.000Z\",\r\n    \"ending_date\": \"2022-12-25T05:00:00.000Z\",\r\n    \"productId\": 2,\r\n    \"userId\": 1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"starting_date\": \"2022-12-15T05:00:00.000Z\",\n    \"ending_date\": \"2022-12-25T05:00:00.000Z\",\n    \"productId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists\r",
+									"\r",
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    console.log(pm.response.code)\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// First check if id exists",
+									"",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
